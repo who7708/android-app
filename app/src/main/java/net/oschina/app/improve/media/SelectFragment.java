@@ -190,6 +190,8 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     private void handleSelectChange(int position) {
         Image image = mImageAdapter.getItem(position);
+        if(image == null)
+            return;
         //如果是多选模式
         final int selectCount = mOption.getSelectCount();
         if (selectCount > 1) {

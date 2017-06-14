@@ -117,6 +117,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
         });
     }
 
+
     @OnClick({R.id.lay_comment, R.id.ll_sign})
     @Override
     public void onClick(View v) {
@@ -135,7 +136,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     switch (eventApplyStatus) {
                         case EventDetail.APPLY_STATUS_AUDIT://已报名
                         case EventDetail.APPLY_STATUS_CONFIRMED://已报名
-                            SignUpInfoActivity.show(this, mBean.getId(),1);
+                            SignUpInfoActivity.show(this, mBean.getId(), 1);
                             break;
                         case EventDetail.APPLY_STATUS_PRESENTED://已出席
                             ApplyActivity.show(this, mBean.getId());
@@ -196,7 +197,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     mImageSign.setEnabled(false);
                     break;
             }
-            if(eventStatus == Event.STATUS_END || eventStatus == Event.STATUS_SING_UP){
+            if (eventStatus == Event.STATUS_END || eventStatus == Event.STATUS_SING_UP) {
                 return;
             }
 
@@ -224,7 +225,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     break;
             }
             mTextApplyStatus.setText(getResources().getString(applyStr));
-           // mTextApplyStatus.setText(getString(getApplyStatusStrId(eventApplyStatus)));
+            // mTextApplyStatus.setText(getString(getApplyStatusStrId(eventApplyStatus)));
         }
     }
 
@@ -263,11 +264,11 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case 0x01:
-                    mBean.getExtra().put("eventApplyStatus",1);
+                    mBean.getExtra().put("eventApplyStatus", 1);
                     mTextApplyStatus.setText(getResources().getString(getApplyStatusStrId(EventDetail.APPLY_STATUS_AUDIT)));
                     break;
                 case 0x02:
-                    mBean.getExtra().put("eventApplyStatus",-1);
+                    mBean.getExtra().put("eventApplyStatus", -1);
                     mTextApplyStatus.setText(getResources().getString(getApplyStatusStrId(EventDetail.APPLY_STATUS_UN_SIGN)));
                     break;
             }

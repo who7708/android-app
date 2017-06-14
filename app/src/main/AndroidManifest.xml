@@ -553,6 +553,14 @@
             android:name=".improve.main.BrowserActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
         <service
             android:name=".improve.tweet.service.TweetPublishService"
             android:exported="true"

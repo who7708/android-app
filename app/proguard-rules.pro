@@ -131,3 +131,7 @@
 # 友盟End
 
 -dontwarn okio.**
+-dontwarn android.net.**
+-keep class android.net.SSLCertificateSocketFactory{*;}
+-dontwarn com.alipay.sdk.sys.**
+-keep class com.ta.utdid2.device.UTDevice{*;}
