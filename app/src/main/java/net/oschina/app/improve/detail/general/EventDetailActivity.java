@@ -1,16 +1,23 @@
 package net.oschina.app.improve.detail.general;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.alipay.sdk.app.PayTask;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
@@ -19,15 +26,17 @@ import net.oschina.app.improve.bean.Event;
 import net.oschina.app.improve.bean.EventDetail;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.SubBean;
-import net.oschina.app.improve.comment.CommentsActivity;
 import net.oschina.app.improve.detail.apply.ApplyActivity;
 import net.oschina.app.improve.detail.sign.SignUpActivity;
 import net.oschina.app.improve.detail.v2.DetailActivity;
 import net.oschina.app.improve.detail.v2.DetailFragment;
+import net.oschina.app.improve.pay.alipay.AuthResult;
+import net.oschina.app.improve.pay.alipay.PayResult;
 import net.oschina.app.improve.user.sign.up.SignUpInfoActivity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -117,12 +126,80 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
         });
     }
 
+
+    @SuppressLint("HandlerLeak")
+    private Handler resultHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        Log.e("ssss", "   --  " + resultStatus);
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        Log.e("aaaa", "   --  " + resultStatus + payResult.toString());
+                    }
+                    break;
+                }
+                case 2: {
+                    @SuppressWarnings("unchecked")
+                    AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
+                    String resultStatus = authResult.getResultStatus();
+
+                    // 判断resultStatus 为“9000”且result_code
+                    // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
+                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
+                        // 获取alipay_open_id，调支付时作为参数extern_token 的value
+                        // 传入，则支付账户为该授权账户
+                        Log.e("success", "  --  " + authResult.getResultCode());
+
+                    } else {
+                        // 其他状态值则为授权失败
+                        Log.e("error", "  --  " + authResult.getResultCode());
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+
+        ;
+    };
+
     @OnClick({R.id.lay_comment, R.id.ll_sign})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lay_comment:
-                CommentsActivity.show(this, mBean.getId(), mBean.getType(), 2,mBean.getTitle());
+                //CommentsActivity.show(this, mBean.getId(), mBean.getType(), 2,mBean.getTitle());
+                final String orderInfo = "";
+                Runnable payRunnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        PayTask alipay = new PayTask(EventDetailActivity.this);
+                        Map<String, String> result = alipay.payV2(orderInfo, true);
+                        Log.i("msp", result.toString());
+
+                        Message msg = new Message();
+                        msg.what = 1;
+                        msg.obj = result;
+                        resultHandler.sendMessage(msg);
+                    }
+                };
+
+                Thread payThread = new Thread(payRunnable);
+                payThread.start();
                 break;
             case R.id.ll_sign:
                 if (!AccountHelper.isLogin()) {
@@ -135,7 +212,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     switch (eventApplyStatus) {
                         case EventDetail.APPLY_STATUS_AUDIT://已报名
                         case EventDetail.APPLY_STATUS_CONFIRMED://已报名
-                            SignUpInfoActivity.show(this, mBean.getId(),1);
+                            SignUpInfoActivity.show(this, mBean.getId(), 1);
                             break;
                         case EventDetail.APPLY_STATUS_PRESENTED://已出席
                             ApplyActivity.show(this, mBean.getId());
@@ -196,7 +273,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     mImageSign.setEnabled(false);
                     break;
             }
-            if(eventStatus == Event.STATUS_END || eventStatus == Event.STATUS_SING_UP){
+            if (eventStatus == Event.STATUS_END || eventStatus == Event.STATUS_SING_UP) {
                 return;
             }
 
@@ -224,7 +301,7 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     break;
             }
             mTextApplyStatus.setText(getResources().getString(applyStr));
-           // mTextApplyStatus.setText(getString(getApplyStatusStrId(eventApplyStatus)));
+            // mTextApplyStatus.setText(getString(getApplyStatusStrId(eventApplyStatus)));
         }
     }
 
@@ -263,11 +340,11 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case 0x01:
-                    mBean.getExtra().put("eventApplyStatus",1);
+                    mBean.getExtra().put("eventApplyStatus", 1);
                     mTextApplyStatus.setText(getResources().getString(getApplyStatusStrId(EventDetail.APPLY_STATUS_AUDIT)));
                     break;
                 case 0x02:
-                    mBean.getExtra().put("eventApplyStatus",-1);
+                    mBean.getExtra().put("eventApplyStatus", -1);
                     mTextApplyStatus.setText(getResources().getString(getApplyStatusStrId(EventDetail.APPLY_STATUS_UN_SIGN)));
                     break;
             }
