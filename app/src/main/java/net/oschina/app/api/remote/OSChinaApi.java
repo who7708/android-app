@@ -1713,6 +1713,23 @@ public class OSChinaApi {
     }
 
     /**
+     * 支付打赏接口信息拉取
+     * @param authorId  被打赏作者
+     * @param objId 文章id
+     * @param money 价格，支付宝单位元、微信单位分
+     * @param payType  支付类型 1 支付宝  2、微信支付  返回结果不一样
+     * @param handler handler
+     */
+    public static void getPayDonate(long authorId,long objId,long money,int payType, TextHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.put("authorId",authorId);
+        params.put("objId",objId);
+        params.put("money",money);
+        params.put("payType",payType);
+        ApiHttpClient.get("action/apiv2/user_follows", params, handler);
+    }
+
+    /**
      * 获取用户活动列表
      */
     public static void getUserEvents(long authorId, String authorName, String pageToken, TextHttpResponseHandler handler) {

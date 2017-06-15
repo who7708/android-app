@@ -5,6 +5,7 @@ import net.oschina.app.improve.base.BaseView;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.detail.db.Behavior;
+import net.oschina.app.improve.pay.wx.WeChatPay;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by haibin
  * on 2016/11/30.
  */
-
+@SuppressWarnings("unused")
 interface DetailContract {
 
     interface EmptyView {
@@ -49,6 +50,10 @@ interface DetailContract {
         void showAddRelationError();
 
         void showScrollToTop();
+
+        void showPayDonateSuccess(int type, String sign, WeChatPay.PayResult result);
+
+        void showPayDonateError();
     }
 
     interface Presenter extends BasePresenter {
@@ -75,5 +80,14 @@ interface DetailContract {
         void scrollToTop();
 
         void shareComment(Comment comment);
+
+        /**
+         * 支付打赏接口信息拉取
+         * @param authorId  被打赏作者
+         * @param objId 文章id
+         * @param money 价格，支付宝单位元、微信单位分
+         * @param payType  支付类型 1 支付宝  2、微信支付  返回结果不一样
+         */
+        void payDonate( long authorId,long objId,long money,int payType);
     }
 }

@@ -97,6 +97,8 @@ public abstract class DetailActivity extends BackActivity implements
         return R.layout.activity_detail_v2;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @SuppressWarnings("all")
     @Override
     protected void initWidget() {
         super.initWidget();
@@ -195,6 +197,7 @@ public abstract class DetailActivity extends BackActivity implements
             }
         });
         if (mToolBar != null)
+
             mToolBar.setOnTouchListener(new OnDoubleTouchListener() {
                 @Override
                 void onMultiTouch(View v, MotionEvent event, int touchCount) {
@@ -417,7 +420,7 @@ public abstract class DetailActivity extends BackActivity implements
             View action = item.getActionView();
             if (action != null) {
                 View tv = action.findViewById(R.id.tv_comment_count);
-                if (tv != null) {
+                if (tv != null && mBean!= null) {
                     mCommentCountView = (TextView) tv;
                     if (mBean.getStatistics() != null)
                         mCommentCountView.setText(mBean.getStatistics().getComment() + "");
@@ -526,7 +529,7 @@ public abstract class DetailActivity extends BackActivity implements
 
     @Override
     public void finish() {
-        if (mEmptyLayout.getErrorState() == EmptyLayout.HIDE_LAYOUT)
+        if (mEmptyLayout != null && mEmptyLayout.getErrorState() == EmptyLayout.HIDE_LAYOUT)
             DetailCache.addCache(mBean);
         super.finish();
     }

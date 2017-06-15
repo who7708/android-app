@@ -12,6 +12,8 @@ import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.comment.CommentView;
 import net.oschina.app.improve.comment.OnCommentClickListener;
+import net.oschina.app.improve.pay.alipay.Alipay;
+import net.oschina.app.improve.pay.wx.WeChatPay;
 import net.oschina.app.improve.utils.QuickOptionDialogHelper;
 import net.oschina.app.improve.utils.ReadedIndexCacheManager;
 import net.oschina.app.improve.widget.DetailAboutView;
@@ -107,6 +109,23 @@ public abstract class DetailFragment extends BaseFragment implements
                     mViewScroller.smoothScrollTo(0, index);
                 }
             }, 250);
+        }
+    }
+
+
+    @Override
+    public void showPayDonateError() {
+
+    }
+
+    @Override
+    public void showPayDonateSuccess(int type, String sign, WeChatPay.PayResult result) {
+        if (mContext == null)
+            return;
+        if (type == 1) {
+            new Alipay(getActivity()).payV2(sign);
+        } else {
+            new WeChatPay(getActivity()).pay(result);
         }
     }
 

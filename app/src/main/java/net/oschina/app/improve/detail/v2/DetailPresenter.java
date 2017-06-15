@@ -15,6 +15,7 @@ import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.UserRelation;
 import net.oschina.app.improve.detail.db.API;
 import net.oschina.app.improve.detail.db.Behavior;
+import net.oschina.app.improve.pay.wx.WeChatPay;
 import net.oschina.app.improve.user.helper.ContactsCacheManager;
 import net.oschina.app.ui.empty.EmptyLayout;
 
@@ -239,5 +240,46 @@ public class DetailPresenter implements DetailContract.Presenter {
     @Override
     public void scrollToTop() {
         mView.showScrollToTop();
+    }
+
+
+    @Override
+    public void payDonate(long authorId, long objId, long money, final int payType) {
+        OSChinaApi.getPayDonate(authorId, objId, money, payType, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showPayDonateError();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    Type type = null;
+                    if (payType == 1) {
+                        type = new TypeToken<ResultBean<String>>() {
+                        }.getType();
+                        ResultBean<String> resultBean = new Gson().fromJson(responseString, type);
+                        if (resultBean.isSuccess()) {
+                            mView.showPayDonateSuccess(payType, resultBean.getResult(), null);
+                        }else {
+                            mView.showPayDonateError();
+                        }
+                    } else {
+                        type = new TypeToken<ResultBean<WeChatPay.PayResult>>() {
+                        }.getType();
+                        ResultBean<WeChatPay.PayResult> resultBean = new Gson().fromJson(responseString, type);
+                        if (resultBean.isSuccess()) {
+                            mView.showPayDonateSuccess(payType, null, resultBean.getResult());
+                        }else {
+                            mView.showPayDonateError();
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showPayDonateError();
+                }
+            }
+        });
     }
 }

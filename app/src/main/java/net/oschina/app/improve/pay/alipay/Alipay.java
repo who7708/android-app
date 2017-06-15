@@ -24,7 +24,9 @@ public class Alipay {
 
     private Activity mActivity;
 
-
+    public Alipay(Activity mActivity) {
+        this.mActivity = mActivity;
+    }
 
     @SuppressLint("HandlerLeak")
     private Handler resultHandler = new Handler() {
