@@ -5,7 +5,7 @@ import net.oschina.app.improve.base.BaseView;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.detail.db.Behavior;
-import net.oschina.app.improve.pay.wx.WeChatPay;
+import net.oschina.app.improve.detail.pay.wx.WeChatPay;
 
 import java.util.List;
 
@@ -88,6 +88,6 @@ interface DetailContract {
          * @param money 价格，支付宝单位元、微信单位分
          * @param payType  支付类型 1 支付宝  2、微信支付  返回结果不一样
          */
-        void payDonate( long authorId,long objId,long money,int payType);
+        void payDonate( long authorId,long objId,float money,int payType);
     }
 }

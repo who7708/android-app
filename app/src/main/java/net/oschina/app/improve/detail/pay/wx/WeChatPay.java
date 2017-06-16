@@ -1,4 +1,4 @@
-package net.oschina.app.improve.pay.wx;
+package net.oschina.app.improve.detail.pay.wx;
 
 import android.app.Activity;
 

@@ -54,8 +54,8 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:lines="1"
-                            android:singleLine="true"
                             android:textColor="#111111"
                             android:textSize="14sp"
                             tools:text="年轻的小蜜蜂" />
@@ -158,7 +158,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_material"
-                    android:clickable="true"
                     android:lineSpacingExtra="4dp"
                     android:paddingBottom="@dimen/lay_8"
                     android:paddingLeft="16dp"
@@ -218,6 +217,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/btn_pay"
+                android:layout_width="@dimen/lay_48"
+                android:layout_height="@dimen/lay_48"
+                android:layout_marginTop="@dimen/lay_12"
+                android:padding="@dimen/lay_4"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/blog"
+                android:background="@drawable/btn_pay_selector" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/lay_12"
+                android:layout_marginTop="@dimen/lay_12"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="写的不错，打赏作者"
+                android:textColor="#6a6a6a"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText"
+                tools:text="写的不错，打赏作者" />
 
             <View
                 android:layout_width="match_parent"
