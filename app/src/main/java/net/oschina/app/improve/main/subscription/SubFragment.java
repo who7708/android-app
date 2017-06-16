@@ -18,6 +18,7 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.banner.EventHeaderView;
 import net.oschina.app.improve.main.banner.HeaderView;
 import net.oschina.app.improve.main.banner.NewsHeaderView;
+import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
 import java.lang.reflect.Type;
@@ -65,6 +66,8 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
 
     @Override
     public void onItemClick(int position, long itemId) {
+        if(!TDevice.hasWebView(mContext))
+            return;
         SubBean sub = mAdapter.getItem(position);
         if (sub == null)
             return;
