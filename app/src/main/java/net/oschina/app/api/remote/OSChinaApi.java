@@ -1720,13 +1720,13 @@ public class OSChinaApi {
      * @param payType  支付类型 1 支付宝  2、微信支付  返回结果不一样
      * @param handler handler
      */
-    public static void getPayDonate(long authorId,long objId,long money,int payType, TextHttpResponseHandler handler){
+    public static void getPayDonate(long authorId,long objId,float money,int payType, TextHttpResponseHandler handler){
         RequestParams params = new RequestParams();
         params.put("authorId",authorId);
         params.put("objId",objId);
-        params.put("money",money);
+        params.put("money",Float.valueOf(money).intValue());
         params.put("payType",payType);
-        ApiHttpClient.get("action/apiv2/user_follows", params, handler);
+        ApiHttpClient.get("action/apiv2/blog_donate_prepare", params, handler);
     }
 
     /**

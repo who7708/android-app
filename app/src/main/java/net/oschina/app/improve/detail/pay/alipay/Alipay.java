@@ -1,4 +1,4 @@
-package net.oschina.app.improve.pay.alipay;
+package net.oschina.app.improve.detail.pay.alipay;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

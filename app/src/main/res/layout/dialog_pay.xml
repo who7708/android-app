@@ -2,27 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#FFF"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    tools:ignore="HardcodedText"
     android:paddingBottom="24dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="24dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_portrait"
+        android:id="@+id/iv_portrait"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/widget_default_face" />
 
     <TextView
-        android:id="@+id/tv_nick"
+        android:id="@+id/tv_nick_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="thanatosx"
+        tools:text="大魔王"
         android:textColor="#111111"
         android:textSize="18sp" />
 
@@ -35,17 +37,19 @@
         android:textColor="#6a6a6a"
         android:textSize="14sp" />
 
-    <LinearLayout
-        android:id="@+id/layout_casts"
+    <RadioGroup
+        android:id="@+id/rg_pay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <TextView
+        <RadioButton
+            android:id="@+id/rb_five"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@null"
             android:background="@drawable/selector_pay_btn"
             android:gravity="center"
             android:padding="12dp"
@@ -54,12 +58,14 @@
             android:textColor="@drawable/selector_pay_text"
             android:textSize="16sp" />
 
-        <TextView
+        <RadioButton
+            android:id="@+id/rb_ten"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_weight="1"
+            android:button="@null"
             android:background="@drawable/selector_pay_btn"
             android:gravity="center"
             android:padding="12dp"
@@ -68,10 +74,12 @@
             android:textColor="@drawable/selector_pay_text"
             android:textSize="16sp" />
 
-        <TextView
+        <RadioButton
+            android:id="@+id/rb_other"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:button="@null"
             android:background="@drawable/selector_pay_btn"
             android:gravity="center"
             android:padding="12dp"
@@ -79,7 +87,7 @@
             android:text="其他金额"
             android:textColor="@drawable/selector_pay_text"
             android:textSize="16sp" />
-    </LinearLayout>
+    </RadioGroup>
 
     <EditText
         android:id="@+id/et_input"
@@ -90,6 +98,7 @@
         android:hint="请输入金额"
         android:padding="12dp"
         android:textColor="#000"
+        android:inputType="numberDecimal"
         android:textColorHint="#6a6a6a"
         android:textSize="16sp" />
 
@@ -110,6 +119,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="更换"
@@ -119,7 +129,7 @@
 
 
     <Button
-        android:id="@+id/btn_reward"
+        android:id="@+id/btn_pay"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:background="@drawable/ic_bg_btn_blue"

@@ -12,6 +12,7 @@ import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.UserRelation;
+import net.oschina.app.improve.detail.pay.PayDialog;
 import net.oschina.app.improve.detail.v2.DetailFragment;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.widget.IdentityView;
@@ -20,6 +21,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.StringUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import butterknife.OnLongClick;
 
 /**
@@ -66,6 +68,9 @@ public class BlogDetailFragment extends DetailFragment {
     @Bind(R.id.lay_nsv)
     NestedScrollView mViewScroller;
 
+    private PayDialog mDialog;
+
+
     public static BlogDetailFragment newInstance() {
         return new BlogDetailFragment();
     }
@@ -101,6 +106,21 @@ public class BlogDetailFragment extends DetailFragment {
     protected void initData() {
         super.initData();
         CACHE_CATALOG = OSChinaApi.CATALOG_BLOG;
+    }
+
+    @OnClick({R.id.btn_pay})
+    @Override
+    public void onClick(View v) {
+        if (mDialog == null) {
+            mDialog = new PayDialog(mContext, mBean);
+            mDialog.setOnPayListener(new PayDialog.OnPayListener() {
+                @Override
+                public void onPay(float money, int type) {
+                    mPresenter.payDonate(mBean.getAuthor().getId(), mBean.getId(), money, type);
+                }
+            });
+        }
+        mDialog.show();
     }
 
     @Override

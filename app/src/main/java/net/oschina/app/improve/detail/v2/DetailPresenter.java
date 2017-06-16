@@ -15,7 +15,7 @@ import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.UserRelation;
 import net.oschina.app.improve.detail.db.API;
 import net.oschina.app.improve.detail.db.Behavior;
-import net.oschina.app.improve.pay.wx.WeChatPay;
+import net.oschina.app.improve.detail.pay.wx.WeChatPay;
 import net.oschina.app.improve.user.helper.ContactsCacheManager;
 import net.oschina.app.ui.empty.EmptyLayout;
 
@@ -244,7 +244,7 @@ public class DetailPresenter implements DetailContract.Presenter {
 
 
     @Override
-    public void payDonate(long authorId, long objId, long money, final int payType) {
+    public void payDonate(long authorId, long objId, float money, final int payType) {
         OSChinaApi.getPayDonate(authorId, objId, money, payType, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
