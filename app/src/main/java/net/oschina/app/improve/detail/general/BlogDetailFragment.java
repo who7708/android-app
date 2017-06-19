@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.improve.account.AccountHelper;
+import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.UserRelation;
@@ -111,6 +113,10 @@ public class BlogDetailFragment extends DetailFragment {
     @OnClick({R.id.btn_pay})
     @Override
     public void onClick(View v) {
+        if(!AccountHelper.isLogin()){
+            LoginActivity.show(this,1);
+            return;
+        }
         if (mDialog == null) {
             mDialog = new PayDialog(mContext, mBean);
             mDialog.setOnPayListener(new PayDialog.OnPayListener() {

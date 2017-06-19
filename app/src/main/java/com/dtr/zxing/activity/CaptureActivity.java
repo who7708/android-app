@@ -333,22 +333,28 @@ public final class CaptureActivity extends BaseActivity implements
 
             @Override
             public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-                ResultBean result = XmlUtils.toBean(ResultBean.class, arg2);
-                if (result != null && result.getResult() != null
-                        && result.getResult().OK()) {
-                    AppContext.showToast(result.getResult().getErrorMessage());
-                    finish();
-                } else {
-                    handler.sendEmptyMessage(R.id.restart_preview);
-                    AppContext.showToast(result != null
-                            && result.getResult() != null ? result.getResult()
-                            .getErrorMessage() : "登陆失败");
+                try {
+                    ResultBean result = XmlUtils.toBean(ResultBean.class, arg2);
+                    if (result != null && result.getResult() != null
+                            && result.getResult().OK()) {
+                        AppContext.showToast(result.getResult().getErrorMessage());
+                        finish();
+                    } else {
+                        handler.sendEmptyMessage(R.id.restart_preview);
+                        AppContext.showToast(result != null
+                                && result.getResult() != null ? result.getResult()
+                                .getErrorMessage() : "登陆失败");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(int arg0, Header[] arg1, byte[] arg2,
                                   Throwable arg3) {
+                if (mFlash == null)
+                    return;
                 handler.sendEmptyMessage(R.id.restart_preview);
                 if (arg2 != null) {
                     AppContext.showToast(new String(arg2));
@@ -365,6 +371,8 @@ public final class CaptureActivity extends BaseActivity implements
 
             @Override
             public void onFinish() {
+                if (mFlash == null)
+                    return;
                 super.onFinish();
                 hideWaitDialog();
             }
