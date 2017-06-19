@@ -79,6 +79,8 @@ public class ProjectDetailFragment extends BaseFragment implements ProjectDetail
     @Override
     protected void initData() {
         super.initData();
+        if(mPresenter == null)
+            return;
         initProject(mProject);
         if (mProject.getId() == 0) {
             mPresenter.getProjectDetail(mProject.getName(), mProject.getPathWithNamespace());

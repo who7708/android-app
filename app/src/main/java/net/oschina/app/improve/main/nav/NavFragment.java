@@ -128,7 +128,7 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
             return;
         boolean doCommit = false;
         for (Fragment fragment : fragments) {
-            if (fragment != this) {
+            if (fragment != this && fragment != null) {
                 transaction.remove(fragment);
                 doCommit = true;
             }

@@ -56,6 +56,8 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
+                if(mPresenter == null)
+                    return;
                 mPresenter.onRefreshing();
             }
         });
@@ -70,6 +72,8 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
 
     @Override
     public void onRefreshing() {
+        if(mPresenter == null)
+            return;
         mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE, true);
         mPresenter.onRefreshing();
     }
