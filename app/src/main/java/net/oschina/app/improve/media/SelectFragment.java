@@ -120,6 +120,10 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     @Override
     protected void initWidget(View view) {
+        if(mOption == null){
+            getActivity().finish();
+            return;
+        }
         mContentView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         mContentView.addItemDecoration(new SpaceGridItemDecoration((int) TDevice.dipToPx(getResources(), 1)));
         mImageAdapter = new ImageAdapter(getContext(), this);
@@ -141,6 +145,10 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     @Override
     protected void initData() {
+        if(mOption == null){
+            getActivity().finish();
+            return;
+        }
         mSelectedImage = new ArrayList<>();
 
         if (mOption.getSelectCount() > 1 && mOption.getSelectedImages() != null) {
