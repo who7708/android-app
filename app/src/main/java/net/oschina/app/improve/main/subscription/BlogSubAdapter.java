@@ -147,7 +147,7 @@ public class BlogSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
         TextView tv_title, tv_description, tv_time, tv_comment_count, tv_view;
         LinearLayout ll_title;
 
-        public BlogViewHolder(View itemView) {
+         BlogViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_description = (TextView) itemView.findViewById(R.id.tv_description);

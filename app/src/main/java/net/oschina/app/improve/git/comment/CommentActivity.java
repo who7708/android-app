@@ -11,6 +11,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.git.bean.Comment;
 import net.oschina.app.improve.git.bean.Project;
@@ -83,7 +84,8 @@ public class CommentActivity extends BaseBackActivity implements CommentContract
     @Override
     public void onClick(View v) {
         Comment comment = (Comment) v.getTag();
-        mMentionStr = "回复 @" + comment.getAuthor().getName() + ":";
+        Author author = comment.getAuthor();
+        mMentionStr = "回复 @" + (author == null ? "匿名" : author.getName()) + ":";
         mDelegation.getBottomSheet().show(mMentionStr);
     }
 

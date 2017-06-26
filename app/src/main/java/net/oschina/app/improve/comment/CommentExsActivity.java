@@ -30,6 +30,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
+import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.CommentEX;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
@@ -333,14 +334,15 @@ public class CommentExsActivity extends BaseBackActivity {
         }
 
         void setData(Comment comment, RequestManager imageLoader, View.OnClickListener l) {
-            if (comment.getAuthor() != null) {
-                mAvatar.setup(comment.getAuthor());
+            Author author = comment.getAuthor();
+            if (author != null) {
+                mAvatar.setup(author);
             } else {
                 mAvatar.setup(0, "匿名用户", "");
             }
-            mIdentityView.setup(comment.getAuthor());
+            mIdentityView.setup(author);
 
-            mName.setText(comment.getAuthor().getName());
+            mName.setText(author == null ? "匿名用户" : author.getName());
             mDate.setText(comment.getPubDate());
             CommentsUtil.formatHtml(mContent.getResources(), mContent, comment.getContent());
 

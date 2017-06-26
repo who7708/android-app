@@ -1,5 +1,6 @@
 package net.oschina.app.improve.detail.general;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -67,6 +68,7 @@ public class EventDetailFragment extends DetailFragment {
         CACHE_CATALOG = OSChinaApi.CATALOG_EVENT;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void showGetDetailSuccess(SubBean bean) {
         super.showGetDetailSuccess(bean);

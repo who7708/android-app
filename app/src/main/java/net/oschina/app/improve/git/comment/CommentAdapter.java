@@ -51,7 +51,7 @@ public class CommentAdapter extends BaseGeneralRecyclerAdapter<Comment> {
                 OtherUserHomeActivity.show(mContext, author);
             }
         });
-        h.mTextName.setText(author.getName());
+        h.mTextName.setText(author == null ? "火星网友" : author.getName());
         h.mTextComment.setText(item.getContent());
         h.mTextPubDate.setText(StringUtils.formatSomeAgo(item.getPubDate()));
         h.mImageComment.setTag(item);

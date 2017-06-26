@@ -31,7 +31,7 @@ public class CollectionAdapter extends BaseRecyclerAdapter<Collection> {
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Collection item, int position) {
         CollectionViewHolder h = (CollectionViewHolder) holder;
-        String type = "";
+        String type;
         switch (item.getType()) {
             case News.TYPE_SOFTWARE:
                 type = "软件";
@@ -64,10 +64,10 @@ public class CollectionAdapter extends BaseRecyclerAdapter<Collection> {
         h.mFavCountText.setText(String.valueOf(item.getFavCount()));
     }
 
-    private class CollectionViewHolder extends RecyclerView.ViewHolder {
+    private static class CollectionViewHolder extends RecyclerView.ViewHolder {
         private TextView mTypeView, mTitleView, mCommentCountText, mFavCountText, mAuthorText, mFavDateText;
 
-        public CollectionViewHolder(View itemView) {
+         CollectionViewHolder(View itemView) {
             super(itemView);
             mTypeView = (TextView) itemView.findViewById(R.id.tv_type);
             mTitleView = (TextView) itemView.findViewById(R.id.tv_title);
