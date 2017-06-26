@@ -26,6 +26,7 @@ import com.bumptech.glide.RequestManager;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.comment.Comment;
+import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.comment.CommentReferView;
 import net.oschina.app.improve.comment.CommentsUtil;
 import net.oschina.app.improve.dialog.ShareDialog;
@@ -200,9 +201,11 @@ public class CommentShareView extends NestedScrollView implements Runnable {
 
             @SuppressLint("DefaultLocale")
             void addComment(final Comment comment) {
-                mIvAvatar.setup(comment.getAuthor());
-                String name = comment.getAuthor().getName();
-                if (TextUtils.isEmpty(name))
+                Author author = comment.getAuthor();
+                mIvAvatar.setup(author);
+
+                String name;
+                if (author == null || TextUtils.isEmpty(name = author.getName()))
                     name = mName.getResources().getString(R.string.martian_hint);
                 mName.setText(name);
                 mPubDate.setText(StringUtils.formatDayTime(comment.getPubDate()));

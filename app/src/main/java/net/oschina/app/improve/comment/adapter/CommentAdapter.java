@@ -27,6 +27,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.comment.Vote;
+import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.comment.CommentReferView;
 import net.oschina.app.improve.comment.CommentsUtil;
@@ -153,8 +154,9 @@ public class CommentAdapter extends BaseRecyclerAdapter<Comment> {
                     OtherUserHomeActivity.show(mIvAvatar.getContext(), comment.getAuthor().getId());
                 }
             });
-            String name = comment.getAuthor().getName();
-            if (TextUtils.isEmpty(name))
+            Author author = comment.getAuthor();
+            String name;
+            if (author == null || TextUtils.isEmpty(name = author.getName()))
                 name = mName.getResources().getString(R.string.martian_hint);
             mName.setText(name);
             mPubDate.setText(String.format("%s", StringUtils.formatSomeAgo(comment.getPubDate())));
