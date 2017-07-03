@@ -427,7 +427,11 @@ public class NearbyActivity extends BaseBackActivity implements RadarSearchListe
             //没有缓存直接进行提示
             mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
         }
-        hideLoading();
+        if (mAdapter != null && mAdapter.getItems().size() == 0 && mEmptyLayout != null) {
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+        } else {
+            hideLoading();
+        }
     }
 
     /**

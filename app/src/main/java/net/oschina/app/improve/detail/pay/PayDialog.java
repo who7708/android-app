@@ -130,13 +130,13 @@ public class PayDialog extends Dialog implements View.OnClickListener {
                     case R.id.rb_five:
                         mEditInput.setEnabled(false);
                         mEditInput.setVisibility(View.GONE);
-                        mMoney = 5.0f;
+                        mMoney = 5.00f;
                         mEditInput.setText(String.valueOf(5));
                         break;
                     case R.id.rb_ten:
                         mEditInput.setEnabled(false);
                         mEditInput.setVisibility(View.GONE);
-                        mMoney = 10.0f;
+                        mMoney = 10.00f;
                         mEditInput.setText(String.valueOf(10));
                         break;
                     case R.id.rb_other:
@@ -156,7 +156,7 @@ public class PayDialog extends Dialog implements View.OnClickListener {
             SimplexToast.show(getContext(),"打赏金额不能超过 10000 元");
             return;
         }
-        mListener.onPay(mPayType == 1 ? mMoney : mMoney * 100, mPayType);
+        mListener.onPay(mPayType == 1 ? mMoney * 100: mMoney * 100, mPayType);
         dismiss();
     }
 

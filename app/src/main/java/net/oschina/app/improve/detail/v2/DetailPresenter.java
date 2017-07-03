@@ -20,6 +20,7 @@ import net.oschina.app.improve.user.helper.ContactsCacheManager;
 import net.oschina.app.ui.empty.EmptyLayout;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -245,7 +246,8 @@ public class DetailPresenter implements DetailContract.Presenter {
 
     @Override
     public void payDonate(long authorId, long objId, float money, final int payType) {
-        OSChinaApi.getPayDonate(authorId, objId, money, payType, new TextHttpResponseHandler() {
+        DecimalFormat decimalFormat=new DecimalFormat(".00");
+        OSChinaApi.getPayDonate(authorId, objId, (float)(Math.round(money*100)/100), payType, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showPayDonateError();
@@ -254,6 +256,7 @@ public class DetailPresenter implements DetailContract.Presenter {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 try {
+                    //Log.e("success",responseString);
                     Type type = null;
                     if (payType == 1) {
                         type = new TypeToken<ResultBean<String>>() {
