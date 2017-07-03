@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.alipay.sdk.app.PayTask;
 
+import net.oschina.app.improve.widget.SimplexToast;
+
 import java.util.Map;
 
 /**
@@ -42,9 +44,10 @@ public class Alipay {
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
+                    //Log.e("aaaa","  88  "+resultInfo);
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-
+                        SimplexToast.show(mActivity,"感谢您的支持");
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 
@@ -55,7 +58,7 @@ public class Alipay {
                     @SuppressWarnings("unchecked")
                     AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
                     String resultStatus = authResult.getResultStatus();
-
+                    ///Log.e("bbb",""+resultStatus);
                     // 判断resultStatus 为“9000”且result_code
                     // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
                     if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
@@ -83,7 +86,7 @@ public class Alipay {
             public void run() {
                 PayTask alipay = new PayTask(mActivity);
                 Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.i("msp", result.toString());
+                Log.e("msp", result.toString());
 
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
