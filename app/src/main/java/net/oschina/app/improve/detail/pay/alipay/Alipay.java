@@ -20,7 +20,6 @@ import java.util.Map;
  */
 public class Alipay {
 
-    public static final String RSA_PRIVATE = "";
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_CHECK_FLAG = 2;
 
@@ -86,7 +85,6 @@ public class Alipay {
             public void run() {
                 PayTask alipay = new PayTask(mActivity);
                 Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.e("msp", result.toString());
 
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
