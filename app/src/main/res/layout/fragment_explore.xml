@@ -47,7 +47,7 @@
             android:layout_height="1px" />
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/rl_gits"
             style="@style/option_item_rl"
             android:background="@drawable/ic_material">
@@ -75,7 +75,7 @@
 
         <View
             style="@style/h_line"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginLeft="50dp"
             android:layout_height="1px" />
 

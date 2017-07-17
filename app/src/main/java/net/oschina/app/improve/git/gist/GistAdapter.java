@@ -1,5 +1,6 @@
 package net.oschina.app.improve.git.gist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -32,34 +33,34 @@ class GistAdapter extends BaseRecyclerAdapter<Gist> {
         return new GistViewHolder(mInflater.inflate(R.layout.item_list_gist, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Gist item, int position) {
         GistViewHolder h = (GistViewHolder) holder;
-        h.mTextDescription.setVisibility(TextUtils.isEmpty(item.getDescription()) ? View.GONE : View.VISIBLE);
-        h.mTextLanguage.setVisibility(TextUtils.isEmpty(item.getLanguage()) ? View.GONE : View.VISIBLE);
         h.mImageOwner.setup(0, item.getOwner().getName(), item.getOwner().getNewPortrait());
         h.mImageOwner.setOnClickListener(null);
-        h.mTextName.setText(item.getOwner().getName() + "/" + item.getName());
-        h.mTextDescription.setText(item.getDescription());
+        h.mTextSummary.setText(item.getSummary());
+        h.mTextCategory.setText(item.getCategory());
         h.mTextLanguage.setText(item.getLanguage());
         h.mTextLanguage.setVisibility(TextUtils.isEmpty(item.getLanguage()) ? View.GONE : View.VISIBLE);
+        h.mTextCategory.setVisibility(TextUtils.isEmpty(item.getCategory()) ? View.GONE : View.VISIBLE);
         h.mTextFavCount.setText(getCount(item.getStartCounts()));
         h.mTextForkCount.setText(getCount(item.getForkCounts()));
     }
 
     private static class GistViewHolder extends RecyclerView.ViewHolder {
         PortraitView mImageOwner;
-        TextView mTextName, mTextDescription,
-                mTextFavCount, mTextForkCount, mTextLanguage;
+        TextView mTextSummary,
+                mTextFavCount, mTextForkCount, mTextLanguage,mTextCategory;
 
         GistViewHolder(View itemView) {
             super(itemView);
             mImageOwner = (PortraitView) itemView.findViewById(R.id.civ_owner);
-            mTextName = (TextView) itemView.findViewById(R.id.tv_name);
-            mTextDescription = (TextView) itemView.findViewById(R.id.tv_description);
+            mTextSummary = (TextView) itemView.findViewById(R.id.tv_summary);
             mTextFavCount = (TextView) itemView.findViewById(R.id.tv_fav_count);
             mTextForkCount = (TextView) itemView.findViewById(R.id.tv_fork_count);
             mTextLanguage = (TextView) itemView.findViewById(R.id.tv_language);
+            mTextCategory = (TextView) itemView.findViewById(R.id.tv_category);
         }
     }
 

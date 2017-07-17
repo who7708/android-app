@@ -16,8 +16,10 @@ public class Gist implements Serializable {
     private String name;
     private User owner;
     private String language;
-    private String description;
+    private String summary;
+    private String category;
     private String content;
+    private File[] files;
     @SerializedName("comments_count")
     private int commentCounts;
     @SerializedName("stars_count")
@@ -69,12 +71,28 @@ public class Gist implements Serializable {
         this.language = language;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSummary() {
+        return summary;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public File[] getFiles() {
+        return files;
+    }
+
+    public void setFiles(File[] files) {
+        this.files = files;
     }
 
     public String getContent() {
@@ -123,5 +141,41 @@ public class Gist implements Serializable {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
+    }
+
+
+    public static class File implements Serializable {
+
+        public static final int FILE_CODE = 1;//代码文件
+        public static final int FILE_IMAGE = 2;//图片
+        public static final int FILE_BIN = 3;//二进制文件，只能下载
+
+        private int type;
+        private String name;
+        private String content;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 }
