@@ -1,12 +1,15 @@
 package net.oschina.app.improve.git.gist.detail;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import net.oschina.app.improve.git.bean.Gist;
 import net.oschina.app.improve.git.gist.comment.GistCommentActivity;
 import net.oschina.app.improve.git.utils.MarkdownUtils;
 import net.oschina.app.improve.git.utils.SourceEditor;
+import net.oschina.app.improve.media.Util;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.StringUtils;
 
@@ -33,26 +37,24 @@ import butterknife.OnClick;
 
 public class GistDetailFragment extends BaseFragment implements GistDetailContract.View, View.OnClickListener {
     private SourceEditor mEditor;
-    @Bind(R.id.webView)
-    WebView mWebView;
-    @Bind(R.id.tv_file_name)
-    TextView mTextFileName;
+    @Bind(R.id.tv_summary)
+    TextView mTextSummary;
     @Bind(R.id.tv_start_count)
     TextView mTexStartCount;
     @Bind(R.id.tv_fork_count)
     TextView mTextForkCount;
-    @Bind(R.id.tv_description)
-    TextView mTextDescription;
+
     @Bind(R.id.tv_language)
     TextView mTextLanguage;
+    @Bind(R.id.tv_category)
+    TextView mTextCategory;
     @Bind(R.id.tv_last_update)
     TextView mTextLastUpdate;
     @Bind(R.id.tv_comment_count)
     TextView mTextCommentCount;
-    @Bind(R.id.ll_file_info)
-    LinearLayout mLinearInfo;
-    @Bind(R.id.ll_category)
-    LinearLayout mLinearCategory;
+
+    @Bind(R.id.ll_content)
+    LinearLayout mLinearContent;
     @Bind(R.id.line1)
     View mLine1;
     @Bind(R.id.line2)
@@ -61,6 +63,7 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
     LinearLayout mLinearTool;
     private Gist mGist;
     private ShareDialog mAlertDialog;
+
     static GistDetailFragment newInstance(Gist gist) {
         GistDetailFragment fragment = new GistDetailFragment();
         Bundle bundle = new Bundle();
@@ -85,30 +88,99 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
     @SuppressLint("DefaultLocale")
     private void init(Gist gist) {
         assert gist != null;
-        mTextFileName.setText(String.format("%s / %s", gist.getOwner().getName(), gist.getName()));
+        mTextSummary.setText(gist.getSummary());
         mTexStartCount.setText(String.valueOf(gist.getStartCounts()));
         mTextForkCount.setText(String.valueOf(gist.getForkCounts()));
-        mTextDescription.setText(gist.getDescription());
+        mTextCategory.setText(gist.getCategory());
         mTextLanguage.setText(gist.getLanguage());
         if (gist.getLastUpdateDate() != null) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             mTextLastUpdate.setText(String.format("最后更新于%s", StringUtils.formatSomeAgo(dateFormat.format(gist.getLastUpdateDate()))));
         }
-        mTextDescription.setVisibility(TextUtils.isEmpty(gist.getDescription()) ? View.GONE : View.VISIBLE);
+        //mTextDescription.setVisibility(TextUtils.isEmpty(gist.getDescription()) ? View.GONE : View.VISIBLE);
         mTextLanguage.setVisibility(TextUtils.isEmpty(gist.getLanguage()) ? View.GONE : View.VISIBLE);
+        mTextCategory.setVisibility(TextUtils.isEmpty(gist.getCategory()) ? View.GONE : View.VISIBLE);
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled"})
+    @SuppressWarnings("all")
+    private void addFiles(Gist.File[] files) {
+        mLinearContent.removeAllViews();
+        for (Gist.File file : files) {//不确定排序
+            if (file.getType() == Gist.File.FILE_CODE) {
+                TextView textName = new TextView(mContext);
+                textName.setText(file.getName());
+                textName.setTextColor(Color.parseColor("#111111"));
+                textName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
+                textName.setLayoutParams(params);
+                mLinearContent.addView(textName);
+
+                View view = new View(mContext);
+                LinearLayout.LayoutParams paramsLine = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+                view.setBackgroundColor(mContext.getResources().getColor(R.color.list_divider_color));
+                view.setLayoutParams(paramsLine);
+                mLinearContent.addView(view);
+
+                final GistWebView webView = new GistWebView(mContext);
+                WebSettings settings = webView.getSettings();
+                settings.setJavaScriptEnabled(true);
+                settings.setDefaultFontSize(10);
+                settings.setAllowContentAccess(true);
+                webView.setWebChromeClient(new WebChromeClient() {
+                });
+                mEditor = new SourceEditor(webView);
+                mLinearContent.addView(webView);
+                mEditor.setMarkdown(MarkdownUtils.isMarkdown(file.getName()));
+                CodeDetail detail = new CodeDetail();
+                detail.setContent(file.getContent());
+                mEditor.setSource(file.getName(), detail);
+            }
+        }
+        for (Gist.File file : files) {
+            if (file.getType() == Gist.File.FILE_BIN) {
+                TextView textName = new TextView(mContext);
+                textName.setText(file.getName());
+                textName.setTextColor(Color.parseColor("#111111"));
+                textName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
+                textName.setLayoutParams(params);
+                mLinearContent.addView(textName);
+            }
+        }
+        boolean isAddImage = false;
+        for (Gist.File file : files) {
+            if (file.getType() == Gist.File.FILE_IMAGE) {
+                if (!isAddImage) {
+                    isAddImage = true;
+                    TextView textName = new TextView(mContext);
+                    textName.setText("效果图");
+                    textName.setTextColor(Color.parseColor("#111111"));
+                    textName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
+                    textName.setLayoutParams(params);
+                    mLinearContent.addView(textName);
+                }
+                ImageView imageView = new ImageView(mContext);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setLayoutParams(params);
+                getImgLoader().load(file.getContent())
+                        .fitCenter()
+                        .into(imageView);
+                mLinearContent.addView(imageView);
+            }
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setDefaultFontSize(10);
-        settings.setAllowContentAccess(true);
-        mWebView.setWebChromeClient(new WebChromeClient() {
-        });
-        mEditor = new SourceEditor(mWebView);
         init(mGist);
     }
 
@@ -139,10 +211,9 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
     public void showGetDetailSuccess(Gist gist, int strId) {
         mGist = gist;
         init(gist);
-        mEditor.setMarkdown(MarkdownUtils.isMarkdown(gist.getName()));
-        CodeDetail detail = new CodeDetail();
-        detail.setContent(gist.getContent());
-        mEditor.setSource(gist.getName(), detail);
+        if (gist.getFiles() != null && gist.getFiles().length != 0) {
+            addFiles(gist.getFiles());
+        }
     }
 
     @Override
@@ -159,26 +230,20 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
 
     @Override
     public void showLandscape() {
-        mLinearInfo.setVisibility(View.GONE);
-        mLinearCategory.setVisibility(View.GONE);
         mLinearTool.setVisibility(View.GONE);
         mLine1.setVisibility(View.GONE);
         mLine2.setVisibility(View.GONE);
-        mTextDescription.setVisibility(View.GONE);
     }
 
     @Override
     public void showPortrait() {
-        mLinearInfo.setVisibility(View.VISIBLE);
-        mLinearCategory.setVisibility(View.VISIBLE);
         mLinearTool.setVisibility(View.VISIBLE);
         mLine1.setVisibility(View.VISIBLE);
         mLine2.setVisibility(View.VISIBLE);
-        mTextDescription.setVisibility(View.VISIBLE);
     }
 
     private boolean toShare() {
-        String content = mGist.getDescription().trim();
+        String content = mGist.getSummary().trim();
         if (content.length() > 55) {
             content = HTMLUtil.delHTMLTag(content);
             if (content.length() > 55)

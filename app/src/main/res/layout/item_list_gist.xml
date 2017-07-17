@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,33 +31,35 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_title_color"
                 android:textSize="16sp"
                 tools:text="Large Text" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:ellipsize="end"
-                android:lineSpacingExtra="4dp"
-                android:maxLines="2"
-                android:textColor="@color/text_desc_color"
-                android:textSize="13sp"
-                tools:text="New Text" />
-
             <LinearLayout
-                android:paddingTop="@dimen/lay_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/lay_4">
 
                 <TextView
                     android:id="@+id/tv_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_type"
+                    android:layout_marginRight="@dimen/lay_8"
+                    android:paddingBottom="@dimen/lay_2"
+                    android:paddingLeft="@dimen/lay_4"
+                    android:paddingRight="@dimen/lay_4"
+                    android:paddingTop="@dimen/lay_2"
+                    android:textColor="#9d9d9d"
+                    android:textSize="@dimen/font_12"
+                    tools:text="Android" />
+
+                <TextView
+                    android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_type"
@@ -66,7 +69,7 @@
                     android:paddingTop="@dimen/lay_2"
                     android:textColor="#9d9d9d"
                     android:textSize="@dimen/font_12"
-                    tools:text="博客" />
+                    tools:text="移动开发" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,6 +81,7 @@
                         android:layout_width="12dp"
                         android:layout_height="12dp"
                         android:layout_marginTop="@dimen/lay_2"
+                        android:contentDescription="@string/gits"
                         android:src="@mipmap/ic_fav_normal" />
 
                     <TextView
@@ -94,6 +98,7 @@
                         android:layout_width="12dp"
                         android:layout_height="12dp"
                         android:layout_marginTop="@dimen/lay_2"
+                        android:contentDescription="@string/gits"
                         android:src="@mipmap/ic_fork" />
 
                     <TextView

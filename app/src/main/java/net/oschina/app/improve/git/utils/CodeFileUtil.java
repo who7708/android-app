@@ -109,7 +109,8 @@ public final class CodeFileUtil {
                         ".wxml",
                         ".vi",
                         ".ctl",
-                        ".ts"
+                        ".ts",
+                        ".kt"
                 };
         for (String string : codeFileSuffix) {
             if (fileName.equalsIgnoreCase(string)) {
