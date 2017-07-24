@@ -37,8 +37,8 @@ public class CheckUpdateManager {
         if (mIsShowDialog) {
             mWaitDialog = DialogHelper.getProgressDialog(mContext);
             mWaitDialog.setMessage("正在检查中...");
-            mWaitDialog.setCancelable(false);
-            mWaitDialog.setCanceledOnTouchOutside(false);
+            mWaitDialog.setCancelable(true);
+            mWaitDialog.setCanceledOnTouchOutside(true);
         }
     }
 
@@ -52,6 +52,9 @@ public class CheckUpdateManager {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 if (mIsShowDialog) {
                     DialogHelper.getMessageDialog(mContext, "网络异常，无法获取新版本信息").show();
+                }
+                if(mWaitDialog != null){
+                    mWaitDialog.dismiss();
                 }
             }
 
@@ -102,7 +105,7 @@ public class CheckUpdateManager {
             @Override
             public void onFinish() {
                 super.onFinish();
-                if (mIsShowDialog) {
+                if(mWaitDialog != null){
                     mWaitDialog.dismiss();
                 }
             }

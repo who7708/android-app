@@ -1,7 +1,9 @@
 package net.oschina.app.improve.git.gist.detail;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -21,6 +23,7 @@ import net.oschina.app.improve.git.bean.Gist;
 import net.oschina.app.improve.git.gist.comment.GistCommentActivity;
 import net.oschina.app.improve.git.utils.MarkdownUtils;
 import net.oschina.app.improve.git.utils.SourceEditor;
+import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.media.Util;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.StringUtils;
@@ -138,8 +141,31 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
                 mEditor.setSource(file.getName(), detail);
             }
         }
-        for (Gist.File file : files) {
+        for (final Gist.File file : files) {
             if (file.getType() == Gist.File.FILE_BIN) {
+                TextView textName = new TextView(mContext);
+                textName.setText(file.getName());
+                textName.setTextColor(Color.parseColor("#24cf5f"));
+                textName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
+                textName.setLayoutParams(params);
+                mLinearContent.addView(textName);
+                textName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(file.getContent());
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+
+        for (final Gist.File file : files) {
+            if (file.getType() == Gist.File.FILE_IMAGE) {
                 TextView textName = new TextView(mContext);
                 textName.setText(file.getName());
                 textName.setTextColor(Color.parseColor("#111111"));
@@ -148,24 +174,8 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
                 params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
                 textName.setLayoutParams(params);
                 mLinearContent.addView(textName);
-            }
-        }
-        boolean isAddImage = false;
-        for (Gist.File file : files) {
-            if (file.getType() == Gist.File.FILE_IMAGE) {
-                if (!isAddImage) {
-                    isAddImage = true;
-                    TextView textName = new TextView(mContext);
-                    textName.setText("效果图");
-                    textName.setTextColor(Color.parseColor("#111111"));
-                    textName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
-                    textName.setLayoutParams(params);
-                    mLinearContent.addView(textName);
-                }
+
                 ImageView imageView = new ImageView(mContext);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.setMargins(Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8), Util.dipTopx(mContext, 16), Util.dipTopx(mContext, 8));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setLayoutParams(params);
@@ -173,6 +183,12 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
                         .fitCenter()
                         .into(imageView);
                 mLinearContent.addView(imageView);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageGalleryActivity.show(mContext,file.getContent());
+                    }
+                });
             }
         }
     }
@@ -242,7 +258,7 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
         mLine2.setVisibility(View.VISIBLE);
     }
 
-    private boolean toShare() {
+    private void toShare() {
         String content = mGist.getSummary().trim();
         if (content.length() > 55) {
             content = HTMLUtil.delHTMLTag(content);
@@ -266,6 +282,5 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
         }
         mAlertDialog.show();
 
-        return true;
     }
 }
