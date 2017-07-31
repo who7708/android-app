@@ -61,6 +61,7 @@ public class QuestionDetailFragment extends DetailFragment {
         mTextPubDate.setText(StringUtils.formatYearMonthDay(bean.getPubDate()));
         mTextCommentCount.setText(String.valueOf(bean.getStatistics().getComment()));
         mTextViewCount.setText(String.valueOf(bean.getStatistics().getView()));
+        mFlowLayout.removeAllViews();
         for (String tag : bean.getTags()) {
             TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
             if (!TextUtils.isEmpty(tag))

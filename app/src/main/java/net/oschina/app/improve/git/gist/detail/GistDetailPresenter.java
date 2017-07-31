@@ -1,5 +1,7 @@
 package net.oschina.app.improve.git.gist.detail;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -36,10 +38,12 @@ class GistDetailPresenter implements GistDetailContract.Presenter {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showNetworkError(R.string.state_network_error);
                 mEmptyView.showGetDetailFailure(EmptyLayout.NETWORK_ERROR);
+                Log.e("onFailure",responseString + statusCode);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.e("suc",responseString);
                 try {
                     Type type = new TypeToken<Gist>() {
                     }.getType();
