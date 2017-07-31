@@ -34,7 +34,7 @@ interface GistDetailContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getGistDetail(String id);
+        void getGistDetail(String username,String id);
 
         void getCommentCount(String id);
 
