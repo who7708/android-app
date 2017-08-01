@@ -42,14 +42,14 @@ public class GistDetailActivity extends BaseBackActivity implements GistDetailCo
         GistDetailFragment fragment = GistDetailFragment.newInstance(gist);
         mPresenter = new GistDetailPresenter(fragment, this);
         addFragment(R.id.fl_content, fragment);
-        mPresenter.getGistDetail(gist.getOwner().getUsername(),gist.getId());
+        mPresenter.getGistDetail(gist.getId());
         mPresenter.getCommentCount(gist.getId());
         mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEmptyLayout.getErrorState() != EmptyLayout.NETWORK_LOADING) {
                     mEmptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
-                    mPresenter.getGistDetail(gist.getId(),gist.getOwner().getUsername());
+                    mPresenter.getGistDetail(gist.getId());
                 }
             }
         });
@@ -70,13 +70,13 @@ public class GistDetailActivity extends BaseBackActivity implements GistDetailCo
         super.onConfigurationChanged(newConfig);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             ActionBar bar = getSupportActionBar();
-            if(bar != null)
+            if (bar != null)
                 bar.hide();
             mPresenter.changeConfig(true);
         } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mPresenter.changeConfig(false);
             ActionBar bar = getSupportActionBar();
-            if(bar != null)
+            if (bar != null)
                 bar.show();
         }
     }

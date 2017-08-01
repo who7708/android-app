@@ -30,8 +30,8 @@ class GistDetailPresenter implements GistDetailContract.Presenter {
     }
 
     @Override
-    public void getGistDetail(String username,String id) {
-        API.getGistDetail(username,id, new TextHttpResponseHandler() {
+    public void getGistDetail(String id) {
+        API.getGistDetail(id, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showNetworkError(R.string.state_network_error);
