@@ -34,12 +34,13 @@ interface GistDetailContract {
     }
 
     interface Presenter extends BasePresenter {
-        void getGistDetail(String username,String id);
+        void getGistDetail(String id);
 
         void getCommentCount(String id);
 
         /**
          * 改变配置
+         *
          * @param isLandscape 是否是横屏
          */
         void changeConfig(boolean isLandscape);
