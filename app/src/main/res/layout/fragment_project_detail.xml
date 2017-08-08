@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f9f9f9"
+    tools:ignore="DisableBaselineAlignment,HardcodedText,NestedWeights,RtlHardcoded"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/lay_nsv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="vertical"
         tools:ignore="RtlHardcoded">
@@ -76,7 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#f9f9f9"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -103,7 +105,8 @@
                         android:gravity="center"
                         android:text="Stars"
                         android:textColor="@color/gray"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -150,7 +153,8 @@
                         android:gravity="center"
                         android:textColor="#111111"
                         android:textSize="18sp"
-                        tools:text="138" />
+                        tools:text="138"
+                        tools:ignore="NestedWeights" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -173,7 +177,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:clickable="true"
                 android:lineSpacingExtra="4dp"
                 android:paddingBottom="@dimen/lay_8"
                 android:paddingLeft="16dp"
@@ -340,6 +343,7 @@
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:contentDescription="@string/comment_hint"
                 android:src="@mipmap/ic_comment_40" />
 
             <TextView
@@ -348,7 +352,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_12"
                 android:text="评论(0)"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded" />
         </LinearLayout>
 
         <LinearLayout
@@ -363,6 +368,7 @@
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:contentDescription="@string/share_to"
                 android:src="@mipmap/ic_share_black_normal" />
 
             <TextView
