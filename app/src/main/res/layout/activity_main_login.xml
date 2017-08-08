@@ -305,6 +305,17 @@
                     android:scaleType="centerInside"
                     android:src="@mipmap/ic_login_3party_qq" />
 
+                <ImageView
+                    android:id="@+id/ib_login_csdn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_material"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:visibility="gone"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_login_3party_csdn" />
             </LinearLayout>
         </LinearLayout>
 
