@@ -257,7 +257,7 @@ public abstract class RichTextParser {
                         user.setName(group1);
                         gist.setOwner(user);
                         gist.setId(group3);
-                        gist.setName(group2);
+                        gist.setSummary(group2);
                         GistDetailActivity.show(context,gist);
                     }
                 };
