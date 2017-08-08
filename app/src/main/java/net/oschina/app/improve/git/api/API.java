@@ -31,7 +31,7 @@ public final class API {
     public static void getFeatureProjects(int page, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("page", page);
-        mClient.get("https://git.oschina.net/api/v3/projects/featured/osc", params, handler);
+        mClient.get("https://gitee.com/api/v3/projects/featured/osc", params, handler);
     }
 
     /**
@@ -41,7 +41,7 @@ public final class API {
      * @param handler 回调
      */
     public static void getProjectDetail(long id, TextHttpResponseHandler handler) {
-        mClient.get(String.format("https://git.oschina.net/api/v3/projects/%d/osc", id), handler);
+        mClient.get(String.format("https://gitee.com/api/v3/projects/%d/osc", id), handler);
     }
 
     /**
@@ -51,7 +51,7 @@ public final class API {
      * @param handler           回调
      */
     public static void getProjectDetail(String pathWithNamespace, TextHttpResponseHandler handler) {
-        mClient.get(String.format("https://git.oschina.net/api/v3/projects/%s/osc", pathWithNamespace), handler);
+        mClient.get(String.format("https://gitee.com/api/v3/projects/%s/osc", pathWithNamespace), handler);
     }
 
     /**
@@ -66,7 +66,7 @@ public final class API {
         RequestParams params = new RequestParams();
         params.put("path", path);
         params.put("ref_name", refName);
-        mClient.get(String.format("https://git.oschina.net/api/v3/projects/%d/repository/tree", id), params, handler);
+        mClient.get(String.format("https://gitee.com/api/v3/projects/%d/repository/tree", id), params, handler);
     }
 
     /**
@@ -81,7 +81,7 @@ public final class API {
         RequestParams params = new RequestParams();
         params.put("file_path", filePath);
         params.put("ref", ref);
-        mClient.get(String.format("https://git.oschina.net/api/v3/projects/%d/repository/files", id), params, handler);
+        mClient.get(String.format("https://gitee.com/api/v3/projects/%d/repository/files", id), params, handler);
     }
 
     /**
@@ -91,7 +91,7 @@ public final class API {
      * @param handler 回调
      */
     public static void getProjectBranches(long id, TextHttpResponseHandler handler) {
-        mClient.get(String.format("https://git.oschina.net/api/v3/projects/%d/repository/branches", id), handler);
+        mClient.get(String.format("https://gitee.com/api/v3/projects/%d/repository/branches", id), handler);
     }
 
     /**
@@ -150,7 +150,7 @@ public final class API {
         if (!TextUtils.isEmpty(type))
             params.put("type", type);
         params.put("page", page);
-        mClient.get("https://git.oschina.net/api/v3/gists/public", params, handler);
+        mClient.get("https://gitee.com/api/v3/gists/public", params, handler);
     }
 
     /**
@@ -160,7 +160,7 @@ public final class API {
      * @param handler 回调
      */
     public static void getGistDetail(String id, TextHttpResponseHandler handler) {
-        mClient.get(String.format("https://git.oschina.net/api/v3/gists/%s", id), handler);
+        mClient.get(String.format("https://gitee.com/api/v3/gists/%s", id), handler);
     }
 
     /**
