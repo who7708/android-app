@@ -274,7 +274,7 @@ public class GistDetailFragment extends BaseFragment implements GistDetailContra
         if (mAlertDialog == null) {
             mAlertDialog = new
                     ShareDialog(getActivity())
-                    .title(mGist.getOwner().getName() + "/" + mGist.getName())
+                    .title(mGist.getOwner().getName() + "/" + mGist.getSummary())
                     .content(content)
                     .url(mGist.getUrl())
                     .bitmapResID(R.mipmap.ic_git)

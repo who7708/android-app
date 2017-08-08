@@ -13,7 +13,6 @@ import java.util.Date;
 public class Gist implements Serializable {
     private String url;
     private String id;
-    private String name;
     private User owner;
     private String language;
     private String summary;
@@ -47,13 +46,6 @@ public class Gist implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public User getOwner() {
         return owner;
