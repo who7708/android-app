@@ -91,6 +91,7 @@ public class IdentityView extends AppCompatTextView {
         }
 
         setVisibility(identity.officialMember ? VISIBLE : GONE);
+        setText(R.string.identity_officialMember);
         initBorder();
     }
 

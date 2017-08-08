@@ -15,6 +15,7 @@ import com.loopj.android.http.ResponseHandlerInterface;
 import net.oschina.app.AppContext;
 import net.oschina.app.Setting;
 import net.oschina.app.improve.account.AccountHelper;
+import net.oschina.app.improve.git.api.API;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.TLog;
 import net.oschina.common.verify.Verifier;
@@ -180,6 +181,7 @@ public class ApiHttpClient {
         c.setUserAgent(ApiClientHelper.getUserAgent(AppContext.getInstance()));
         CLIENT = c;
         initSSL(CLIENT);
+        initSSL(API.mClient);
     }
 
     public static void setCookieHeader(String cookie) {
