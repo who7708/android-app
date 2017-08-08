@@ -57,12 +57,12 @@ public abstract class RichTextParser {
 
     // git tag
     private static final Pattern PatternGit = Pattern.compile(
-            "<a\\s+href=\'http[s]?://git\\.oschina\\.net/[^>]*\'[^>]*data-project=\'([0-9]*)\'[^>]*>([^<>]*)</a>"
+            "<a\\s+href=\'http[s]?://(git.oschina.net|gitee.com)/[^>]*\'[^>]*data-project=\'([0-9]*)\'[^>]*>([^<>]*)</a>"
     );
 
     // 代码片段
     private static final Pattern PatternGist = Pattern.compile(
-            "<a\\s+href=['\"]http[s]?://git.oschina.net/([^\\s]+)/([^\\s]+)['\"][^>]+data-url=['\"]([^\\s]+)['\"][^>]+>([^>]+)</a>"
+            "<a\\s+href=['\"]http[s]?://(git.oschina.net|gitee.com)/([^\\s]+)/([^\\s]+)['\"][^>]+data-url=['\"]([^\\s]+)['\"][^>]+>([^>]+)</a>"
     );
 
     // links
