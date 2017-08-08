@@ -30,6 +30,7 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class net.oschina.app.improve.bean.** { *; }
+-keep class net.oschina.app.improve..git.bean.** { *; }
 
 -keepattributes EnclosingMethod
 
