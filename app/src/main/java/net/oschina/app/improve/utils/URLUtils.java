@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
@@ -84,7 +85,7 @@ public class URLUtils {
     );
 
     private static final Pattern PATTERN_GIT = Pattern.compile(
-            ".*git\\.oschina\\.net/(.*)/(.*)"
+            ".*(git.oschina.net|gitee.com)/(.*)/(.*)"
     );
 
     private static final String PREFIX_IMAGE = "ima-api:action=showImage&data=";
@@ -184,10 +185,12 @@ public class URLUtils {
                 break;
             case "git.oschina.net":
                 // TODO 如果用户安装了git@osc application, 使用git@osc打开
+            case "gitee.com":
                 Matcher matcherGit = PATTERN_GIT.matcher(uri);
                 if (matcherGit.find() && matcherGit.groupCount() >= 2) {
-                    String group1 =  matcherGit.group(1);
-                    String group2 =  matcherGit.group(2);
+                    String group1 =  matcherGit.group(2);
+                    String group2 =  matcherGit.group(3);
+                    Log.e("group1",group1 + "  --  " + group2);
                     if("explore".equals(group1) || "gists".equals(group1) || "enterprises".equals(group1)){
                         UIHelper.openInternalBrowser(context, url);
                     }else {
