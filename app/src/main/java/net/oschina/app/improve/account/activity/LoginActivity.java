@@ -336,7 +336,7 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
 
     @SuppressWarnings("ConstantConditions")
     @OnClick({R.id.ib_navigation_back, R.id.et_login_username, R.id.et_login_pwd, R.id.tv_login_forget_pwd,
-            R.id.iv_login_hold_pwd, R.id.bt_login_submit, R.id.bt_login_register, R.id.ll_login_pull,
+            R.id.iv_login_hold_pwd, R.id.bt_login_submit, R.id.bt_login_register, R.id.ll_login_pull, R.id.ib_login_csdn,
             R.id.ib_login_weibo, R.id.ib_login_wx, R.id.ib_login_qq, R.id.ll_login_layer,
             R.id.iv_login_username_del, R.id.iv_login_pwd_del, R.id.lay_login_container})
     @Override
@@ -398,6 +398,10 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
             case R.id.ib_login_qq:
                 //QQ登录
                 tencentLogin();
+                break;
+            case R.id.ib_login_csdn:
+                //csdn登录
+                CsdnLoginActivity.show(this);
                 break;
             case R.id.iv_login_username_del:
                 mEtLoginUsername.setText(null);
