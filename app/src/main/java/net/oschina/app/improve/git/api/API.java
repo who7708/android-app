@@ -16,7 +16,7 @@ import net.oschina.app.improve.git.bean.Project;
  */
 @SuppressLint("DefaultLocale")
 public final class API {
-    private static AsyncHttpClient mClient = new AsyncHttpClient();
+    public static AsyncHttpClient mClient = new AsyncHttpClient();
 
     static {
         mClient.setURLEncodingEnabled(false);
