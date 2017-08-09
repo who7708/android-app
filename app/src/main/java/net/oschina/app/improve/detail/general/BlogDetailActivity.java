@@ -57,9 +57,8 @@ public class BlogDetailActivity extends DetailActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && mBehavior != null) {
             mBehavior.setIsComment(1);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 }

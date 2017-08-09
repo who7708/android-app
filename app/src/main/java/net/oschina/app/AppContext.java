@@ -2,6 +2,7 @@ package net.oschina.app;
 
 import net.oschina.app.base.BaseApplication;
 import net.oschina.app.cache.DataCleanManager;
+import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.util.MethodsCompat;
 
 import java.util.Properties;
@@ -20,6 +21,7 @@ public class AppContext extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        DBManager.init(this);
     }
 
     /**
