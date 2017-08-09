@@ -133,10 +133,10 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
             if (!AccountHelper.isLogin())
                 return;
             String updateTime = AppConfig.getAppConfig(this).get("upload_behavior_time");
-            if (DBManager.from(getApplicationContext()).getCount(Behavior.class) >= 15 &&
+            if (DBManager.getInstance().getCount(Behavior.class) >= 15 &&
                     !TextUtils.isEmpty(updateTime) &&
                     (System.currentTimeMillis() - StringUtils.toDate(updateTime).getTime() >= 172800000)) {
-                final List<Behavior> behaviors = DBManager.from(getApplicationContext())
+                final List<Behavior> behaviors = DBManager.getInstance()
                         .get(Behavior.class);
                 API.addBehaviors(new Gson().toJson(behaviors), new TextHttpResponseHandler() {
                     @Override
@@ -152,9 +152,8 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
                             ResultBean<String> bean = new Gson().fromJson(responseString, type);
                             if (bean.isSuccess()) {
                                 //清楚数据，避免清空没有上传的数据
-                                DBManager.from(getApplicationContext())
-                                        .where("id<=?", String.valueOf(behaviors.get(behaviors.size() - 1).getId()))
-                                        .delete(Behavior.class);
+                                DBManager.getInstance()
+                                        .delete(Behavior.class,"id<=?", String.valueOf(behaviors.get(behaviors.size() - 1).getId()));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

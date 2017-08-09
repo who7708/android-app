@@ -1,95 +1,83 @@
 package net.oschina.app.improve.detail.db;
 
 import android.content.Context;
+import android.os.Environment;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
+import net.oschina.common.utils.StreamUtil;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * 数据库帮助类
- * Created by haibin on 2017/5/24.
+ * 墨记数据库
+ * Created by huanghaibin on 2017/8/1.
  */
-@SuppressWarnings("all")
-public final class DBManager {
-    private static DBManager mManager;
-    private DBHelper mHelper;
-    private String sql;
+@SuppressWarnings("unused")
+public class DBManager extends DBHelper {
+    private DBManager(Context context) {
+        super(context);
+    }
 
-    public static DBManager from(Context context) {
-        if (mManager == null) {
-            mManager = new DBManager();
-            mManager.mHelper = new DBHelper(context);
+    private static DBManager mInstance;
+    private static DBManager mCountryManager;
+
+    public static void init(Context context) {
+        if (mInstance == null) {
+            mInstance = new DBManager(context);
         }
-        return mManager;
+        if (mCountryManager == null) {
+            mCountryManager = getAssetSQLite(context);
+        }
     }
 
-    public void create(Class<?> cls) {
-        mManager.mHelper.create(cls);
+    private DBManager(Context context, String name) {
+        super(context, name);
     }
 
-    public boolean alter(String tableName, String columnName, String type) {
-        return mManager.mHelper.alter(tableName, columnName, type);
+    public static DBManager getInstance() {
+        return mInstance;
     }
 
-    public boolean alter(Class<?> cls) {
-        return mManager.mHelper.alter(cls);
+    public static DBManager getCountryManager() {
+        return mInstance;
     }
 
     /**
-     * 选择表结构
+     * 打开assets的数据库
      *
-     * @param object object Annotation with table
-     * @return DBManager
+     * @param context  context
+     * @return SQLiteDatabase
      */
-    public DBHelper select(Object object) {
-        Class<?> cls = object.getClass();
-        Annotation[] annotations = cls.getDeclaredAnnotations();
-        if (annotations == null || annotations.length == 0)
-            return null;
-        return mManager.mHelper;
+    private static DBManager getAssetSQLite(Context context) {
+        try {
+            String path = Environment.getDataDirectory().getAbsolutePath() + "/data/" + context.getPackageName() + "/databases/country.db";
+            if (!new File(path).exists()) {
+                InputStream is = context.getAssets().open("country.db");
+                inputStreamToFile(is, path);
+            }
+            return new DBManager(context, "country.db");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
-    public DBManager where(String where) {
-        mHelper.where(where);
-        return mManager;
-    }
-
-    public DBManager where(String where, String... args) {
-        mHelper.where(where, args);
-        return mManager;
-    }
-
-    public boolean update(Object object) {
-        if (object == null)
-            return false;
-        return mManager.mHelper.update(object);
-    }
-
-    public long getCount(Class<?> cls) {
-        return mHelper.getCount(cls);
-    }
-
-    public boolean update(String table, String column, Object object) {
-        return mManager.mHelper.update(table, column, object);
-    }
-
-    public boolean insert(Object object) {
-        if (object == null)
-            return false;
-        return mManager.mHelper.insert(object);
-    }
-
-    public DBManager limit(int limit, int offset) {
-        mHelper.limit(limit, offset);
-        return mManager;
-    }
-
-    public <T> List<T> get(Class<T> cls) {
-        return mHelper.get(cls);
-    }
-
-    public boolean delete(Class<?> cls) {
-        return mHelper.delete(cls);
+    private static void inputStreamToFile(InputStream is, String newPath) {
+        FileOutputStream fs = null;
+        try {
+            int read;
+            fs = new FileOutputStream(newPath);
+            byte[] buffer = new byte[1444];
+            while ((read = is.read(buffer)) != -1) {
+                fs.write(buffer, 0, read);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            StreamUtil.close(fs, is);
+        }
     }
 }

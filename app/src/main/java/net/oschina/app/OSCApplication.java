@@ -36,7 +36,7 @@ public class OSCApplication extends AppContext {
         ApiHttpClient.init(this);
         //初始化百度地图
         SDKInitializer.initialize(this);
-        DBManager.from(this);
+        DBManager.init(this);
     }
 
     /**

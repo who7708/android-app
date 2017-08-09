@@ -102,7 +102,7 @@ public abstract class DetailActivity extends BackActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
-        DBManager.from(getApplicationContext())
+        DBManager.getInstance()
                 .create(Behavior.class);
         CommentShareView.clearShareImage();
         if (!TDevice.hasWebView(this)) {
@@ -208,12 +208,9 @@ public abstract class DetailActivity extends BackActivity implements
             });
 
         if (AccountHelper.isLogin() &&
-                DBManager.from(getApplicationContext())
+                DBManager.getInstance()
                         .getCount(Behavior.class) >= 15) {
-            mPresenter.uploadBehaviors(DBManager.from(getApplicationContext())
-                    .limit(15, 0)
-                    .get(Behavior.class)
-            );
+            mPresenter.uploadBehaviors(DBManager.getInstance().get(Behavior.class, 15, 0));
         }
         if (mShareView != null) {
             mShareCommentDialog = DialogHelper.getRecyclerViewDialog(this, new BaseRecyclerAdapter.OnItemClickListener() {
@@ -262,7 +259,7 @@ public abstract class DetailActivity extends BackActivity implements
             mBehavior.setDevice(android.os.Build.MODEL);
             mBehavior.setVersion(TDevice.getVersionName());
             mBehavior.setOs(android.os.Build.VERSION.RELEASE);
-            isInsert = DBManager.from(getApplicationContext())
+            isInsert = DBManager.getInstance()
                     .insert(mBehavior);
         }
     }
@@ -352,9 +349,8 @@ public abstract class DetailActivity extends BackActivity implements
     public void showFavReverseSuccess(boolean isFav, int favCount, int strId) {
         if (mBehavior != null) {
             mBehavior.setIsCollect(isFav ? 1 : 0);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
         if (mDelegation != null) {
             mDelegation.setFavDrawable(isFav ? R.drawable.ic_faved : R.drawable.ic_fav);
@@ -366,9 +362,8 @@ public abstract class DetailActivity extends BackActivity implements
         //hideDialog();
         if (mBehavior != null) {
             mBehavior.setIsComment(1);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
         if (mDelegation == null)
             return;
@@ -403,9 +398,8 @@ public abstract class DetailActivity extends BackActivity implements
 
     @Override
     public void showUploadBehaviorsSuccess(int index, String time) {
-        DBManager.from(getApplicationContext())
-                .where("id<=?", String.valueOf(index))
-                .delete(Behavior.class);
+        DBManager.getInstance()
+                .delete(Behavior.class, "id<=?", String.valueOf(index));
         AppConfig.getAppConfig(this)
                 .set("upload_behavior_time", time);
     }
@@ -420,7 +414,7 @@ public abstract class DetailActivity extends BackActivity implements
             View action = item.getActionView();
             if (action != null) {
                 View tv = action.findViewById(R.id.tv_comment_count);
-                if (tv != null && mBean!= null) {
+                if (tv != null && mBean != null) {
                     mCommentCountView = (TextView) tv;
                     if (mBean.getStatistics() != null)
                         mCommentCountView.setText(mBean.getStatistics().getComment() + "");
@@ -432,9 +426,9 @@ public abstract class DetailActivity extends BackActivity implements
 
 
     @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})
-    protected boolean toShare(String title, String content, String url) {
+    protected void toShare(String title, String content, String url) {
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url) || mBean == null)
-            return false;
+            return;
 
         String imageUrl = null;
         List<SubBean.Image> images = mBean.getImages();
@@ -489,11 +483,9 @@ public abstract class DetailActivity extends BackActivity implements
         mAlertDialog.show();
         if (mBehavior != null) {
             mBehavior.setIsShare(1);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
-        return true;
     }
 
     @Override
@@ -552,9 +544,8 @@ public abstract class DetailActivity extends BackActivity implements
         mStay += (System.currentTimeMillis() - mStart) / 1000;
         if (mBehavior != null) {
             mBehavior.setStay(mStay);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 
@@ -603,9 +594,8 @@ public abstract class DetailActivity extends BackActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && mBehavior != null) {
             mBehavior.setIsComment(1);
-            DBManager.from(getApplicationContext())
-                    .where("operate_time=?", String.valueOf(mBehavior.getOperateTime()))
-                    .update(mBehavior);
+            DBManager.getInstance()
+                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 
