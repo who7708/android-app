@@ -25,7 +25,7 @@ class DBHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    public DBHelper(Context context, String name) {
+     DBHelper(Context context, String name) {
         super(context, name, null, DB_VERSION);
     }
 
@@ -72,7 +72,6 @@ class DBHelper extends SQLiteOpenHelper {
                         (isAutoincrement ? "autoincrement," : ","), getTypeString(field));
             } else if (field.isAnnotationPresent(Column.class)) {
                 Column column = field.getAnnotation(Column.class);
-                boolean isNotNull = column.isNotNull();
                 String name = column.column();
                 table = table + String.format(name + " %s,", getTypeString(field));
             }
@@ -88,7 +87,7 @@ class DBHelper extends SQLiteOpenHelper {
             return false;
         }
         Class<?> cls = obj.getClass();
-        SQLiteDatabase db = null;
+        SQLiteDatabase db ;
         ContentValues values = new ContentValues();
         Field[] fields = cls.getDeclaredFields();
         try {
@@ -111,13 +110,10 @@ class DBHelper extends SQLiteOpenHelper {
                     }
                 }
             }
-            //Log.e("update", "" + where);
             db.update(tableName, values, where, args);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
         return false;
     }
@@ -133,7 +129,7 @@ class DBHelper extends SQLiteOpenHelper {
             return false;
         }
         Class<?> cls = obj.getClass();
-        SQLiteDatabase db = null;
+        SQLiteDatabase db;
         ContentValues values = new ContentValues();
         Field[] fields = cls.getDeclaredFields();
         try {
@@ -142,7 +138,6 @@ class DBHelper extends SQLiteOpenHelper {
                 field.setAccessible(true);
                 if (field.isAnnotationPresent(Column.class)) {
                     Column column = field.getAnnotation(Column.class);
-                    boolean isNotNull = column.isNotNull();
                     String name = column.column();
                     Object object = field.get(obj);
                     values.put(name, object == null ? "" : object.toString());
@@ -159,8 +154,6 @@ class DBHelper extends SQLiteOpenHelper {
             return db.insert(tableName, "", values) != 0;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-
         }
         return false;
     }
@@ -171,9 +164,9 @@ class DBHelper extends SQLiteOpenHelper {
      *
      * @param lists     数据
      * @param tableName tableName
-     * @return
+     * @return  <T>
      */
-    public <T> boolean insertList(List<T> lists, String tableName) {
+    private  <T> boolean insertList(List<T> lists, String tableName) {
         if (!isExist(tableName)) {
             return false;
         }
@@ -188,7 +181,6 @@ class DBHelper extends SQLiteOpenHelper {
                     field.setAccessible(true);
                     if (field.isAnnotationPresent(Column.class)) {
                         Column column = field.getAnnotation(Column.class);
-                        boolean isNotNull = column.isNotNull();
                         String name = column.column();
                         Object object = field.get(obj);
                         values.put(name, object == null ? "" : object.toString());
@@ -209,7 +201,7 @@ class DBHelper extends SQLiteOpenHelper {
             e.printStackTrace();
             return false;
         } finally {
-            if (db != null && db.isOpen()) {
+            if (db.isOpen()) {
                 db.endTransaction();
             }
         }
@@ -220,25 +212,19 @@ class DBHelper extends SQLiteOpenHelper {
     public boolean insert(Object obj) {
         Class<?> cls = obj.getClass();
         String tableName = getTableName(cls);
-        if (!isExist(tableName)) {
-            return false;
-        }
-        return insert(obj, tableName);
+        return isExist(tableName) && insert(obj, tableName);
     }
 
 
     public <T> boolean insertTransaction(List<T> list, String tableName) {
-        if (!isExist(tableName)) {
-            return false;
-        }
-        return insertList(list, tableName);
+        return isExist(tableName) && insertList(list, tableName);
     }
 
     public long getCount(Class<?> cls) {
         String tableName = getTableName(cls);
         if (!isExist(tableName))
             return -1;
-        SQLiteDatabase db = null;
+        SQLiteDatabase db;
         Cursor cursor = null;
         try {
             db = getReadableDatabase();
@@ -260,8 +246,9 @@ class DBHelper extends SQLiteOpenHelper {
     /**
      * 判断数据是否存在
      *
-     * @return
+     * @return isDataExist
      */
+    @SuppressWarnings("LoopStatementThatDoesntLoop")
     public boolean isDataExist(String tableName, String where) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = null;
@@ -294,9 +281,9 @@ class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-//            if(db!= null && db.isOpen()){
-//                db.close();
-//            }
+            if(db!= null && db.isOpen()){
+                db.close();
+            }
         }
         return false;
     }
@@ -313,18 +300,15 @@ class DBHelper extends SQLiteOpenHelper {
         if (!isExist(table)) {
             return false;
         }
-        SQLiteDatabase db = null;
+        SQLiteDatabase db;
         try {
             db = getReadableDatabase();
             String sql = String.format("UPDATE %s SET %s='%s' %s", table, column, value.toString(), where);
-            //Log.e("sql", sql);
             db.execSQL(sql);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally {
-
         }
     }
 
@@ -336,9 +320,9 @@ class DBHelper extends SQLiteOpenHelper {
      * @param type       type
      * @return true or false
      */
-    public boolean alter(String tableName, String columnName, String type) {
+    private boolean alter(String tableName, String columnName, String type) {
         if (!isExist(tableName)) return false;
-        SQLiteDatabase db = null;
+        SQLiteDatabase db ;
         try {
             db = getWritableDatabase();
             db.execSQL(String.format("ALTER TABLE %s ADD %s %s", tableName, columnName, type));
@@ -346,8 +330,6 @@ class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally {
-
         }
     }
 
@@ -359,7 +341,6 @@ class DBHelper extends SQLiteOpenHelper {
      */
     public boolean alter(Class<?> cls) {
         String tableName = getTableName(cls);
-        String primary = "";
         if (!isExist(tableName))
             return false;
         Field[] fields = cls.getDeclaredFields();
@@ -367,7 +348,6 @@ class DBHelper extends SQLiteOpenHelper {
             field.setAccessible(true);
             if (field.isAnnotationPresent(Column.class)) {
                 Column column = field.getAnnotation(Column.class);
-                boolean isNotNull = column.isNotNull();
                 String name = column.column();
                 if (!isColumnExist(tableName, name)) {
                     alter(tableName, name, getTypeString(field));
@@ -380,7 +360,7 @@ class DBHelper extends SQLiteOpenHelper {
     private boolean isColumnExist(String tableName, String columnName) {
         boolean result = false;
         Cursor cursor = null;
-        SQLiteDatabase db = null;
+        SQLiteDatabase db ;
         try {
             db = getReadableDatabase();
             cursor = db.rawQuery("SELECT * FROM " + tableName + " LIMIT 0"
@@ -462,7 +442,7 @@ class DBHelper extends SQLiteOpenHelper {
         if (!isExist(tableName))
             return null;
         List<T> list = new ArrayList<>();
-        SQLiteDatabase db = null;
+        SQLiteDatabase db ;
         Cursor cursor = null;
         try {
             db = getReadableDatabase();
@@ -477,7 +457,6 @@ class DBHelper extends SQLiteOpenHelper {
             sb.append(TextUtils.isEmpty(orderBy) ? "" : orderBy);
 
             sql = sb.toString();
-            //Log.e("sql", sql);
             cursor = db.rawQuery(sql, null);
             Field[] fields = cls.getDeclaredFields();
             while (cursor.moveToNext()) {
@@ -535,8 +514,6 @@ class DBHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-        } finally {
-
         }
     }
 
