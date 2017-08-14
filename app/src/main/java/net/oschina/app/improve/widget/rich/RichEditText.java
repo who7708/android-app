@@ -16,6 +16,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -52,6 +53,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
      * 段落列表
      */
     List<TextSection> mSections;
+
     public RichEditText(Context context, OnSectionChangeListener listener) {
         super(context);
         mListener = listener;
@@ -61,15 +63,17 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         setOnKeyListener(this);
         mSections.add(getDefaultSection(context));
     }
+
     private TextSection getDefaultSection(Context context) {
         TextSection defaultSection = new TextSection();
-        defaultSection.setIsBold(0);
+        defaultSection.setBold(false);
         defaultSection.setTextSize(16);
         defaultSection.setText("");
         defaultSection.setAlignment(TextSection.LEFT);
         defaultSection.setColorHex("111111");
         return defaultSection;
     }
+
     /**
      * 光标改变
      *
@@ -87,9 +91,11 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             mListener.onSectionChange(mSections.get(index));
         }
     }
+
     @Override
     public void onClick(View v) {
     }
+
     /**
      * 文本变化之前发生
      *
@@ -105,6 +111,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             adjustSection(s.toString(), start, count);
         }
     }
+
     /**
      * 文本变化后
      *
@@ -116,6 +123,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         isDelete = false;
         isPaste = false;
     }
+
     /**
      * 文本正在输入
      *
@@ -140,12 +148,16 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         if (preIndex >= 0 && preIndex < mSections.size()) {
             TextSection section = mSections.get(preIndex);
             setColorSpan(Color.parseColor(("#" + section.getColorHex())), preIndex);
-            setFontStyle(section.getIsBold() == 1, preIndex);
+            setBold(section.isBold(), preIndex);
+            setItalic(section.isItalic());
+            setMidLine(section.isMidLine());
             setAlignStyle(section.getAlignment(), preIndex);
         }
         isEnter = false;
     }
+
     private boolean isPaste;
+
     @Override
     public boolean onTextContextMenuItem(int id) {
         if (id == android.R.id.paste) {//拦截复制事件，清除复制文本的style
@@ -221,6 +233,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return super.onTextContextMenuItem(id);
     }
+
     /**
      * 情况就是开启多选模式
      * 调整段落
@@ -241,18 +254,23 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         TextSection section = mSections.get(startSection);
         setSectionStyle(section);
     }
+
     private void setSectionStyle(TextSection section) {
         setColorSpan(Color.parseColor(("#" + section.getColorHex())));
-        setFontStyle(section.getIsBold() == 1);
+        setBold(section.isBold());
+        setItalic(section.isItalic());
         setAlignStyle(section.getAlignment());
         setTextSizeSpan(section.getTextSize());
+        setMidLine(section.isMidLine());
     }
+
     void setSectionStyle(TextSection section, int index) {
         setColorSpan(Color.parseColor(("#" + section.getColorHex())), index);
-        setFontStyle(section.getIsBold() == 1, index);
+        setBold(section.isBold(), index);
         setAlignStyle(section.getAlignment(), index);
         setTextSizeSpan(section.getTextSize(), index);
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -279,6 +297,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }, 500);
         return super.onTouchEvent(event);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -306,6 +325,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -313,6 +333,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             mParent = (RichLinearLayout) getParent();
         }
     }
+
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         switch (keyCode) {
@@ -323,9 +344,11 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return false;
     }
+
     private String getTextString() {
         return getText().toString();
     }
+
     /**
      * 获取所处的段落
      *
@@ -346,6 +369,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return findIndex(text.substring(0, index));
     }
+
     /**
      * @return 返回光标所在段落的位置
      */
@@ -367,6 +391,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             return findIndex(text.substring(0, start));
         }
     }
+
     int getSelectionIndexFromStart(int start) {
         String text = getTextString();
         if (TextUtils.isEmpty(text))
@@ -385,7 +410,9 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             return findIndex(text.substring(0, start));
         }
     }
+
     private static Pattern mPattern = Pattern.compile("\n");
+
     /**
      * 段落下标
      *
@@ -400,6 +427,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return count;
     }
+
     /**
      * 获取段落文本
      *
@@ -415,9 +443,11 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return selections[index];
     }
+
     private boolean isDeleteSection() {
         return getSelectionStart() == getSectionStart();
     }
+
     /**
      * 获取光标所在行数，对应段落
      *
@@ -431,6 +461,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return -1;
     }
+
     /**
      * 获取段落的文本起始位置
      *
@@ -450,6 +481,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return start;
     }
+
     /**
      * 获取段落的文本起始位置
      *
@@ -469,6 +501,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return start;
     }
+
     /**
      * 获取段落的文本结束位置
      *
@@ -488,6 +521,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return end;
     }
+
     /**
      * 获取段落的文本结束位置
      *
@@ -509,10 +543,11 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return end;
     }
-    void setFontStyle(boolean isBold) {
+
+    void setBold(boolean isBold) {
         int index = getSelectionIndex();
         if (index >= 0 && index < mSections.size()) {
-            mSections.get(index).setIsBold(isBold ? 1 : 0);
+            mSections.get(index).setBold(isBold);
         }
         Editable edit = getEditableText();
         int star = getSectionStart();
@@ -531,9 +566,56 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             }
         }
     }
-    void setFontStyle(boolean isBold, int index) {
+
+
+    void setItalic(boolean isItalic) {
+        int index = getSelectionIndex();
         if (index >= 0 && index < mSections.size()) {
-            mSections.get(index).setIsBold(isBold ? 1 : 0);
+            mSections.get(index).setItalic(isItalic);
+        }
+        Editable edit = getEditableText();
+        int star = getSectionStart();
+        int end = getSectionEnd();
+        if (isItalic) {
+            edit.setSpan(new StyleSpan(Typeface.ITALIC),
+                    star,
+                    end,
+                    Typeface.ITALIC);
+        } else {
+            StyleSpan[] styleSpans = edit.getSpans(star,
+                    end, StyleSpan.class);
+            for (CharacterStyle span : styleSpans) {
+                if (span instanceof StyleSpan && ((StyleSpan) span).getStyle() == Typeface.ITALIC)
+                    edit.removeSpan(span);
+            }
+        }
+    }
+
+    void setItalic(boolean isItalic, int index) {
+        if (index >= 0 && index < mSections.size()) {
+            mSections.get(index).setItalic(isItalic);
+        }
+        Editable edit = getEditableText();
+        int star = getSectionStart();
+        int end = getSectionEnd();
+        if (isItalic) {
+            edit.setSpan(new StyleSpan(Typeface.ITALIC),
+                    star,
+                    end,
+                    Typeface.ITALIC);
+        } else {
+            StyleSpan[] styleSpans = edit.getSpans(star,
+                    end, StyleSpan.class);
+            for (CharacterStyle span : styleSpans) {
+                if (span instanceof StyleSpan && ((StyleSpan) span).getStyle() == Typeface.ITALIC)
+                    edit.removeSpan(span);
+            }
+        }
+    }
+
+    void setBold(boolean isBold, int index) {
+        if (index >= 0 && index < mSections.size()) {
+            mSections.get(index).setBold(isBold);
         }
         Editable edit = getEditableText();
         int star = getSectionStart(index);
@@ -554,6 +636,61 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             }
         }
     }
+
+    /**
+     * 中横线，即删除线
+     *
+     * @param isMidLine isMidLine
+     */
+    void setMidLine(boolean isMidLine) {
+        int index = getSelectionIndex();
+        if (index >= 0 && index < mSections.size()) {
+            mSections.get(index).setMidLine(isMidLine);
+        }
+        Editable edit = getEditableText();
+        int star = getSectionStart();
+        int end = getSectionEnd();
+        if (isMidLine) {
+            edit.setSpan(new StrikethroughSpan(),
+                    star,
+                    end,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            StrikethroughSpan[] styleSpans = edit.getSpans(star,
+                    end, StrikethroughSpan.class);
+            for (StrikethroughSpan span : styleSpans) {
+                edit.removeSpan(span);
+            }
+        }
+    }
+
+    /**
+     * 中横线，即删除线
+     *
+     * @param isMidLine isMidLine
+     */
+    void setMidLine(boolean isMidLine,int index) {
+        if (index >= 0 && index < mSections.size()) {
+            mSections.get(index).setMidLine(isMidLine);
+        }
+        Editable edit = getEditableText();
+        int star = getSectionStart();
+        int end = getSectionEnd();
+        if (isMidLine) {
+            edit.setSpan(new StrikethroughSpan(),
+                    star,
+                    end,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            StrikethroughSpan[] styleSpans = edit.getSpans(star,
+                    end, StrikethroughSpan.class);
+            for (StrikethroughSpan span : styleSpans) {
+                edit.removeSpan(span);
+            }
+        }
+    }
+
+
     void setAlignStyle(int align) {
         int index = getSelectionIndex();
         if (index >= 0 && index < mSections.size()) {
@@ -568,6 +705,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         edit.setSpan(getAlignmentSpan(align), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     void setAlignStyle(int align, int index) {
         if (index >= 0 && index < mSections.size()) {
             mSections.get(index).setAlignment(align);
@@ -579,6 +717,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             return;
         edit.setSpan(getAlignmentSpan(align), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     void setColorSpan(String color) {
         int index = getSelectionIndex();
         if (index >= 0 && index < mSections.size()) {
@@ -586,6 +725,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         setColorSpan(Color.parseColor("#" + color));
     }
+
     void setColorSpan(int color) {
         Editable edit = getEditableText();
         int star = getSectionStart();
@@ -596,6 +736,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         edit.setSpan(new ForegroundColorSpan(color), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     void setColorSpan(int color, int index) {
         Editable edit = getEditableText();
         int star = getSectionStart(index);
@@ -608,6 +749,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         edit.setSpan(new ForegroundColorSpan(color), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     private void setTextSizeSpan(int index, boolean isIncrease) {
         Editable edit = getEditableText();
         int textSize = 16;
@@ -620,7 +762,9 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         setTextSizeSpan(index, textSize);
     }
-    void setTextSizeSpan(boolean isIncrease) {
+
+
+    void setTextSizeSpanIncrease(boolean isIncrease) {
         int index = getSelectionIndex();
         Editable edit = getEditableText();
         int textSize = 16;
@@ -638,6 +782,8 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         setTextSizeSpan(textSize);
     }
+
+
     private void setTextSizeSpan(int textSize, int index) {
         Editable edit = getEditableText();
         int star = getSectionStart(index);
@@ -650,6 +796,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         edit.setSpan(new AbsoluteSizeSpan(UI.dipToPx(getContext(), textSize)), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
     private void setTextSizeSpan(int textSize) {
         Editable edit = getEditableText();
         int star = getSectionStart();
@@ -662,6 +809,29 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         edit.setSpan(new AbsoluteSizeSpan(UI.dipToPx(getContext(), textSize)), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
+
+
+    void setTextSize(int textSize) {
+        Editable edit = getEditableText();
+        int index = getSelectionIndex();
+        int star = getSectionStart();
+        int end = getSectionEnd();
+        if (star >= end)
+            return;
+        if (index >= 0 && index < mSections.size()) {
+            TextSection section = mSections.get(index);
+            section.setTextSize(textSize);
+            if (mListener != null) {
+                mListener.onSectionChange(section);
+            }
+        }
+        AbsoluteSizeSpan[] styleSpans = edit.getSpans(star, end, AbsoluteSizeSpan.class);
+        for (AbsoluteSizeSpan span : styleSpans) {
+            edit.removeSpan(span);
+        }
+        edit.setSpan(new AbsoluteSizeSpan(UI.dipToPx(getContext(), textSize)), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+
     /**
      * 合并RichEditText
      *
@@ -690,6 +860,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             mergeEditText.setSectionStyle(section, i);
         }
     }
+
     /**
      * 合并RichEditText
      *
@@ -708,6 +879,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             mergeEditText.setSectionStyle(section, i);
         }
     }
+
     /**
      * 继承风格，适用与RichEditText 起点、中间、结尾 插入图片的情况
      * 起点：oldEditText newEditText继承oldEditText全部段落，oldEditText被移除
@@ -758,6 +930,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             newEditText.setSectionStyle(section, i);
         }
     }
+
     /**
      * 生成段落文本输出
      * 段落如果是空白的，也就是只有\n 连空格都没有, 则在上一个段落 + \n
@@ -821,6 +994,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
         return list;
     }
+
     /**
      * 切换段落
      */
@@ -831,10 +1005,12 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     private static AlignmentSpan getAlignmentSpan(int align) {
         return new AlignmentSpan.Standard(getAlignment(align));
     }
+
     private static AlignmentSpan getAlignmentSpan(TextSection section) {
         return new AlignmentSpan.Standard(getAlignment(section.getAlignment()));
     }
-    private   static Layout.Alignment getAlignment(int alignment) {
+
+    private static Layout.Alignment getAlignment(int alignment) {
         if (alignment == TextSection.CENTER) {
             return Layout.Alignment.ALIGN_CENTER;
         } else if (alignment == TextSection.RIGHT)

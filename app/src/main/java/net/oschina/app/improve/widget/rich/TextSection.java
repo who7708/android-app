@@ -16,7 +16,11 @@ public class TextSection extends Section implements Cloneable {
 
     private int textSize = 14;
 
-    private int isBold;
+    private boolean isBold;
+
+    private boolean isMidLine;
+
+    private boolean isItalic;
 
     private int alignment;
 
@@ -42,13 +46,6 @@ public class TextSection extends Section implements Cloneable {
         this.textSize = textSize;
     }
 
-    public int getIsBold() {
-        return isBold;
-    }
-
-    public void setIsBold(int isBold) {
-        this.isBold = isBold;
-    }
 
     public int getAlignment() {
         return alignment;
@@ -64,6 +61,30 @@ public class TextSection extends Section implements Cloneable {
 
     public void setColorHex(String colorHex) {
         this.colorHex = colorHex;
+    }
+
+    public boolean isBold() {
+        return isBold;
+    }
+
+    public void setBold(boolean bold) {
+        isBold = bold;
+    }
+
+    public boolean isMidLine() {
+        return isMidLine;
+    }
+
+    public void setMidLine(boolean midLine) {
+        isMidLine = midLine;
+    }
+
+    public boolean isItalic() {
+        return isItalic;
+    }
+
+    public void setItalic(boolean italic) {
+        isItalic = italic;
     }
 
     @Override
