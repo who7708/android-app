@@ -41,6 +41,7 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SolarSystemView;
+import net.oschina.app.improve.write.WriteActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.ui.MyQRCodeDialog;
 import net.oschina.app.util.ImageUtils;
@@ -412,7 +413,8 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
     @OnClick({
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
             R.id.user_view_solar_system, R.id.ly_tweet, R.id.ly_favorite,
-            R.id.ly_following, R.id.ly_follower, R.id.rl_message, R.id.rl_blog,
+            R.id.ly_following, R.id.ly_follower, R.id.rl_message,
+            R.id.rl_blog, R.id.rl_data,
             R.id.rl_info_question, R.id.rl_info_activities, R.id.rl_team
     })
     @Override
@@ -473,6 +475,9 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     break;
                 case R.id.rl_team:
                     UIHelper.showTeamMainActivity(getActivity());
+                    break;
+                case R.id.rl_data:
+                    WriteActivity.show(mContext);
                     break;
                 default:
                     break;

@@ -47,6 +47,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     static final int INDEX_MID = 1;
     static final int INDEX_END = 2;
     OnSectionChangeListener mListener;
+    private boolean isDelaying;
     /**
      * 段落列表
      */
@@ -196,6 +197,28 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
                 return true;
             }
         }
+        if (id == android.R.id.cut) {//剪切
+            isPaste = true;
+            int selectionStart = getSelectionStart();
+            int selectionEnd = getSelectionEnd();
+            final int indexStart = getSelectionIndexFromStart(selectionStart);//光标起始段落
+            if (indexStart >= 0 && indexStart < mSections.size()) {
+                final TextSection section = mSections.get(indexStart);
+                if (isMultiSelection || selectionStart < selectionEnd) {//如果是多选，注意头和尾之间的style段落都会被清除
+                    int indexEnd = getSelectionIndexFromStart(selectionEnd);//光标结束位置
+                    if (indexStart < indexEnd) {
+                        List<TextSection> sections = new ArrayList<>();
+                        for (int i = indexStart + 1; i <= indexEnd; i++) {
+                            sections.add(mSections.get(i));
+                        }
+                        mSections.removeAll(sections);
+                    }
+                    getText().delete(selectionStart, selectionEnd);
+                    setSectionStyle(section, indexStart);
+                    return true;
+                }
+            }
+        }
         return super.onTextContextMenuItem(id);
     }
     /**
@@ -241,13 +264,19 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         if (mParent.mParent.mParent.mContentPanel.getVisibility() == VISIBLE) {
             mParent.mParent.mParent.setAdjustNothing();
         }
+        mParent.mParent.mParent.isKeyboardOpen = true;
+        if (isDelaying) {
+            return super.onTouchEvent(event);
+        }
+        isDelaying = true;
         postDelayed(new Runnable() {
             @Override
             public void run() {
+                isDelaying = false;
                 mParent.mParent.mParent.mContentPanel.setVisibility(GONE);
                 mParent.mParent.mParent.setAdjustResize();
             }
-        }, 200);
+        }, 500);
         return super.onTouchEvent(event);
     }
     @Override

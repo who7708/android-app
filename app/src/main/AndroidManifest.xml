@@ -178,6 +178,7 @@
         <activity
             android:name=".improve.write.WriteActivity"
             android:label="发布博客"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
             android:screenOrientation="portrait" />
 
         <activity
