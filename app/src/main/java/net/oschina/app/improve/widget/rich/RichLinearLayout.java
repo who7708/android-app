@@ -328,18 +328,34 @@ public class RichLinearLayout extends LinearLayout {
         mFocusView.setFocusableInTouchMode(true);
         mFocusView.requestFocus();
     }
-    void setFontStyle(boolean isBold) {
-        mFocusView.setFontStyle(isBold);
+    void setBold(boolean isBold) {
+        mFocusView.setBold(isBold);
     }
+
+
+    void setItalic(boolean isItalic){
+        mFocusView.setItalic(isItalic);
+    }
+
+    void setMidLine(boolean isMidLine){
+        mFocusView.setMidLine(isMidLine);
+    }
+
     void setAlignStyle(int align) {
         mFocusView.setAlignStyle(align);
     }
     void setColorSpan(String color) {
         mFocusView.setColorSpan(color);
     }
+
     void setTextSizeSpan(boolean isIncrease) {
-        mFocusView.setTextSizeSpan(isIncrease);
+        mFocusView.setTextSizeSpanIncrease(isIncrease);
     }
+
+    void setTextSize(int textSize){
+        mFocusView.setTextSize(textSize);
+    }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -523,7 +539,7 @@ public class RichLinearLayout extends LinearLayout {
                 int nextIndex = i + 1;
                 if (nextIndex < count && getChildAt(nextIndex) instanceof ImagePanel) {//下一个也是图片
                     TextSection defaultSection = new TextSection();
-                    defaultSection.setIsBold(0);
+                    defaultSection.setBold(false);
                     defaultSection.setTextSize(16);
                     defaultSection.setText("\n");
                     defaultSection.setAlignment(TextSection.LEFT);

@@ -27,7 +27,7 @@ public class RichEditLayout extends LinearLayout {
     private RichBar mRichBar;
     View mContentPanel;//底部内容布局
     boolean isKeyboardOpen = true;
-    private static int KEYBOARD_HEIGHT = 0;
+    public static int KEYBOARD_HEIGHT = 0;
 
     public RichEditLayout(Context context) {
         this(context, null);
@@ -90,8 +90,16 @@ public class RichEditLayout extends LinearLayout {
         this.mContentPanel = view;
     }
 
-    public void setFontStyle(boolean isBold) {
-        mScrollView.mRichLinearLayout.setFontStyle(isBold);
+    public void setBold(boolean isBold) {
+        mScrollView.mRichLinearLayout.setBold(isBold);
+    }
+
+    public void setItalic(boolean isItalic){
+        mScrollView.mRichLinearLayout.setItalic(isItalic);
+    }
+
+    public void setMidLine(boolean isMidLine){
+        mScrollView.mRichLinearLayout.setMidLine(isMidLine);
     }
 
     public void setAlignStyle(int align) {
@@ -108,6 +116,10 @@ public class RichEditLayout extends LinearLayout {
 
     public void setTextSizeSpan(boolean isIncrease) {
         mScrollView.mRichLinearLayout.setTextSizeSpan(isIncrease);
+    }
+
+    public void setTextSize(int size){
+        mScrollView.mRichLinearLayout.setTextSize(size);
     }
 
     public boolean isKeyboardOpen() {
@@ -129,7 +141,7 @@ public class RichEditLayout extends LinearLayout {
 
     public void openKeyboard() {
         isKeyboardOpen = true;
-        DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), 0xff00c9b7);
+        DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), 0xff24cf5f);
         mScrollView.mRichLinearLayout.mFocusView.setFocusable(true);
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)
@@ -139,7 +151,7 @@ public class RichEditLayout extends LinearLayout {
 
     public void closeKeyboard() {
         isKeyboardOpen = false;
-        DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), 0xff353535);
+        DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), 0xff111111);
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)
             imm.hideSoftInputFromWindow(mScrollView.mRichLinearLayout.mFocusView.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
