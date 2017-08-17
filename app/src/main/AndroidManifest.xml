@@ -372,6 +372,20 @@
             android:screenOrientation="portrait"
             android:theme="@style/Base.App.Theme" />
         <activity
+            android:name=".improve.user.data.UserDataActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="我的资料"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.App.Theme" />
+        <activity
+            android:name=".improve.user.data.ModifyDataActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="修改资料"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.App.Theme" />
+        <activity
             android:name=".improve.tweet.activities.TopicTweetActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="话题动弹"
