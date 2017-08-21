@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded,HardcodedText"
-    android:background="?attr/layout_item_bg">
+    android:background="?attr/layout_item_bg"
+    tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded,HardcodedText">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -52,6 +52,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_join_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -78,14 +79,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/ic_material"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:padding="@dimen/space_16"
-             >
+                android:padding="@dimen/space_16">
 
                 <TextView
                     android:id="@id/text"
@@ -105,6 +106,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_platform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -131,6 +133,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_skill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -158,6 +161,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_sign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
