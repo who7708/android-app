@@ -313,7 +313,6 @@
                     android:background="@drawable/ic_material"
                     android:contentDescription="@null"
                     android:padding="8dp"
-                    android:visibility="gone"
                     android:scaleType="centerInside"
                     android:src="@mipmap/ic_login_3party_csdn" />
             </LinearLayout>

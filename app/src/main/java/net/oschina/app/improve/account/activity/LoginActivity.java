@@ -677,11 +677,18 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if (requestCode == 5 && resultCode == RESULT_OK && data != null) {
+            csdnLogin(data.getStringExtra("json"));
+            return;
+        }
         tencentOnActivityResult(data);
         weiBoOnActivityResult(requestCode, resultCode, data);
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void csdnLogin(String json) {
+        OSChinaApi.openLogin(OSChinaApi.LOGIN_CSDN, json, mHandler);
     }
 
     /**
