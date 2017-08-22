@@ -29,6 +29,7 @@ import static net.oschina.app.api.ApiHttpClient.post;
 /**
  * OSChina Api v1 and v2
  */
+@SuppressWarnings("all")
 public class OSChinaApi {
 
     public static final int CATALOG_ALL = 0;
@@ -1715,18 +1716,19 @@ public class OSChinaApi {
 
     /**
      * 支付打赏接口信息拉取
-     * @param authorId  被打赏作者
-     * @param objId 文章id
-     * @param money 价格，支付宝单位元、微信单位分
+     *
+     * @param authorId 被打赏作者
+     * @param objId    文章id
+     * @param money    价格，支付宝单位元、微信单位分
      * @param payType  支付类型 1 支付宝  2、微信支付  返回结果不一样
-     * @param handler handler
+     * @param handler  handler
      */
-    public static void getPayDonate(long authorId,long objId,float money,int payType, TextHttpResponseHandler handler){
+    public static void getPayDonate(long authorId, long objId, float money, int payType, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("authorId",authorId);
-        params.put("objId",objId);
-        params.put("money",Float.valueOf(money).intValue());
-        params.put("payType",payType);
+        params.put("authorId", authorId);
+        params.put("objId", objId);
+        params.put("money", Float.valueOf(money).intValue());
+        params.put("payType", payType);
         Log.e("getPayDonate", "  --  " + authorId + "  --  " + objId + " --  " + money + "  -- " + payType);
         ApiHttpClient.get("action/apiv2/blog_donate_prepare", params, handler);
     }
@@ -1743,5 +1745,39 @@ public class OSChinaApi {
         if (!TextUtils.isEmpty(pageToken))
             params.put("pageToken", pageToken);
         ApiHttpClient.get("action/apiv2/event_list", params, handler);
+    }
+
+    /**
+     * 修改用户资料
+     * 忽略则不修改
+     * @param handler 回调
+     */
+    public static void updateUserInfo(String userName,
+                                      String signature,
+                                      String skill,
+                                      String field,
+                                      String province,
+                                      String city,
+                                      TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(userName)) {
+            params.put("nickname", userName);
+        }
+        if (!TextUtils.isEmpty(signature)) {
+            params.put("signature", signature);
+        }
+        if (!TextUtils.isEmpty(skill)) {
+            params.put("skill", skill);
+        }
+        if (!TextUtils.isEmpty(field)) {
+            params.put("field", field);
+        }
+        if (!TextUtils.isEmpty(province)) {
+            params.put("province", province);
+        }
+        if (!TextUtils.isEmpty(city)) {
+            params.put("city", city);
+        }
+        ApiHttpClient.get("action/apiv2/user_edit_infos", params, handler);
     }
 }

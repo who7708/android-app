@@ -41,7 +41,7 @@ public class DBManager extends DBHelper {
     }
 
     public static DBManager getCountryManager() {
-        return mInstance;
+        return mCountryManager;
     }
 
     /**

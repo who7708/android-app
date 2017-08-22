@@ -41,6 +41,7 @@ import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.UserRelation;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.tweet.fragments.TweetFragment;
+import net.oschina.app.improve.user.data.UserDataActivity;
 import net.oschina.app.improve.user.fragments.UserActiveFragment;
 import net.oschina.app.improve.user.fragments.UserBlogFragment;
 import net.oschina.app.improve.user.fragments.UserQuestionFragment;
@@ -459,9 +460,10 @@ public class OtherUserHomeActivity extends BaseActivity
                 UserFansActivity.show(this, user.getId());
                 break;
             case R.id.view_solar_system:
-                Bundle userBundle = new Bundle();
-                userBundle.putSerializable("user_info", user);
-                UIHelper.showSimpleBack(this, SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
+//                Bundle userBundle = new Bundle();
+//                userBundle.putSerializable("user_info", user);
+//                UIHelper.showSimpleBack(this, SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
+                UserDataActivity.show(this,user);
                 break;
             case R.id.iv_portrait:
                 String url;

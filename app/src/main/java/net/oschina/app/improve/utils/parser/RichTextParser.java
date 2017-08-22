@@ -279,8 +279,8 @@ public abstract class RichTextParser {
         while (true) {
             matcher = PatternGit.matcher(builder.toString());
             if (matcher.find()) {
-                final String group0 = matcher.group(1);
-                final String group1 = matcher.group(2);
+                final String group0 = matcher.group(2);
+                final String group1 = matcher.group(3);
                 builder.replace(matcher.start(), matcher.end(), group1);
                 ClickableSpan span = new ClickableSpan() {
                     @Override

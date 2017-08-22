@@ -3,7 +3,6 @@ package net.oschina.app.improve.user.fragments;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -20,7 +19,6 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
-import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.app.AppOperator;
@@ -36,6 +34,7 @@ import net.oschina.app.improve.user.activities.UserFollowsActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
 import net.oschina.app.improve.user.activities.UserTweetActivity;
 import net.oschina.app.improve.user.collection.UserCollectionActivity;
+import net.oschina.app.improve.user.data.UserDataActivity;
 import net.oschina.app.improve.user.event.UserEventActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
@@ -443,10 +442,11 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                 case R.id.user_view_solar_system:
                     //显示我的资料
                     if (mUserInfo != null) {
-                        Bundle userBundle = new Bundle();
-                        userBundle.putSerializable("user_info", mUserInfo);
-                        UIHelper.showSimpleBack(getActivity(),
-                                SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
+//                        Bundle userBundle = new Bundle();
+//                        userBundle.putSerializable("user_info", mUserInfo);
+//                        UIHelper.showSimpleBack(getActivity(),
+//                                SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
+                        UserDataActivity.show(mContext, mUserInfo);
                     }
                     break;
                 case R.id.ly_tweet:

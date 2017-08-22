@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
- @interface Column {
+public @interface Column {
     String column();
 
     boolean isNotNull() default false;
