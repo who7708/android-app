@@ -59,7 +59,7 @@ public class AppContext extends BaseApplication {
      * 清除app缓存
      */
     public void clearAppCache() {
-        DataCleanManager.cleanDatabases(this);
+        //DataCleanManager.cleanDatabases(this);
         // 清除数据缓存
         DataCleanManager.cleanInternalCache(this);
         // 2.2版本才有将应用缓存转移到sd卡的功能
