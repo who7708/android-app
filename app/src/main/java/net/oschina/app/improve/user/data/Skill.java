@@ -1,24 +1,29 @@
 package net.oschina.app.improve.user.data;
 
-import android.text.TextUtils;
-
 import net.oschina.app.improve.detail.db.Column;
 import net.oschina.app.improve.detail.db.PrimaryKey;
 import net.oschina.app.improve.detail.db.Table;
 
-import java.io.Serializable;
-
 /**
- * 省份
- * Created by huanghaibin on 2017/8/21.
+ * 开发平台、技能
+ * Created by huanghaibin on 2017/8/22.
  */
 
-@Table(tableName = "province")
-public class Province implements Serializable {
+@Table(tableName = "skill")
+public class Skill {
     @PrimaryKey(column = "id", autoincrement = false)
     private int id;
     @Column(column = "name")
     private String name;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public int getId() {
         return id;
@@ -38,9 +43,9 @@ public class Province implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && obj instanceof Province) {
-            String name = ((Province) obj).getName();
-            return !TextUtils.isEmpty(name) && name.equals(this.name);
+        if (obj != null && obj instanceof Skill) {
+            int id = ((Skill) obj).id;
+            return id == this.id;
         }
         return false;
     }

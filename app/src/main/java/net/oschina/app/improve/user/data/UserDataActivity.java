@@ -16,10 +16,9 @@ import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.StringUtils;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
- * 用户资料+修改页面
+ * 用户资料：自己 + 其他人
  * Created by huanghaibin on 2017/8/14.
  */
 
@@ -92,27 +91,10 @@ public class UserDataActivity extends BaseBackActivity implements View.OnClickLi
         mDesc.setText(getText(userInfo.getDesc()));
     }
 
-    @OnClick({R.id.ll_join_time, R.id.ll_area, R.id.ll_sign,
-            R.id.ll_platform, R.id.ll_skill})
+
     @Override
     public void onClick(View v) {
-        if (userInfo.getId() != AccountHelper.getUserId()) {
-            return;
-        }
-        switch (v.getId()) {
-            case R.id.ll_join_time:
-                // TODO: 2017/8/21
-                break;
-            case R.id.ll_area:
-                ModifyAreaActivity.show(this, userInfo);
-                break;
-            case R.id.ll_platform:
-                break;
-            case R.id.ll_skill:
-                break;
-            case R.id.ll_sign:
-                break;
-        }
+
     }
 
     private String getText(String text) {
