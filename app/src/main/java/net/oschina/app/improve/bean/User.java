@@ -89,11 +89,13 @@ public class User extends Author {
     public static class More implements Serializable {
         private String joinDate;
         private String city;
+        private String province;
         private String expertise;
         private String platform;
         private String company;
         private String position;
-
+        private int[] field;
+        private int skill[];
         public String getJoinDate() {
             return joinDate;
         }
@@ -140,6 +142,30 @@ public class User extends Author {
 
         public void setPosition(String position) {
             this.position = position;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public int[] getField() {
+            return field;
+        }
+
+        public void setField(int[] field) {
+            this.field = field;
+        }
+
+        public int[] getSkill() {
+            return skill;
+        }
+
+        public void setSkill(int[] skill) {
+            this.skill = skill;
         }
 
         @Override

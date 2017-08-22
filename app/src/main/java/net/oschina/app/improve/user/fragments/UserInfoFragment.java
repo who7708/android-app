@@ -34,13 +34,13 @@ import net.oschina.app.improve.user.activities.UserFollowsActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
 import net.oschina.app.improve.user.activities.UserTweetActivity;
 import net.oschina.app.improve.user.collection.UserCollectionActivity;
+import net.oschina.app.improve.user.data.MyDataActivity;
 import net.oschina.app.improve.user.data.UserDataActivity;
 import net.oschina.app.improve.user.event.UserEventActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SolarSystemView;
-import net.oschina.app.improve.write.WriteActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.ui.MyQRCodeDialog;
 import net.oschina.app.util.ImageUtils;
@@ -477,7 +477,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     UIHelper.showTeamMainActivity(getActivity());
                     break;
                 case R.id.rl_data:
-                    WriteActivity.show(mContext);
+                    MyDataActivity.show(mContext, mUserInfo);
                     break;
                 default:
                     break;

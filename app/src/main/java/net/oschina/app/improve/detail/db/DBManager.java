@@ -52,12 +52,12 @@ public class DBManager extends DBHelper {
      */
     private static DBManager getAssetSQLite(Context context) {
         try {
-            String path = Environment.getDataDirectory().getAbsolutePath() + "/data/" + context.getPackageName() + "/databases/country.db";
+            String path = Environment.getDataDirectory().getAbsolutePath() + "/data/" + context.getPackageName() + "/databases/data.db";
             if (!new File(path).exists()) {
-                InputStream is = context.getAssets().open("country.db");
+                InputStream is = context.getAssets().open("data.db");
                 inputStreamToFile(is, path);
             }
-            return new DBManager(context, "country.db");
+            return new DBManager(context, "data.db");
         } catch (IOException e) {
             e.printStackTrace();
         }

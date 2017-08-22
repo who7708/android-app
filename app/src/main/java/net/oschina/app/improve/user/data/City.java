@@ -1,5 +1,7 @@
 package net.oschina.app.improve.user.data;
 
+import android.text.TextUtils;
+
 import net.oschina.app.improve.detail.db.Column;
 import net.oschina.app.improve.detail.db.PrimaryKey;
 import net.oschina.app.improve.detail.db.Table;
@@ -43,5 +45,14 @@ public class City implements Serializable {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && obj instanceof City) {
+            String name = ((City) obj).getName();
+            return !TextUtils.isEmpty(name) && name.equals(this.name);
+        }
+        return false;
     }
 }

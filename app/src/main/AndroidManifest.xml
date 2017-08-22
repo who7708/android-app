@@ -378,9 +378,27 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".improve.user.data.MyDataActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="我的资料"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".improve.user.data.ModifyDataActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="修改资料"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".improve.user.data.ModifySkillActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="开发平台"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".improve.user.data.ModifyFieldActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="专属领域"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
         <activity
