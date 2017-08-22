@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -67,6 +68,7 @@ public class OSChinaApi {
     public static final String LOGIN_WEIBO = "weibo";
     public static final String LOGIN_QQ = "qq";
     public static final String LOGIN_WECHAT = "wechat";
+    public static final String LOGIN_CSDN = "csdn";
 
     public static final int REGISTER_INTENT = 1;
     public static final int RESET_PWD_INTENT = 2;
@@ -1779,5 +1781,10 @@ public class OSChinaApi {
             params.put("city", city);
         }
         ApiHttpClient.get("action/apiv2/user_edit_infos", params, handler);
+    }
+
+    public static void csdnLogin(String nickname,String pwd,TextHttpResponseHandler handler){
+        new AsyncHttpClient().get(
+                String.format("http://api.csdn.net/oauth2/access_token?client_id=1100506&client_secret=1583dcf438674318a84af97d40c44a93&grant_type=password&username=%s&password=%s",nickname,pwd),handler);
     }
 }
