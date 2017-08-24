@@ -65,6 +65,8 @@ public class ModifyDataActivity extends BaseBackActivity {
             mEditData.setText(mUser.getName());
         } else if (mType == TYPE_SIGNATURE) {
             mEditData.setMaxCount(100);
+            mEditData.setLines(5);
+            mEditData.setEllipsize(TextUtils.TruncateAt.END);
             mEditData.setText(mUser.getDesc());
         }
         mEditData.setSelection(mEditData.getText().toString().length());

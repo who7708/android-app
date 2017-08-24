@@ -152,6 +152,10 @@ public class PayDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (mMoney == 0 || mListener == null) return;
+        if(mMoney < 1){
+            SimplexToast.show(getContext(),"打赏金额最低1元");
+            return;
+        }
         if(mMoney> 10000){
             SimplexToast.show(getContext(),"打赏金额不能超过 10000 元");
             return;
