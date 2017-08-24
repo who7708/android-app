@@ -47,5 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/lay_32"
         android:layout_marginRight="@dimen/lay_32"
+        android:background="@drawable/ic_bg_btn_blue"
+        style="?android:attr/borderlessButtonStyle"
         android:text="@string/login" />
 </LinearLayout>
