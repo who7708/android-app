@@ -1752,6 +1752,7 @@ public class OSChinaApi {
     /**
      * 修改用户资料
      * 忽略则不修改
+     *
      * @param handler 回调
      */
     public static void updateUserInfo(String userName,
@@ -1783,8 +1784,20 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/user_edit_infos", params, handler);
     }
 
-    public static void csdnLogin(String nickname,String pwd,TextHttpResponseHandler handler){
+    public static void csdnLogin(String nickname, String pwd, TextHttpResponseHandler handler) {
         new AsyncHttpClient().get(
-                String.format("http://api.csdn.net/oauth2/access_token?client_id=1100506&client_secret=1583dcf438674318a84af97d40c44a93&grant_type=password&username=%s&password=%s",nickname,pwd),handler);
+                String.format("http://api.csdn.net/oauth2/access_token?client_id=1100506&client_secret=1583dcf438674318a84af97d40c44a93&grant_type=password&username=%s&password=%s", nickname, pwd), handler);
+    }
+
+    /**
+     * 删除博客
+     *
+     * @param id      博客ID
+     * @param handler 回调
+     */
+    public static void deleteBlog(long id, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("id", id);
+        ApiHttpClient.get("action/apiv2/delete_blog", params, handler);
     }
 }

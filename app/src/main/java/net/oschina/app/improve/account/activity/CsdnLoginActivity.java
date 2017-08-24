@@ -15,6 +15,7 @@ import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.widget.SimplexToast;
+import net.oschina.app.util.TDevice;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -69,6 +70,7 @@ public class CsdnLoginActivity extends BaseBackActivity implements View.OnClickL
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 try {
+                    TDevice.closeKeyboard(mEditPwd);
                     Type type = new TypeToken<Oauth>() {
                     }.getRawType();
                     Oauth oauth = new Gson().fromJson(responseString, type);
