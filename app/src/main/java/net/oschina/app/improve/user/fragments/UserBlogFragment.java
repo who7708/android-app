@@ -11,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.base.fragments.BaseRecyclerViewFragment;
 import net.oschina.app.improve.bean.SubBean;
@@ -57,25 +58,27 @@ public class UserBlogFragment extends BaseRecyclerViewFragment<SubBean> {
     }
 
     @Override
-    protected void initWidget(View root) {
-        super.initWidget(root);
-        mAdapter.setOnItemLongClickListener(new BaseRecyclerAdapter.OnItemLongClickListener() {
-            @Override
-            public void onLongClick(final int position, long itemId) {
-                final SubBean bean = mAdapter.getItem(position);
-                if (bean == null) return;
-                DialogHelper.getConfirmDialog(mContext,
-                        "温馨提示",
-                        "确定删除该博客？",
-                        "删除", "取消",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                deleteBlog(bean.getId(), position);
-                            }
-                        }).show();
-            }
-        });
+    public void initData() {
+        super.initData();
+        if(AccountHelper.isLogin() && AccountHelper.getUserId() == userId){
+            mAdapter.setOnItemLongClickListener(new BaseRecyclerAdapter.OnItemLongClickListener() {
+                @Override
+                public void onLongClick(final int position, long itemId) {
+                    final SubBean bean = mAdapter.getItem(position);
+                    if (bean == null) return;
+                    DialogHelper.getConfirmDialog(mContext,
+                            "温馨提示",
+                            "确定删除该博客？",
+                            "删除", "取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteBlog(bean.getId(), position);
+                                }
+                            }).show();
+                }
+            });
+        }
     }
 
     @Override

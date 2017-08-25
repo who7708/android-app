@@ -427,8 +427,7 @@
             android:name=".improve.account.activity.CsdnLoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="CSDN登陆"
-            android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".improve.account.activity.RegisterStepOneActivity"
