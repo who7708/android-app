@@ -72,7 +72,22 @@ public class MyDataActivity extends BaseBackActivity implements View.OnClickList
         }
         mImageAvatar.setup(mInfo);
         mImageAvatar.setVisibility(View.VISIBLE);
-        mImageAvatar.setOnClickListener(null);
+        mImageAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectImageActivity.show(MyDataActivity.this, new SelectOptions.Builder()
+                        .setSelectCount(1)
+                        .setHasCam(true)
+                        .setCrop(700, 700)
+                        .setCallback(new SelectOptions.Callback() {
+                            @Override
+                            public void doSelected(String[] images) {
+                                String path = images[0];
+                                uploadNewPhoto(new File(path));
+                            }
+                        }).build());
+            }
+        });
         mTextNickname.setText(mInfo.getName());
         mTextJoinTime.setText(getText(StringUtils.formatYearMonthDayNew(mInfo.getMore().getJoinDate())));
         mTextArea.setText(mInfo.getMore().getCity());

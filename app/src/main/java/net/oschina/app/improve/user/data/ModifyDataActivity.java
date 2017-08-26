@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -64,9 +65,8 @@ public class ModifyDataActivity extends BaseBackActivity {
             mEditData.setSingleLine();
             mEditData.setText(mUser.getName());
         } else if (mType == TYPE_SIGNATURE) {
-            mEditData.setMaxCount(100);
-            mEditData.setLines(5);
             mEditData.setEllipsize(TextUtils.TruncateAt.END);
+            mEditData.setMaxCount(100);
             mEditData.setText(mUser.getDesc());
         }
         mEditData.setSelection(mEditData.getText().toString().length());
