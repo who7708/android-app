@@ -158,6 +158,7 @@ public class MyDataActivity extends BaseBackActivity implements View.OnClickList
         }
     }
 
+
     private void uploadNewPhoto(File file) {
         // 获取头像缩略图
         if (file == null || !file.exists() || file.length() == 0) {
