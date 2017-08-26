@@ -122,6 +122,8 @@ public class ModifyDataActivity extends BaseBackActivity {
                                 intent.putExtra("user_info", bean.getResult());
                                 setResult(RESULT_OK, intent);
                                 finish();
+                            }else {
+                                SimplexToast.show(ModifyDataActivity.this,bean.getMessage());
                             }
 
                         } catch (Exception e) {
