@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -154,7 +155,7 @@ public final class AccountHelper {
 
         // Logout 广播
         Intent intent = new Intent(Constants.INTENT_ACTION_LOGOUT);
-        application.sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(application).sendBroadcast(intent);
 
     }
 }
