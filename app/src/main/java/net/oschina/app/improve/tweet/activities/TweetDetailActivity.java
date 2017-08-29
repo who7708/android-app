@@ -367,7 +367,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
                 if (tweet == null || tweet.getId() <= 0 || TextUtils.isEmpty(tweet.getContent()))
                     break;
 
-                String content = StringParser.getInstance().parse(this,tweet.getContent()).toString();
+                String content = StringParser.getInstance().parse(this, tweet.getContent()).toString();
                 if (content.length() > 30)
                     content = content.substring(0, 30);
 
@@ -478,6 +478,8 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     @Override
     public void toReply(TweetComment comment) {
+        if (comment.getAuthor() == null)
+            return;
         if (checkLogin()) return;
         if (replies.size() < 5) {
             for (TweetComment cmm : replies) {

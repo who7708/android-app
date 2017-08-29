@@ -203,8 +203,8 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
                     UIHelper.showLoginActivity(QuesAnswerDetailActivity.this);
                     return;
                 }
-
-
+                if (comment == null || comment.getAuthor() == null)
+                    return;
                 OSChinaApi.publishComment(sid, -1, comment.getId(), comment.getAuthor().getId(), 2, content, onSendCommentHandler);
             }
         });
@@ -331,6 +331,8 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
             }
         };
 
+        if (comment == null || comment.getAuthor() == null)
+            return;
         OSChinaApi.getCommentDetail(comment.getId(), comment.getAuthor().getId(), mType, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String respStr, Throwable throwable) {
