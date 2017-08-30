@@ -214,7 +214,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
             public void onStart() {
                 super.onStart();
                 Tweet tempTweet = tweet;
-                if (tempTweet != null)
+                if (tempTweet != null && tempTweet.getAuthor() != null)
                     ContactsCacheManager.addRecentCache(tempTweet.getAuthor());
                 if (mDelegation == null) return;
                 mDelegation.getBottomSheet().dismiss();
@@ -526,7 +526,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     @OnClick(R.id.iv_dispatch)
     void onClickTransmit() {
-        if (tweet == null || tweet.getId() <= 0) return;
+        if (tweet == null || tweet.getId() <= 0 && tweet.getAuthor() == null) return;
 
         String content = null;
         About.Share share;
@@ -571,7 +571,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
     }
 
     private void handleKeyDel() {
-        if (replies == null || replies.size() == 0) return;
+        if (replies.size() == 0) return;
         if (TextUtils.isEmpty(mDelegation.getBottomSheet().getCommentText())) {
             if (mInputDoubleEmpty) {
                 replies.remove(replies.size() - 1);
@@ -580,10 +580,19 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
                     mDelegation.setCommentHint(mDelegation.getBottomSheet().getEditText().getHint().toString());
                     return;
                 }
-                mDelegation.getBottomSheet().getEditText().setHint("回复: @" + replies.get(0).getAuthor().getName());
+                TweetComment comment = replies.get(0);
+                if (comment == null || comment.getAuthor() == null){
+                    mDelegation.getBottomSheet().getEditText().setHint("发表评论");
+                    mDelegation.setCommentHint(mDelegation.getBottomSheet().getEditText().getHint().toString());
+                    return;
+                }
+
+                mDelegation.getBottomSheet().getEditText().setHint("回复: @" + comment.getAuthor().getName());
                 for (int i = 1; i < replies.size(); i++) {
-                    mDelegation.getBottomSheet().getEditText().setHint(mDelegation.getBottomSheet().getEditText().getHint() + " @" + replies.get(i).getAuthor()
-                            .getName());
+                    TweetComment tc = replies.get(i);
+                    if (tc != null && tc.getAuthor() != null)
+                        mDelegation.getBottomSheet().getEditText().setHint(mDelegation.getBottomSheet().getEditText().getHint() + " @" + tc.getAuthor()
+                                .getName());
                 }
             } else {
                 mInputDoubleEmpty = true;

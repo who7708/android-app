@@ -34,6 +34,7 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.comment.Reply;
 import net.oschina.app.improve.bean.simple.About;
+import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.tweet.adapter.TweetCommentAdapter;
 import net.oschina.app.improve.tweet.fragments.TweetPublishFragment;
@@ -251,9 +252,13 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
     private void appendComment(int i, Reply reply) {
         View view = LayoutInflater.from(this).inflate(R.layout.list_item_tweet_comment, mLayoutContainer, false);
         TweetCommentAdapter.TweetCommentHolderView holder = new TweetCommentAdapter.TweetCommentHolderView(view);
-        holder.tvName.setText(reply.getAuthor().getName());
-        holder.ivPortrait.setup(reply.getAuthor());
-        holder.identityView.setup(reply.getAuthor());
+        Author author = reply.getAuthor();
+        if (author != null) {
+            holder.tvName.setText(author.getName());
+            holder.ivPortrait.setup(author);
+            holder.identityView.setup(author);
+        }
+
         holder.tvTime.setText(String.format("%s楼  %s", i + 1, StringUtils.formatSomeAgo(reply.getPubDate())));
         CommentsUtil.formatHtml(getResources(), holder.tvContent, reply.getContent());
         holder.btnReply.setTag(reply);
@@ -267,8 +272,9 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
                 @Override
                 public void onClick(View v) {
                     Reply reply = (Reply) v.getTag();
-
-                    mDelegation.setCommentHint("回复 @" + reply.getAuthor().getName() + " : ");
+                    Author author = reply.getAuthor();
+                    if (author != null)
+                        mDelegation.setCommentHint("回复 @" + author.getName() + " : ");
 
                     QuesAnswerDetailActivity.this.reply = reply;
                 }

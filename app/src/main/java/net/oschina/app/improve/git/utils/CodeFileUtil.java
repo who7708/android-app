@@ -110,7 +110,8 @@ public final class CodeFileUtil {
                         ".vi",
                         ".ctl",
                         ".ts",
-                        ".kt"
+                        ".kt",
+                        ".vue"
                 };
         for (String string : codeFileSuffix) {
             if (fileName.equalsIgnoreCase(string)) {
