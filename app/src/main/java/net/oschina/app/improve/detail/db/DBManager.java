@@ -3,6 +3,7 @@ package net.oschina.app.improve.detail.db;
 import android.content.Context;
 import android.os.Environment;
 
+import net.oschina.app.AppContext;
 import net.oschina.common.utils.StreamUtil;
 
 import java.io.File;
@@ -41,23 +42,32 @@ public class DBManager extends DBHelper {
     }
 
     public static DBManager getCountryManager() {
+        if (mCountryManager == null) {
+            mCountryManager = getAssetSQLite(AppContext.getInstance());
+        }
         return mCountryManager;
     }
 
     /**
      * 打开assets的数据库
      *
-     * @param context  context
+     * @param context context
      * @return SQLiteDatabase
      */
     private static DBManager getAssetSQLite(Context context) {
         try {
-            String path = Environment.getDataDirectory().getAbsolutePath() + "/data/" + context.getPackageName() + "/databases/data.db";
+            String path = Environment.getDataDirectory().getAbsolutePath() + "/data/" + context.getPackageName() + "/databases/osc_data.db";
             if (!new File(path).exists()) {
                 InputStream is = context.getAssets().open("data.db");
                 inputStreamToFile(is, path);
             }
-            return new DBManager(context, "data.db");
+            DBManager manager = new DBManager(context, "osc_data.db");
+            if (!manager.isExist("city")) {
+                context.deleteDatabase("osc_data.db");
+                InputStream is = context.getAssets().open("data.db");
+                inputStreamToFile(is, path);
+            }
+            return new DBManager(context, "osc_data.db");
         } catch (IOException e) {
             e.printStackTrace();
         }

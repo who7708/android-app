@@ -383,7 +383,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param tableName tableName
      * @return 判断数据表是否存在
      */
-    private boolean isExist(String tableName) {
+    public boolean isExist(String tableName) {
         if (TextUtils.isEmpty(tableName)) {
             return false;
         }
