@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * Created by huanghaibin on 2017/8/3.
  */
 
-public class WriteActivity extends BaseBackActivity implements View.OnClickListener,FontFragment.OnFontStyleChangeListener{
+public class WriteActivity extends BaseBackActivity implements View.OnClickListener, FontFragment.OnFontStyleChangeListener {
 
     @Bind(R.id.fl_content)
     FrameLayout mFrameContent;
@@ -29,7 +29,10 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
     @Bind(R.id.richLayout)
     RichEditLayout mEditView;
 
-    private FontFragment mFontFragment;
+    private CategoryFragment mCategoryFragment;
+    private AlignPopupWindow mAlignWindow;
+    private HPopupWindow mHPopupWindow;
+    private FontPopupWindow mFontPopupWindow;
     private Handler mHandler = new Handler();
 
     public static void show(Context context) {
@@ -45,9 +48,12 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
     protected void initWidget() {
         super.initWidget();
         mEditView.setContentPanel(mFrameContent);
-        mFontFragment = FontFragment.newInstance();
-        addFragment(R.id.fl_content, mFontFragment);
-        mEditView.setOnSectionChangeListener(mFontFragment);
+        mCategoryFragment = CategoryFragment.newInstance();
+        addFragment(R.id.fl_content, mCategoryFragment);
+        mEditView.setOnSectionChangeListener(mCategoryFragment);
+        mAlignWindow = new AlignPopupWindow(this);
+        mFontPopupWindow = new FontPopupWindow(this);
+        mHPopupWindow = new HPopupWindow(this);
     }
 
     @Override
@@ -55,7 +61,8 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
         super.initData();
     }
 
-    @OnClick({R.id.btn_keyboard, R.id.btn_font, R.id.btn_url, R.id.btn_commit})
+    @OnClick({R.id.btn_keyboard, R.id.btn_font, R.id.btn_align, R.id.btn_h,
+            R.id.btn_category})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -64,7 +71,7 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
                     mHandler.removeCallbacksAndMessages(null);
                     mEditView.closeKeyboard();
                     mFrameContent.setVisibility(View.GONE);
-                    mEditView.setFontTint(0xff111111);
+                    mEditView.setCategoryTint(0xff111111);
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -74,37 +81,45 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
                 } else {
                     if (mFrameContent.getVisibility() == View.VISIBLE) {
                         mEditView.setAdjustNothing();
-                        mEditView.setFontTint(0xff111111);
+                        mEditView.setCategoryTint(0xff111111);
                     } else {
                         mEditView.setAdjustResize();
                     }
                     mEditView.openKeyboard();
                 }
                 break;
-            case R.id.btn_font:
+            case R.id.btn_category:
                 mEditView.setAdjustNothing();
                 if (mFrameContent.getVisibility() == View.VISIBLE) {
                     if (mEditView.isKeyboardOpen()) {
                         mEditView.closeKeyboard();
-                        addFragment(R.id.fl_content, mFontFragment);
+                        addFragment(R.id.fl_content, mCategoryFragment);
                         mFrameContent.setVisibility(View.VISIBLE);
-                        mEditView.setFontTint(0xff24cf5f);
+                        mEditView.setCategoryTint(0xff24cf5f);
                     } else {
-                        addFragment(R.id.fl_content, mFontFragment);
+                        addFragment(R.id.fl_content, mCategoryFragment);
                         mFrameContent.setVisibility(View.GONE);
-                        mEditView.setFontTint(0xff111111);
+                        mEditView.setCategoryTint(0xff111111);
                         mEditView.closeKeyboard();
                     }
 
                 } else {
                     mEditView.closeKeyboard();
-                    addFragment(R.id.fl_content, mFontFragment);
+                    addFragment(R.id.fl_content, mCategoryFragment);
                     mFrameContent.setVisibility(View.VISIBLE);
-                    mEditView.setFontTint(0xff24cf5f);
+                    mEditView.setCategoryTint(0xff24cf5f);
                 }
                 break;
-            case R.id.btn_url:
-
+            case R.id.btn_font:
+                //mFontPopupWindow.showAsDropDown(v, 0, -2 * v.getMeasuredHeight());
+                mFontPopupWindow.show(v);
+                break;
+            case R.id.btn_h:
+                //mHPopupWindow.showAsDropDown(v, -v.getWidth() / 2 + 20, -2 * v.getMeasuredHeight());
+                mHPopupWindow.show(v);
+                break;
+            case R.id.btn_align:
+                mAlignWindow.show(v);
                 break;
             case R.id.btn_commit:
                 List<Section> sections = mEditView.createSectionList();

@@ -177,6 +177,11 @@ public class RichEditLayout extends LinearLayout {
         DrawableCompat.setTint(mRichBar.mBtnFont.getDrawable(), color);
     }
 
+    public void setCategoryTint(int color) {
+        DrawableCompat.setTint(mRichBar.mBtnCategory.getDrawable(), color);
+    }
+
+
     public void setKeyboardTint(int color) {
         DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), color);
     }

@@ -25,7 +25,7 @@ public class TriangleLayout extends View {
     public TriangleLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mTextPaint = new Paint();
-        mTextPaint.setColor(0xFF353535);
+        mTextPaint.setColor(0xFF000000);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setAntiAlias(true);
     }

@@ -16,7 +16,7 @@ import net.oschina.app.R;
  * Created by huanghaibin on 2017/8/31.
  */
 
-public class HPopupWindow extends PopupWindow{
+ class HPopupWindow extends PopupWindow{
     @SuppressLint("InflateParams")
     HPopupWindow(Context context) {
         super(LayoutInflater.from(context).inflate(R.layout.popup_window_h, null),
@@ -28,5 +28,9 @@ public class HPopupWindow extends PopupWindow{
 
         View content = getContentView();
 
+    }
+
+    void show(View v) {
+        showAsDropDown(v, 0, -2 * v.getMeasuredHeight() + 10);
     }
 }

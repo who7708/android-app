@@ -28,23 +28,6 @@ class TitleAdapter extends BaseRecyclerAdapter<TitleAdapter.Title> {
         addItem(new Title(14, "标题4"));
     }
 
-
-    /**
-     * 单选
-     */
-    void setSelectedPosition(int selectedPosition) {
-        this.mSelectedPosition = selectedPosition;
-        updateItem(selectedPosition);
-    }
-
-    void update(int position) {
-        if (position != mSelectedPosition) {
-            updateItem(mSelectedPosition);
-            mSelectedPosition = position;
-            updateItem(mSelectedPosition);
-        }
-    }
-
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
         return new TitleHolder(mInflater.inflate(R.layout.item_list_title, parent, false));

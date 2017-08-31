@@ -41,6 +41,7 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SolarSystemView;
+import net.oschina.app.improve.write.WriteActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.ui.MyQRCodeDialog;
 import net.oschina.app.util.ImageUtils;
@@ -442,10 +443,6 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                 case R.id.user_view_solar_system:
                     //显示我的资料
                     if (mUserInfo != null) {
-//                        Bundle userBundle = new Bundle();
-//                        userBundle.putSerializable("user_info", mUserInfo);
-//                        UIHelper.showSimpleBack(getActivity(),
-//                                SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
                         UserDataActivity.show(mContext, mUserInfo);
                     }
                     break;
@@ -477,7 +474,8 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     UIHelper.showTeamMainActivity(getActivity());
                     break;
                 case R.id.rl_data:
-                    MyDataActivity.show(mContext, mUserInfo);
+                    //MyDataActivity.show(mContext, mUserInfo);
+                    WriteActivity.show(mContext);
                     break;
                 default:
                     break;

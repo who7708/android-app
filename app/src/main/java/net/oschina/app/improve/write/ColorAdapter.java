@@ -16,7 +16,6 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
  */
 @Deprecated
 class ColorAdapter extends BaseRecyclerAdapter<String> {
-    private int mSelectedPosition = -0;
 
     ColorAdapter(Context context) {
         super(context, NEITHER);
@@ -26,23 +25,6 @@ class ColorAdapter extends BaseRecyclerAdapter<String> {
         addItem("df45ac");
         addItem("fd313a");
         addItem("ca4a6d");
-    }
-
-
-    /**
-     * 单选
-     */
-    void setSelectedPosition(int selectedPosition) {
-        this.mSelectedPosition = selectedPosition;
-        updateItem(selectedPosition);
-    }
-
-    void update(int position) {
-        if (position != mSelectedPosition) {
-            updateItem(mSelectedPosition);
-            mSelectedPosition = position;
-            updateItem(mSelectedPosition);
-        }
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.oschina.app.R;
+import net.oschina.app.improve.user.data.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,25 +28,26 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     protected String mSystemTime;
 
+    protected int mSelectedPosition = -0;
     public static final int STATE_NO_MORE = 1;
     public static final int STATE_LOAD_MORE = 2;
     public static final int STATE_INVALID_NETWORK = 3;
     public static final int STATE_HIDE = 5;
-    public static final int STATE_REFRESHING = 6;
+    private static final int STATE_REFRESHING = 6;
     public static final int STATE_LOAD_ERROR = 7;
     public static final int STATE_LOADING = 8;
 
-    public final int BEHAVIOR_MODE;
+    private final int BEHAVIOR_MODE;
     protected int mState;
 
     public static final int NEITHER = 0;
-    public static final int ONLY_HEADER = 1;
+    private static final int ONLY_HEADER = 1;
     public static final int ONLY_FOOTER = 2;
     public static final int BOTH_HEADER_FOOTER = 3;
 
     public static final int VIEW_TYPE_NORMAL = 0;
-    public static final int VIEW_TYPE_HEADER = -1;
-    public static final int VIEW_TYPE_FOOTER = -2;
+    private static final int VIEW_TYPE_HEADER = -1;
+    private static final int VIEW_TYPE_FOOTER = -2;
 
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
@@ -213,6 +215,27 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         else return VIEW_TYPE_NORMAL;
     }
 
+
+    public T getSelectedItem() {
+        if (mSelectedPosition < 0 || mSelectedPosition >= mItems.size())
+            return null;
+        return mItems.get(mSelectedPosition);
+    }
+
+
+    /**
+     * 单选
+     */
+    public void setSelectedPosition(int selectedPosition) {
+        if (selectedPosition != mSelectedPosition) {
+            updateItem(mSelectedPosition);
+            mSelectedPosition = selectedPosition;
+            updateItem(mSelectedPosition);
+        }
+        this.mSelectedPosition = selectedPosition;
+        updateItem(selectedPosition);
+    }
+
     protected int getIndex(int position) {
         return BEHAVIOR_MODE == ONLY_HEADER || BEHAVIOR_MODE == BOTH_HEADER_FOOTER ? position - 1 : position;
     }
@@ -346,7 +369,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-    public final void setOnLoadingHeaderCallBack(OnLoadingHeaderCallBack listener) {
+    protected void setOnLoadingHeaderCallBack(OnLoadingHeaderCallBack listener) {
         onLoadingHeaderCallBack = listener;
     }
 
@@ -401,10 +424,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     }
 
     public static class FooterViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar pb_footer;
-        public TextView tv_footer;
+        ProgressBar pb_footer;
+        TextView tv_footer;
 
-        public FooterViewHolder(View view) {
+        FooterViewHolder(View view) {
             super(view);
             pb_footer = (ProgressBar) view.findViewById(R.id.pb_footer);
             tv_footer = (TextView) view.findViewById(R.id.tv_footer);

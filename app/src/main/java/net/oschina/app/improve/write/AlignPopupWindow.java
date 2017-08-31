@@ -38,22 +38,26 @@ class AlignPopupWindow extends PopupWindow {
     }
 
     void setStyle(TextSection section) {
-        switch (section.getAlignment()){
+        switch (section.getAlignment()) {
             case TextSection.LEFT:
-                DrawableCompat.setTint(mImageAlignLeft.getDrawable(),0xff24cf5f);
-                DrawableCompat.setTint(mImageAlignCenter.getDrawable(),0xff333333);
-                DrawableCompat.setTint(mImageAlignRight.getDrawable(),0xff333333);
+                DrawableCompat.setTint(mImageAlignLeft.getDrawable(), 0xff24cf5f);
+                DrawableCompat.setTint(mImageAlignCenter.getDrawable(), 0xff333333);
+                DrawableCompat.setTint(mImageAlignRight.getDrawable(), 0xff333333);
                 break;
             case TextSection.CENTER:
-                DrawableCompat.setTint(mImageAlignLeft.getDrawable(),0xff333333);
-                DrawableCompat.setTint(mImageAlignCenter.getDrawable(),0xff24cf5f);
-                DrawableCompat.setTint(mImageAlignRight.getDrawable(),0xff333333);
+                DrawableCompat.setTint(mImageAlignLeft.getDrawable(), 0xff333333);
+                DrawableCompat.setTint(mImageAlignCenter.getDrawable(), 0xff24cf5f);
+                DrawableCompat.setTint(mImageAlignRight.getDrawable(), 0xff333333);
                 break;
             case TextSection.RIGHT:
-                DrawableCompat.setTint(mImageAlignLeft.getDrawable(),0xff333333);
-                DrawableCompat.setTint(mImageAlignCenter.getDrawable(),0xff333333);
-                DrawableCompat.setTint(mImageAlignRight.getDrawable(),0xff24cf5f);
+                DrawableCompat.setTint(mImageAlignLeft.getDrawable(), 0xff333333);
+                DrawableCompat.setTint(mImageAlignCenter.getDrawable(), 0xff333333);
+                DrawableCompat.setTint(mImageAlignRight.getDrawable(), 0xff24cf5f);
                 break;
         }
+    }
+
+    void show(View v) {
+        showAsDropDown(v, 0, -2 * v.getMeasuredHeight() + 10);
     }
 }

@@ -123,8 +123,8 @@ public class ModifyAreaActivity extends BaseBackActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_commit) {
-            Province province = mAdapterProvince.getSelecteProvince();
-            City city = mAdapterCity.getSelecteCity();
+            Province province = mAdapterProvince.getSelectedProvince();
+            City city = mAdapterCity.getSelectedCity();
             if (province == null || city == null) {
                 SimplexToast.show(this, "请选择修改地址");
                 return false;
