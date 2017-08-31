@@ -67,7 +67,7 @@
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
             android:onClick="onClick"
-            android:src="@mipmap/ic_font_bold"
+
             tools:ignore="NestedWeights" />
 
         <ImageButton
@@ -77,8 +77,7 @@
             android:layout_weight="1"
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick"
-            android:src="@mipmap/ic_font_italic" />
+            android:onClick="onClick" />
 
         <ImageButton
             android:id="@+id/btn_mid_line"
@@ -87,8 +86,7 @@
             android:layout_weight="1"
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick"
-            android:src="@mipmap/ic_font_mid_line" />
+            android:onClick="onClick" />
 
         <ImageButton
             android:id="@+id/btn_align_left"
@@ -97,8 +95,7 @@
             android:layout_weight="1"
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick"
-            android:src="@mipmap/ic_align_left" />
+            android:onClick="onClick" />
 
         <ImageButton
             android:id="@+id/btn_align_center"
@@ -107,8 +104,7 @@
             android:layout_weight="1"
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick"
-            android:src="@mipmap/ic_align_center" />
+            android:onClick="onClick" />
 
         <ImageButton
             android:id="@+id/btn_align_right"
@@ -117,7 +113,6 @@
             android:layout_weight="1"
             android:background="@drawable/ic_material_ripple"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick"
-            android:src="@mipmap/ic_align_right" />
+            android:onClick="onClick" />
     </LinearLayout>
 </LinearLayout>

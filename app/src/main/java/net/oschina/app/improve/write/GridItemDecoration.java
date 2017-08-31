@@ -8,7 +8,7 @@ import android.view.View;
  * 间隔
  * Created by huanghaibin on 2017/8/14.
  */
-
+@Deprecated
 class GridItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
 

@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * 字体面板布局
  * Created by huanghaibin on 2017/8/14.
  */
-
+@Deprecated
 public class FontFragment extends BaseFragment implements RichEditText.OnSectionChangeListener, View.OnClickListener {
 
     @Bind(R.id.recyclerSize)

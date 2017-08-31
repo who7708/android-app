@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 字体适配器
  * Created by huanghaibin on 2017/8/14.
  */
-
+@Deprecated
 class TitleAdapter extends BaseRecyclerAdapter<TitleAdapter.Title> {
     private int mSelectedPosition = -0;
 

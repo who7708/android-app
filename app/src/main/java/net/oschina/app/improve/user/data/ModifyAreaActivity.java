@@ -94,6 +94,7 @@ public class ModifyAreaActivity extends BaseBackActivity {
             int index = mAdapterProvince.getItems().indexOf(p);
             if (index >= 0 && index < mAdapterProvince.getCount()) {
                 mAdapterProvince.setSelectedPosition(index);
+                mRecyclerProvince.scrollToPosition(index);
             }
             mAdapterCity.resetItem(DBManager.getCountryManager()
                     .get(City.class, String.format("where province='%s'", province)));
@@ -106,6 +107,7 @@ public class ModifyAreaActivity extends BaseBackActivity {
                 int i = mAdapterCity.getItems().indexOf(c);
                 if (i >= 0 && i < mAdapterCity.getCount()) {
                     mAdapterCity.setSelectedPosition(i);
+                    mRecyclerCity.scrollToPosition(index);
                 }
             }
         }
