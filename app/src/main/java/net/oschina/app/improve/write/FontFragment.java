@@ -65,7 +65,6 @@ public class FontFragment extends BaseFragment implements RichEditText.OnSection
         mColorAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                mColorAdapter.update(position);
                 mColorAdapter.setSelectedPosition(position);
                 if (mListener != null)
                     mListener.onColorChange(mColorAdapter.getItem(position));
@@ -79,7 +78,6 @@ public class FontFragment extends BaseFragment implements RichEditText.OnSection
         mTitleAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
-                mTitleAdapter.update(position);
                 mTitleAdapter.setSelectedPosition(position);
                 if (mListener != null)
                     mListener.onTitleChange(mTitleAdapter.getItem(position));

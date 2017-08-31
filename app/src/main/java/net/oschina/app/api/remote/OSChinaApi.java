@@ -1800,4 +1800,14 @@ public class OSChinaApi {
         params.put("id", id);
         ApiHttpClient.get("action/apiv2/delete_blog", params, handler);
     }
+
+
+    /**
+     * 获取博客分类
+     *
+     * @param handler 回调
+     */
+    public static void getBlogCategories(TextHttpResponseHandler handler) {
+        ApiHttpClient.get("action/apiv2/get_blog_category", handler);
+    }
 }

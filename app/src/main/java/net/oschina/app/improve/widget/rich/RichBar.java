@@ -18,7 +18,8 @@ import net.oschina.app.R;
 public class RichBar extends LinearLayout {
     ImageButton mBtnKeyboard;
     ImageButton mBtnFont;
-    ImageButton mBtnUrl;
+    ImageButton mBtnAlign;
+    ImageButton mBtnCategory;
 
     public RichBar(Context context) {
         this(context, null);
@@ -29,6 +30,7 @@ public class RichBar extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.view_rich_bar, this, true);
         mBtnKeyboard = (ImageButton) findViewById(R.id.btn_keyboard);
         mBtnFont = (ImageButton) findViewById(R.id.btn_font);
-        mBtnUrl = (ImageButton) findViewById(R.id.btn_url);
+        mBtnAlign = (ImageButton) findViewById(R.id.btn_align);
+        mBtnCategory = (ImageButton) findViewById(R.id.btn_category);
     }
 }

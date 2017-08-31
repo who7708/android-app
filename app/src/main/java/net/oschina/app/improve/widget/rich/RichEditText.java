@@ -21,7 +21,9 @@ import android.text.style.StyleSpan;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -62,6 +64,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         setBackgroundColor(Color.TRANSPARENT);
         setOnKeyListener(this);
         mSections.add(getDefaultSection(context));
+        clearKeyboard();
     }
 
     private TextSection getDefaultSection(Context context) {
@@ -72,6 +75,21 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         defaultSection.setAlignment(TextSection.LEFT);
         defaultSection.setColorHex("111111");
         return defaultSection;
+    }
+
+    /**
+     * 清除软键盘，不弹出
+     */
+    private void clearKeyboard() {
+        try {
+            Class<EditText> cls = EditText.class;
+            Method setSoftInputShownOnFocus;
+            setSoftInputShownOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+            setSoftInputShownOnFocus.setAccessible(true);
+            setSoftInputShownOnFocus.invoke(this, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

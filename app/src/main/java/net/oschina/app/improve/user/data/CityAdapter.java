@@ -15,31 +15,14 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
  */
 
 class CityAdapter extends BaseRecyclerAdapter<City> {
-    private int mSelectedPosition;
+
 
     CityAdapter(Context context) {
         super(context, NEITHER);
         mSelectedPosition = 0;
     }
 
-    /**
-     * 单选
-     */
-    void setSelectedPosition(int selectedPosition) {
-        update(selectedPosition);
-        this.mSelectedPosition = selectedPosition;
-        updateItem(selectedPosition);
-    }
-
-    private void update(int position) {
-        if (position != mSelectedPosition) {
-            updateItem(mSelectedPosition);
-            mSelectedPosition = position;
-            updateItem(mSelectedPosition);
-        }
-    }
-
-    City getSelecteCity() {
+    City getSelectedCity() {
         if (mSelectedPosition < 0 || mSelectedPosition >= mItems.size())
             return null;
         return mItems.get(mSelectedPosition);
