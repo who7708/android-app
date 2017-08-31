@@ -9,32 +9,33 @@
 - 源码仅作学习，接口将进行限制，如需请求API接口应使用 [openapi](http://www.oschina.net/openapi)
 
 
-##历史分支
+## 历史分支
 
 | 序号 | 标签名                                      | 发布版本                |说明               | 链接               |
 | ----| ---------------------------------------- | ------------------- | ---------------- |---------------- |
-| 1 | [v2.8.7](http://git.oschina.net/oschina/android-app/tree/v2.8.7/) | v2.8.7(1708081543) |当前最新版 | [更新说明](https://www.oschina.net/news/87552/oschina-android-app-v287-release) | 
-| 2 | [v2.8.6](http://git.oschina.net/oschina/android-app/tree/v2.8.6/) | v2.8.6(1706051018) |-- | [更新说明](https://www.oschina.net/news/85504/oschina-android-app-v286-release) | 
-| 3 | [v2.8.5](http://git.oschina.net/oschina/android-app/tree/v2.8.5/) | v2.8.5(1705031527) | -- | [更新说明](https://www.oschina.net/news/84420/oschina-android-app-v285-release) | 
-| 4 | [v2.8.4](http://git.oschina.net/oschina/android-app/tree/v2.8.4/) | v2.8.4(1704261126) |-- | [更新说明](https://www.oschina.net/news/84213/oschina-android-app-v284-release) |
-| 5 | [v2.8.3](http://git.oschina.net/oschina/android-app/tree/v2.8.3/) | v2.8.3(1703281011) | -- | [更新说明](https://www.oschina.net/news/83315/oschina-android-app-v283-release) |
-| 6 | [v2.8.2](http://git.oschina.net/oschina/android-app/tree/v2.8.2/) | v2.8.2 (1703171047) | -- | [更新说明](https://www.oschina.net/news/82984/oschina-android-app-v282-release) |
-| 7 | [v2.8.1](http://git.oschina.net/oschina/android-app/tree/v2.8.1/) | v2.8.1 (1702221002) | --| [更新说明](https://www.oschina.net/news/82172/oschina-android-app-v281-release) |
-| 8 | [v2.8.0](http://git.oschina.net/oschina/android-app/tree/v2.8.0/) | v2.8.0 (1701231104) | -- | [更新说明](https://www.oschina.net/news/81253/oschina-android-app-v280-release) |
-| 9 | [v2.7.1](http://git.oschina.net/oschina/android-app/tree/v2.7.1/) | v2.7.1 (1612211352) | -- | [更新说明](https://www.oschina.net/news/80229/oschina-android-app-v271-release) |
-| 10 | [v2.6.9](http://git.oschina.net/oschina/android-app/tree/v2.6.9/) | v2.6.9 (1611220955) | -- |[更新说明](https://www.oschina.net/news/79281/oschina-android-client-v269-release) |
-| 11 | [v2.6.6](http://git.oschina.net/oschina/android-app/tree/v2.6.6/) | v2.6.6 (1609281026) | -- |[更新说明](https://www.oschina.net/news/77610/oschina-android-client-v266-release) |
-| 12 | [v2.6.5](http://git.oschina.net/oschina/android-app/tree/v2.6.5/) | v2.6.5 (1609211120) | -- |[更新说明](https://www.oschina.net/news/77332/oschina-android-client-v265-release)|
-| 13 | [v2.6.4](http://git.oschina.net/oschina/android-app/tree/v2.6.4/) | v2.6.4 (1608081154) | -- |[更新说明](https://www.oschina.net/news/75938/oschina-client-v264-release)|
-| 14 | [v2.6.3](http://git.oschina.net/oschina/android-app/tree/v2.6.3/) | v2.6.3 (1607081128) | -- |[更新说明](https://www.oschina.net/news/75027/oschina-client-v263-release)|
-| 15 | [v2.6.2](http://git.oschina.net/oschina/android-app/tree/v2.6.2/) | v2.6.2 (1606121625) | -- |                  |
-| 16 | [v2.4](http://git.oschina.net/oschina/android-app/tree/v2.4/) | --  | --               | --               |
-| 17 | [v2.3](http://git.oschina.net/oschina/android-app/tree/v2.3/) | -- | 迁移到AndroidStudio  | -- |
-| 18 | [v2.2.1](http://git.oschina.net/oschina/android-app/tree/v2.2.1/) | -- | Eclipse可用 | --  |
+| 1 | [v2.8.8](http://git.oschina.net/oschina/android-app/tree/v2.8.8/) | v2.8.8(1708301525) |当前最新版 | [更新说明](https://www.oschina.net/news/88218/oschina-android-app-v288-release) | 
+| 2 | [v2.8.7](http://git.oschina.net/oschina/android-app/tree/v2.8.7/) | v2.8.7(1708081543) | -- | [更新说明](https://www.oschina.net/news/87552/oschina-android-app-v287-release) | 
+| 3 | [v2.8.6](http://git.oschina.net/oschina/android-app/tree/v2.8.6/) | v2.8.6(1706051018) | -- | [更新说明](https://www.oschina.net/news/85504/oschina-android-app-v286-release) | 
+| 4 | [v2.8.5](http://git.oschina.net/oschina/android-app/tree/v2.8.5/) | v2.8.5(1705031527) | -- | [更新说明](https://www.oschina.net/news/84420/oschina-android-app-v285-release) | 
+| 5 | [v2.8.4](http://git.oschina.net/oschina/android-app/tree/v2.8.4/) | v2.8.4(1704261126) | -- | [更新说明](https://www.oschina.net/news/84213/oschina-android-app-v284-release) |
+| 6 | [v2.8.3](http://git.oschina.net/oschina/android-app/tree/v2.8.3/) | v2.8.3(1703281011) | -- | [更新说明](https://www.oschina.net/news/83315/oschina-android-app-v283-release) |
+| 7 | [v2.8.2](http://git.oschina.net/oschina/android-app/tree/v2.8.2/) | v2.8.2 (1703171047) | -- | [更新说明](https://www.oschina.net/news/82984/oschina-android-app-v282-release) |
+| 8 | [v2.8.1](http://git.oschina.net/oschina/android-app/tree/v2.8.1/) | v2.8.1 (1702221002) | --| [更新说明](https://www.oschina.net/news/82172/oschina-android-app-v281-release) |
+| 9 | [v2.8.0](http://git.oschina.net/oschina/android-app/tree/v2.8.0/) | v2.8.0 (1701231104) | -- | [更新说明](https://www.oschina.net/news/81253/oschina-android-app-v280-release) |
+| 10 | [v2.7.1](http://git.oschina.net/oschina/android-app/tree/v2.7.1/) | v2.7.1 (1612211352) | -- | [更新说明](https://www.oschina.net/news/80229/oschina-android-app-v271-release) |
+| 11 | [v2.6.9](http://git.oschina.net/oschina/android-app/tree/v2.6.9/) | v2.6.9 (1611220955) | -- |[更新说明](https://www.oschina.net/news/79281/oschina-android-client-v269-release) |
+| 12 | [v2.6.6](http://git.oschina.net/oschina/android-app/tree/v2.6.6/) | v2.6.6 (1609281026) | -- |[更新说明](https://www.oschina.net/news/77610/oschina-android-client-v266-release) |
+| 13 | [v2.6.5](http://git.oschina.net/oschina/android-app/tree/v2.6.5/) | v2.6.5 (1609211120) | -- |[更新说明](https://www.oschina.net/news/77332/oschina-android-client-v265-release)|
+| 14 | [v2.6.4](http://git.oschina.net/oschina/android-app/tree/v2.6.4/) | v2.6.4 (1608081154) | -- |[更新说明](https://www.oschina.net/news/75938/oschina-client-v264-release)|
+| 15 | [v2.6.3](http://git.oschina.net/oschina/android-app/tree/v2.6.3/) | v2.6.3 (1607081128) | -- |[更新说明](https://www.oschina.net/news/75027/oschina-client-v263-release)|
+| 16 | [v2.6.2](http://git.oschina.net/oschina/android-app/tree/v2.6.2/) | v2.6.2 (1606121625) | -- |                  |
+| 17 | [v2.4](http://git.oschina.net/oschina/android-app/tree/v2.4/) | --  | --               | --               |
+| 18 | [v2.3](http://git.oschina.net/oschina/android-app/tree/v2.3/) | -- | 迁移到AndroidStudio  | -- |
+| 19 | [v2.2.1](http://git.oschina.net/oschina/android-app/tree/v2.2.1/) | -- | Eclipse可用 | --  |
 
 
 
-##最新版开发环境
+## 最新版开发环境
 
 1. Android Studio >= 2.2
 2. Gradel Version: 2.14.1
@@ -43,7 +44,7 @@
 
 
 
-##项目简述
+## 项目简述
 
 - 新版相关代码集中在**“net.oschina.app.improve”**包中，其他包中代码将逐步清理。
 - 项目分包方式采取功能模块进行分包，查看代码请按功能查询
@@ -65,7 +66,7 @@
 
 
 
-##支持开源
+## 支持开源
 
 通过以下方式对我们的项目进行支持：
 
@@ -75,7 +76,7 @@
 
 
 
-##开源协议
+## 开源协议
 
 	The MIT License (MIT)
 
