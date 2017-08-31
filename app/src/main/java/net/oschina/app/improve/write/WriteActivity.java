@@ -111,13 +111,15 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_font:
-                mFontPopupWindow.showAsDropDown(v, 0, -2 * v.getMeasuredHeight());
+                //mFontPopupWindow.showAsDropDown(v, 0, -2 * v.getMeasuredHeight());
+                mFontPopupWindow.show(v);
                 break;
             case R.id.btn_h:
-                mHPopupWindow.showAsDropDown(v, -v.getWidth() / 2, -2 * v.getMeasuredHeight());
+                //mHPopupWindow.showAsDropDown(v, -v.getWidth() / 2 + 20, -2 * v.getMeasuredHeight());
+                mHPopupWindow.show(v);
                 break;
             case R.id.btn_align:
-                mAlignWindow.showAsDropDown(v, 0, -2 * v.getMeasuredHeight());
+                mAlignWindow.show(v);
                 break;
             case R.id.btn_commit:
                 List<Section> sections = mEditView.createSectionList();

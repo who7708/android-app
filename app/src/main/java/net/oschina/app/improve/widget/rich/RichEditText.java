@@ -64,7 +64,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         setBackgroundColor(Color.TRANSPARENT);
         setOnKeyListener(this);
         mSections.add(getDefaultSection(context));
-        clearKeyboard();
+        //clearKeyboard();
     }
 
     private TextSection getDefaultSection(Context context) {
