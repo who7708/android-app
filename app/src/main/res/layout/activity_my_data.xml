@@ -159,16 +159,15 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="开放平台"
+                android:layout_height="wrap_content"
+                android:text="开发平台"
                 android:textColor="@color/main_black"
                 android:textSize="@dimen/font_16" />
 
             <TextView
                 android:id="@+id/tv_skill"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_16"
                 android:gravity="center_vertical|right"
                 android:paddingBottom="@dimen/lay_16"
@@ -195,8 +194,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:text="专长领域"
                 android:textColor="@color/main_black"
                 android:textSize="@dimen/font_16" />
@@ -204,7 +202,7 @@
             <TextView
                 android:id="@+id/tv_field"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_16"
                 android:gravity="center_vertical|right"
                 android:paddingBottom="@dimen/lay_16"
@@ -232,8 +230,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:text="个性签名"
                 android:textColor="@color/main_black"
                 android:textSize="@dimen/font_16" />
@@ -241,9 +238,9 @@
             <TextView
                 android:id="@+id/tv_signature"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_16"
-                android:gravity="center_vertical|right"
+                android:gravity="center_vertical|left"
                 android:paddingBottom="@dimen/lay_16"
                 android:paddingTop="@dimen/lay_16"
                 android:text="你说奇迹成真我会相信"

@@ -14,7 +14,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
  * 字体适配器
  * Created by huanghaibin on 2017/8/14.
  */
-
+@Deprecated
 class ColorAdapter extends BaseRecyclerAdapter<String> {
     private int mSelectedPosition = -0;
 
