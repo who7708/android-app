@@ -3,12 +3,17 @@ package net.oschina.app.improve.write;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.improve.bean.SubBean;
+import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.widget.rich.TextSection;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -50,12 +55,26 @@ class WritePresenter implements WriteContract.Presenter {
         OSChinaApi.pubBlog(blog, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("onFailure", "" + responseString);
+                Log.e("onFailure", "ffafa" + responseString);
+                mView.showPubBlogFailure(R.string.pub_blog_failure);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 Log.e("onSuccess", "" + responseString);
+                try {
+                    Type type = new TypeToken<ResultBean<SubBean>>() {
+                    }.getType();
+                    ResultBean<SubBean> bean = new Gson().fromJson(responseString, type);
+                    if (bean.isSuccess()) {
+                        mView.showPubBlogSuccess(R.string.pub_blog_success, bean.getResult());
+                    } else {
+                        mView.showPubBlogFailure(R.string.pub_blog_failure);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showPubBlogFailure(R.string.pub_blog_failure);
+                }
             }
         });
     }
@@ -92,7 +111,7 @@ class WritePresenter implements WriteContract.Presenter {
             sb.append("\n");
             sb.append("<s>");
         }
-        sb.append(section.getText());
+        sb.append(formatHtml(section.getText()));
         if (section.isMidLine()) {
             sb.append("</s>");
         }
@@ -128,7 +147,7 @@ class WritePresenter implements WriteContract.Presenter {
 
     private String getContentHtml(TextSection section) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<p>");
+        sb.append(String.format("<p style=\"text-align: %s\">", getAlign(section.getAlignment())));
         if (section.isBold()) {
             sb.append("\n");
             sb.append("<strong>");
@@ -141,7 +160,7 @@ class WritePresenter implements WriteContract.Presenter {
             sb.append("\n");
             sb.append("<s>");
         }
-        sb.append(section.getText());
+        sb.append(formatHtml(section.getText()));
 
         if (section.isMidLine()) {
             sb.append("</s>");
@@ -157,5 +176,20 @@ class WritePresenter implements WriteContract.Presenter {
         sb.append("\n");
         sb.append("</p>");
         return sb.toString();
+    }
+
+    private String getAlign(int align) {
+        if (align == TextSection.LEFT)
+            return "left";
+        else if (align == TextSection.CENTER)
+            return "center";
+        else return
+                    "right";
+    }
+
+    private String formatHtml(String content) {
+        return content.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
     }
 }

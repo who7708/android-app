@@ -2,6 +2,7 @@ package net.oschina.app.improve.write;
 
 import net.oschina.app.improve.base.BasePresenter;
 import net.oschina.app.improve.base.BaseView;
+import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.widget.rich.TextSection;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 interface WriteContract {
 
     interface View extends BaseView<Presenter> {
-        void showPubBlogSuccess(int strId, Blog blog);
+        void showPubBlogSuccess(int strId, SubBean bean);
 
         void showPubBlogFailure(int strId);
     }

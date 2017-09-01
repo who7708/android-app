@@ -397,4 +397,6 @@
     <string name="blog_title_empty_error">博客标题不能为空</string>
     <string name="blog_summary_empty_error">博客摘要不能为空</string>
     <string name="blog_content_empty_error">博客内容不能为空</string>
+    <string name="pub_blog_failure">发布失败</string>
+    <string name="pub_blog_success">发布成功</string>
 </resources>

@@ -3,13 +3,17 @@ package net.oschina.app.improve.widget.rich;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import net.oschina.app.R;
 
 import java.util.List;
 
@@ -23,6 +27,7 @@ public class RichLinearLayout extends LinearLayout {
     RichEditText mFocusView;
     ImagePanel mFocusPanel;
     RichEditText.OnSectionChangeListener mListener;
+    private AppCompatEditText mEditTitle, mEditSummary;
 
 
     public RichLinearLayout(Context context) {
@@ -32,12 +37,28 @@ public class RichLinearLayout extends LinearLayout {
     public RichLinearLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
+        init(context);
+    }
+
+    private void init(Context context) {
+        LayoutInflater.from(context).inflate(R.layout.rich_linear_layout, this, true);
+        mEditTitle = (AppCompatEditText) findViewById(R.id.et_title);
+        mEditSummary = (AppCompatEditText) findViewById(R.id.et_summary);
         RichEditText editText = new RichEditText(context, mListener);
         mFocusView = editText;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         editText.setLayoutParams(params);
         setPadding(UI.dipToPx(context, 16), 0, UI.dipToPx(context, 16), 0);
         addView(editText);
+    }
+
+
+    String getTitle() {
+        return mEditTitle.getText().toString().trim();
+    }
+
+    String getSummary() {
+        return mEditSummary.getText().toString().trim();
     }
 
     /**
@@ -48,9 +69,9 @@ public class RichLinearLayout extends LinearLayout {
     @SuppressLint("SetTextI18n")
     void delete(RichEditText editText) {
         int count = getChildCount();
-        if (count <= 1)
+        if (count <= 3)
             return;
-        for (int i = 0; i < count; i++) {
+        for (int i = 2; i < count; i++) {
             View view = getChildAt(i);
             if (view == editText) {
                 String content = editText.getText().toString();

@@ -19,7 +19,7 @@ import net.oschina.app.improve.widget.rich.TextSection;
  */
 
 class HPopupWindow extends PopupWindow implements View.OnClickListener {
-    private OnHeaderChangeListener mlistener;
+    private OnHeaderChangeListener mListener;
     private TextView mTextH1, mTextH2, mTextH3, mTextH4;
 
     @SuppressLint("InflateParams")
@@ -30,7 +30,7 @@ class HPopupWindow extends PopupWindow implements View.OnClickListener {
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setOutsideTouchable(true);
         setFocusable(false);
-        this.mlistener = listener;
+        this.mListener = listener;
         View content = getContentView();
         mTextH1 = (TextView) content.findViewById(R.id.tv_h1);
         mTextH2 = (TextView) content.findViewById(R.id.tv_h2);
@@ -70,20 +70,28 @@ class HPopupWindow extends PopupWindow implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.tv_h1:
-                mlistener.onTitleChange(28);
-                mTextH1.setTextColor(0xff24cf5f);
+                mTextH1.setSelected(!mTextH1.isSelected());
+                mListener.onTitleChange(mTextH1.isSelected() ? 28 : 18);
+                mTextH1.setTextColor(mTextH1.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
                 break;
             case R.id.tv_h2:
-                mlistener.onTitleChange(24);
-                mTextH2.setTextColor(0xff24cf5f);
+                mTextH2.setSelected(!mTextH2.isSelected());
+                mListener.onTitleChange(mTextH2.isSelected() ? 24 : 18);
+                mTextH2.setTextColor(mTextH2.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
+
                 break;
             case R.id.tv_h3:
-                mlistener.onTitleChange(20);
-                mTextH3.setTextColor(0xff24cf5f);
+                mTextH3.setSelected(!mTextH3.isSelected());
+                mListener.onTitleChange(mTextH3.isSelected() ? 20 : 18);
+                mTextH3.setTextColor(mTextH3.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
+
                 break;
             case R.id.tv_h4:
-                mlistener.onTitleChange(16);
-                mTextH4.setTextColor(0xff24cf5f);
+
+                mTextH4.setSelected(!mTextH4.isSelected());
+                mListener.onTitleChange(mTextH4.isSelected() ? 16 : 18);
+                mTextH4.setTextColor(mTextH4.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
+
                 break;
         }
     }

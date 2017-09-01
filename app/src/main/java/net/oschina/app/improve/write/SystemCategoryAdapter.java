@@ -21,6 +21,7 @@ class SystemCategoryAdapter extends BaseRecyclerAdapter<SystemCategoryAdapter.Sy
     SystemCategoryAdapter(Context context) {
         super(context, NEITHER);
         addAll(getCategories());
+        mSelectedPosition = 0;
     }
 
     @Override

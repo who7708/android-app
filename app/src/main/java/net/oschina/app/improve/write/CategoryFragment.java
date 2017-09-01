@@ -80,7 +80,6 @@ public class CategoryFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -91,6 +90,24 @@ public class CategoryFragment extends BaseFragment {
                 mRoot.getLayoutParams().height = Util.dipTopx(mContext, 270);
             }
         }
+    }
+
+    long getCategoryId() {
+        if (mBlogAdapter != null) {
+            BlogCategory category = mBlogAdapter.getSelectedItem();
+            if (category != null)
+                return category.getId();
+        }
+        return -1;
+    }
+
+    int getSystemId() {
+        if (mSystemAdapter != null) {
+            SystemCategoryAdapter.SystemCategory category = mSystemAdapter.getSelectedItem();
+            if (category != null)
+                return category.getId();
+        }
+        return -1;
     }
 
     private void getCategories() {

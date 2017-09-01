@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -94,11 +95,11 @@ public class RichEditLayout extends LinearLayout {
         mScrollView.mRichLinearLayout.setBold(isBold);
     }
 
-    public void setItalic(boolean isItalic){
+    public void setItalic(boolean isItalic) {
         mScrollView.mRichLinearLayout.setItalic(isItalic);
     }
 
-    public void setMidLine(boolean isMidLine){
+    public void setMidLine(boolean isMidLine) {
         mScrollView.mRichLinearLayout.setMidLine(isMidLine);
     }
 
@@ -118,7 +119,7 @@ public class RichEditLayout extends LinearLayout {
         mScrollView.mRichLinearLayout.setTextSizeSpan(isIncrease);
     }
 
-    public void setTextSize(int size){
+    public void setTextSize(int size) {
         mScrollView.mRichLinearLayout.setTextSize(size);
     }
 
@@ -184,5 +185,17 @@ public class RichEditLayout extends LinearLayout {
 
     public void setKeyboardTint(int color) {
         DrawableCompat.setTint(mRichBar.mBtnKeyboard.getDrawable(), color);
+    }
+
+    public String getTitle() {
+        return mScrollView.mRichLinearLayout.getTitle();
+    }
+
+    public String getSummary() {
+        return mScrollView.mRichLinearLayout.getSummary();
+    }
+
+    public boolean isEmpty() {
+        return TextUtils.isEmpty(mScrollView.mRichLinearLayout.mFocusView.getText().toString().trim());
     }
 }
