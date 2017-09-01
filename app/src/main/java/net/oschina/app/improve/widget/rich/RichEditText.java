@@ -70,7 +70,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     private TextSection getDefaultSection(Context context) {
         TextSection defaultSection = new TextSection();
         defaultSection.setBold(false);
-        defaultSection.setTextSize(16);
+        defaultSection.setTextSize(18);
         defaultSection.setItalic(false);
         defaultSection.setText("");
         defaultSection.setAlignment(TextSection.LEFT);

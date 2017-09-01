@@ -1,9 +1,9 @@
 package net.oschina.app.improve.write;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,10 +11,11 @@ import android.widget.FrameLayout;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.bean.SubBean;
+import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.rich.RichEditLayout;
 import net.oschina.app.improve.widget.rich.RichEditText;
-import net.oschina.app.improve.widget.rich.Section;
 import net.oschina.app.improve.widget.rich.TextSection;
 
 import java.util.List;
@@ -58,6 +59,13 @@ public class WriteActivity extends BaseBackActivity implements
         return R.layout.activity_write;
     }
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
+
     @Override
     protected void initWidget() {
         super.initWidget();
@@ -68,8 +76,6 @@ public class WriteActivity extends BaseBackActivity implements
         mAlignWindow = new AlignPopupWindow(this, this);
         mFontPopupWindow = new FontPopupWindow(this, this);
         mHPopupWindow = new HPopupWindow(this, this);
-        mBlog.setTitle("博客标题");
-        mBlog.setSummary("博客摘要");
     }
 
     @Override
@@ -181,9 +187,10 @@ public class WriteActivity extends BaseBackActivity implements
     }
 
     @Override
-    public void showPubBlogSuccess(int strId, Blog blog) {
+    public void showPubBlogSuccess(int strId, SubBean bean) {
         if (isDestroy()) return;
         SimplexToast.show(this, strId);
+        finish();
     }
 
     @Override
@@ -202,12 +209,35 @@ public class WriteActivity extends BaseBackActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_commit) {
+            mBlog.setSummary(mEditView.getSummary());
+            mBlog.setTitle(mEditView.getTitle());
+            mBlog.setCatalog((int) mCategoryFragment.getCategoryId());
+            mBlog.setSystem(mCategoryFragment.getSystemId());
             List<TextSection> sections = mEditView.createSectionList();
             if (sections != null) {
-                mPresenter.pubBlog(mBlog,sections);
+                mPresenter.pubBlog(mBlog, sections);
             }
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mEditView.isEmpty()) {
+            super.onBackPressed();
+        } else {
+            DialogHelper.getConfirmDialog(this,
+                    "你还没保存博客",
+                    "确定要退出吗",
+                    "确定",
+                    "取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
+        }
     }
 
     @Override

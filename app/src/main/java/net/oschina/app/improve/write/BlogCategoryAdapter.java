@@ -14,10 +14,11 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
  * Created by huanghaibin on 2017/8/31.
  */
 
- class BlogCategoryAdapter extends BaseRecyclerAdapter<BlogCategory> {
+class BlogCategoryAdapter extends BaseRecyclerAdapter<BlogCategory> {
 
-     BlogCategoryAdapter(Context context) {
+    BlogCategoryAdapter(Context context) {
         super(context, NEITHER);
+        mSelectedPosition = 0;
     }
 
     @Override
