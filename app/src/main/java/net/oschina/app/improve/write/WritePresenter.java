@@ -25,6 +25,7 @@ import cz.msebera.android.httpclient.Header;
 
 class WritePresenter implements WriteContract.Presenter {
     private final WriteContract.View mView;
+    private boolean isLoading;
 
     WritePresenter(WriteContract.View mView) {
         this.mView = mView;
@@ -33,6 +34,8 @@ class WritePresenter implements WriteContract.Presenter {
 
     @Override
     public void pubBlog(Blog blog, List<TextSection> sections) {
+        if (isLoading)
+            return;
         if (blog == null) {
             mView.showPubBlogFailure(R.string.blog_empty_error);
             return;
@@ -51,17 +54,22 @@ class WritePresenter implements WriteContract.Presenter {
             return;
         }
 
-        Log.e("content", blog.getContent());
+        isLoading = true;
         OSChinaApi.pubBlog(blog, new TextHttpResponseHandler() {
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                isLoading = false;
+            }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("onFailure", "ffafa" + responseString);
                 mView.showPubBlogFailure(R.string.pub_blog_failure);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("onSuccess", "" + responseString);
                 try {
                     Type type = new TypeToken<ResultBean<SubBean>>() {
                     }.getType();

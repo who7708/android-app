@@ -190,6 +190,7 @@ public class WriteActivity extends BaseBackActivity implements
     public void showPubBlogSuccess(int strId, SubBean bean) {
         if (isDestroy()) return;
         SimplexToast.show(this, strId);
+        dismissLoadingDialog();
         finish();
     }
 
@@ -197,6 +198,7 @@ public class WriteActivity extends BaseBackActivity implements
     public void showPubBlogFailure(int strId) {
         if (isDestroy()) return;
         SimplexToast.show(this, strId);
+        dismissLoadingDialog();
     }
 
 
@@ -209,6 +211,7 @@ public class WriteActivity extends BaseBackActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_commit) {
+            showLoadingDialog("正在发布博客...");
             mBlog.setSummary(mEditView.getSummary());
             mBlog.setTitle(mEditView.getTitle());
             mBlog.setCatalog((int) mCategoryFragment.getCategoryId());
