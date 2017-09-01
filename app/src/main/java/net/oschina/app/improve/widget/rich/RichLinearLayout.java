@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -40,10 +41,46 @@ public class RichLinearLayout extends LinearLayout {
         init(context);
     }
 
+    @SuppressWarnings("all")
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.rich_linear_layout, this, true);
         mEditTitle = (AppCompatEditText) findViewById(R.id.et_title);
         mEditSummary = (AppCompatEditText) findViewById(R.id.et_summary);
+
+        mEditTitle.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mParent.mParent.mContentPanel.getVisibility() == VISIBLE) {
+                    mParent.mParent.setAdjustNothing();
+                }
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mParent.mParent.mContentPanel.setVisibility(GONE);
+                        mParent.mParent.setAdjustResize();
+                    }
+                }, 500);
+                return false;
+            }
+        });
+
+        mEditSummary.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mParent.mParent.mContentPanel.getVisibility() == VISIBLE) {
+                    mParent.mParent.setAdjustNothing();
+                }
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mParent.mParent.mContentPanel.setVisibility(GONE);
+                        mParent.mParent.setAdjustResize();
+                    }
+                }, 500);
+                return false;
+            }
+        });
+
         RichEditText editText = new RichEditText(context, mListener);
         mFocusView = editText;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
