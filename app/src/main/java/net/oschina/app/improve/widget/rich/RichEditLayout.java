@@ -131,7 +131,7 @@ public class RichEditLayout extends LinearLayout {
         this.isKeyboardOpen = isOpen;
     }
 
-    public List<Section> createSectionList() {
+    public List<TextSection> createSectionList() {
         return mScrollView.createSectionList();
     }
 

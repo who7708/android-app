@@ -15,6 +15,7 @@
         android:paddingBottom="@dimen/lay_4">
 
         <TextView
+            android:id="@+id/tv_h1"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="bottom|center_horizontal"
@@ -24,6 +25,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:id="@+id/tv_h2"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="bottom|center_horizontal"
@@ -33,6 +35,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:id="@+id/tv_h3"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="bottom|center_horizontal"
@@ -42,6 +45,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:id="@+id/tv_h4"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="bottom|center_horizontal"

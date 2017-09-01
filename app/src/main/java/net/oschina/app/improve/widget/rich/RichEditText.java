@@ -71,6 +71,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         TextSection defaultSection = new TextSection();
         defaultSection.setBold(false);
         defaultSection.setTextSize(16);
+        defaultSection.setItalic(false);
         defaultSection.setText("");
         defaultSection.setAlignment(TextSection.LEFT);
         defaultSection.setColorHex("111111");
@@ -167,8 +168,8 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             TextSection section = mSections.get(preIndex);
             setColorSpan(Color.parseColor(("#" + section.getColorHex())), preIndex);
             setBold(section.isBold(), preIndex);
-            setItalic(section.isItalic());
-            setMidLine(section.isMidLine());
+            setItalic(section.isItalic(), preIndex);
+            setMidLine(section.isMidLine(), preIndex);
             setAlignStyle(section.getAlignment(), preIndex);
         }
         isEnter = false;
@@ -277,16 +278,20 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         setColorSpan(Color.parseColor(("#" + section.getColorHex())));
         setBold(section.isBold());
         setItalic(section.isItalic());
+        setMidLine(section.isMidLine());
         setAlignStyle(section.getAlignment());
         setTextSizeSpan(section.getTextSize());
-        setMidLine(section.isMidLine());
+
     }
 
     void setSectionStyle(TextSection section, int index) {
         setColorSpan(Color.parseColor(("#" + section.getColorHex())), index);
         setBold(section.isBold(), index);
+        setItalic(section.isItalic(), index);
+        setMidLine(section.isMidLine(), index);
         setAlignStyle(section.getAlignment(), index);
         setTextSizeSpan(section.getTextSize(), index);
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -598,7 +603,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             edit.setSpan(new StyleSpan(Typeface.ITALIC),
                     star,
                     end,
-                    Typeface.ITALIC);
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             StyleSpan[] styleSpans = edit.getSpans(star,
                     end, StyleSpan.class);
@@ -620,7 +625,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             edit.setSpan(new StyleSpan(Typeface.ITALIC),
                     star,
                     end,
-                    Typeface.ITALIC);
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             StyleSpan[] styleSpans = edit.getSpans(star,
                     end, StyleSpan.class);
@@ -687,7 +692,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
      *
      * @param isMidLine isMidLine
      */
-    void setMidLine(boolean isMidLine,int index) {
+    void setMidLine(boolean isMidLine, int index) {
         if (index >= 0 && index < mSections.size()) {
             mSections.get(index).setMidLine(isMidLine);
         }
@@ -950,70 +955,6 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     }
 
     /**
-     * 生成段落文本输出
-     * 段落如果是空白的，也就是只有\n 连空格都没有, 则在上一个段落 + \n
-     *
-     * @param preViewIsImage 图片的下一个段落要在起始 + \n 回车
-     * @param isLastIndex    是否是最后一个
-     * @return 段落列表
-     */
-    @SuppressWarnings("all")
-    List<TextSection> getTextSections(boolean preViewIsImage, boolean isLastIndex, int size) {
-        String text = getTextString();
-        String[] selections = text.split("\n", -1);
-        int length = selections.length;
-        if (isLastIndex && length == 1 && TextUtils.isEmpty(text.trim()))
-            return null;
-        List<TextSection> list = new ArrayList<>();
-        if (TextUtils.isEmpty(text.trim())) {
-            TextSection section = mSections.get(0).cloneTextSelection();
-            for (int i = 0; i < length; i++) {
-                section.setText("\n" + section.getText());
-            }
-            section.setIndex(size);
-            list.add(section);
-            return list;
-        }
-        String preEnter = "";
-        TextSection preSection = null;//保留前一个Text不为空的段落
-        int index = size;
-        for (int i = 0; i < length; i++) {
-            TextSection section = mSections.get(i).cloneTextSelection();
-            section.setIndex(index);
-            ++index;
-            String sectionText = selections[i];
-            if (preViewIsImage && i == 0) {
-                preEnter = "\n";
-                if (TextUtils.isEmpty(sectionText)) {
-                    preEnter += "\n";
-                } else {
-                    section.setText(preEnter + sectionText + "\n");//图片的下一个段落要在起始 + \n 回车
-                    preEnter = "";
-                    preSection = section;
-                    list.add(section);
-                    continue;
-                }
-            }
-            if (TextUtils.isEmpty(sectionText)) {
-                preEnter += "\n";
-                if (preSection != null) {
-                    preSection.setText(preSection.getText() + "\n");
-                    preEnter = "";
-                }
-            } else {
-                section.setText(preEnter + sectionText + "\n");//图片的下一个段落要在起始 + \n 回车
-                preSection = section;
-                preEnter = "";
-                list.add(section);
-            }
-        }
-        if (preSection == null) {
-            preSection = mSections.get(0).cloneTextSelection();
-        }
-        return list;
-    }
-
-    /**
      * 切换段落
      */
     public interface OnSectionChangeListener {
@@ -1034,5 +975,30 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         } else if (alignment == TextSection.RIGHT)
             return Layout.Alignment.ALIGN_OPPOSITE;
         return Layout.Alignment.ALIGN_NORMAL;
+    }
+
+    /**
+     * 生成段落文本输出
+     * 段落如果是空白的，也就是只有\n 连空格都没有, 则在上一个段落 + \n
+     *
+     * @param preViewIsImage 图片的下一个段落要在起始 + \n 回车
+     * @param isLastIndex    是否是最后一个
+     * @return 段落列表
+     */
+    @SuppressWarnings("all")
+    List<TextSection> getTextSections() {
+        String text = getTextString();
+        String[] selections = text.split("\n", -1);
+        int length = selections.length;
+        if (length == 1 && TextUtils.isEmpty(text.trim()))
+            return null;
+
+        List<TextSection> list = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            TextSection section = mSections.get(i).cloneTextSelection();
+            section.setText( selections[i]);
+            list.add(section);
+        }
+        return list;
     }
 }

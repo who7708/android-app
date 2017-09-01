@@ -79,7 +79,7 @@ public class ShakePresentFragment extends BaseSensorFragment<ShakePresent> {
                 }
                 break;
             case R.id.btn_get:
-                if (mBean != null) {
+                if (mBean != null && mBean.getResult() != null) {
                     UIHelper.showUrlRedirect(mContext, mBean.getResult().getHref());
                 }
                 break;
