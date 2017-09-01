@@ -17,6 +17,7 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.bean.SignUpEventOptions;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.detail.sign.StringParams;
+import net.oschina.app.improve.write.Blog;
 import net.oschina.app.team.bean.Team;
 import net.oschina.app.util.StringUtils;
 
@@ -1809,5 +1810,25 @@ public class OSChinaApi {
      */
     public static void getBlogCategories(TextHttpResponseHandler handler) {
         ApiHttpClient.get("action/apiv2/get_blog_category", handler);
+    }
+
+    /**
+     * 发布博客
+     *
+     * @param Blog    博客
+     * @param handler 回调
+     */
+    public static void pubBlog(Blog blog, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("title", blog.getTitle());
+        params.put("abstract", blog.getSummary());
+        params.put("system", blog.getSystem());
+        params.put("catalog", blog.getCatalog());
+        params.put("canVisible", blog.getCanVisible());
+        params.put("canComment", blog.getCanComment());
+        params.put("isStick", blog.getIsStick());
+        params.put("type", blog.getType());
+        params.put("content", blog.getContent());
+        ApiHttpClient.post("action/apiv2/pub_blog", params, handler);
     }
 }

@@ -35,7 +35,7 @@ public class RichScrollView extends NestedScrollView {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
     }
-    List<Section> createSectionList(){
+    List<TextSection> createSectionList(){
         return mRichLinearLayout.createSectionList();
     }
     void addImagePanel(String image) {

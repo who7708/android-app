@@ -96,31 +96,31 @@ public class FontFragment extends BaseFragment implements RichEditText.OnSection
             case R.id.btn_bold:
                 mBtnBold.setSelected(!mBtnBold.isSelected());
                 mListener.onBoldChange(mBtnBold.isSelected());
-                DrawableCompat.setTint(mBtnBold.getDrawable(), mBtnBold.isSelected() ? 0xff24cf5f : 0xff111111);
+                DrawableCompat.setTint(mBtnBold.getDrawable(), mBtnBold.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
                 break;
             case R.id.btn_italic:
                 mBtnItalic.setSelected(!mBtnItalic.isSelected());
                 mListener.onItalicChange(mBtnItalic.isSelected());
-                DrawableCompat.setTint(mBtnItalic.getDrawable(), mBtnItalic.isSelected() ? 0xff24cf5f : 0xff111111);
+                DrawableCompat.setTint(mBtnItalic.getDrawable(), mBtnItalic.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
                 break;
             case R.id.btn_mid_line:
                 mBtnMidLine.setSelected(!mBtnMidLine.isSelected());
                 mListener.onMidLineChange(mBtnMidLine.isSelected());
-                DrawableCompat.setTint(mBtnMidLine.getDrawable(), mBtnMidLine.isSelected() ? 0xff24cf5f : 0xff111111);
+                DrawableCompat.setTint(mBtnMidLine.getDrawable(), mBtnMidLine.isSelected() ? 0xff24cf5f : 0xFFFFFFFF);
                 break;
             case R.id.btn_align_left:
                 mBtnAlignLeft.setSelected(!mBtnAlignLeft.isSelected());
                 mListener.onAlignChange(TextSection.LEFT);
                 DrawableCompat.setTint(mBtnAlignLeft.getDrawable(), 0xff24cf5f);
-                DrawableCompat.setTint(mBtnAlignCenter.getDrawable(), 0xff111111);
-                DrawableCompat.setTint(mBtnAlignRight.getDrawable(), 0xff111111);
+                DrawableCompat.setTint(mBtnAlignCenter.getDrawable(), 0xFFFFFFFF);
+                DrawableCompat.setTint(mBtnAlignRight.getDrawable(), 0xFFFFFFFF);
                 break;
             case R.id.btn_align_center:
                 mBtnAlignCenter.setSelected(!mBtnAlignCenter.isSelected());
                 mListener.onAlignChange(TextSection.CENTER);
-                DrawableCompat.setTint(mBtnAlignLeft.getDrawable(), 0xff111111);
+                DrawableCompat.setTint(mBtnAlignLeft.getDrawable(), 0xFFFFFFFF);
                 DrawableCompat.setTint(mBtnAlignCenter.getDrawable(), 0xff24cf5f);
-                DrawableCompat.setTint(mBtnAlignRight.getDrawable(), 0xff111111);
+                DrawableCompat.setTint(mBtnAlignRight.getDrawable(), 0xFFFFFFFF);
                 break;
             case R.id.btn_align_right:
                 mBtnAlignRight.setSelected(!mBtnAlignRight.isSelected());

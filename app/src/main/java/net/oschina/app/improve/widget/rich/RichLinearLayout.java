@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,13 +23,12 @@ public class RichLinearLayout extends LinearLayout {
     RichEditText mFocusView;
     ImagePanel mFocusPanel;
     RichEditText.OnSectionChangeListener mListener;
-    /**
-     * 段落
-     */
-    private List<Section> mSections = new ArrayList<>();
+
+
     public RichLinearLayout(Context context) {
         this(context, null);
     }
+
     public RichLinearLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
@@ -41,6 +39,7 @@ public class RichLinearLayout extends LinearLayout {
         setPadding(UI.dipToPx(context, 16), 0, UI.dipToPx(context, 16), 0);
         addView(editText);
     }
+
     /**
      * 删除文本判断第一个字符的操作
      *
@@ -108,6 +107,7 @@ public class RichLinearLayout extends LinearLayout {
             }
         }
     }
+
     /**
      * 插入图片 width=match_parent, height=wrap_content
      *
@@ -187,6 +187,7 @@ public class RichLinearLayout extends LinearLayout {
             }
         }
     }
+
     /**
      * * 调整布局
      * 触发情况
@@ -209,6 +210,7 @@ public class RichLinearLayout extends LinearLayout {
             }
         }
     }
+
     /**
      * 调整图片回车后的布局，
      * ImagePanel + RichEditText 的情况 RichEditText获得焦点移动光标
@@ -262,6 +264,7 @@ public class RichLinearLayout extends LinearLayout {
             }
         }
     }
+
     /**
      * 调整删除图片后的布局，主要是 RichEditText + ImagePanel + RichEditText 的情况合并两个RichEditText
      *
@@ -320,6 +323,7 @@ public class RichLinearLayout extends LinearLayout {
             setRichEditTextFocus();
         }
     }
+
     /**
      * 让当前RichEditText获取焦点
      */
@@ -328,22 +332,24 @@ public class RichLinearLayout extends LinearLayout {
         mFocusView.setFocusableInTouchMode(true);
         mFocusView.requestFocus();
     }
+
     void setBold(boolean isBold) {
         mFocusView.setBold(isBold);
     }
 
 
-    void setItalic(boolean isItalic){
+    void setItalic(boolean isItalic) {
         mFocusView.setItalic(isItalic);
     }
 
-    void setMidLine(boolean isMidLine){
+    void setMidLine(boolean isMidLine) {
         mFocusView.setMidLine(isMidLine);
     }
 
     void setAlignStyle(int align) {
         mFocusView.setAlignStyle(align);
     }
+
     void setColorSpan(String color) {
         mFocusView.setColorSpan(color);
     }
@@ -352,7 +358,7 @@ public class RichLinearLayout extends LinearLayout {
         mFocusView.setTextSizeSpanIncrease(isIncrease);
     }
 
-    void setTextSize(int textSize){
+    void setTextSize(int textSize) {
         mFocusView.setTextSize(textSize);
     }
 
@@ -363,12 +369,14 @@ public class RichLinearLayout extends LinearLayout {
             mParent = (RichScrollView) getParent();
         }
     }
+
     private void openKeyboard(EditText view) {
         view.setFocusable(true);
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null)
             imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
     /**
      * 初始化界面
      * 遍历段落，连续的TextSection只能有一个richEditText
@@ -476,6 +484,7 @@ public class RichLinearLayout extends LinearLayout {
             });
         }
     }
+
     /**
      * 返回日记数量
      *
@@ -490,65 +499,13 @@ public class RichLinearLayout extends LinearLayout {
         }
         return imageCount;
     }
+
+
     /**
-     * 注意初始化日记的时候导入段落
-     * 最终使用的时候要在每一个文本段落起始位置和末尾都去掉一个 \n
-     * 然后前面有多少个 \n 就加多少个段落，继承当前段落
-     * 后面有多少个 \n 就追加多少个段落,继承当前段落
-     * <p>
-     * <p>
-     * 合并规则如下：
-     * 第一行有文字，第二第三行没有文字，则在第一行末尾加两个 \n
-     * 如果第一行第二行没有文字，第三行有文字，则在第三行开始加两个 \n
-     * <p>
-     * 图片情况
-     * 如果上面一个段落是图片，则该段落前方追加一个 \n
-     * 图片与图片之间追加一个空段落
-     *
-     * @return 段落列表
+     * fan
      */
-    List<Section> createSectionList() {
-        int count = getChildCount();
-        if (count == 0) {
-            return null;
-        }
-        View view = getChildAt(0);
-        List<Section> sections = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            View v = getChildAt(i);
-            boolean preViewIsImage = false;//前一个View是否是图片
-            int preIndex = i - 1;
-            if (preIndex >= 0 && preIndex < count) {
-                preViewIsImage = getChildAt(preIndex) instanceof ImagePanel;
-            }
-            if (v instanceof RichEditText) {
-                RichEditText text = (RichEditText) v;
-                List<TextSection> textSections = text.getTextSections(preViewIsImage, i == count - 1, sections.size());
-                if (textSections != null) {
-                    sections.addAll(textSections);
-                }
-            } else {
-                ImagePanel panel = (ImagePanel) v;
-                ImageSection image = new ImageSection();
-                image.setHeight(panel.getMeasuredHeight());
-                image.setWidth(panel.getMeasuredWidth());
-                image.setFileName(panel.getFileName());
-                image.setFilePath(panel.mImagePath);
-                image.setIndex(sections.size());
-                sections.add(image);
-                int nextIndex = i + 1;
-                if (nextIndex < count && getChildAt(nextIndex) instanceof ImagePanel) {//下一个也是图片
-                    TextSection defaultSection = new TextSection();
-                    defaultSection.setBold(false);
-                    defaultSection.setTextSize(16);
-                    defaultSection.setText("\n");
-                    defaultSection.setAlignment(TextSection.LEFT);
-                    defaultSection.setColorHex("111111");
-                    sections.add(defaultSection);
-                }
-            }
-        }
-        return sections;
+    List<TextSection> createSectionList() {
+        return mFocusView.getTextSections();
     }
 
 }

@@ -3,13 +3,19 @@ package net.oschina.app.improve.write;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.rich.RichEditLayout;
+import net.oschina.app.improve.widget.rich.RichEditText;
 import net.oschina.app.improve.widget.rich.Section;
+import net.oschina.app.improve.widget.rich.TextSection;
 
 import java.util.List;
 
@@ -21,7 +27,11 @@ import butterknife.OnClick;
  * Created by huanghaibin on 2017/8/3.
  */
 
-public class WriteActivity extends BaseBackActivity implements View.OnClickListener, FontFragment.OnFontStyleChangeListener {
+public class WriteActivity extends BaseBackActivity implements
+        View.OnClickListener, FontPopupWindow.OnFontChangeListener,
+        AlignPopupWindow.OnAlignChangeListener, RichEditText.OnSectionChangeListener,
+        HPopupWindow.OnHeaderChangeListener,
+        WriteContract.View {
 
     @Bind(R.id.fl_content)
     FrameLayout mFrameContent;
@@ -34,6 +44,10 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
     private HPopupWindow mHPopupWindow;
     private FontPopupWindow mFontPopupWindow;
     private Handler mHandler = new Handler();
+
+    private WritePresenter mPresenter;
+
+    private Blog mBlog = new Blog();
 
     public static void show(Context context) {
         context.startActivity(new Intent(context, WriteActivity.class));
@@ -50,15 +64,18 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
         mEditView.setContentPanel(mFrameContent);
         mCategoryFragment = CategoryFragment.newInstance();
         addFragment(R.id.fl_content, mCategoryFragment);
-        mEditView.setOnSectionChangeListener(mCategoryFragment);
-        mAlignWindow = new AlignPopupWindow(this);
-        mFontPopupWindow = new FontPopupWindow(this);
-        mHPopupWindow = new HPopupWindow(this);
+        mEditView.setOnSectionChangeListener(this);
+        mAlignWindow = new AlignPopupWindow(this, this);
+        mFontPopupWindow = new FontPopupWindow(this, this);
+        mHPopupWindow = new HPopupWindow(this, this);
+        mBlog.setTitle("博客标题");
+        mBlog.setSummary("博客摘要");
     }
 
     @Override
     protected void initData() {
         super.initData();
+        mPresenter = new WritePresenter(this);
     }
 
     @OnClick({R.id.btn_keyboard, R.id.btn_font, R.id.btn_align, R.id.btn_h,
@@ -111,26 +128,25 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_font:
-                //mFontPopupWindow.showAsDropDown(v, 0, -2 * v.getMeasuredHeight());
                 mFontPopupWindow.show(v);
                 break;
             case R.id.btn_h:
-                //mHPopupWindow.showAsDropDown(v, -v.getWidth() / 2 + 20, -2 * v.getMeasuredHeight());
                 mHPopupWindow.show(v);
                 break;
             case R.id.btn_align:
                 mAlignWindow.show(v);
                 break;
-            case R.id.btn_commit:
-                List<Section> sections = mEditView.createSectionList();
-                if (sections != null) {
-
-                    finish();
-                }
-                break;
 
         }
     }
+
+    @Override
+    public void onSectionChange(TextSection section) {
+        mAlignWindow.setStyle(section);
+        mFontPopupWindow.setStyle(section);
+        mHPopupWindow.setStyle(section);
+    }
+
 
     @Override
     public void onBoldChange(boolean isBold) {
@@ -153,12 +169,50 @@ public class WriteActivity extends BaseBackActivity implements View.OnClickListe
     }
 
     @Override
-    public void onTitleChange(TitleAdapter.Title title) {
-        mEditView.setTextSize(title.getSize());
+    public void onTitleChange(int size) {
+        mEditView.setTextSize(size);
+    }
+
+
+    @Override
+    public void showNetworkError(int strId) {
+        if (isDestroy()) return;
+        SimplexToast.show(this, strId);
     }
 
     @Override
-    public void onColorChange(String color) {
-        mEditView.setColorSpan(color);
+    public void showPubBlogSuccess(int strId, Blog blog) {
+        if (isDestroy()) return;
+        SimplexToast.show(this, strId);
     }
+
+    @Override
+    public void showPubBlogFailure(int strId) {
+        if (isDestroy()) return;
+        SimplexToast.show(this, strId);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_commit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_commit) {
+            List<TextSection> sections = mEditView.createSectionList();
+            if (sections != null) {
+                mPresenter.pubBlog(mBlog,sections);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void setPresenter(WriteContract.Presenter presenter) {
+
+    }
+
 }

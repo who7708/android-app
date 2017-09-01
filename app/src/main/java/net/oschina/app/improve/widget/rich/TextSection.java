@@ -12,6 +12,8 @@ public class TextSection extends Section implements Cloneable {
     public static final int CENTER = 1;
     public static final int RIGHT = 2;
 
+    private boolean isHeader;//是否是标题
+
     private String text;
 
     private int textSize = 14;
@@ -85,6 +87,14 @@ public class TextSection extends Section implements Cloneable {
 
     public void setItalic(boolean italic) {
         isItalic = italic;
+    }
+
+    public boolean isHeader() {
+        return isHeader;
+    }
+
+    public void setHeader(boolean header) {
+        isHeader = header;
     }
 
     @Override

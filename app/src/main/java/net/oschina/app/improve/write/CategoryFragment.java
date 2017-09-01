@@ -30,7 +30,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by huanghaibin on 2017/8/31.
  */
 
-public class CategoryFragment extends BaseFragment implements RichEditText.OnSectionChangeListener {
+public class CategoryFragment extends BaseFragment {
 
     @Bind(R.id.recyclerBlog)
     RecyclerView mRecyclerBlog;
@@ -79,10 +79,6 @@ public class CategoryFragment extends BaseFragment implements RichEditText.OnSec
         getCategories();
     }
 
-    @Override
-    public void onSectionChange(TextSection section) {
-
-    }
 
 
     @Override
