@@ -112,11 +112,9 @@ class WritePresenter implements WriteContract.Presenter {
             sb.append("<strong>");
         }
         if (section.isItalic()) {
-            sb.append("\n");
             sb.append("<em>");
         }
         if (section.isMidLine()) {
-            sb.append("\n");
             sb.append("<s>");
         }
         sb.append(formatHtml(section.getText()));
@@ -124,11 +122,9 @@ class WritePresenter implements WriteContract.Presenter {
             sb.append("</s>");
         }
         if (section.isItalic()) {
-            sb.append("\n");
             sb.append("</em>");
         }
         if (section.isBold()) {
-            sb.append("\n");
             sb.append("</strong>");
         }
         insertH(sb, section.getTextSize(), false);
@@ -157,15 +153,14 @@ class WritePresenter implements WriteContract.Presenter {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("<p style=\"text-align: %s\">", getAlign(section.getAlignment())));
         if (section.isBold()) {
-            sb.append("\n");
+
             sb.append("<strong>");
         }
         if (section.isItalic()) {
-            sb.append("\n");
+
             sb.append("<em>");
         }
         if (section.isMidLine()) {
-            sb.append("\n");
             sb.append("<s>");
         }
         sb.append(formatHtml(section.getText()));
@@ -174,14 +169,14 @@ class WritePresenter implements WriteContract.Presenter {
             sb.append("</s>");
         }
         if (section.isItalic()) {
-            sb.append("\n");
+
             sb.append("</em>");
         }
         if (section.isBold()) {
-            sb.append("\n");
+
             sb.append("</strong>");
         }
-        sb.append("\n");
+
         sb.append("</p>");
         return sb.toString();
     }

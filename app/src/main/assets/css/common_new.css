@@ -43,6 +43,7 @@ img {
 p{
 	margin: 0;
 	margin-bottom: 0.8em;
+    word-break: break-all;
 }
 
 pre {
