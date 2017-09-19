@@ -4,11 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Size;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -182,7 +185,49 @@ public class TweetPublishActivity extends BaseBackActivity {
      * @return path
      */
     private String decodePath(Uri uri) {
+        String decodePath = null;
+        String uriPath = uri.toString();
+
+        if (uriPath != null && uriPath.startsWith("content://")) {
+            int id = 0;
+            try {
+                id = Integer.parseInt(uriPath.substring(uriPath.lastIndexOf("/") + 1, uriPath.length()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return parseUri(uri);
+            }
+
+            Uri tempUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            String[] projection = {MediaStore.Images.Media.DATA};
+            String selection = MediaStore.Images.Media._ID + "=?";
+            String[] selectionArgs = {id + ""};
+
+            Cursor cursor = getContentResolver().query(tempUri, projection, selection, selectionArgs, null);
+            try {
+                while (cursor != null && cursor.moveToNext()) {
+                    String temp = cursor.getString(0);
+                    File file = new File(temp);
+                    if (file.exists()) {
+                        decodePath = temp;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (cursor != null && !cursor.isClosed()) {
+                    cursor.close();
+                }
+            }
+
+        } else {
+            return uriPath;
+        }
+        return decodePath;
+    }
+
+    private String parseUri(Uri uri) {
         String path = uri.getPath();
+        Log.e("path", "path" + path);
         if (path != null) {
             File file = new File(path.replace("/raw/", ""));
             return file.exists() ? file.getPath() : "";
