@@ -14,6 +14,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -140,7 +141,7 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
         @SuppressWarnings("ConstantConditions")
         @Override
         public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
+            Log.e("onSuccess",responseString);
             Type type = new TypeToken<ResultBean<User>>() {
             }.getType();
 

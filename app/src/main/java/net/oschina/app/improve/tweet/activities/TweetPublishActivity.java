@@ -4,10 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Size;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -184,39 +182,12 @@ public class TweetPublishActivity extends BaseBackActivity {
      * @return path
      */
     private String decodePath(Uri uri) {
-        String decodePath = null;
-        String uriPath = uri.toString();
-
-        if (uriPath != null && uriPath.startsWith("content://")) {
-
-            int id = Integer.parseInt(uriPath.substring(uriPath.lastIndexOf("/") + 1, uriPath.length()));
-
-            Uri tempUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            String[] projection = {MediaStore.Images.Media.DATA};
-            String selection = MediaStore.Images.Media._ID + "=?";
-            String[] selectionArgs = {id + ""};
-
-            Cursor cursor = getContentResolver().query(tempUri, projection, selection, selectionArgs, null);
-            try {
-                while (cursor != null && cursor.moveToNext()) {
-                    String temp = cursor.getString(0);
-                    File file = new File(temp);
-                    if (file.exists()) {
-                        decodePath = temp;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (cursor != null && !cursor.isClosed()) {
-                    cursor.close();
-                }
-            }
-
-        } else {
-            return uriPath;
+        String path = uri.getPath();
+        if (path != null) {
+            File file = new File(path.replace("/raw/", ""));
+            return file.exists() ? file.getPath() : "";
         }
-        return decodePath;
+        return "";
     }
 
     @Override

@@ -457,7 +457,7 @@ public enum DisplayRules {
     private int type;
     private static Map<String, Integer> sEmojiMap;
 
-    private DisplayRules(int type, int value, int resId, String cls,
+     DisplayRules(int type, int value, int resId, String cls,
                          String remote) {
         this.type = type;
         this.emojiStr = cls;

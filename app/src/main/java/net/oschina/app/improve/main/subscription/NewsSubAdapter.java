@@ -32,7 +32,7 @@ public class NewsSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
     private OSCApplication.ReadState mReadState;
     private SubTab mTab;
 
-    public NewsSubAdapter(Context context, int mode) {
+     NewsSubAdapter(Context context, int mode) {
         super(context, mode);
         mReadState = OSCApplication.getReadState("sub_list");
         setOnLoadingHeaderCallBack(this);
@@ -111,7 +111,7 @@ public class NewsSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
         TextView tv_title, tv_description, tv_time, tv_comment_count, tv_view_count;
         LinearLayout ll_title, ll_info;
 
-        public NewsViewHolder(View itemView) {
+         NewsViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_description = (TextView) itemView.findViewById(R.id.tv_description);

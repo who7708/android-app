@@ -37,7 +37,7 @@ public class AppCrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        ErrorActivity.show(mContext, ex.getMessage());
+        //ErrorActivity.show(mContext, ex.getMessage());
         if (mDefaultHandler != null && (BuildConfig.DEBUG || (!handleException(ex)))) {
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
