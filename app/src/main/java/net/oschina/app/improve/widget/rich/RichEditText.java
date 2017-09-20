@@ -834,6 +834,10 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     }
 
 
+    /**
+     * 设置字体大小
+     * @param textSize textSize
+     */
     void setTextSize(int textSize) {
         Editable edit = getEditableText();
         int index = getSelectionIndex();
@@ -853,6 +857,22 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
             edit.removeSpan(span);
         }
         edit.setSpan(new AbsoluteSizeSpan(UI.dipToPx(getContext(), textSize)), star, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        update(index);
+    }
+
+
+    /**
+     * 字体大小改变，会导致后续的段落无法及时刷新，调用这个方法即可
+     *
+     * @param position 段落位置
+     */
+    private void update(int position) {
+        if (mSections == null || mSections.size() <= 1 || position >= mSections.size() - 1)
+            return;
+        for (int i = position; i < mSections.size(); i++) {
+            TextSection section = mSections.get(i);
+            setSectionStyle(section, i);
+        }
     }
 
     /**
@@ -954,6 +974,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         }
     }
 
+
     /**
      * 切换段落
      */
@@ -996,7 +1017,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         List<TextSection> list = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             TextSection section = mSections.get(i).cloneTextSelection();
-            section.setText( selections[i]);
+            section.setText(selections[i]);
             list.add(section);
         }
         return list;
