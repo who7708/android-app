@@ -45,7 +45,7 @@ public class RichLinearLayout extends LinearLayout {
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.rich_linear_layout, this, true);
         mEditTitle = (AppCompatEditText) findViewById(R.id.et_title);
-        mEditSummary = (AppCompatEditText) findViewById(R.id.et_summary);
+        //mEditSummary = (AppCompatEditText) findViewById(R.id.et_summary);
 
         mEditTitle.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -63,23 +63,31 @@ public class RichLinearLayout extends LinearLayout {
                 return false;
             }
         });
-
-        mEditSummary.setOnTouchListener(new OnTouchListener() {
+        mEditTitle.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mParent.mParent.mContentPanel.getVisibility() == VISIBLE) {
-                    mParent.mParent.setAdjustNothing();
-                }
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mParent.mParent.mContentPanel.setVisibility(GONE);
-                        mParent.mParent.setAdjustResize();
-                    }
-                }, 500);
-                return false;
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (mParent == null || mParent.mParent == null)
+                    return;
+                mParent.mParent.mRichBar.setBarEnable(!hasFocus);
             }
         });
+
+//        mEditSummary.setOnTouchListener(new OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (mParent.mParent.mContentPanel.getVisibility() == VISIBLE) {
+//                    mParent.mParent.setAdjustNothing();
+//                }
+//                postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mParent.mParent.mContentPanel.setVisibility(GONE);
+//                        mParent.mParent.setAdjustResize();
+//                    }
+//                }, 500);
+//                return false;
+//            }
+//        });
 
         RichEditText editText = new RichEditText(context, mListener);
         mFocusView = editText;
@@ -106,9 +114,9 @@ public class RichLinearLayout extends LinearLayout {
     @SuppressLint("SetTextI18n")
     void delete(RichEditText editText) {
         int count = getChildCount();
-        if (count <= 3)
+        if (count <= 2)
             return;
-        for (int i = 2; i < count; i++) {
+        for (int i = 1; i < count; i++) {
             View view = getChildAt(i);
             if (view == editText) {
                 String content = editText.getText().toString();

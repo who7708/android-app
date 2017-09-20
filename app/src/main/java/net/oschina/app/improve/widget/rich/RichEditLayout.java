@@ -25,7 +25,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class RichEditLayout extends LinearLayout {
     private RichScrollView mScrollView;
-    private RichBar mRichBar;
+    RichBar mRichBar;
     View mContentPanel;//底部内容布局
     boolean isKeyboardOpen = true;
     public static int KEYBOARD_HEIGHT = 0;

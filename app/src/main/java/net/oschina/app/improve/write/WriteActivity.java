@@ -90,7 +90,7 @@ public class WriteActivity extends BaseBackActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_keyboard:
-                if (mEditView.isKeyboardOpen() && mFrameContent.getVisibility() == View.GONE) {
+                if (mEditView.isKeyboardOpen()) {
                     mHandler.removeCallbacksAndMessages(null);
                     mEditView.closeKeyboard();
                     mFrameContent.setVisibility(View.GONE);
@@ -212,14 +212,12 @@ public class WriteActivity extends BaseBackActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_commit) {
             showLoadingDialog("正在发布博客...");
-            mBlog.setSummary(mEditView.getSummary());
+            //mBlog.setSummary(mEditView.getSummary());
             mBlog.setTitle(mEditView.getTitle());
             mBlog.setCatalog((int) mCategoryFragment.getCategoryId());
             mBlog.setSystem(mCategoryFragment.getSystemId());
             List<TextSection> sections = mEditView.createSectionList();
-            if (sections != null) {
-                mPresenter.pubBlog(mBlog, sections);
-            }
+            mPresenter.pubBlog(mBlog, sections);
         }
         return false;
     }
