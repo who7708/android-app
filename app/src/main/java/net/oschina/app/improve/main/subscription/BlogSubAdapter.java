@@ -130,12 +130,11 @@ public class BlogSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
         Author author = item.getAuthor();
         String authorName;
         if (author != null && !TextUtils.isEmpty(authorName = author.getName())) {
-            authorName = authorName.trim();
             vh.tv_time.setText(String.format("@%s %s",
                     (authorName.length() > 9 ? authorName.substring(0, 9) : authorName),
-                    StringUtils.formatSomeAgo(item.getPubDate().trim())));
+                    StringUtils.formatSomeAgo(item.getPubDate())));
         } else {
-            vh.tv_time.setText(StringUtils.formatSomeAgo(item.getPubDate().trim()));
+            vh.tv_time.setText(StringUtils.formatSomeAgo(item.getPubDate()));
         }
 
 

@@ -429,7 +429,8 @@ public abstract class DetailActivity extends BackActivity implements
     protected void toShare(String title, String content, String url) {
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(url) || mBean == null)
             return;
-
+        if (content == null)
+            content = "";
         String imageUrl = null;
         List<SubBean.Image> images = mBean.getImages();
         switch (mBean.getType()) {
@@ -484,7 +485,7 @@ public abstract class DetailActivity extends BackActivity implements
         if (mBehavior != null) {
             mBehavior.setIsShare(1);
             DBManager.getInstance()
-                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 
@@ -545,7 +546,7 @@ public abstract class DetailActivity extends BackActivity implements
         if (mBehavior != null) {
             mBehavior.setStay(mStay);
             DBManager.getInstance()
-                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 
@@ -595,7 +596,7 @@ public abstract class DetailActivity extends BackActivity implements
         if (requestCode == 1 && resultCode == RESULT_OK && mBehavior != null) {
             mBehavior.setIsComment(1);
             DBManager.getInstance()
-                    .update(mBehavior,"operate_time=?", String.valueOf(mBehavior.getOperateTime()));
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
 
