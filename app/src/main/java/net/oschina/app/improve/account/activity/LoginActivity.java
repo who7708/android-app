@@ -140,7 +140,6 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
         @SuppressWarnings("ConstantConditions")
         @Override
         public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
             Type type = new TypeToken<ResultBean<User>>() {
             }.getType();
 

@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Size;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -188,8 +189,13 @@ public class TweetPublishActivity extends BaseBackActivity {
         String uriPath = uri.toString();
 
         if (uriPath != null && uriPath.startsWith("content://")) {
-
-            int id = Integer.parseInt(uriPath.substring(uriPath.lastIndexOf("/") + 1, uriPath.length()));
+            int id = 0;
+            try {
+                id = Integer.parseInt(uriPath.substring(uriPath.lastIndexOf("/") + 1, uriPath.length()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return parseUri(uri);
+            }
 
             Uri tempUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             String[] projection = {MediaStore.Images.Media.DATA};
@@ -217,6 +223,16 @@ public class TweetPublishActivity extends BaseBackActivity {
             return uriPath;
         }
         return decodePath;
+    }
+
+    private String parseUri(Uri uri) {
+        String path = uri.getPath();
+        Log.e("path", "path" + path);
+        if (path != null) {
+            File file = new File(path.replace("/raw/", ""));
+            return file.exists() ? file.getPath() : "";
+        }
+        return "";
     }
 
     @Override

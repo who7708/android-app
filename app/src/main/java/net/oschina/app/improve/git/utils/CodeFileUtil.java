@@ -111,7 +111,8 @@ public final class CodeFileUtil {
                         ".ctl",
                         ".ts",
                         ".kt",
-                        ".vue"
+                        ".vue",
+                        ".babelrc"
                 };
         for (String string : codeFileSuffix) {
             if (fileName.equalsIgnoreCase(string)) {

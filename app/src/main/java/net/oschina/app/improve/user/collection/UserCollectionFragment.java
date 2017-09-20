@@ -32,7 +32,8 @@ public class UserCollectionFragment extends BaseRecyclerFragment<UserCollectionC
 
     @Override
     protected void initData() {
-        mPresenter.getCache(mContext);
+        if (mPresenter != null)
+            mPresenter.getCache(mContext);
         super.initData();
         mAdapter.setOnItemLongClickListener(this);
     }
