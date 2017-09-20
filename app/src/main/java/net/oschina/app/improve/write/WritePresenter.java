@@ -1,7 +1,6 @@
 package net.oschina.app.improve.write;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +33,10 @@ class WritePresenter implements WriteContract.Presenter {
 
     @Override
     public void pubBlog(Blog blog, List<TextSection> sections) {
+        if (checkIsEmpty(sections)) {
+            mView.showPubBlogFailure(R.string.blog_content_empty_error);
+            return;
+        }
         if (isLoading)
             return;
         if (blog == null) {
@@ -41,13 +44,13 @@ class WritePresenter implements WriteContract.Presenter {
             return;
         }
         if (TextUtils.isEmpty(blog.getTitle())) {
-            mView.showPubBlogFailure(R.string.blog_empty_error);
+            mView.showPubBlogFailure(R.string.blog_title_empty_error);
             return;
         }
-        if (TextUtils.isEmpty(blog.getSummary())) {
-            mView.showPubBlogFailure(R.string.blog_summary_empty_error);
-            return;
-        }
+//        if (TextUtils.isEmpty(blog.getSummary())) {
+//            mView.showPubBlogFailure(R.string.blog_summary_empty_error);
+//            return;
+//        }
         blog.setContent(getContent(sections));
         if (TextUtils.isEmpty(blog.getContent())) {
             mView.showPubBlogFailure(R.string.blog_content_empty_error);
@@ -194,5 +197,22 @@ class WritePresenter implements WriteContract.Presenter {
         return content.replaceAll("&", "&amp;")
                 .replaceAll("<", "&lt;")
                 .replaceAll(">", "&gt;");
+    }
+
+    /**
+     * 检查是否有输入
+     *
+     * @param sections 全部段落
+     * @return 输入是否为空
+     */
+    private static boolean checkIsEmpty(List<TextSection> sections) {
+        if (sections == null || sections.size() == 0)
+            return true;
+        for (TextSection section : sections) {
+            if (!TextUtils.isEmpty(section.getText().trim()))
+                return false;
+
+        }
+        return true;
     }
 }

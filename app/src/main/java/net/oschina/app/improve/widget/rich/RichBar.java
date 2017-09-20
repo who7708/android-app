@@ -20,6 +20,7 @@ public class RichBar extends LinearLayout {
     ImageButton mBtnFont;
     ImageButton mBtnAlign;
     ImageButton mBtnCategory;
+    ImageButton mBtnTitle;
 
     public RichBar(Context context) {
         this(context, null);
@@ -32,5 +33,14 @@ public class RichBar extends LinearLayout {
         mBtnFont = (ImageButton) findViewById(R.id.btn_font);
         mBtnAlign = (ImageButton) findViewById(R.id.btn_align);
         mBtnCategory = (ImageButton) findViewById(R.id.btn_category);
+        mBtnTitle = (ImageButton)findViewById(R.id.btn_h);
+    }
+
+    void setBarEnable(boolean isEnable){
+        mBtnKeyboard.setEnabled(isEnable);
+        mBtnFont.setEnabled(isEnable);
+        mBtnAlign.setEnabled(isEnable);
+        mBtnCategory.setEnabled(isEnable);
+        mBtnTitle.setEnabled(isEnable);
     }
 }
