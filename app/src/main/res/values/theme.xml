@@ -117,6 +117,8 @@
     <!--button-->
     <style name="App.Widget.Button" parent="Widget.AppCompat.Button">
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/trans</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="elevation">0dp</item>
         <item name="android:gravity">center</item>
     </style>
