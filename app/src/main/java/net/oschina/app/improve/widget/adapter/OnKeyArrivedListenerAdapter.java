@@ -34,6 +34,8 @@ public class OnKeyArrivedListenerAdapter implements RichEditText.OnKeyArrivedLis
     public boolean onMentionKeyArrived(RichEditText editText) {
         Editable msg = editText.getText();
         String msgStr = msg.toString();
+        if (TextUtils.isEmpty(msgStr))
+            return false;
         int selStartIndex = editText.getSelectionStart();
 
         if (TextUtils.isEmpty(msgStr.trim()) || selStartIndex <= 0

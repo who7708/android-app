@@ -12,6 +12,8 @@ public class HTMLUtil {
     private final static String regxpForHtml = "<([^>]*)>"; // 过滤所有以<开头以>结尾的标签
 
     public static String delHTMLTag(String htmlStr) {
+        if (TextUtils.isEmpty(htmlStr))
+            return "";
         Pattern p_script = Pattern.compile(regEx_script,
                 Pattern.CASE_INSENSITIVE);
         Matcher m_script = p_script.matcher(htmlStr);
@@ -26,7 +28,7 @@ public class HTMLUtil {
         Matcher m_html = p_html.matcher(htmlStr);
         htmlStr = m_html.replaceAll(""); // 过滤html标签
 
-        return htmlStr.trim(); // 返回文本字符串
+        return TextUtils.isEmpty(htmlStr) ? htmlStr : htmlStr.trim(); // 返回文本字符串
     }
 
     /**

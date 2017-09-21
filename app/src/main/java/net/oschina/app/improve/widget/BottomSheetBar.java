@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -184,7 +185,8 @@ public class BottomSheetBar {
     }
 
     public String getCommentText() {
-        return mEditText.getText().toString().trim();
+        String str = mEditText.getText().toString();
+        return TextUtils.isEmpty(str) ? "" : str.trim();
     }
 
     public Button getBtnCommit() {

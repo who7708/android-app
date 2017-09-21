@@ -84,6 +84,8 @@ public final class CommentsUtil {
 
     @SuppressWarnings("deprecation")
     public static void formatHtml(Resources resources, TextView textView, String str) {
+        if (str == null)
+            return;
         str = str.trim();
 
         textView.setMovementMethod(MyLinkMovementMethod.a());
@@ -104,6 +106,8 @@ public final class CommentsUtil {
 
     @SuppressWarnings({"unused", "deprecation"})
     public static void formatHtml(Resources resources, TextView textView, String str, boolean isShare) {
+        if (str == null)
+            return;
         str = str.trim();
 
         textView.setMovementMethod(MyLinkMovementMethod.a());

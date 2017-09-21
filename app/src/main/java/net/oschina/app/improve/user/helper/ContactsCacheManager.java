@@ -127,10 +127,12 @@ public class ContactsCacheManager {
         }
 
         for (Author author : list) {
-            String name = author.getName().trim();
+            if (author == null || TextUtils.isEmpty(author.getName()))
+                continue;
+            String name = author.getName();
             if (TextUtils.isEmpty(name)) continue;
 
-            String pinyin = RichTextParser.convertToPinyin(name, SPLIT_HEAD).trim();
+            String pinyin = RichTextParser.convertToPinyin(name, SPLIT_HEAD);
             String firstChar = pinyin.substring(0, 1).toUpperCase();
             firstChar = firstChar.matches("[A-Z]") ? firstChar : DEFAULT_CHAR;
 
