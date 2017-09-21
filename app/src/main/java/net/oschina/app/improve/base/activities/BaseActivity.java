@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.umeng.analytics.MobclickAgent;
 
+import net.oschina.app.improve.base.activities.swipe.SwipeBackActivity;
+
 import butterknife.ButterKnife;
 
 /**
@@ -17,7 +19,7 @@ import butterknife.ButterKnife;
  * on 16/6/20.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     protected RequestManager mImageLoader;
     private boolean mIsDestroy;
     private final String mPackageNameUmeng = this.getClass().getName();
@@ -26,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setSwipeBackEnable(false);
         if (initBundle(getIntent().getExtras())) {
             setContentView(getContentView());
 

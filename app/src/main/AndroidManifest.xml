@@ -244,7 +244,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="动弹详情"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme.NoTitle"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.detail.sign.SignUpActivity"

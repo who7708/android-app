@@ -262,6 +262,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
     }
 
     protected void initWidget() {
+        setSwipeBackEnable(true);
         mToolbar.setTitle("动弹详情");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
