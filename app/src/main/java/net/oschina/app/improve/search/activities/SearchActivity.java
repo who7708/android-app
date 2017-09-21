@@ -1,5 +1,6 @@
 package net.oschina.app.improve.search.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -98,7 +99,7 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
             Class<? extends Window> clazz = getWindow().getClass();
             try {
                 int darkModeFlag;
-                Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                @SuppressLint("PrivateApi") Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
                 Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
                 darkModeFlag = field.getInt(layoutParams);
                 Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
@@ -114,7 +115,7 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
      */
     static {
         try {
-            Class<?> sysClass = Class.forName("android.os.SystemProperties");
+            @SuppressLint("PrivateApi") Class<?> sysClass = Class.forName("android.os.SystemProperties");
             Method getStringMethod = sysClass.getDeclaredMethod("get", String.class);
             String version = (String) getStringMethod.invoke(sysClass, "ro.miui.ui.version.name");
             isMiUi = version.compareTo("V6") >= 0;
@@ -284,9 +285,10 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
         return true;
     }
 
-    @OnClick(R.id.tv_cancel)
+    @OnClick(R.id.tv_search)
     void onClickCancel() {
-        onBackPressed();
+        //onBackPressed();
+        doSearch(mViewSearch.getQuery().toString());
     }
 
     @Override

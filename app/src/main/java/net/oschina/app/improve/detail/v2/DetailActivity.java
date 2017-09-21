@@ -102,6 +102,7 @@ public abstract class DetailActivity extends BackActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
+        setSwipeBackEnable(true);
         DBManager.getInstance()
                 .create(Behavior.class);
         CommentShareView.clearShareImage();

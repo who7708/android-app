@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,14 +32,15 @@
                 app:queryHint="搜索博客、软件、资讯、问答、找人" />
 
             <TextView
-                android:id="@+id/tv_cancel"
+                android:id="@+id/tv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:text="取消"
+                android:text="搜索"
                 android:textColor="@color/day_colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText,RtlHardcoded" />
         </LinearLayout>
 
         <android.support.design.widget.TabLayout
