@@ -25,6 +25,7 @@ import net.oschina.app.improve.detail.sign.SignUpActivity;
 import net.oschina.app.improve.detail.v2.DetailActivity;
 import net.oschina.app.improve.detail.v2.DetailFragment;
 import net.oschina.app.improve.user.sign.up.SignUpInfoActivity;
+import net.oschina.app.util.UIHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -123,14 +124,19 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lay_comment:
-                CommentsActivity.show(this, mBean.getId(), mBean.getType(), 2,mBean.getTitle());
+                CommentsActivity.show(this, mBean.getId(), mBean.getType(), 2, mBean.getTitle());
                 break;
             case R.id.ll_sign:
+                HashMap<String, Object> extra = mBean.getExtra();
                 if (!AccountHelper.isLogin()) {
                     LoginActivity.show(this, 0x02);
                     return;
                 }
-                HashMap<String, Object> extra = mBean.getExtra();
+                //非原创会，而且是收费活动，跳转到外部链接
+                if (extra != null && getExtraBool("isPayEvent") && getExtraInt("eventType") != 1) {
+                    UIHelper.openExternalBrowser(EventDetailActivity.this, getExtraString("feeLink"));
+                }
+
                 if (extra != null) {
                     int eventApplyStatus = getExtraInt(extra.get("eventApplyStatus"));
                     switch (eventApplyStatus) {

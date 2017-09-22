@@ -144,6 +144,7 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @SuppressWarnings("deprecation")
     protected void initWidget() {
         // portrait
@@ -289,49 +290,57 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
             @Override
             public void onStart() {
                 super.onStart();
-                if (mDelegation == null) return;
+                if (mDelegation == null || isDestroy()) return;
                 mDelegation.getBottomSheet().dismiss();
                 mDelegation.setCommitButtonEnable(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                if (mDelegation == null || isDestroy()) return;
                 AppContext.showToastShort("评论失败");
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                ResultBean<Reply> result = AppOperator.createGson().fromJson(
-                        responseString,
-                        new TypeToken<ResultBean<Reply>>() {
-                        }.getType()
-                );
-                if (result.isSuccess()) {
-                    replies.add(result.getResult());
-                    tvCmnCount.setText("评论 (" + replies.size() + ")");
-                    reply = null;
-                    mDelegation.setCommentHint("我要回答");
-                    mDelegation.getBottomSheet().getEditText().setHint("我要回答");
-                    mDelegation.getBottomSheet().getEditText().setText("");
-                    mDelegation.getBottomSheet().getBtnCommit().setTag(null);
-                    appendComment(replies.size() - 1, result.getResult());
-                    boolean syncToTweet = mDelegation.getBottomSheet().isSyncToTweet();
-                    if (syncToTweet) {
-                        TweetPublishService.startActionPublish(QuesAnswerDetailActivity.this,
-                                mDelegation.getBottomSheet().getCommentText(), null,
-                                About.buildShare(sid, mType));
+                if (isDestroy()) return;
+                try {
+                    ResultBean<Reply> result = AppOperator.createGson().fromJson(
+                            responseString,
+                            new TypeToken<ResultBean<Reply>>() {
+                            }.getType()
+                    );
+                    if (result.isSuccess()) {
+                        replies.add(result.getResult());
+                        tvCmnCount.setText("评论 (" + replies.size() + ")");
+                        reply = null;
+                        mDelegation.setCommentHint("我要回答");
+                        mDelegation.getBottomSheet().getEditText().setHint("我要回答");
+                        mDelegation.getBottomSheet().getEditText().setText("");
+                        mDelegation.getBottomSheet().getBtnCommit().setTag(null);
+                        appendComment(replies.size() - 1, result.getResult());
+                        boolean syncToTweet = mDelegation.getBottomSheet().isSyncToTweet();
+                        if (syncToTweet) {
+                            TweetPublishService.startActionPublish(QuesAnswerDetailActivity.this,
+                                    mDelegation.getBottomSheet().getCommentText(), null,
+                                    About.buildShare(sid, mType));
+                        }
+                    } else {
+                        AppContext.showToastShort(result.getMessage());
                     }
-                } else {
-                    AppContext.showToastShort(result.getMessage());
+                    mDelegation.getBottomSheet().dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                mDelegation.getBottomSheet().dismiss();
-
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                if (mDelegation == null) return;
+                if(isDestroy())
+                    return;
+                if (mDelegation == null || isDestroy()) return;
                 mDelegation.setCommitButtonEnable(true);
                 mDelegation.getBottomSheet().dismiss();
             }
@@ -342,23 +351,29 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         OSChinaApi.getCommentDetail(comment.getId(), comment.getAuthor().getId(), mType, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String respStr, Throwable throwable) {
+                if (isDestroy()) return;
                 AppContext.showToastShort("请求失败");
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String respStr) {
-                ResultBean<Comment> result = AppOperator.createGson().fromJson(respStr,
-                        new TypeToken<ResultBean<Comment>>() {
-                        }.getType());
-                if (result.isSuccess()) {
-                    Comment cmn = result.getResult();
-                    if (cmn != null && cmn.getId() > 0) {
-                        comment = cmn;
-                        initWidget();
-                        return;
+                if (isDestroy()) return;
+                try {
+                    ResultBean<Comment> result = AppOperator.createGson().fromJson(respStr,
+                            new TypeToken<ResultBean<Comment>>() {
+                            }.getType());
+                    if (result.isSuccess()) {
+                        Comment cmn = result.getResult();
+                        if (cmn != null && cmn.getId() > 0) {
+                            comment = cmn;
+                            initWidget();
+                            return;
+                        }
                     }
+                    AppContext.showToastShort("请求失败");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                AppContext.showToastShort("请求失败");
             }
         });
     }
@@ -397,6 +412,9 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
                     OSChinaApi.questionVote(sid, comment.getId(), opt, new TextHttpResponseHandler() {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            if (isDestroy()) {
+                                return;
+                            }
                             AppContext.showToastShort("操作失败");
                             if (mVoteDialog != null && mVoteDialog.isShowing()) {
                                 switch (opt) {
@@ -414,28 +432,32 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                            ResultBean<Comment> result = AppOperator.createGson().fromJson(
-                                    responseString, new TypeToken<ResultBean<Comment>>() {
-                                    }.getType());
-                            if (result.isSuccess()) {
-                                comment.setVoteState(result.getResult().getVoteState());
-                                comment.setVote((int) result.getResult().getVote());
-                                tvVoteCount.setText(String.valueOf(result.getResult().getVote()));
-                                v.setSelected(!v.isSelected());
-                                switch (opt) {
-                                    case Comment.VOTE_STATE_UP:
-                                        ivVoteUp.setSelected(!ivVoteUp.isSelected());
-                                        break;
-                                    case Comment.VOTE_STATE_DOWN:
-                                        ivVoteDown.setSelected(!ivVoteDown.isSelected());
-                                        break;
+                            try {
+                                ResultBean<Comment> result = AppOperator.createGson().fromJson(
+                                        responseString, new TypeToken<ResultBean<Comment>>() {
+                                        }.getType());
+                                if (result.isSuccess()) {
+                                    comment.setVoteState(result.getResult().getVoteState());
+                                    comment.setVote((int) result.getResult().getVote());
+                                    tvVoteCount.setText(String.valueOf(result.getResult().getVote()));
+                                    v.setSelected(!v.isSelected());
+                                    switch (opt) {
+                                        case Comment.VOTE_STATE_UP:
+                                            ivVoteUp.setSelected(!ivVoteUp.isSelected());
+                                            break;
+                                        case Comment.VOTE_STATE_DOWN:
+                                            ivVoteDown.setSelected(!ivVoteDown.isSelected());
+                                            break;
+                                    }
+                                    AppContext.showToastShort("操作成功");
+                                } else {
+                                    AppContext.showToastShort(TextUtils.isEmpty(result.getMessage())
+                                            ? "操作失败" : result.getMessage());
                                 }
-                                AppContext.showToastShort("操作成功");
-                            } else {
-                                AppContext.showToastShort(TextUtils.isEmpty(result.getMessage())
-                                        ? "操作失败" : result.getMessage());
+                                if (mVoteDialog != null) mVoteDialog.dismiss();
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                            if (mVoteDialog != null) mVoteDialog.dismiss();
                         }
                     });
                 }
@@ -488,7 +510,7 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         mVoteDialog.getWindow().setAttributes(params);
     }
 
-    public static class VoteViewHolder {
+     static class VoteViewHolder {
         @Bind(R.id.btn_vote_up)
         TextView mVoteUp;
         @Bind(R.id.btn_vote_down)
@@ -496,7 +518,7 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         @Bind(R.id.progress)
         ProgressBar mProgressBar;
 
-        public VoteViewHolder(View view) {
+        VoteViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

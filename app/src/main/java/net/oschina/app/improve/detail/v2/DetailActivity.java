@@ -515,9 +515,20 @@ public abstract class DetailActivity extends BackActivity implements
         }
     }
 
+    @SuppressWarnings("all")
+    protected boolean getExtraBool(Object object) {
+        return object == null ? false : Boolean.valueOf(object.toString());
+    }
+
     protected int getExtraInt(Object object) {
         return object == null ? 0 : Double.valueOf(object.toString()).intValue();
     }
+
+    @SuppressWarnings("all")
+    protected String getExtraString(Object object) {
+        return object == null ? "" : object.toString();
+    }
+
 
     protected abstract DetailFragment getDetailFragment();
 
