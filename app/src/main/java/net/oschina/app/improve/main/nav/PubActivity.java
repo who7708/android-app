@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import net.oschina.app.R;
+import net.oschina.app.improve.account.AccountHelper;
+import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
@@ -36,7 +38,6 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
 
     public static void show(Context context) {
         context.startActivity(new Intent(context, PubActivity.class));
-
     }
 
     @Override
@@ -80,10 +81,20 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.ll_pub_tweet:
+                if(!AccountHelper.isLogin()){
+                    LoginActivity.show(this);
+                    finish();
+                    return;
+                }
                 TweetPublishActivity.show(this, mBtnPub);
                 finish();
                 break;
             case R.id.ll_pub_blog:
+                if(!AccountHelper.isLogin()){
+                    LoginActivity.show(this);
+                    finish();
+                    return;
+                }
                 WriteActivity.show(this);
                 finish();
                 break;
