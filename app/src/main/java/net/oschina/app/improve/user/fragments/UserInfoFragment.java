@@ -41,7 +41,6 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SolarSystemView;
-import net.oschina.app.improve.write.WriteActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.ui.MyQRCodeDialog;
 import net.oschina.app.util.ImageUtils;
@@ -474,8 +473,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     UIHelper.showTeamMainActivity(getActivity());
                     break;
                 case R.id.rl_data:
-                    //MyDataActivity.show(mContext, mUserInfo);
-                    WriteActivity.show(mContext);
+                    MyDataActivity.show(mContext, mUserInfo);
                     break;
                 default:
                     break;

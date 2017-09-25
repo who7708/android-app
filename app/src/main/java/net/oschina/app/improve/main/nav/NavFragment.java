@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.ImageView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
@@ -20,7 +21,6 @@ import net.oschina.app.improve.main.tabs.ExploreFragment;
 import net.oschina.app.improve.main.tabs.TweetViewPagerFragment;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
-import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
 import net.oschina.app.improve.user.activities.UserFansActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
 import net.oschina.app.improve.user.fragments.UserInfoFragment;
@@ -43,7 +43,8 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
     NavigationButton mNavExplore;
     @Bind(R.id.nav_item_me)
     NavigationButton mNavMe;
-
+    @Bind(R.id.nav_item_tweet_pub)
+    ImageView mNavPub;
     private Context mContext;
     private int mContainerId;
     private FragmentManager mFragmentManager;
@@ -88,6 +89,7 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
                 R.string.main_tab_name_my,
                 UserInfoFragment.class);
 
+
     }
 
     @OnClick({R.id.nav_item_news, R.id.nav_item_tweet,
@@ -99,7 +101,8 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
             NavigationButton nav = (NavigationButton) v;
             doSelect(nav);
         } else if (v.getId() == R.id.nav_item_tweet_pub) {
-            TweetPublishActivity.show(getContext(), mRoot.findViewById(R.id.nav_item_tweet_pub));
+            PubActivity.show(getContext());
+            //TweetPublishActivity.show(getContext(), mRoot.findViewById(R.id.nav_item_tweet_pub));
         }
     }
 
