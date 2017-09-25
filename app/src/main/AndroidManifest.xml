@@ -213,6 +213,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/Base.App.Theme"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".improve.detail.share.blog.ShareBlogActivity"
+            android:label="博客分享"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".improve.detail.share.news.ShareNewsActivity"
+            android:label="资讯分享"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".improve.detail.apply.ApplyActivity"
             android:label="活动出席人"

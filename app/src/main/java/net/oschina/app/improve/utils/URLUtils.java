@@ -188,15 +188,14 @@ public class URLUtils {
             case "gitee.com":
                 Matcher matcherGit = PATTERN_GIT.matcher(uri);
                 if (matcherGit.find() && matcherGit.groupCount() >= 2) {
-                    String group1 =  matcherGit.group(2);
-                    String group2 =  matcherGit.group(3);
-                    Log.e("group1",group1 + "  --  " + group2);
-                    if("explore".equals(group1) || "gists".equals(group1) || "enterprises".equals(group1)){
+                    String group1 = matcherGit.group(2);
+                    String group2 = matcherGit.group(3);
+                    if ("explore".equals(group1) || "gists".equals(group1) || "enterprises".equals(group1)) {
                         UIHelper.openInternalBrowser(context, url);
-                    }else {
-                        ProjectDetailActivity.show(context,group1, group2);
+                    } else {
+                        ProjectDetailActivity.show(context, group1, group2, uri);
                     }
-                }else {
+                } else {
                     UIHelper.openInternalBrowser(context, url);
                 }
                 break;

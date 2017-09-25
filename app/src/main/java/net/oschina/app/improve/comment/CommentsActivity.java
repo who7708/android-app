@@ -98,11 +98,15 @@ public class CommentsActivity extends BaseBackActivity implements
 
         @Override
         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            if(isDestroy())
+                return;
             AppContext.showToastShort(getResources().getString(R.string.pub_comment_failed));
         }
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, String responseString) {
+            if(isDestroy())
+                return;
             try {
                 Type type = new TypeToken<ResultBean<Comment>>() {
                 }.getType();
@@ -133,6 +137,8 @@ public class CommentsActivity extends BaseBackActivity implements
         @Override
         public void onFinish() {
             super.onFinish();
+            if(isDestroy())
+                return;
             if (mDelegation == null) return;
             mDelegation.getBottomSheet().dismiss();
             mDelegation.setCommitButtonEnable(true);
@@ -411,18 +417,24 @@ public class CommentsActivity extends BaseBackActivity implements
         OSChinaApi.getComments(mId, mType, "refer,reply", mOrder, token, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                if(isDestroy())
+                    return;
                 mCommentAdapter.setState(BaseRecyclerAdapter.STATE_LOAD_ERROR, true);
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                if(isDestroy())
+                    return;
                 mRefreshLayout.onComplete();
             }
 
             @SuppressLint("DefaultLocale")
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                if(isDestroy())
+                    return;
                 try {
 
                     ResultBean<PageBean<Comment>> resultBean = AppOperator.createGson().fromJson(responseString, getCommentType());

@@ -10,7 +10,9 @@ import com.bumptech.glide.RequestManager;
 
 import net.oschina.app.R;
 import net.oschina.app.bean.Banner;
+import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.util.UIHelper;
 
 /**
  * Created by huanghaibin
@@ -41,7 +43,15 @@ public class ViewEventBanner extends RelativeLayout implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (banner != null)
-            EventDetailActivity.show(getContext(), banner.getId());
+        if (banner != null) {
+            int type = banner.getType();
+            long id = banner.getId();
+            if (type == News.TYPE_HREF) {
+                UIHelper.openExternalBrowser(getContext(), banner.getHref());
+            } else {
+                EventDetailActivity.show(getContext(), id);
+            }
+        }
+
     }
 }

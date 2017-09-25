@@ -9,6 +9,7 @@ import com.bumptech.glide.RequestManager;
 
 import net.oschina.app.R;
 import net.oschina.app.bean.Banner;
+import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.widget.ViewNewsBanner;
 import net.oschina.app.util.UIHelper;
 
@@ -60,7 +61,11 @@ public class NewsHeaderView extends HeaderView {
         if (banner != null) {
             int type = banner.getType();
             long id = banner.getId();
-            UIHelper.showDetail(getContext(), type, id, banner.getHref());
+            if(type  == News.TYPE_HREF){
+                UIHelper.openExternalBrowser(getContext(),banner.getHref());
+            }else {
+                UIHelper.showDetail(getContext(), type, id, banner.getHref());
+            }
         }
     }
 
