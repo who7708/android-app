@@ -39,6 +39,7 @@ public class CommentActivity extends BaseBackActivity implements CommentContract
         return R.layout.activity_git_comment;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void initWidget() {
         super.initWidget();

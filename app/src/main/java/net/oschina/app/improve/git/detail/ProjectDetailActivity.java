@@ -41,7 +41,8 @@ public class ProjectDetailActivity extends BaseBackActivity implements ProjectDe
         API.getProjectDetail(pathWithNamespace + "%2F" + name, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                UIHelper.openExternalBrowser(context, url);
+                //UIHelper.openExternalBrowser(context, url);
+                show(context, pathWithNamespace, name);
             }
 
             @Override
