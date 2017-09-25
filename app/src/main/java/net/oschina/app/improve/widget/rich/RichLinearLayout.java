@@ -2,6 +2,7 @@ package net.oschina.app.improve.widget.rich;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.inputmethodservice.Keyboard;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
@@ -28,7 +29,7 @@ public class RichLinearLayout extends LinearLayout {
     RichEditText mFocusView;
     ImagePanel mFocusPanel;
     RichEditText.OnSectionChangeListener mListener;
-    private AppCompatEditText mEditTitle, mEditSummary;
+    AppCompatEditText mEditTitle, mEditSummary;
 
 
     public RichLinearLayout(Context context) {
@@ -45,7 +46,6 @@ public class RichLinearLayout extends LinearLayout {
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.rich_linear_layout, this, true);
         mEditTitle = (AppCompatEditText) findViewById(R.id.et_title);
-        //mEditSummary = (AppCompatEditText) findViewById(R.id.et_summary);
 
         mEditTitle.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -95,6 +95,7 @@ public class RichLinearLayout extends LinearLayout {
         editText.setLayoutParams(params);
         setPadding(UI.dipToPx(context, 16), 0, UI.dipToPx(context, 16), 0);
         addView(editText);
+
     }
 
 

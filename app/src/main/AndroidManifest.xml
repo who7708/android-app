@@ -177,11 +177,9 @@
 
         <activity
             android:name=".improve.main.nav.PubActivity"
-            android:configChanges="keyboardHidden|orientation"
             android:label="发布选择"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Dialog.NoTitle.Translucent" />
+            android:theme="@style/PubTheme" />
 
         <activity
             android:name=".improve.write.WriteActivity"
