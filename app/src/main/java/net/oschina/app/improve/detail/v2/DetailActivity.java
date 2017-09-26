@@ -553,6 +553,14 @@ public abstract class DetailActivity extends BackActivity implements
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if(mShareCommentDialog!= null){
+            mShareCommentDialog.dismiss();
+        }
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         mStay += (System.currentTimeMillis() - mStart) / 1000;
