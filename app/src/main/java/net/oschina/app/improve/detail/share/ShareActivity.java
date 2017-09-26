@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
@@ -18,6 +19,7 @@ import net.oschina.app.improve.widget.OWebView;
 
 import java.util.List;
 
+import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -26,11 +28,15 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by huanghaibin on 2017/9/25.
  */
 
-public abstract class ShareActivity extends BackActivity implements EasyPermissions.PermissionCallbacks {
+public abstract class ShareActivity extends BackActivity implements EasyPermissions.PermissionCallbacks,View.OnClickListener {
 
     protected ShareFragment mFragment;
     protected OWebView mWebView;
     protected SubBean mBean;
+    private int mType;
+    private static final int TYPE_SHARE = 1;
+    private static final int TYPE_SAVE = 2;
+
 
     public static void show(Context context, SubBean bean) {
         if (bean == null)
@@ -55,9 +61,24 @@ public abstract class ShareActivity extends BackActivity implements EasyPermissi
         super.initData();
         mWebView = (OWebView) findViewById(R.id.webView);
         mBean = (SubBean) getIntent().getSerializableExtra("bean");
-        mWebView.loadDetailDataAsync(mBean.getBody(), null);
+        mWebView.loadDetailDataAsync(mBean.getBody());
         mFragment = getShareFragment();
         addFragment(R.id.fl_content,mFragment);
+    }
+
+    @OnClick({R.id.ll_share,R.id.ll_save})
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_share:
+                mType = TYPE_SHARE;
+                saveToFileByPermission();
+                break;
+            case R.id.ll_save:
+                mType = TYPE_SAVE;
+                saveToFileByPermission();
+                break;
+        }
     }
 
     private static final int PERMISSION_ID = 0x0001;
@@ -67,7 +88,11 @@ public abstract class ShareActivity extends BackActivity implements EasyPermissi
     public void saveToFileByPermission() {
         String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, permissions)) {
-            mFragment.share();
+            if(mType == TYPE_SHARE){
+                mFragment.share();
+            }else {
+                mFragment.save();
+            }
         } else {
             EasyPermissions.requestPermissions(this, "请授予文件读写权限", PERMISSION_ID, permissions);
         }

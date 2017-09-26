@@ -54,7 +54,7 @@ public class InvitationActivity extends BaseBackActivity implements View.OnClick
     @Override
     protected void initWidget() {
         super.initWidget();
-        mShareDialog = new ShareDialog(this, -1);
+        mShareDialog = new ShareDialog(this, -1, false);
         mUrl = getIntent().getStringExtra("url");
     }
 

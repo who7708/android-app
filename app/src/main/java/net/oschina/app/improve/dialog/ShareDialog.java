@@ -30,7 +30,9 @@ import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
+import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.About;
+import net.oschina.app.improve.detail.share.ShareActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
 import net.oschina.app.improve.utils.DialogHelper;
@@ -63,6 +65,8 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     private About.Share mAboutShare;
     private Share mShare;
     private boolean isOnlyBitmap;
+    private boolean isShareDetail;
+    private SubBean mBean;
 
     public ShareDialog(@NonNull Activity activity) {
         super(activity, true);
@@ -88,8 +92,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         mShare.setAppName("开源中国");
     }
 
-    public ShareDialog(@NonNull Activity activity, long id) {
+    public ShareDialog(@NonNull Activity activity, long id, boolean isShareDetail) {
         this(activity);
+        this.isShareDetail = isShareDetail;
         this.mActivity = activity;
         mAboutShare = new About.Share();
         mAboutShare.id = id;
@@ -116,6 +121,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         mShare.setAppName("开源中国");
     }
 
+    public void setBean(SubBean mBean) {
+        this.mBean = mBean;
+    }
 
     @Override
     public void onCancel(DialogInterface dialog) {
@@ -155,8 +163,13 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         //5.browser
         shareActions.add(new ShareItem(R.mipmap.ic_action_browser, R.string.platform_browser));
 
-        //6.复制链接
-        shareActions.add(new ShareItem(R.mipmap.ic_action_url, R.string.platform_copy_link));
+        if(isShareDetail){
+            //
+            shareActions.add(new ShareItem(R.mipmap.ic_action_screenshot, R.string.platform_picture));
+        }else {
+            //6.复制链接
+            shareActions.add(new ShareItem(R.mipmap.ic_action_url, R.string.platform_copy_link));
+        }
 
         //7.更多
         shareActions.add(new ShareItem(R.mipmap.ic_action_more, R.string.platform_more_option));
@@ -337,11 +350,14 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 TDevice.copyTextToBoard(share.getUrl());
                 cancelLoading();
                 break;
+            case R.mipmap.ic_action_screenshot:
+                ShareActivity.show(getContext(),mBean);
+                break;
             //保存到本地
             case R.mipmap.ic_action_preview:
                 String url = OpenBuilder.saveShare(share.getThumbBitmap());
-                if(!TextUtils.isEmpty(url)){
-                    ImageGalleryActivity.show(mActivity,url);
+                if (!TextUtils.isEmpty(url)) {
+                    ImageGalleryActivity.show(mActivity, url);
                 }
                 cancelLoading();
                 break;
@@ -377,7 +393,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
             if (!TextUtils.isEmpty(url)) {
                 Uri uri = Uri.fromFile(new File(url));
                 activity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-                SimplexToast.show(activity,"保存成功");
+                SimplexToast.show(activity, "保存成功");
             }
         }
     }

@@ -58,6 +58,7 @@ public class ShareBlogFragment extends ShareFragment {
         ShareBlogFragment fragment = new ShareBlogFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
+        fragment.setArguments(bundle);
         return fragment;
     }
 

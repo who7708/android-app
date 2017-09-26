@@ -62,7 +62,7 @@ public class CommentShareView extends NestedScrollView implements Runnable {
         mRecyclerComment.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new CommentShareAdapter(context);
         mRecyclerComment.setAdapter(mAdapter);
-        mShareDialog = new ShareDialog((Activity) context, -1);
+        mShareDialog = new ShareDialog((Activity) context, -1, false);
         mDialog = DialogHelper.getProgressDialog(context);
         mDialog.setMessage("请稍候...");
         mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
