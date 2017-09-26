@@ -28,7 +28,10 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Created by huanghaibin on 2017/9/25.
  */
 
-public abstract class ShareActivity extends BackActivity implements EasyPermissions.PermissionCallbacks,View.OnClickListener {
+public abstract class ShareActivity extends BackActivity implements
+        EasyPermissions.PermissionCallbacks,
+        View.OnClickListener,
+        Runnable {
 
     protected ShareFragment mFragment;
     protected OWebView mWebView;
@@ -52,6 +55,11 @@ public abstract class ShareActivity extends BackActivity implements EasyPermissi
     }
 
     @Override
+    public void run() {
+
+    }
+
+    @Override
     protected int getContentView() {
         return R.layout.activity_share;
     }
@@ -61,15 +69,15 @@ public abstract class ShareActivity extends BackActivity implements EasyPermissi
         super.initData();
         mWebView = (OWebView) findViewById(R.id.webView);
         mBean = (SubBean) getIntent().getSerializableExtra("bean");
-        mWebView.loadDetailDataAsync(mBean.getBody());
+        mWebView.loadDetailDataAsync(mBean.getBody(),this);
         mFragment = getShareFragment();
-        addFragment(R.id.fl_content,mFragment);
+        addFragment(R.id.fl_content, mFragment);
     }
 
-    @OnClick({R.id.ll_share,R.id.ll_save})
+    @OnClick({R.id.ll_share, R.id.ll_save})
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_share:
                 mType = TYPE_SHARE;
                 saveToFileByPermission();
@@ -88,9 +96,9 @@ public abstract class ShareActivity extends BackActivity implements EasyPermissi
     public void saveToFileByPermission() {
         String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, permissions)) {
-            if(mType == TYPE_SHARE){
+            if (mType == TYPE_SHARE) {
                 mFragment.share();
-            }else {
+            } else {
                 mFragment.save();
             }
         } else {

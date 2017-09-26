@@ -97,6 +97,7 @@ public abstract class RichTextParser {
      * @param listener       点击回掉
      * @return 匹配后的文本
      */
+    @SuppressWarnings("all")
     private static Spannable assimilate(CharSequence sequence,
                                         Pattern pattern,
                                         int usedGroupIndex,
@@ -258,7 +259,7 @@ public abstract class RichTextParser {
                         gist.setOwner(user);
                         gist.setId(group3);
                         gist.setSummary(group2);
-                        GistDetailActivity.show(context,gist);
+                        GistDetailActivity.show(context, gist);
                     }
                 };
                 builder.setSpan(span, matcher.start(), matcher.start() + group4.length(),

@@ -54,14 +54,14 @@ public abstract class ShareFragment extends BaseFragment implements Runnable {
     @Override
     protected void initData() {
         super.initData();
-        mWebView.loadDetailDataAsync(mBean.getBody());
+        mWebView.loadDetailDataAsync(mBean.getBody(), (Runnable) mContext);
         mShareDialog = new ShareDialog(getActivity(), -1, false);
     }
 
     public void share() {
         recycle();
         mDialog.show();
-        mRoot.postDelayed(this,2000);
+        mRoot.postDelayed(this, 2000);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -114,7 +114,7 @@ public abstract class ShareFragment extends BaseFragment implements Runnable {
         recycle();
     }
 
-    private void recycle(){
+    private void recycle() {
         if (mBitmap != null && mBitmap.isRecycled()) {
             mBitmap.recycle();
         }

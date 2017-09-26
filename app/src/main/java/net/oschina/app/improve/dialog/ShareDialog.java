@@ -352,6 +352,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 break;
             case R.mipmap.ic_action_screenshot:
                 ShareActivity.show(getContext(),mBean);
+                cancelLoading();
                 break;
             //保存到本地
             case R.mipmap.ic_action_preview:
