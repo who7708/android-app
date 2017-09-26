@@ -25,23 +25,9 @@ import butterknife.Bind;
 
 public class ShareBlogActivity extends ShareActivity {
 
-    @Bind(R.id.iv_label_today)
-    ImageView mImageToday;
-
-    @Bind(R.id.iv_label_recommend)
-    ImageView mImageRecommend;
-
-    @Bind(R.id.iv_label_originate)
-    ImageView mImageOriginate;
-
-    @Bind(R.id.iv_label_reprint)
-    ImageView mImageReprint;
-
     @Bind(R.id.iv_avatar)
     PortraitView mImageAvatar;
 
-    @Bind(R.id.identityView)
-    IdentityView mIdentityView;
 
     @Bind(R.id.tv_name)
     TextView mTextName;
@@ -71,7 +57,6 @@ public class ShareBlogActivity extends ShareActivity {
     protected void initData() {
         super.initData();
         Author author = mBean.getAuthor();
-        mIdentityView.setup(author);
         if (author != null) {
             mTextName.setText(author.getName());
             mImageAvatar.setup(author);
@@ -84,10 +69,6 @@ public class ShareBlogActivity extends ShareActivity {
             findViewById(R.id.line1).setVisibility(View.GONE);
             mTextAbstract.setVisibility(View.GONE);
         }
-        mImageRecommend.setVisibility(mBean.isRecommend() ? View.VISIBLE : View.GONE);
-        mImageOriginate.setVisibility(mBean.isOriginal() ? View.VISIBLE : View.GONE);
-        mImageReprint.setVisibility(mImageOriginate.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        mImageToday.setVisibility(StringUtils.isToday(mBean.getPubDate()) ? View.VISIBLE : View.GONE);
     }
     @Override
     protected ShareFragment getShareFragment() {

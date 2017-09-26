@@ -214,14 +214,14 @@
 
         <activity
             android:name=".improve.detail.share.blog.ShareBlogActivity"
-            android:label="博客分享"
+            android:label="分享预览"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".improve.detail.share.news.ShareNewsActivity"
-            android:label="资讯分享"
+            android:label="分享预览"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />

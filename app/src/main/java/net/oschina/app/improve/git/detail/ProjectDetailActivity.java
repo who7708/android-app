@@ -14,6 +14,7 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.git.api.API;
 import net.oschina.app.improve.git.bean.Project;
 import net.oschina.app.ui.empty.EmptyLayout;
+import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
 import java.lang.reflect.Type;
@@ -31,7 +32,7 @@ public class ProjectDetailActivity extends BaseBackActivity implements ProjectDe
     @Bind(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
-    public static void show(Context context, Project project) {
+    public static void show(final Context context, final Project project) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra("project", project);
         context.startActivity(intent);
@@ -41,8 +42,11 @@ public class ProjectDetailActivity extends BaseBackActivity implements ProjectDe
         API.getProjectDetail(pathWithNamespace + "%2F" + name, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                //UIHelper.openExternalBrowser(context, url);
-                show(context, pathWithNamespace, name);
+                if(TDevice.hasInternet()){
+                    UIHelper.openExternalBrowser(context, url);
+                }else {
+                    show(context, pathWithNamespace, name);
+                }
             }
 
             @Override
