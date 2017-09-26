@@ -34,6 +34,8 @@ import java.util.regex.Pattern;
  */
 
 public class OWebView extends WebView {
+    private boolean useShareCss;
+
     public OWebView(Context context) {
         super(context);
         init();
@@ -94,7 +96,7 @@ public class OWebView extends WebView {
             AppOperator.runOnThread(new Runnable() {
                 @Override
                 public void run() {
-                    final String body = setupWebContent(content, true, true, "");
+                    final String body = setupWebContent(content, true, true, useShareCss, "");
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -109,6 +111,11 @@ public class OWebView extends WebView {
         }
     }
 
+
+    public void setUseShareCss(boolean useShareCss) {
+        this.useShareCss = useShareCss;
+    }
+
     public void loadDetailDataAsync(final String content, Runnable finishCallback) {
         this.setWebViewClient(new OWebClient(finishCallback));
         Context context = getContext();
@@ -117,7 +124,7 @@ public class OWebView extends WebView {
             AppOperator.runOnThread(new Runnable() {
                 @Override
                 public void run() {
-                    final String body = setupWebContent(content, true, true, "");
+                    final String body = setupWebContent(content, true, true, useShareCss, "");
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -205,7 +212,7 @@ public class OWebView extends WebView {
                 , style == null ? "" : style, content);
     }
 
-    private static String setupWebContent(String content, boolean isShowHighlight, boolean isShowImagePreview, String css) {
+    private static String setupWebContent(String content, boolean isShowHighlight, boolean isShowImagePreview, boolean isUseShareCss, String css) {
         if (TextUtils.isEmpty(content) || TextUtils.isEmpty(content.trim()))
             return "";
 
@@ -243,7 +250,7 @@ public class OWebView extends WebView {
                         + "<head>"
                         + (isShowHighlight ? "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/css/shCore.css\">" : "")
                         + (isShowHighlight ? "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/css/shThemeDefault.css\">" : "")
-                        + "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/css/common_detail.css\">"
+                        + String.format("<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/css/%s\">", isUseShareCss ? "common_detail_share.css" : "common_detail.css")
                         + "%s"
                         + "</head>"
                         + "<body>"

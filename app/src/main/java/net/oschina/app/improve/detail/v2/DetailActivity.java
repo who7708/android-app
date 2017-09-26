@@ -475,12 +475,13 @@ public abstract class DetailActivity extends BackActivity implements
         // 分享
         if (mAlertDialog == null) {
             mAlertDialog = new
-                    ShareDialog(this, mBean.getId())
+                    ShareDialog(this, mBean.getId(),(mBean.getType() == News.TYPE_BLOG || mBean.getType() == News.TYPE_NEWS))
                     .type(mBean.getType())
                     .title(title)
                     .content(content)
                     .imageUrl(imageUrl)//如果没有图片，即url为null，直接加入app默认分享icon
                     .url(url).with();
+            mAlertDialog.setBean(mBean);
         }
         mAlertDialog.show();
         if (mBehavior != null) {
@@ -549,6 +550,14 @@ public abstract class DetailActivity extends BackActivity implements
         if (mAlertDialog == null)
             return;
         mAlertDialog.hideProgressDialog();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mShareCommentDialog!= null){
+            mShareCommentDialog.dismiss();
+        }
     }
 
     @Override

@@ -86,6 +86,13 @@ public class MyQRCodeDialog extends Dialog {
         this(context, R.style.App_Theme_Tweet_Main);
     }
 
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        if(bitmap!= null && !bitmap.isRecycled()){
+            bitmap.recycle();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle bundle) {

@@ -59,6 +59,7 @@
     <string name="platform_tweet">动弹</string>
     <string name="platform_browser">浏览器</string>
     <string name="platform_copy_link">复制链接</string>
+    <string name="platform_picture">长图分享</string>
     <string name="platform_more_option">更多</string>
     <string name="platform_download">保存图片</string>
     <string name="platform_preview">预览</string>

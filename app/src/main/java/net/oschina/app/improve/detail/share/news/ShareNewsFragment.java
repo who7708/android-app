@@ -32,6 +32,7 @@ public class ShareNewsFragment extends ShareFragment {
         ShareNewsFragment fragment = new ShareNewsFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("bean", bean);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
