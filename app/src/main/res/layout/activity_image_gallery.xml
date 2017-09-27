@@ -31,5 +31,6 @@
         android:contentDescription="@null"
         android:src="@mipmap/btn_download"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="KeyboardInaccessibleWidget" />
 </RelativeLayout>

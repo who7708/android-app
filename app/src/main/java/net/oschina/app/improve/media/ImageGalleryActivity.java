@@ -1,6 +1,7 @@
 package net.oschina.app.improve.media;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
@@ -88,6 +90,10 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     public static void show(Context context, String[] images, int position, boolean needSaveLocal, boolean needCookie) {
         if (images == null || images.length == 0)
             return;
+        if (images.length == 1 && !images[0].endsWith(".gif") && !images[0].endsWith(".GIF")) {
+            LargeImageActivity.show(context, images[0]);
+            return;
+        }
         Intent intent = new Intent(context, ImageGalleryActivity.class);
         intent.putExtra(KEY_IMAGE, images);
         intent.putExtra(KEY_POSITION, position);
@@ -276,6 +282,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
 
     private Point mDisplayDimens;
 
+    @SuppressLint("ObsoleteSdkInt")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     @SuppressWarnings("deprecation")
     private synchronized Point getDisplayDimens() {
@@ -284,6 +291,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
         }
         Point displayDimens;
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        assert windowManager != null;
         Display display = windowManager.getDefaultDisplay();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             displayDimens = new Point();
@@ -478,8 +486,9 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
 
     }
 
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         // Forward results to EasyPermissions

@@ -1,5 +1,8 @@
 package net.oschina.app.improve.app;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
@@ -23,6 +26,7 @@ import java.util.concurrent.Executors;
  * on 16/6/24.
  */
 public final class AppOperator {
+    private static Handler mHandler;
     private static ExecutorService EXECUTORS_INSTANCE;
     private static Gson GSON_INSTANCE;
 
@@ -35,6 +39,14 @@ public final class AppOperator {
             }
         }
         return EXECUTORS_INSTANCE;
+    }
+
+
+    public static void runOnMainThread(Runnable runnable) {
+        if (mHandler == null) {
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        mHandler.post(runnable);
     }
 
     public static void runOnThread(Runnable runnable) {

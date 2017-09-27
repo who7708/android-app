@@ -1,5 +1,8 @@
 package net.oschina.app;
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import com.baidu.mapapi.SDKInitializer;
 
 import net.oschina.app.api.ApiHttpClient;
@@ -49,6 +52,12 @@ public class OSCApplication extends AppContext {
         ReadStateHelper helper = ReadStateHelper.create(getInstance(),
                 CONFIG_READ_STATE_PRE + mark, 100);
         return new ReadState(helper);
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     /**
