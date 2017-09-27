@@ -88,6 +88,7 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                         mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
                         mImageSave.setVisibility(View.VISIBLE);
                         mLoading.stop();
+                        mLoading.setVisibility(View.GONE);
                     }
                 });
     }
