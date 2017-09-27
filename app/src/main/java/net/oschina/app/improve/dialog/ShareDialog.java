@@ -163,10 +163,10 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         //5.browser
         shareActions.add(new ShareItem(R.mipmap.ic_action_browser, R.string.platform_browser));
 
-        if(isShareDetail){
+        if (isShareDetail) {
             //
             shareActions.add(new ShareItem(R.mipmap.ic_action_screenshot, R.string.platform_picture));
-        }else {
+        } else {
             //6.复制链接
             shareActions.add(new ShareItem(R.mipmap.ic_action_url, R.string.platform_copy_link));
         }
@@ -278,7 +278,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     }
 
     public void onItemClick(int position, ShareItem item) {
-        Share share = getShare();
+        final Share share = getShare();
         switch (item.iconId) {
             //新浪微博
             case R.mipmap.ic_login_3party_weibo:
@@ -351,16 +351,28 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 cancelLoading();
                 break;
             case R.mipmap.ic_action_screenshot:
-                ShareActivity.show(getContext(),mBean);
+                ShareActivity.show(getContext(), mBean);
                 cancelLoading();
                 break;
             //保存到本地
             case R.mipmap.ic_action_preview:
-                String url = OpenBuilder.saveShare(share.getThumbBitmap());
-                if (!TextUtils.isEmpty(url)) {
-                    ImageGalleryActivity.show(mActivity, url);
-                }
-                cancelLoading();
+                showWaitDialog(R.string.loading_image);
+                AppOperator.runOnThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String url = OpenBuilder.saveShare(share.getThumbBitmap());
+                        AppOperator.runOnMainThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!TextUtils.isEmpty(url)) {
+                                    ImageGalleryActivity.show(mActivity, url);
+                                }
+                                cancelLoading();
+                                hideProgressDialog();
+                            }
+                        });
+                    }
+                });
                 break;
             //更多(调用系统分享)
             default:

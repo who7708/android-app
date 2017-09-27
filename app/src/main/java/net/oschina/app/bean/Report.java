@@ -11,6 +11,7 @@ public class Report extends Entity {
     private static final long serialVersionUID = 1L;
 
     public static final byte TYPE_QUESTION = 0x02;// 问题
+    public static final byte TYPE_BLOG = 0x03;
 
     private long objId;//需要举报的id
     private String url;// 举报的链接地址

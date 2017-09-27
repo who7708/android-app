@@ -13,8 +13,12 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
         buildConfigField("String", "API_SERVER_URL", '"https://www.oschina.net/;http://www.oschina.cc/"')
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'arm64-v8a', 'armeabi' //, 'x86', , 'x86_64', 'arm64-v8a'
+        }
     }
 
     // rename the apk with the version name
@@ -60,8 +64,9 @@ android {
     buildTypes {
 
         debug {
-            zipAlignEnabled false
             minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (propertyHaveSigningConfigs)
                 signingConfig signingConfigs.debug
@@ -69,8 +74,9 @@ android {
 
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
             zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (propertyHaveSigningConfigs)
                 signingConfig signingConfigs.release
         }
@@ -96,10 +102,15 @@ repositories {
 }
 
 dependencies {
+    //noinspection GradleDependency
     compile "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    //noinspection GradleDependency
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    //noinspection GradleDependency
     compile "com.android.support:design:$rootProject.ext.supportVersion"
+    //noinspection GradleDependency
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+    //noinspection GradleDependency
     compile "com.android.support:cardview-v7:$rootProject.ext.supportVersion"
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':open')
@@ -117,11 +128,16 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.1.1'
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //noinspection GradleDependency
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
+    //noinspection GradleDependency
     compile 'com.umeng.analytics:analytics:latest.integration'
+    //noinspection GradleDependency
+    compile 'com.android.support:multidex:1.0.1'
     compile 'net.oschina.common:common:0.1.6'
     compile 'com.belerweb:pinyin4j:2.5.1'
+    compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
     testCompile 'junit:junit:4.12'
 }
 
