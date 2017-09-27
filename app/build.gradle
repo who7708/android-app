@@ -135,7 +135,7 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     //noinspection GradleDependency
     compile 'com.android.support:multidex:1.0.1'
-    compile 'net.oschina.common:common:0.1.6'
+    compile 'net.oschina.common:common:0.2.1'
     compile 'com.belerweb:pinyin4j:2.5.1'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
     testCompile 'junit:junit:4.12'
