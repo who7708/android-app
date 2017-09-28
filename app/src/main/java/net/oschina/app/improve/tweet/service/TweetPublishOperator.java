@@ -287,8 +287,8 @@ class TweetPublishOperator implements Runnable, Contract.IOperator {
     }
 
 
-    // Max upload 860KB
-    private static final long MAX_UPLOAD_LENGTH = 860 * 1024;
+    // Max upload 860KB/3M
+    private static final long MAX_UPLOAD_LENGTH = 3072 * 1024;
 
     /**
      * 保存文件到缓存中
@@ -299,7 +299,7 @@ class TweetPublishOperator implements Runnable, Contract.IOperator {
      */
     private static String[] saveImageToCache(String cacheDir, String[] paths) {
         List<String> ret = new ArrayList<>();
-        byte[] buffer = new byte[BitmapUtil.DEFAULT_BUFFER_SIZE];
+        //byte[] buffer = new byte[BitmapUtil.DEFAULT_BUFFER_SIZE];
         BitmapFactory.Options options = BitmapUtil.createOptions();
         for (final String path : paths) {
             String ext = null;
@@ -318,7 +318,7 @@ class TweetPublishOperator implements Runnable, Contract.IOperator {
             try {
                 String tempFile = String.format("%s/IMG_%s.%s", cacheDir, SystemClock.currentThreadTimeMillis(), ext);
                 if (PicturesCompressor.compressImage(path, tempFile, MAX_UPLOAD_LENGTH,
-                        80, 1280, 1280 * 6, buffer, options, true)) {
+                        80, 1280, 1280 * 16, null, options, true)) {
                     TweetPublishService.log("OPERATOR doImage:" + tempFile + " " + new File(tempFile).length());
                     // verify the picture ext.
                     tempFile = PicturesCompressor.verifyPictureExt(tempFile);
