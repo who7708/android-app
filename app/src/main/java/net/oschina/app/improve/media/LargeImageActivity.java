@@ -84,7 +84,7 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                 .downloadOnly(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                        if(isDestroyed())
+                        if (isDestroyed())
                             return;
                         mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
                         mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
@@ -104,6 +104,19 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
         String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, permissions)) {
             saveToFile();
+//            new Thread(){
+//                @Override
+//                public void run() {
+//                    super.run();
+//                    byte[] buffer = new byte[BitmapUtil.DEFAULT_BUFFER_SIZE];
+//                    BitmapFactory.Options options = BitmapUtil.createOptions();
+//                    String savePath = Environment.getExternalStorageDirectory() + "/" + System.currentTimeMillis() + ".jpg";
+//                    Log.e("path", mPath + "  --   " +new File(mPath).length());
+//                    Log.e("save", savePath);
+//                    PicturesCompressor.compressImage(mPath, savePath, 3072 * 1024,
+//                            80, 1280, 1280 * 16, null, options, true);
+//                }
+//            }.start();
         } else {
             EasyPermissions.requestPermissions(this, "请授予保存图片权限", PERMISSION_ID, permissions);
         }
@@ -154,7 +167,7 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
             public void run() {
                 if (success) {
                     // notify
-                    if(isDestroyed())
+                    if (isDestroyed())
                         return;
                     Uri uri = Uri.fromFile(savePath);
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
