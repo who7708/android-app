@@ -9,6 +9,7 @@ import net.oschina.app.api.ApiHttpClient;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.DetailCache;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.common.helper.ReadStateHelper;
 
 /**
@@ -31,6 +32,7 @@ public class OSCApplication extends AppContext {
     }
 
     private void init() {
+        OSCSharedPreference.init(this, "osc_update_sp");
         // 初始化异常捕获类
         AppCrashHandler.getInstance().init(this);
         // 初始化账户基础信息
@@ -40,6 +42,13 @@ public class OSCApplication extends AppContext {
         //初始化百度地图
         SDKInitializer.initialize(this);
         DBManager.init(this);
+
+        if (OSCSharedPreference.getInstance().hasShowUpdate()) {//如果已经更新过
+            //如果版本大于更新过的版本，就设置弹出更新
+            if (BuildConfig.VERSION_CODE > OSCSharedPreference.getInstance().getUpdateVersion()) {
+                OSCSharedPreference.getInstance().putShowUpdate(true);
+            }
+        }
     }
 
     /**

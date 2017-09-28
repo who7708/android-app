@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.AppContext;
+import net.oschina.app.BuildConfig;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.bean.Version;
@@ -53,7 +54,7 @@ public class CheckUpdateManager {
                 if (mIsShowDialog) {
                     DialogHelper.getMessageDialog(mContext, "网络异常，无法获取新版本信息").show();
                 }
-                if(mWaitDialog != null){
+                if (mWaitDialog != null) {
                     mWaitDialog.dismiss();
                 }
             }
@@ -68,28 +69,12 @@ public class CheckUpdateManager {
                         List<Version> versions = bean.getResult();
                         if (versions.size() > 0) {
                             final Version version = versions.get(0);
-                            int curVersionCode = TDevice.getVersionCode(AppContext
-                                    .getInstance().getPackageName());
+                            int curVersionCode = BuildConfig.VERSION_CODE;
                             if (curVersionCode < Integer.parseInt(version.getCode())) {
-                                UpdateActivity.show((Activity) mContext, version);
-//                                AlertDialog.Builder dialog = DialogHelper.getConfirmDialog(mContext, version.getMessage(), new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        //mCaller.call(version);
-//                                        if (!TDevice.isWifiOpen()) {
-//                                            DialogHelper.getConfirmDialog(mContext, "当前非wifi环境，是否升级？", new DialogInterface.OnClickListener() {
-//                                                @Override
-//                                                public void onClick(DialogInterface dialog, int which) {
-//                                                    mCaller.call(version);
-//                                                }
-//                                            }).show();
-//                                        } else {
-//                                            mCaller.call(version);
-//                                        }
-//                                    }
-//                                });
-//                                dialog.setTitle("发现新版本");
-//                                dialog.show();
+                                //是否弹出更新
+                                if (OSCSharedPreference.getInstance().isShowUpdate()) {
+                                    UpdateActivity.show((Activity) mContext, version);
+                                }
                             } else {
                                 if (mIsShowDialog) {
                                     DialogHelper.getMessageDialog(mContext, "已经是新版本了").show();
@@ -105,7 +90,7 @@ public class CheckUpdateManager {
             @Override
             public void onFinish() {
                 super.onFinish();
-                if(mWaitDialog != null){
+                if (mWaitDialog != null) {
                     mWaitDialog.dismiss();
                 }
             }
