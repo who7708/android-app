@@ -100,7 +100,7 @@ public class RichLinearLayout extends LinearLayout {
 
 
     String getTitle() {
-        return mEditTitle.getText().toString().trim();
+        return mEditTitle.getText().toString().trim().replace("\n","");
     }
 
     String getSummary() {
