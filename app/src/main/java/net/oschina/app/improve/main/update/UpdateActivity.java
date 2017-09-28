@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import net.oschina.app.BuildConfig;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.bean.Version;
@@ -57,7 +58,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
         mTextUpdateInfo.setText(Html.fromHtml(mVersion.getMessage()));
     }
 
-    @OnClick({R.id.btn_update, R.id.btn_close})
+    @OnClick({R.id.btn_update, R.id.btn_close,R.id.btn_not_show})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -74,6 +75,11 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
                     requestExternalStorage();
                     finish();
                 }
+                break;
+            case R.id.btn_not_show:
+                OSCSharedPreference.getInstance().putShowUpdate(false);
+                OSCSharedPreference.getInstance().putUpdateVersion(BuildConfig.VERSION_CODE);
+                finish();
                 break;
             case R.id.btn_close:
                 finish();
