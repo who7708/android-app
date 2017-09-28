@@ -364,11 +364,15 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                         AppOperator.runOnMainThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!TextUtils.isEmpty(url)) {
-                                    ImageGalleryActivity.show(mActivity, url);
+                                try {
+                                    if (!TextUtils.isEmpty(url)) {
+                                        ImageGalleryActivity.show(mActivity, url);
+                                    }
+                                    cancelLoading();
+                                    hideProgressDialog();
+                                }catch (Exception e){
+                                    e.printStackTrace();
                                 }
-                                cancelLoading();
-                                hideProgressDialog();
                             }
                         });
                     }

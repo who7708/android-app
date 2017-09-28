@@ -84,6 +84,8 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                 .downloadOnly(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+                        if(isDestroyed())
+                            return;
                         mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
                         mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
                         mImageSave.setVisibility(View.VISIBLE);
@@ -152,6 +154,8 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
             public void run() {
                 if (success) {
                     // notify
+                    if(isDestroyed())
+                        return;
                     Uri uri = Uri.fromFile(savePath);
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
                     Toast.makeText(LargeImageActivity.this, R.string.gallery_save_file_success, Toast.LENGTH_SHORT).show();
