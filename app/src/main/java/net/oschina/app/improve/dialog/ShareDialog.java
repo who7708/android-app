@@ -329,11 +329,28 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 if (About.check(mAboutShare))
                     TweetPublishActivity.show(getContext(), null, null, mAboutShare);
                 if (isOnlyBitmap && mShare.getThumbBitmap() != null) {
-                    String url = OpenBuilder.saveShare(share.getThumbBitmap());
-                    if (TextUtils.isEmpty(url)) return;
-                    TweetPublishActivity.show(getContext(), false, url);
+
+                    showWaitDialog(R.string.loading_image);
+                    AppOperator.runOnThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final String url = OpenBuilder.saveShare(share.getThumbBitmap());
+                            AppOperator.runOnMainThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        if (TextUtils.isEmpty(url)) return;
+                                        TweetPublishActivity.show(getContext(), false, url);
+                                        cancelLoading();
+                                        hideProgressDialog();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                        }
+                    });
                 }
-                cancelLoading();
                 break;
             //在浏览器中打开
             case R.mipmap.ic_action_browser:
@@ -370,7 +387,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                                     }
                                     cancelLoading();
                                     hideProgressDialog();
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
