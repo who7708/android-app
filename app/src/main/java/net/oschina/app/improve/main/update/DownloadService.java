@@ -56,6 +56,7 @@ public class DownloadService extends Service {
                         RemoteViews views = mNotification.contentView;
                         views.setTextViewText(R.id.tv_download_progress, mTitle + "(" + rate
                                 + "%" + ")");
+                        //views.setTextColor(R.id.tv_download_progress,getColor(R.color.text_title_color));
                         views.setProgressBar(R.id.pb_progress, 100, rate,
                                 false);
                     } else {
