@@ -24,7 +24,7 @@ ext {
     applicationId = "net.oschina.app"
     minSdkVersion = 19
     targetSdkVersion = 25
-    versionCode = 289
-    versionName = "v2.8.9(1709291044)"
+    versionCode = 290
+    versionName = "v2.8.9(1709291445)"
     supportVersion = '25.1.0'
 }
