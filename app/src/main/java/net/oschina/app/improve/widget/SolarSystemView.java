@@ -85,7 +85,11 @@ public class SolarSystemView extends View implements Runnable {
             mCacheBitmap.recycle();
             mCacheBitmap = null;
         }
-        mCacheBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        int w = getWidth();
+        int h = getHeight();
+        if (w == 0 || h == 0)
+            return;
+        mCacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(mCacheBitmap);
         if (getBackground() != null) {
             getBackground().draw(canvas);

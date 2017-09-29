@@ -86,8 +86,11 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
                         if (isDestroyed())
                             return;
-                        mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
-                        mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
+                        if (!mPath.startsWith("http")){
+                            mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
+                        }
+                        mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0f,
+                                new PointF(0, 0), 0));
                         mImageSave.setVisibility(View.VISIBLE);
                         mLoading.stop();
                         mLoading.setVisibility(View.GONE);
