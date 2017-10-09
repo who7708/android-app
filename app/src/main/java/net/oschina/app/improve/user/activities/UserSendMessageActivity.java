@@ -198,7 +198,7 @@ public class UserSendMessageActivity extends BaseRecyclerViewActivity<Message>
     private class CallBack extends TextHttpResponseHandler {
         private String filePath;
 
-        public CallBack(String filePath) {
+        private CallBack(String filePath) {
             this.filePath = filePath;
         }
 
