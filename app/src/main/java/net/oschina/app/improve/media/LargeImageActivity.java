@@ -3,6 +3,7 @@ package net.oschina.app.improve.media;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Environment;
@@ -73,6 +74,12 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
         mImageView.setMaxScale(15);
         mImageView.setZoomEnabled(true);
         mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -86,11 +93,15 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
                         if (isDestroyed())
                             return;
-                        if (!mPath.startsWith("http")){
-                            mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_CROP);
-                        }
-                        mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0f,
-                                new PointF(0, 0), 0));
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inJustDecodeBounds = true;
+                        BitmapFactory.decodeFile(resource.getPath(), options);
+                        int w = options.outWidth;
+                        int sw = Util.getScreenWidth(LargeImageActivity.this);
+                        float scale = (float) sw / (float) w;
+                        mImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
+                        mImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(scale,
+                                new PointF(0, 0), net.oschina.app.improve.utils.BitmapUtil.readPictureDegree(mPath)));
                         mImageSave.setVisibility(View.VISIBLE);
                         mLoading.stop();
                         mLoading.setVisibility(View.GONE);
@@ -107,19 +118,6 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
         String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, permissions)) {
             saveToFile();
-//            new Thread(){
-//                @Override
-//                public void run() {
-//                    super.run();
-//                    byte[] buffer = new byte[BitmapUtil.DEFAULT_BUFFER_SIZE];
-//                    BitmapFactory.Options options = BitmapUtil.createOptions();
-//                    String savePath = Environment.getExternalStorageDirectory() + "/" + System.currentTimeMillis() + ".jpg";
-//                    Log.e("path", mPath + "  --   " +new File(mPath).length());
-//                    Log.e("save", savePath);
-//                    PicturesCompressor.compressImage(mPath, savePath, 3072 * 1024,
-//                            80, 1280, 1280 * 16, null, options, true);
-//                }
-//            }.start();
         } else {
             EasyPermissions.requestPermissions(this, "请授予保存图片权限", PERMISSION_ID, permissions);
         }
@@ -202,5 +200,6 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
 
 }

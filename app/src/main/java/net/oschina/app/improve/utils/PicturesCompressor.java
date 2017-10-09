@@ -1,15 +1,19 @@
 package net.oschina.app.improve.utils;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.util.TLog;
-import net.oschina.common.utils.BitmapUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 import static net.oschina.common.utils.StreamUtil.copyFile;
 
@@ -18,7 +22,7 @@ import static net.oschina.common.utils.StreamUtil.copyFile;
  * Created by JuQiu
  * on 16/7/21.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings("WeakerAccess,all")
 public final class PicturesCompressor {
     private PicturesCompressor() {
 
@@ -99,7 +103,7 @@ public final class PicturesCompressor {
         }
 
         // if the in file size <= maxSize, we can copy to savePath
-        if (sourceFile.length() <= maxSize && confirmImage(sourceFile, options)) {
+        if (sourceFile.length() <= maxSize && confirmImage(sourceFile, options) && readPictureDegree(sourceFile.getPath()) == 0) {
             return copyFile(sourceFile, saveFile);
         }
 
@@ -160,5 +164,46 @@ public final class PicturesCompressor {
                 return newFilePath;
         }
         return filePath;
+    }
+
+
+    /**
+     * 获取图片的旋转角度
+     *
+     * @param path path
+     * @return 图片的旋转角度
+     */
+    public static int readPictureDegree(String path) {
+        int degree = 0;
+        try {
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
+
+    private static Bitmap rotaingBitmap(int angle, Bitmap bitmap) {
+        //旋转图片 动作
+        Matrix matrix = new Matrix();;
+        matrix.postRotate(angle);
+        Log.e("angle2", "  -- " + angle);
+        // 创建新的图片
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        bitmap.recycle();
+        return resizedBitmap;
     }
 }

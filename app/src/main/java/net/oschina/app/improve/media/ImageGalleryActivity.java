@@ -90,7 +90,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     public static void show(Context context, String[] images, int position, boolean needSaveLocal, boolean needCookie) {
         if (images == null || images.length == 0)
             return;
-        if (images.length == 1 && !images[0].endsWith(".gif") && !images[0].endsWith(".GIF")) {
+        if (images.length == 1 && !images[0].endsWith(".gif") && !images[0].endsWith(".GIF") && !needCookie) {
             LargeImageActivity.show(context, images[0]);
             return;
         }
