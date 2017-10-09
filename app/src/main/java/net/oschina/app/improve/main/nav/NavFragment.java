@@ -21,6 +21,7 @@ import net.oschina.app.improve.main.tabs.ExploreFragment;
 import net.oschina.app.improve.main.tabs.TweetViewPagerFragment;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
+import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
 import net.oschina.app.improve.user.activities.UserFansActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
 import net.oschina.app.improve.user.fragments.UserInfoFragment;
@@ -30,11 +31,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavFragment extends BaseFragment implements View.OnClickListener, NoticeManager.NoticeNotify {
+public class NavFragment extends BaseFragment implements View.OnClickListener, NoticeManager.NoticeNotify,View.OnLongClickListener {
     @Bind(R.id.nav_item_news)
     NavigationButton mNavNews;
     @Bind(R.id.nav_item_tweet)
@@ -104,6 +106,13 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
             PubActivity.show(getContext());
             //TweetPublishActivity.show(getContext(), mRoot.findViewById(R.id.nav_item_tweet_pub));
         }
+    }
+
+    @OnLongClick({R.id.nav_item_tweet_pub})
+    @Override
+    public boolean onLongClick(View v) {
+        TweetPublishActivity.show(getContext(), mRoot.findViewById(R.id.nav_item_tweet_pub));
+        return false;
     }
 
     public void setup(Context context, FragmentManager fragmentManager, int contentId, OnNavigationReselectListener listener) {
