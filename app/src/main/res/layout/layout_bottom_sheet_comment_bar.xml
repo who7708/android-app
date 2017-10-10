@@ -6,11 +6,12 @@
     android:background="@color/white"
     android:clickable="true"
     android:windowSoftInputMode="adjustPan|adjustResize"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="KeyboardInaccessibleWidget">
 
     <View style="@style/h_line" />
 
-    <net.oschina.common.widget.RichEditText
+    <net.oschina.app.improve.widget.RichEditText
         android:id="@+id/et_comment"
         android:layout_width="match_parent"
         android:layout_height="80dp"

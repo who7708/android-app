@@ -33,11 +33,11 @@ import net.oschina.app.improve.user.adapter.UserSearchFriendsAdapter;
 import net.oschina.app.improve.user.adapter.UserSelectFriendsAdapter;
 import net.oschina.app.improve.user.helper.ContactsCacheManager;
 import net.oschina.app.improve.widget.RecentContactsView;
+import net.oschina.app.improve.widget.RichEditText;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.widget.IndexView;
 import net.oschina.common.utils.CollectionUtil;
-import net.oschina.common.widget.RichEditText;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

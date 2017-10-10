@@ -1,6 +1,7 @@
 package net.oschina.app.improve.tweet.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,10 +32,12 @@ import net.oschina.app.improve.tweet.contract.TweetPublishOperator;
 import net.oschina.app.improve.tweet.widget.TweetPicturesPreviewer;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.parser.TweetParser;
+import net.oschina.app.improve.widget.RichEditText;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
+import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.UIHelper;
 import net.oschina.common.adapter.TextWatcherAdapter;
-import net.oschina.common.widget.RichEditText;
+
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -97,6 +100,8 @@ public class TweetPublishFragment extends BaseFragment implements View.OnClickLi
         return R.layout.fragment_tweet_publish;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @SuppressWarnings("all")
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
@@ -121,6 +126,7 @@ public class TweetPublishFragment extends BaseFragment implements View.OnClickLi
         });
 
         // set hide action
+
         mLayImages.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -177,7 +183,7 @@ public class TweetPublishFragment extends BaseFragment implements View.OnClickLi
         });
 
         // 设置键盘输入#或者@适合的监听器
-        mEditContent.setOnKeyArrivedListener(new OnKeyArrivedListenerAdapter(this));
+        mEditContent.setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
         mEditContent.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

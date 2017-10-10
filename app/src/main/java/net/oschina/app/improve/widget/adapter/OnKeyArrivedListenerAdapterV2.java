@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 import net.oschina.app.improve.tweet.activities.TweetTopicActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
-import net.oschina.common.widget.RichEditText;
+import net.oschina.app.improve.widget.RichEditText;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +19,10 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  */
 
-public class OnKeyArrivedListenerAdapter implements RichEditText.OnKeyArrivedListener {
+public class OnKeyArrivedListenerAdapterV2 implements RichEditText.OnKeyArrivedListener {
     private Object mHost;
 
-    public OnKeyArrivedListenerAdapter(Object host) {
+    public OnKeyArrivedListenerAdapterV2(Object host) {
         if (host instanceof Activity || host instanceof Fragment || host instanceof android.app.Fragment) {
             mHost = host;
         } else {
@@ -86,15 +86,15 @@ public class OnKeyArrivedListenerAdapter implements RichEditText.OnKeyArrivedLis
         return true;
     }
 
-    private void skipMention(RichEditText editText) {
-//        Context context = editText.getContext();
-//        if (context != null && mHost != null)
-//            //UserSelectFriendsActivity.show(mHost, editText);
+    public void skipMention(RichEditText editText) {
+        Context context = editText.getContext();
+        if (context != null && mHost != null)
+            UserSelectFriendsActivity.show(mHost, editText);
     }
 
-    private void skipTopic(RichEditText editText) {
-//        Context context = editText.getContext();
-//        if (context != null && mHost != null)
-//            TweetTopicActivity.show(mHost, editText);
+    public void skipTopic(RichEditText editText) {
+        Context context = editText.getContext();
+        if (context != null && mHost != null)
+            TweetTopicActivity.show(mHost, editText);
     }
 }

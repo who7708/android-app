@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import net.oschina.app.R;
 import net.oschina.app.improve.emoji.EmojiView;
 import net.oschina.app.util.TDevice;
-import net.oschina.common.widget.RichEditText;
 
 /**
  * 底部弹出评论框

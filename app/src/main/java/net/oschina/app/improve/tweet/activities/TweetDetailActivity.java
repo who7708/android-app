@@ -53,6 +53,7 @@ import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
+import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.PlatfromUtil;
 import net.oschina.app.util.StringUtils;
@@ -297,7 +298,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
             }
         });
 
-        mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapter(this));
+        mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
         mDelegation.getBottomSheet().showEmoji();
         mDelegation.getBottomSheet().hideSyncAction();
         mDelegation.getBottomSheet().setCommitListener(new View.OnClickListener() {
