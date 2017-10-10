@@ -45,6 +45,7 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
+import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.StringUtils;
@@ -188,7 +189,7 @@ public abstract class DetailActivity extends BackActivity implements
                             mCommentAuthorId);
                 }
             });
-            mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapter(this));
+            mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
         }
         mEmptyLayout.post(new Runnable() {
             @Override

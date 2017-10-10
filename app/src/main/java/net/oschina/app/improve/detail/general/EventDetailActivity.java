@@ -133,8 +133,9 @@ public class EventDetailActivity extends DetailActivity implements View.OnClickL
                     return;
                 }
                 //非原创会，而且是收费活动，跳转到外部链接
-                if (extra != null && getExtraBool("isPayEvent") && getExtraInt("eventType") != 1) {
-                    UIHelper.openExternalBrowser(EventDetailActivity.this, getExtraString("feeLink"));
+                if (extra != null && getExtraBool(extra.get("isPayEvent")) && getExtraInt(extra.get("eventType")) != 1) {
+                    UIHelper.openExternalBrowser(EventDetailActivity.this, getExtraString(extra.get("feeLink")));
+                    return;
                 }
 
                 if (extra != null) {

@@ -44,7 +44,7 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.OWebView;
 import net.oschina.app.improve.widget.PortraitView;
-import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
+import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -180,7 +180,7 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         mDelegation.hideFav();
         mDelegation.hideShare();
 
-        mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapter(this));
+        mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
 
         mDelegation.getBottomSheet().setMentionListener(new View.OnClickListener() {
             @Override
