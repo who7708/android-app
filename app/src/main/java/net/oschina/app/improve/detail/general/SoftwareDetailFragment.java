@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.oschina.app.R;
@@ -51,6 +52,8 @@ public class SoftwareDetailFragment extends DetailFragment {
     TextView mTextFavCount;
     @Bind(R.id.tv_comment_count)
     TextView mTextCommentCount;
+    @Bind(R.id.ll_avatar)
+    LinearLayout mLinearAvatar;
 
     public static SoftwareDetailFragment newInstance() {
         return new SoftwareDetailFragment();
@@ -117,6 +120,7 @@ public class SoftwareDetailFragment extends DetailFragment {
         if (author != null) {
             mTextAuthor.setText(author.getName());
         } else {
+            mLinearAvatar.setVisibility(View.GONE);
             mTextAuthor.setText("匿名");
         }
         Map<String, Object> extras = bean.getExtra();
