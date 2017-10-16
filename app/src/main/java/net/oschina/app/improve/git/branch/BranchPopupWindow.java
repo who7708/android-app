@@ -3,7 +3,9 @@ package net.oschina.app.improve.git.branch;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -78,6 +80,18 @@ public class BranchPopupWindow extends PopupWindow implements
     @Override
     public void showGetBranchFailure(int strId) {
 
+    }
+
+    @Override
+    public void showAsDropDown(View anchor) {
+        if(Build.VERSION.SDK_INT >= 24){
+            Rect visibleFrame = new Rect();
+            anchor.getGlobalVisibleRect(visibleFrame);
+            int height = anchor.getResources().getDisplayMetrics().heightPixels - visibleFrame.bottom;
+            setHeight(height);
+        }
+
+        super.showAsDropDown(anchor);
     }
 
     @Override

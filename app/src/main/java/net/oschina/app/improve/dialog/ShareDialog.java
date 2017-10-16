@@ -66,11 +66,37 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     private Share mShare;
     private boolean isOnlyBitmap;
     private boolean isShareDetail;
+    private boolean isShareTweet;
     private SubBean mBean;
 
     public ShareDialog(@NonNull Activity activity) {
         super(activity, true);
         this.mActivity = activity;
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View contentView = inflater.inflate(R.layout.dialog_share_main, null, false);
+        RecyclerView shareRecycle = (RecyclerView) contentView.findViewById(R.id.share_recycler);
+        final ShareActionAdapter adapter = new ShareActionAdapter(activity);
+        adapter.addAll(getAdapterData());
+        adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                ShareDialog.this.onItemClick(position, adapter.getItem(position));
+            }
+        });
+        shareRecycle.setAdapter(adapter);
+        shareRecycle.setItemAnimator(new DefaultItemAnimator());
+        shareRecycle.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        setContentView(contentView);
+        setOnCancelListener(this);
+        setOnDismissListener(this);
+        mShare = new Share();
+        mShare.setAppName("开源中国");
+    }
+
+    public ShareDialog(@NonNull Activity activity, boolean isShareTweet) {
+        super(activity, true);
+        this.mActivity = activity;
+        this.isShareTweet = isShareTweet;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View contentView = inflater.inflate(R.layout.dialog_share_main, null, false);
         RecyclerView shareRecycle = (RecyclerView) contentView.findViewById(R.id.share_recycler);
@@ -163,7 +189,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         //5.browser
         shareActions.add(new ShareItem(R.mipmap.ic_action_browser, R.string.platform_browser));
 
-        if (isShareDetail) {
+        if (isShareDetail || isShareTweet) {
             //
             shareActions.add(new ShareItem(R.mipmap.ic_action_screenshot, R.string.platform_picture));
         } else {
@@ -178,9 +204,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     }
 
     public ShareDialog with() {
-        mShare.setAppShareIcon(R.mipmap.ic_share);
+        mShare.setAppShareIcon(R.mipmap.ic_launcher);
         if (mShare.getBitmapResID() == 0)
-            mShare.setBitmapResID(R.mipmap.ic_share);
+            mShare.setBitmapResID(R.mipmap.ic_launcher);
         return this;
     }
 
@@ -368,8 +394,12 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 cancelLoading();
                 break;
             case R.mipmap.ic_action_screenshot:
-                ShareActivity.show(getContext(), mBean);
-                cancelLoading();
+                if(isShareTweet){
+
+                }else {
+                    ShareActivity.show(getContext(), mBean);
+                    cancelLoading();
+                }
                 break;
             //保存到本地
             case R.mipmap.ic_action_preview:
