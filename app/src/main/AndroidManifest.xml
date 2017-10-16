@@ -213,6 +213,14 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".improve.tweet.share.TweetShareActivity"
+            android:label="分享预览"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+
+        <activity
             android:name=".improve.detail.share.blog.ShareBlogActivity"
             android:label="分享预览"
             android:screenOrientation="portrait"

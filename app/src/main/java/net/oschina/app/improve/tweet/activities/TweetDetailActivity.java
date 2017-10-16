@@ -52,7 +52,6 @@ import net.oschina.app.improve.utils.parser.TweetParser;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
-import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.PlatfromUtil;
@@ -132,7 +131,6 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     private View.OnClickListener onPortraitClickListener;
     private ShareDialog alertDialog;
-
     public static void show(Context context, Tweet tweet) {
         Intent intent = new Intent(context, TweetDetailActivity.class);
         intent.putExtra(BUNDLE_KEY_TWEET, tweet);
@@ -399,7 +397,6 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
         // 有可能传入的tweet只有id这一个值
         if (tweet == null || isDestroy())
             return;
-
         Author author = tweet.getAuthor();
         mIdentityView.setup(author);
         if (author != null) {
@@ -583,7 +580,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
                     return;
                 }
                 TweetComment comment = replies.get(0);
-                if (comment == null || comment.getAuthor() == null){
+                if (comment == null || comment.getAuthor() == null) {
                     mDelegation.getBottomSheet().getEditText().setHint("发表评论");
                     mDelegation.setCommentHint(mDelegation.getBottomSheet().getEditText().getHint().toString());
                     return;
