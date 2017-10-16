@@ -44,7 +44,7 @@ public class CheckUpdateManager {
     }
 
 
-    public void checkUpdate() {
+    public void checkUpdate(final boolean isHasShow) {
         if (mIsShowDialog) {
             mWaitDialog.show();
         }
@@ -70,9 +70,10 @@ public class CheckUpdateManager {
                         if (versions.size() > 0) {
                             final Version version = versions.get(0);
                             int curVersionCode = BuildConfig.VERSION_CODE;
-                            if (curVersionCode < Integer.parseInt(version.getCode())) {
+                            int code = Integer.parseInt(version.getCode());
+                            if (curVersionCode < code) {
                                 //是否弹出更新
-                                if (OSCSharedPreference.getInstance().isShowUpdate()) {
+                                if (OSCSharedPreference.getInstance().isShowUpdate() || isHasShow) {
                                     UpdateActivity.show((Activity) mContext, version);
                                 }
                             } else {

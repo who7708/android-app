@@ -363,7 +363,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
         }
         CheckUpdateManager manager = new CheckUpdateManager(this, false);
         manager.setCaller(this);
-        manager.checkUpdate();
+        manager.checkUpdate(false);
     }
 
     /**
