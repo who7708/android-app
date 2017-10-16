@@ -193,7 +193,7 @@ public class SettingsFragment extends BaseFragment implements EasyPermissions.Pe
     private void onClickUpdate() {
         CheckUpdateManager manager = new CheckUpdateManager(getActivity(), true);
         manager.setCaller(this);
-        manager.checkUpdate();
+        manager.checkUpdate(true);
     }
 
     private void onClickCleanCache() {
