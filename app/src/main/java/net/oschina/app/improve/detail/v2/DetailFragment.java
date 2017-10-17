@@ -70,6 +70,8 @@ public abstract class DetailFragment extends BaseFragment implements
     public void showGetDetailSuccess(SubBean bean) {
         this.mBean = bean;
         if (mContext == null) return;
+        mBean.setBody(bean.getBody().replaceAll("<pre><code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s+</code></pre>",
+                "<code><script src='https:$1'></script></code>"));
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
 
         if (mDetailAboutView != null) {
@@ -95,6 +97,7 @@ public abstract class DetailFragment extends BaseFragment implements
     }
 
     public void onPageFinished() {
+
         if (mBean == null || mBean.getId() <= 0) return;
         final int index = ReadedIndexCacheManager.getIndex(getContext(), mBean.getId(),
                 CACHE_CATALOG);

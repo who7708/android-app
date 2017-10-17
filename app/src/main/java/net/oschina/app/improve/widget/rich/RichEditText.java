@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 public class RichEditText extends AppCompatEditText implements TextWatcher, View.OnKeyListener, View.OnClickListener {
     private RichLinearLayout mParent;
     private boolean isMultiSelection;//多选模式
-    private boolean isEnter, isDelete;
+    private boolean isEnter, isDelete,isMultiDelete;
     static final int INDEX_START = 0;
     static final int INDEX_MID = 1;
     static final int INDEX_END = 2;
@@ -126,7 +126,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         //Log.e("beforeTextChanged", "" + s + "  --  " + start + "  --  " + count + "  --  " + after + "  --  " + getSelectionStart());
-        if (isMultiSelection && isDelete) {//调整段落
+        if (isMultiSelection && isDelete && !isMultiDelete) {//调整段落
             adjustSection(s.toString(), start, count);
         }
     }
@@ -141,6 +141,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         //Log.e("afterTextChanged", "  --  " + s.toString());
         isDelete = false;
         isPaste = false;
+        isMultiDelete = false;
     }
 
     /**
@@ -326,7 +327,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
         switch (keyCode) {
             case KeyEvent.KEYCODE_DEL:
                 isDelete = true;
-                if (getSelectionStart() == 0) {
+                if (getSelectionStart() == 0 && !isMultiSelection) {
                     mParent.delete(this);
                     return true;
                 }
@@ -334,6 +335,27 @@ public class RichEditText extends AppCompatEditText implements TextWatcher, View
                     int index = getSelectionIndex();
                     if (index >= 0 && index < mSections.size()) {
                         mSections.remove(getSelectionIndex());
+                    }
+                }else {
+                    isMultiDelete = true;
+                    int selectionStart = getSelectionStart();
+                    int selectionEnd = getSelectionEnd();
+                    final int indexStart = getSelectionIndexFromStart(selectionStart);//光标起始段落
+                    if (indexStart >= 0 && indexStart < mSections.size()) {
+                        final TextSection section = mSections.get(indexStart);
+                        if (isMultiSelection || selectionStart < selectionEnd) {//如果是多选，注意头和尾之间的style段落都会被清除
+                            int indexEnd = getSelectionIndexFromStart(selectionEnd);//光标结束位置
+                            if (indexStart < indexEnd) {
+                                List<TextSection> sections = new ArrayList<>();
+                                for (int i = indexStart + 1; i <= indexEnd; i++) {
+                                    sections.add(mSections.get(i));
+                                }
+                                mSections.removeAll(sections);
+                            }
+                            getText().delete(selectionStart, selectionEnd);
+                            setSectionStyle(section, indexStart);
+                            return true;
+                        }
                     }
                 }
                 break;
