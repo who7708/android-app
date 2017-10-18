@@ -70,8 +70,8 @@ public abstract class DetailFragment extends BaseFragment implements
     public void showGetDetailSuccess(SubBean bean) {
         this.mBean = bean;
         if (mContext == null) return;
-        mBean.setBody(bean.getBody().replaceAll("<pre><code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s+</code></pre>",
-                "<code><script src='https:$1'></script></code>"));
+        mBean.setBody(bean.getBody().replaceAll("(|<pre>)<code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s+</code>(|</pre>)",
+                "<code><script src='https:$2'></script></code>"));
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
 
         if (mDetailAboutView != null) {
