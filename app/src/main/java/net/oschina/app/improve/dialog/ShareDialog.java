@@ -31,10 +31,12 @@ import net.oschina.app.R;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.SubBean;
+import net.oschina.app.improve.bean.Tweet;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.detail.share.ShareActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
+import net.oschina.app.improve.tweet.share.TweetShareActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.BottomDialog;
 import net.oschina.app.improve.widget.SimplexToast;
@@ -68,6 +70,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     private boolean isShareDetail;
     private boolean isShareTweet;
     private SubBean mBean;
+    private Tweet mTweet;
 
     public ShareDialog(@NonNull Activity activity) {
         super(activity, true);
@@ -151,6 +154,10 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         this.mBean = mBean;
     }
 
+    public void setTweet(Tweet mTweet) {
+        this.mTweet = mTweet;
+    }
+
     @Override
     public void onCancel(DialogInterface dialog) {
         hideWaitDialog();
@@ -204,9 +211,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     }
 
     public ShareDialog with() {
-        mShare.setAppShareIcon(R.mipmap.ic_launcher);
+        mShare.setAppShareIcon(R.mipmap.ic_share_app_logo);
         if (mShare.getBitmapResID() == 0)
-            mShare.setBitmapResID(R.mipmap.ic_launcher);
+            mShare.setBitmapResID(R.mipmap.ic_share_app_logo);
         return this;
     }
 
@@ -395,7 +402,8 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 break;
             case R.mipmap.ic_action_screenshot:
                 if(isShareTweet){
-
+                    TweetShareActivity.show(getContext(),mTweet);
+                    cancelLoading();
                 }else {
                     ShareActivity.show(getContext(), mBean);
                     cancelLoading();

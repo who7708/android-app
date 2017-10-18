@@ -41,7 +41,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     protected int mState;
 
     public static final int NEITHER = 0;
-    private static final int ONLY_HEADER = 1;
+    public static final int ONLY_HEADER = 1;
     public static final int ONLY_FOOTER = 2;
     public static final int BOTH_HEADER_FOOTER = 3;
 
