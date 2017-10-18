@@ -131,6 +131,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     private View.OnClickListener onPortraitClickListener;
     private ShareDialog alertDialog;
+
     public static void show(Context context, Tweet tweet) {
         Intent intent = new Intent(context, TweetDetailActivity.class);
         intent.putExtra(BUNDLE_KEY_TWEET, tweet);
@@ -372,10 +373,11 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
                     content = content.substring(0, 30);
 
                 if (alertDialog == null)
-                    alertDialog = new ShareDialog(this)
+                    alertDialog = new ShareDialog(this,true)
                             .title(content + " - 开源中国社区 ")
                             .content(content)
                             .url(tweet.getHref()).with();
+                alertDialog.setTweet(tweet);
                 alertDialog.show();
 
                 break;

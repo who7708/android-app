@@ -6,8 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -15,20 +18,20 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.Tweet;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
+import net.oschina.app.improve.bean.simple.TweetComment;
 import net.oschina.app.improve.dialog.ShareDialog;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.parser.TweetParser;
-import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
@@ -38,6 +41,7 @@ import net.oschina.common.utils.StreamUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -46,10 +50,8 @@ import butterknife.Bind;
  * Created by huanghaibin on 2017/10/16.
  */
 
-public class TweetShareFragment extends BaseFragment implements Runnable{
+public class TweetShareFragment extends BaseFragment implements Runnable {
 
-    @Bind(R.id.identityView)
-    IdentityView mIdentityView;
     @Bind(R.id.iv_portrait)
     PortraitView ivPortrait;
     @Bind(R.id.tv_nick)
@@ -58,13 +60,11 @@ public class TweetShareFragment extends BaseFragment implements Runnable{
     TextView tvTime;
     @Bind(R.id.tv_client)
     TextView tvClient;
-    @Bind(R.id.iv_thumbup)
-    ImageView ivThumbup;
-    @Bind(R.id.tweet_tv_record)
-    TextView mContent;
     @Bind(R.id.tweet_pics_layout)
     TweetPicturesLayout mLayoutGrid;
 
+    @Bind(R.id.tv_content)
+    TextView mTextContent;
     @Bind(R.id.tv_ref_title)
     TextView mViewRefTitle;
     @Bind(R.id.tv_ref_content)
@@ -74,15 +74,33 @@ public class TweetShareFragment extends BaseFragment implements Runnable{
     @Bind(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
+    @Bind(R.id.tv_comment_count)
+    TextView mTextCommentCount;
+
     @Bind(R.id.nsv_content)
     NestedScrollView mViewScroller;
     private ShareDialog mShareDialog;
     private Bitmap mBitmap;
     private ProgressDialog mDialog;
 
+    @Bind(R.id.recyclerView)
+    RecyclerView mRecycleView;
+    private ShareCommentAdapter mAdapter;
 
-    public static TweetShareFragment newInstance() {
-        return new TweetShareFragment();
+    private Tweet mTweet;
+
+    public static TweetShareFragment newInstance(Tweet tweet) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("tweet", tweet);
+        TweetShareFragment fragment = new TweetShareFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    protected void initBundle(Bundle bundle) {
+        super.initBundle(bundle);
+        mTweet = (Tweet) bundle.getSerializable("tweet");
     }
 
     @Override
@@ -91,6 +109,11 @@ public class TweetShareFragment extends BaseFragment implements Runnable{
         mDialog = DialogHelper.getProgressDialog(mContext);
         mDialog.setMessage("请稍候...");
         mShareDialog = new ShareDialog(getActivity(), -1, false);
+        mRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
+        mAdapter = new ShareCommentAdapter(mContext, BaseRecyclerAdapter.NEITHER, mTweet);
+
+        mRecycleView.setAdapter(mAdapter);
+        init(mTweet);
     }
 
     @Override
@@ -98,11 +121,22 @@ public class TweetShareFragment extends BaseFragment implements Runnable{
         return R.layout.fragment_tweet_share;
     }
 
-    public void init(Tweet tweet) {
+
+    void initList(List<TweetComment> list) {
+        mAdapter.resetItem(list);
+        if (mContext == null)
+            return;
+        if (list == null || list.size() == 0) {
+            mTextCommentCount.setVisibility(View.GONE);
+        }else {
+            mTextCommentCount.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void init(Tweet tweet) {
         if (mContext == null)
             return;
         Author author = tweet.getAuthor();
-        mIdentityView.setup(author);
         if (author != null) {
             ivPortrait.setup(author);
             tvNick.setText(author.getName());
@@ -113,15 +147,10 @@ public class TweetShareFragment extends BaseFragment implements Runnable{
         if (!TextUtils.isEmpty(tweet.getPubDate()))
             tvTime.setText(StringUtils.formatSomeAgo(tweet.getPubDate()));
         PlatfromUtil.setPlatFromString(tvClient, tweet.getAppClient());
-        if (tweet.isLiked()) {
-            ivThumbup.setSelected(true);
-        } else {
-            ivThumbup.setSelected(false);
-        }
         if (!TextUtils.isEmpty(tweet.getContent())) {
             String content = tweet.getContent().replaceAll("[\n\\s]+", " ");
-            mContent.setText(TweetParser.getInstance().parse(mContext, content));
-            mContent.setMovementMethod(LinkMovementMethod.getInstance());
+            mTextContent.setText(TweetParser.getInstance().parse(mContext, content));
+            mTextContent.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         mLayoutGrid.setImage(tweet.getImages());
