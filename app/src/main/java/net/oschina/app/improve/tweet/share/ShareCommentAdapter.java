@@ -6,7 +6,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +21,11 @@ import net.oschina.app.improve.bean.Tweet;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.TweetComment;
+import net.oschina.app.improve.comment.CommentsUtil;
 import net.oschina.app.improve.utils.parser.TweetParser;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
-import net.oschina.app.util.PlatfromUtil;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.widget.TweetTextView;
 
@@ -66,12 +65,10 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
             h.tvNick.setText("匿名用户");
         }
         if (!TextUtils.isEmpty(tweet.getPubDate()))
-            h.tvTime.setText(StringUtils.formatSomeAgo(tweet.getPubDate()));
-        PlatfromUtil.setPlatFromString(h.tvClient, tweet.getAppClient());
+            h.tvTime.setText(StringUtils.getDateString(tweet.getPubDate()));
         if (!TextUtils.isEmpty(tweet.getContent())) {
             String content = tweet.getContent().replaceAll("[\n\\s]+", " ");
-            h.mContent.setText(TweetParser.getInstance().parse(mContext, content));
-            h.mContent.setMovementMethod(LinkMovementMethod.getInstance());
+            CommentsUtil.formatHtml(h.mContent.getResources(), h.mContent, content, true,false);
         }
 
         h.mLayoutGrid.setImage(tweet.getImages());
@@ -89,16 +86,8 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
             } else {
                 if (about.getType() == OSChinaApi.COMMENT_TWEET) {
                     h.mViewRefTitle.setVisibility(View.GONE);
-                    String aName = "@" + about.getTitle();
-                    String cnt = about.getContent();
-                    Spannable spannable = TweetParser.getInstance().parse(mContext, cnt);
-                    SpannableStringBuilder builder = new SpannableStringBuilder();
-                    builder.append(aName).append(": ");
-                    builder.append(spannable);
-                    ForegroundColorSpan span = new ForegroundColorSpan(
-                            mContext.getResources().getColor(R.color.day_colorPrimary));
-                    builder.setSpan(span, 0, aName.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                    h.mViewRefContent.setText(builder);
+                    String con = "@" + about.getTitle() + "： " +about.getContent();
+                    CommentsUtil.formatHtml(h.mViewRefContent.getResources(), h.mViewRefContent, con, true,true);
                 } else {
                     h.mViewRefTitle.setVisibility(View.VISIBLE);
                     h.mViewRefTitle.setText(about.getTitle());
@@ -108,7 +97,9 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
         } else {
             h.mLayoutRef.setVisibility(View.GONE);
         }
-        h.mTextCommentCount.setVisibility(mItems.size() == 0 ? View.GONE : View.VISIBLE);
+        h.mTextComment.setVisibility(mItems.size() == 0 ? View.GONE : View.VISIBLE);
+        h.mTextCommentCount.setText(String.valueOf(tweet.getCommentCount()));
+        h.mTextLikeCount.setText(String.valueOf(tweet.getLikeCount()));
     }
 
     @Override
@@ -135,8 +126,6 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
         TextView tvNick;
         @Bind(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_client)
-        TextView tvClient;
         @Bind(R.id.tv_content)
         TextView mContent;
         @Bind(R.id.tweet_pics_layout)
@@ -149,8 +138,12 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
         TweetPicturesLayout mLayoutRefImages;
         @Bind(R.id.layout_ref)
         LinearLayout mLayoutRef;
-        @Bind(R.id.tv_comment_count)
+        @Bind(R.id.tv_tweet_like_count)
+        TextView mTextLikeCount;
+        @Bind(R.id.tv_tweet_comment_count)
         TextView mTextCommentCount;
+        @Bind(R.id.tv_comment)
+        TextView mTextComment;
 
         CommentHeaderView(View itemView) {
             super(itemView);
