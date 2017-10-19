@@ -8,6 +8,7 @@ import android.view.View;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import net.oschina.app.AppConfig;
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
@@ -22,6 +23,8 @@ import net.oschina.app.improve.tweet.adapter.TweetCommentAdapter;
 import net.oschina.app.improve.tweet.contract.TweetDetailContract;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.QuickOptionDialogHelper;
+import net.oschina.app.improve.widget.SimplexToast;
+import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.UIHelper;
 
@@ -163,7 +166,7 @@ public class ListTweetCommentFragment extends BaseRecyclerViewFragment<TweetComm
                 if (result.isSuccess()) {
                     mAdapter.removeItem(mDeleteIndex);
                     int count = mOperator.getTweetDetail().getCommentCount() - 1;
-                    mOperator.getTweetDetail().setCommentCount(count); // Bean就这样写的,我也不知道为什么!!!!
+                    mOperator.getTweetDetail().setCommentCount(count);
                     mAgencyView.resetCmnCount(count);
                     AppContext.showToastShort("删除成功");
                 } else {
@@ -175,7 +178,75 @@ public class ListTweetCommentFragment extends BaseRecyclerViewFragment<TweetComm
 
     @Override
     public void onCommentSuccess(TweetComment comment) {
-        onRefreshing();
+        isRefreshing = true;
+        mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE, true);
+        OSChinaApi.getTweetCommentList(mOperator.getTweetDetail().getId(), null, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                if(mContext==null)
+                    return;
+                onRequestError();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                if(mContext==null)
+                    return;
+                try {
+                    ResultBean<PageBean<TweetComment>> resultBean = AppOperator.createGson().fromJson(responseString, getType());
+                    if (resultBean != null && resultBean.isSuccess() && resultBean.getResult().getItems() != null) {
+                        showRefreshSuccess(resultBean);
+                        onRequestSuccess(resultBean.getCode());
+                    } else {
+                        if (resultBean != null && resultBean.getCode() == ResultBean.RESULT_TOKEN_ERROR) {
+                            SimplexToast.show(getActivity(), resultBean.getMessage());
+                        }
+                        mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    onFailure(statusCode, headers, responseString, e);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                if(mContext==null)
+                    return;
+                onRequestFinish();
+            }
+
+            @Override
+            public void onCancel() {
+                super.onCancel();
+                if(mContext==null)
+                    return;
+                onRequestFinish();
+            }
+        });
     }
 
+    private void showRefreshSuccess(ResultBean<PageBean<TweetComment>> resultBean) {
+        mBean.setNextPageToken(resultBean.getResult().getNextPageToken());
+        AppConfig.getAppConfig(getActivity()).set("system_time", resultBean.getTime());
+        mBean.setItems(resultBean.getResult().getItems());
+        mAdapter.clear();
+        mAdapter.addAll(mBean.getItems());
+        mBean.setPrevPageToken(resultBean.getResult().getPrevPageToken());
+        mRefreshLayout.setCanLoadMore(true);
+        if (resultBean.getResult().getItems() == null
+                || resultBean.getResult().getItems().size() < 20)
+            mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
+        if (mAdapter.getItems().size() > 0) {
+            mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+            mRefreshLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            mErrorLayout.setErrorType(
+                    isNeedEmptyView()
+                            ? EmptyLayout.NODATA
+                            : EmptyLayout.HIDE_LAYOUT);
+        }
+    }
 }
