@@ -11,12 +11,7 @@ import android.os.Environment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,13 +24,12 @@ import net.oschina.app.improve.bean.Tweet;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.TweetComment;
+import net.oschina.app.improve.comment.CommentsUtil;
 import net.oschina.app.improve.dialog.ShareDialog;
 import net.oschina.app.improve.utils.DialogHelper;
-import net.oschina.app.improve.utils.parser.TweetParser;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
-import net.oschina.app.util.PlatfromUtil;
 import net.oschina.app.util.StringUtils;
 import net.oschina.common.utils.StreamUtil;
 
@@ -58,8 +52,6 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
     TextView tvNick;
     @Bind(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.tv_client)
-    TextView tvClient;
     @Bind(R.id.tweet_pics_layout)
     TweetPicturesLayout mLayoutGrid;
 
@@ -74,8 +66,14 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
     @Bind(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
-    @Bind(R.id.tv_comment_count)
+    @Bind(R.id.tv_tweet_like_count)
+    TextView mTextLikeCount;
+
+    @Bind(R.id.tv_tweet_comment_count)
     TextView mTextCommentCount;
+
+    @Bind(R.id.tv_comment)
+    TextView mTextComment;
 
     @Bind(R.id.nsv_content)
     NestedScrollView mViewScroller;
@@ -127,9 +125,9 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
         if (mContext == null)
             return;
         if (list == null || list.size() == 0) {
-            mTextCommentCount.setVisibility(View.GONE);
-        }else {
-            mTextCommentCount.setVisibility(View.VISIBLE);
+            mTextComment.setVisibility(View.GONE);
+        } else {
+            mTextComment.setVisibility(View.VISIBLE);
         }
     }
 
@@ -145,12 +143,10 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
             tvNick.setText("匿名用户");
         }
         if (!TextUtils.isEmpty(tweet.getPubDate()))
-            tvTime.setText(StringUtils.formatSomeAgo(tweet.getPubDate()));
-        PlatfromUtil.setPlatFromString(tvClient, tweet.getAppClient());
+            tvTime.setText(StringUtils.getDateString(tweet.getPubDate()));
         if (!TextUtils.isEmpty(tweet.getContent())) {
             String content = tweet.getContent().replaceAll("[\n\\s]+", " ");
-            mTextContent.setText(TweetParser.getInstance().parse(mContext, content));
-            mTextContent.setMovementMethod(LinkMovementMethod.getInstance());
+            CommentsUtil.formatHtml(mTextContent.getResources(), mTextContent, content, true, false);
         }
 
         mLayoutGrid.setImage(tweet.getImages());
@@ -168,16 +164,8 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
             } else {
                 if (about.getType() == OSChinaApi.COMMENT_TWEET) {
                     mViewRefTitle.setVisibility(View.GONE);
-                    String aName = "@" + about.getTitle();
-                    String cnt = about.getContent();
-                    Spannable spannable = TweetParser.getInstance().parse(mContext, cnt);
-                    SpannableStringBuilder builder = new SpannableStringBuilder();
-                    builder.append(aName).append(": ");
-                    builder.append(spannable);
-                    ForegroundColorSpan span = new ForegroundColorSpan(
-                            getResources().getColor(R.color.day_colorPrimary));
-                    builder.setSpan(span, 0, aName.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                    mViewRefContent.setText(builder);
+                    String con = "@" + about.getTitle() + "： " + about.getContent();
+                    CommentsUtil.formatHtml(mViewRefContent.getResources(), mViewRefContent, con, true, true);
                 } else {
                     mViewRefTitle.setVisibility(View.VISIBLE);
                     mViewRefTitle.setText(about.getTitle());
@@ -187,6 +175,8 @@ public class TweetShareFragment extends BaseFragment implements Runnable {
         } else {
             mLayoutRef.setVisibility(View.GONE);
         }
+        mTextCommentCount.setText(String.valueOf(tweet.getCommentCount()));
+        mTextLikeCount.setText(String.valueOf(tweet.getLikeCount()));
     }
 
     @Override

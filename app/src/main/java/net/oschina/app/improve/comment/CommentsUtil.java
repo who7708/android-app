@@ -105,7 +105,7 @@ public final class CommentsUtil {
     }
 
     @SuppressWarnings({"unused", "deprecation"})
-    public static void formatHtml(Resources resources, TextView textView, String str, boolean isShare) {
+    public static void formatHtml(Resources resources, TextView textView, String str, boolean isShare,boolean isRef) {
         if (str == null)
             return;
         str = str.trim();
@@ -121,30 +121,46 @@ public final class CommentsUtil {
         Spanned span = StringParser.getInstance().parse(textView.getContext(), str);
 
         if (isShare) {
-            Drawable drawableLeft = resources.getDrawable(R.mipmap.ic_quote_left);
-            drawableLeft.setBounds(0, 0, drawableLeft.getIntrinsicWidth(), drawableLeft.getIntrinsicHeight());
-            ImageSpan imageSpanLeft = new ImageSpan(drawableLeft, ImageSpan.ALIGN_BASELINE);
+            if(isRef){
 
-            Drawable drawableRight = resources.getDrawable(R.mipmap.ic_quote_right);
-            drawableRight.setBounds(0, 0, drawableRight.getIntrinsicWidth(), drawableRight.getIntrinsicHeight());
-            ImageSpan imageSpanRight = new ImageSpan(drawableRight, ImageSpan.ALIGN_BASELINE);
+                span = InputHelper.displayEmoji(resources, span.toString());
+                SpannableStringBuilder sb = new SpannableStringBuilder();
+                sb.append(span);
 
-            span = InputHelper.displayEmoji(resources, span.toString());
-            SpannableStringBuilder sb = new SpannableStringBuilder();
-            sb.append("[icon]  ");
-            sb.append(span);
-            sb.append("  [icon]");
-            sb.setSpan(imageSpanLeft, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            sb.setSpan(imageSpanRight, sb.length() - 6, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                textView.setText(sb);
+                float size = 26.0f;
+                int count = sb.length() / 32;
+                if (count > 3) {
+                    size = size / count * 3;
+                }
+                textView.setTextSize(Math.max(16.0f, size));
+                //MyURLSpan.parseLinkText(textView, span);
+            }else {
+                Drawable drawableLeft = resources.getDrawable(R.mipmap.ic_quote_left);
+                drawableLeft.setBounds(0, 0, drawableLeft.getIntrinsicWidth(), drawableLeft.getIntrinsicHeight());
+                ImageSpan imageSpanLeft = new ImageSpan(drawableLeft, ImageSpan.ALIGN_BASELINE);
 
-            textView.setText(sb);
-            float size = 26.0f;
-            int count = sb.length() / 32;
-            if (count > 3) {
-                size = size / count * 3;
+                Drawable drawableRight = resources.getDrawable(R.mipmap.ic_quote_right);
+                drawableRight.setBounds(0, 0, drawableRight.getIntrinsicWidth(), drawableRight.getIntrinsicHeight());
+                ImageSpan imageSpanRight = new ImageSpan(drawableRight, ImageSpan.ALIGN_BASELINE);
+
+                span = InputHelper.displayEmoji(resources, span.toString());
+                SpannableStringBuilder sb = new SpannableStringBuilder();
+                sb.append("[icon]  ");
+                sb.append(span);
+                sb.append("  [icon]");
+                sb.setSpan(imageSpanLeft, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                sb.setSpan(imageSpanRight, sb.length() - 6, sb.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+                textView.setText(sb);
+                float size = 26.0f;
+                int count = sb.length() / 32;
+                if (count > 3) {
+                    size = size / count * 3;
+                }
+                textView.setTextSize(Math.max(16.0f, size));
+                //MyURLSpan.parseLinkText(textView, span);
             }
-            textView.setTextSize(Math.max(16.0f, size));
-            //MyURLSpan.parseLinkText(textView, span);
         } else {
             span = InputHelper.displayEmoji(resources, span.toString());
             textView.setText(span);
