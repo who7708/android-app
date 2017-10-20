@@ -182,6 +182,8 @@ public class User extends Author {
     }
 
     public static class Statistics implements Serializable {
+        private int availScore;
+        private int activeScore;
         private int score;
         private int tweet;
         private int collect;
@@ -190,6 +192,7 @@ public class User extends Author {
         private int blog;
         private int answer;
         private int discuss;
+
 
         public int getScore() {
             return score;
@@ -253,6 +256,22 @@ public class User extends Author {
 
         public void setDiscuss(int discuss) {
             this.discuss = discuss;
+        }
+
+        public int getAvailScore() {
+            return availScore;
+        }
+
+        public void setAvailScore(int availScore) {
+            this.availScore = availScore;
+        }
+
+        public int getActiveScore() {
+            return activeScore;
+        }
+
+        public void setActiveScore(int activeScore) {
+            this.activeScore = activeScore;
         }
 
         @Override

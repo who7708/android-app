@@ -63,7 +63,8 @@
                         android:layout_alignEnd="@id/iv_portrait"
                         android:layout_alignRight="@id/iv_portrait"
                         android:contentDescription="@null"
-                        android:src="@mipmap/ic_male" />
+                        android:src="@mipmap/ic_male"
+                        tools:ignore="RtlHardcoded" />
                 </RelativeLayout>
 
                 <TextView
@@ -95,16 +96,34 @@
                     android:textSize="14sp"
                     tools:text="这个人很懒,什么都没有写" />
 
-                <TextView
-                    android:id="@+id/tv_score"
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
-                    android:gravity="bottom"
-                    android:textColor="#FFF"
-                    android:textSize="14sp"
-                    tools:text="积分 88888" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_avail_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textColor="#FFF"
+                        android:textSize="14sp"
+                        tools:text="积分 88888" />
+
+                    <TextView
+                        android:id="@+id/tv_active_score"
+                        android:layout_marginLeft="@dimen/lay_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:textColor="#FFF"
+                        android:textSize="14sp"
+                        tools:text="积分 88888"
+                        tools:ignore="RtlHardcoded" />
+                </LinearLayout>
 
                 <!--
                     about margin bottom
