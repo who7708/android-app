@@ -82,8 +82,10 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
 
     @Bind(R.id.tv_nick)
     TextView mTvName;
-    @Bind(R.id.tv_score)
-    TextView mTvScore;
+    @Bind(R.id.tv_avail_score)
+    TextView mTextAvailScore;
+    @Bind(R.id.tv_active_score)
+    TextView mTextActiveScore;
     @Bind(R.id.user_view_solar_system)
     SolarSystemView mSolarSystem;
     @Bind(R.id.rl_show_my_info)
@@ -278,12 +280,10 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
 
-        mTvScore.setText(String.format(
-                "%s  %s",
-                getString(R.string.user_score),
-                formatCount(userInfo.getStatistics().getScore()))
-        );
-        mTvScore.setVisibility(View.VISIBLE);
+        mTextAvailScore.setText(String.format("技能积分 %s", userInfo.getStatistics().getAvailScore()));
+        mTextActiveScore.setText(String.format("活跃积分 %s", userInfo.getStatistics().getActiveScore()));
+        mTextAvailScore.setVisibility(View.VISIBLE);
+        mTextActiveScore.setVisibility(View.VISIBLE);
         mAboutLine.setVisibility(View.VISIBLE);
         mLayAboutCount.setVisibility(View.VISIBLE);
         mTvTweetCount.setText(formatCount(userInfo.getStatistics().getTweet()));
@@ -392,7 +392,8 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
         mTvName.setText(R.string.user_hint_login);
         mTvName.setTextSize(16.0f);
         mIvGander.setVisibility(View.INVISIBLE);
-        mTvScore.setVisibility(View.INVISIBLE);
+        mTextActiveScore.setVisibility(View.INVISIBLE);
+        mTextAvailScore.setVisibility(View.INVISIBLE);
         mLayAboutCount.setVisibility(View.GONE);
         mAboutLine.setVisibility(View.GONE);
     }

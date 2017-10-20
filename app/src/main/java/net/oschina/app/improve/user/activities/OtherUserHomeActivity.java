@@ -31,7 +31,6 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
-import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.base.activities.BaseActivity;
@@ -78,8 +77,10 @@ public class OtherUserHomeActivity extends BaseActivity
     TextView mNick;
     @Bind(R.id.tv_summary)
     TextView mSummary;
-    @Bind(R.id.tv_score)
-    TextView mScore;
+    @Bind(R.id.tv_avail_score)
+    TextView mTextAvailScore;
+    @Bind(R.id.tv_active_score)
+    TextView mTextActiveScore;
     @Bind(R.id.tv_count_follow)
     TextView mCountFollow;
     @Bind(R.id.tv_count_fans)
@@ -137,6 +138,7 @@ public class OtherUserHomeActivity extends BaseActivity
      * @param id      无效值,随便填,只是用来区别{{@link #show(Context, String)}}方法的
      * @param suffix  个性后缀
      */
+    @SuppressWarnings("unused")
     public static void show(Context context, long id, String suffix) {
         if (TextUtils.isEmpty(suffix)) return;
         User user = new User();
@@ -336,11 +338,13 @@ public class OtherUserHomeActivity extends BaseActivity
         String desc = user.getDesc();
         mSummary.setText(TextUtils.isEmpty(desc) ? "这人很懒,什么都没写" : desc);
         if (user.getStatistics() != null) {
-            mScore.setText(String.format("积分 %s", user.getStatistics().getScore()));
+            mTextAvailScore.setText(String.format("技能积分 %s", user.getStatistics().getAvailScore()));
+            mTextActiveScore.setText(String.format("活跃积分 %s", user.getStatistics().getActiveScore()));
             mCountFans.setText(String.format("粉丝 %s", user.getStatistics().getFans()));
             mCountFollow.setText(String.format("关注 %s", user.getStatistics().getFollow()));
         } else {
-            mScore.setText("积分 0");
+            mTextAvailScore.setText("技能积分 0");
+            mTextActiveScore.setText("活跃积分 0");
             mCountFans.setText("粉丝 0");
             mCountFollow.setText("关注 0");
         }
@@ -395,22 +399,26 @@ public class OtherUserHomeActivity extends BaseActivity
                 if (isFinishing() || isDestroyed())
                     return;
 
-                ResultBean<User> result = AppOperator.createGson().fromJson(
-                        responseString, new TypeToken<ResultBean<User>>() {
-                        }.getType());
-                if (result.isSuccess() && result.getResult() == null) return;
-                user = result.getResult();
-                if (user == null || user.getId() == 0) {
-                    Toast.makeText(OtherUserHomeActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
+                try {
+                    ResultBean<User> result = AppOperator.createGson().fromJson(
+                            responseString, new TypeToken<ResultBean<User>>() {
+                            }.getType());
+                    if (result.isSuccess() && result.getResult() == null) return;
+                    user = result.getResult();
+                    if (user == null || user.getId() == 0) {
+                        Toast.makeText(OtherUserHomeActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+                    mIsLoadSuccess = true;
+                    // 再次初始化用户信息
+                    injectDataToView();
+                    injectDataToViewPager();
+                    // 成功后初始化菜单
+                    invalidateOptionsMenu();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                mIsLoadSuccess = true;
-                // 再次初始化用户信息
-                injectDataToView();
-                injectDataToViewPager();
-                // 成功后初始化菜单
-                invalidateOptionsMenu();
             }
         });
     }
@@ -463,7 +471,7 @@ public class OtherUserHomeActivity extends BaseActivity
 //                Bundle userBundle = new Bundle();
 //                userBundle.putSerializable("user_info", user);
 //                UIHelper.showSimpleBack(this, SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
-                UserDataActivity.show(this,user);
+                UserDataActivity.show(this, user);
                 break;
             case R.id.iv_portrait:
                 String url;
@@ -564,7 +572,7 @@ public class OtherUserHomeActivity extends BaseActivity
         private TextView mViewCount;
         private TextView mViewTag;
 
-        public TabViewHolder(View view) {
+        private TabViewHolder(View view) {
             mViewCount = (TextView) view.findViewById(R.id.tv_count);
             mViewTag = (TextView) view.findViewById(R.id.tv_tag);
         }
@@ -593,7 +601,7 @@ public class OtherUserHomeActivity extends BaseActivity
             mTabLayout.getBackground().setAlpha(Math.round(255 - Math.abs(verticalOffset) / (float) mScrollRange * 255));
         }
 
-        public void resetRange() {
+        private void resetRange() {
             mScrollRange = -1;
         }
     }
