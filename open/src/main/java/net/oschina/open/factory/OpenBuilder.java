@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
@@ -203,6 +204,7 @@ public class OpenBuilder {
             webpageObject.identify = Utility.generateGUID();
             webpageObject.title = share.getTitle();
             webpageObject.description = share.getTitle();
+            webpageObject.defaultText = share.getTitle();
 
             Bitmap bitmap = share.getThumbBitmap();
             if (bitmap == null) {
@@ -216,6 +218,10 @@ public class OpenBuilder {
 
             WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
 
+            TextObject textObject = new TextObject();
+            textObject.text = share.getTitle();
+            textObject.title = share.getTitle();
+            weiboMessage.textObject = textObject;
             weiboMessage.mediaObject = webpageObject;
             // 2. 初始化从第三方到微博的消息请求
             SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
