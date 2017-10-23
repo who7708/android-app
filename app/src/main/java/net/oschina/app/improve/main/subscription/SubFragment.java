@@ -1,6 +1,5 @@
 package net.oschina.app.improve.main.subscription;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.gson.reflect.TypeToken;
@@ -33,7 +32,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     private HeaderView mHeaderView;
     private OSCApplication.ReadState mReadState;
 
-    public static SubFragment newInstance(Context context, SubTab subTab) {
+    public static SubFragment newInstance(SubTab subTab) {
         SubFragment fragment = new SubFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("sub_tab", subTab);
@@ -45,6 +44,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     protected void initBundle(Bundle bundle) {
         super.initBundle(bundle);
         mTab = (SubTab) bundle.getSerializable("sub_tab");
+        assert mTab != null;
         CACHE_NAME = mTab.getToken();
     }
 
