@@ -405,8 +405,8 @@
     <string-array name="synthesize_titles">
         <item>头条</item>
         <item>资讯</item>
-        <item>博客</item>
         <item>问答</item>
+        <item>博客</item>
     </string-array>
 
 

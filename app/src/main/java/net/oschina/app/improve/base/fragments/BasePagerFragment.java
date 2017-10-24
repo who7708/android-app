@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import net.oschina.app.R;
 
@@ -44,8 +45,9 @@ public abstract class BasePagerFragment extends BaseFragment {
 
     }
 
-    private static class Adapter extends FragmentStatePagerAdapter {
+    public static class Adapter extends FragmentStatePagerAdapter {
         private List<Fragment> mFragment = new ArrayList<>();
+        private Fragment mCurFragment;
         private String[] mTitles;
 
         Adapter(FragmentManager fm) {
@@ -55,6 +57,18 @@ public abstract class BasePagerFragment extends BaseFragment {
         void reset(List<Fragment> fragments) {
             mFragment.clear();
             mFragment.addAll(fragments);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+            if (object instanceof Fragment) {
+                mCurFragment = (Fragment) object;
+            }
+        }
+
+        public Fragment getCurFragment() {
+            return mCurFragment;
         }
 
         void reset(String[] titles) {

@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import net.oschina.app.R;
+import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
+import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.subscription.SubFragment;
 import net.oschina.app.improve.tweet.fragments.TweetFragment;
+import net.oschina.app.interf.OnTabReselectListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ import java.util.List;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class TweetPagerFragment extends BasePagerFragment {
+public class TweetPagerFragment extends BasePagerFragment implements OnTabReselectListener {
 
     public static TweetPagerFragment newInstance() {
         return new TweetPagerFragment();
@@ -33,6 +36,21 @@ public class TweetPagerFragment extends BasePagerFragment {
     protected void initWidget(View root) {
         super.initWidget(root);
         setStatusBarPadding();
+
+    }
+
+    @Override
+    public void onTabReselect() {
+        if (mViewPager != null && mViewPager.getAdapter() != null) {
+            BasePagerFragment.Adapter pagerAdapter = (BasePagerFragment.Adapter) mViewPager.getAdapter();
+            Fragment fragment = pagerAdapter.getCurFragment();
+            if (fragment != null) {
+                if (fragment instanceof BaseGeneralListFragment)
+                    ((BaseGeneralListFragment) fragment).onTabReselect();
+                else if (fragment instanceof BaseGeneralRecyclerFragment)
+                    ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
+            }
+        }
     }
 
     @Override

@@ -15,13 +15,13 @@ import net.oschina.app.improve.bean.Top;
  */
 
 public class TopAdapter extends BaseRecyclerAdapter<Top> {
-    public TopAdapter(Context context) {
+    TopAdapter(Context context) {
         super(context, ONLY_FOOTER);
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new TopHolder(mInflater.inflate(R.layout.item_list_sub_news,parent,false));
+        return new TopHolder(mInflater.inflate(R.layout.item_list_sub_news, parent, false));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Top> {
     }
 
     private static final class TopHolder extends RecyclerView.ViewHolder {
-        public TopHolder(View itemView) {
+        TopHolder(View itemView) {
             super(itemView);
         }
     }
