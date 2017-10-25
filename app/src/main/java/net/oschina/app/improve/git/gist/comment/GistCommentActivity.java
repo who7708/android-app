@@ -48,7 +48,7 @@ public class GistCommentActivity extends BaseBackActivity implements GistComment
         LinearLayout layComment = (LinearLayout) findViewById(R.id.ll_comment);
         mDelegation = CommentBar.delegation(this, layComment);
         mDelegation.hideFav();
-        mDelegation.hideShare();
+        mDelegation.hideCommentCount();
         mDelegation.getBottomSheet().hideSyncAction();
         mDelegation.getBottomSheet().hideMentionAction();
         mDelegation.getBottomSheet().setMentionListener(new View.OnClickListener() {

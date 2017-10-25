@@ -41,7 +41,6 @@ import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
-import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.TDevice;
@@ -226,7 +225,7 @@ public class CommentsActivity extends BaseBackActivity implements
         }
         mDelegation.getBottomSheet().getEditText().setHint(mSourceId);
         mDelegation.hideFav();
-        mDelegation.hideShare();
+        mDelegation.hideCommentCount();
 
         if (mType == OSChinaApi.COMMENT_SOFT) {
             mDelegation.getBottomSheet().hideSyncAction();

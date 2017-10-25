@@ -1,10 +1,14 @@
 package net.oschina.app.improve.detail.general;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v4.widget.NestedScrollView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.oschina.app.R;
@@ -16,6 +20,7 @@ import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.UserRelation;
 import net.oschina.app.improve.detail.pay.PayDialog;
 import net.oschina.app.improve.detail.v2.DetailFragment;
+import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
@@ -32,19 +37,6 @@ import butterknife.OnLongClick;
  */
 
 public class BlogDetailFragment extends DetailFragment {
-
-
-    @Bind(R.id.iv_label_today)
-    ImageView mImageToday;
-
-    @Bind(R.id.iv_label_recommend)
-    ImageView mImageRecommend;
-
-    @Bind(R.id.iv_label_originate)
-    ImageView mImageOriginate;
-
-    @Bind(R.id.iv_label_reprint)
-    ImageView mImageReprint;
 
     @Bind(R.id.iv_avatar)
     PortraitView mImageAvatar;
@@ -113,8 +105,8 @@ public class BlogDetailFragment extends DetailFragment {
     @OnClick({R.id.btn_pay})
     @Override
     public void onClick(View v) {
-        if(!AccountHelper.isLogin()){
-            LoginActivity.show(this,1);
+        if (!AccountHelper.isLogin()) {
+            LoginActivity.show(this, 1);
             return;
         }
         if (mDialog == null) {
@@ -149,10 +141,49 @@ public class BlogDetailFragment extends DetailFragment {
         }
         mBtnRelation.setText(bean.getAuthor().getRelation() < UserRelation.RELATION_ONLY_HER
                 ? "已关注" : "关注");
-        mImageRecommend.setVisibility(mBean.isRecommend() ? View.VISIBLE : View.GONE);
-        mImageOriginate.setVisibility(mBean.isOriginal() ? View.VISIBLE : View.GONE);
-        mImageReprint.setVisibility(mImageOriginate.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        mImageToday.setVisibility(StringUtils.isToday(mBean.getPubDate()) ? View.VISIBLE : View.GONE);
+
+        SpannableStringBuilder spannable = new SpannableStringBuilder(bean.getTitle());
+        Resources resources = mContext.getResources();
+        int top = Util.dipTopx(mContext, 2);
+        boolean isToday = StringUtils.isToday(mBean.getPubDate());
+        if (isToday) {
+            spannable.append(" [icon] ");
+            Drawable originate = resources.getDrawable(R.mipmap.ic_label_today);
+            if (originate != null) {
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() + top);
+            }
+            ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
+            spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+
+        if (bean.isOriginal()) {
+            spannable.append(" [icon] ");
+            Drawable originate = resources.getDrawable(R.mipmap.ic_label_originate);
+            if (originate != null) {
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() + top);
+            }
+            ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
+            spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        } else {
+            spannable.append(" [icon] ");
+            Drawable originate = resources.getDrawable(R.mipmap.ic_label_reprint);
+            if (originate != null) {
+                originate.setBounds(0, -top, originate.getIntrinsicWidth(), originate.getIntrinsicHeight() + top);
+            }
+            ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
+            spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+
+        if (bean.isRecommend()) {
+            spannable.append(" [icon] ");
+            Drawable recommend = resources.getDrawable(R.mipmap.ic_label_recommend);
+            if (recommend != null) {
+                recommend.setBounds(0, -top, recommend.getIntrinsicWidth() + top , recommend.getIntrinsicHeight() + top);
+            }
+            ImageSpan imageSpan = new ImageSpan(recommend, ImageSpan.ALIGN_BOTTOM);
+            spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+        mTextTitle.setText(spannable);
     }
 
     @Override

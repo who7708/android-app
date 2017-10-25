@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="46dp"
     android:layout_gravity="bottom"
     android:background="@color/white"
     android:clickable="true"
     android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="KeyboardInaccessibleWidget">
 
     <View
         style="@style/h_line"
@@ -20,7 +22,7 @@
 
         <LinearLayout
             android:id="@+id/ll_comment"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/lay_8"
             android:layout_marginLeft="@dimen/lay_16"
@@ -33,9 +35,11 @@
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
+                android:contentDescription="@string/comment_hint"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="16dp"
-                android:src="@mipmap/ic_comment_40" />
+                android:src="@mipmap/ic_comment_40"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tv_comment"
@@ -43,29 +47,49 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:hint="发表评论"
-                android:paddingLeft="@dimen/lay_16" />
+                android:paddingLeft="@dimen/lay_16"
+                tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/lay_12"
+            android:background="@drawable/ic_material_ripple"
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded,RtlSymmetry">
+
+            <ImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/comment_hint"
+                android:padding="@dimen/lay_8"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_comment_40" />
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="12"
+                android:textSize="@dimen/font_14"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/ib_fav"
             android:layout_width="46dp"
             android:layout_height="46dp"
+            android:contentDescription="@string/comment_hint"
             android:layout_gravity="center_vertical"
             android:background="@drawable/ic_material_ripple"
             android:padding="@dimen/lay_8"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_fav_pressed" />
-
-        <ImageButton
-            android:id="@+id/ib_share"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/lay_8"
-            android:background="@drawable/ic_material_ripple"
-            android:padding="@dimen/lay_8"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_share_black_normal" />
-
     </LinearLayout>
 </LinearLayout>

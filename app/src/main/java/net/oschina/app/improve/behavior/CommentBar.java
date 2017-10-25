@@ -29,7 +29,8 @@ public class CommentBar {
     private FrameLayout mFrameLayout;
     private ViewGroup mParent;
     private ImageButton mFavView;
-    private ImageButton mShareView;
+    private LinearLayout mLinearComment;
+    private TextView mTextCommentCount;
     private TextView mCommentText;
     private BottomSheetBar mDelegation;
     private LinearLayout mCommentLayout;
@@ -52,8 +53,9 @@ public class CommentBar {
     private void initView() {
         //((CoordinatorLayout.LayoutParams) mRootView.getLayoutParams()).setBehavior(new FloatingAutoHideDownBehavior());
         mFavView = (ImageButton) mRootView.findViewById(R.id.ib_fav);
-        mShareView = (ImageButton) mRootView.findViewById(R.id.ib_share);
+        mLinearComment = (LinearLayout) mRootView.findViewById(R.id.ll_comment_count);
         mCommentText = (TextView) mRootView.findViewById(R.id.tv_comment);
+        mTextCommentCount = (TextView) mRootView.findViewById(R.id.tv_comment_count);
         mCommentLayout = (LinearLayout) mRootView.findViewById(R.id.ll_comment);
         mCommentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +74,8 @@ public class CommentBar {
      *
      * @param listener
      */
-    public void setShareListener(View.OnClickListener listener) {
-        mShareView.setOnClickListener(listener);
+    public void setCommentCountListener(View.OnClickListener listener) {
+        mLinearComment.setOnClickListener(listener);
     }
 
     /**
@@ -105,8 +107,8 @@ public class CommentBar {
         mDelegation.getBtnCommit().setEnabled(enable);
     }
 
-    public void hideShare() {
-        mShareView.setVisibility(View.GONE);
+    public void hideCommentCount() {
+        mLinearComment.setVisibility(View.GONE);
     }
 
     public void hideFav() {
@@ -117,6 +119,11 @@ public class CommentBar {
         return mCommentText;
     }
 
+    public void setCommentCount(int count){
+        if(mTextCommentCount!=null){
+            mTextCommentCount.setText(String.valueOf(count));
+        }
+    }
 
     public void performClick() {
         mCommentLayout.performClick();

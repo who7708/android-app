@@ -19,12 +19,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import net.oschina.app.AppConfig;
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.bean.Report;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BackActivity;
@@ -44,7 +44,6 @@ import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.SimplexToast;
-import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.HTMLUtil;
@@ -74,7 +73,7 @@ public abstract class DetailActivity extends BackActivity implements
     protected EmptyLayout mEmptyLayout;
     protected DetailFragment mDetailFragment;
     protected ShareDialog mAlertDialog;
-    protected TextView mCommentCountView;
+
     protected long mStay;//该界面停留时间
     private long mStart;
     protected Behavior mBehavior;
@@ -158,10 +157,10 @@ public abstract class DetailActivity extends BackActivity implements
                 }
             });
 
-            mDelegation.setShareListener(new View.OnClickListener() {
+            mDelegation.setCommentCountListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    toShare(mBean.getTitle(), mBean.getBody(), mBean.getHref());
+                    CommentsActivity.show(DetailActivity.this, mBean.getId(), mBean.getType(), OSChinaApi.COMMENT_NEW_ORDER, mBean.getTitle());
                 }
             });
 
@@ -314,14 +313,6 @@ public abstract class DetailActivity extends BackActivity implements
     @Override
     public void hideEmptyLayout() {
         mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        if (mCommentCountView != null) {
-            mCommentCountView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CommentsActivity.show(DetailActivity.this, mBean.getId(), mBean.getType(), OSChinaApi.COMMENT_NEW_ORDER, mBean.getTitle());
-                }
-            });
-        }
     }
 
     @Override
@@ -333,10 +324,11 @@ public abstract class DetailActivity extends BackActivity implements
     public void showGetDetailSuccess(SubBean bean) {
         this.mBean = bean;
         initBehavior();
-        if (mDelegation != null)
+        if (mDelegation != null){
+            if (bean.getStatistics() != null) {
+                mDelegation.setCommentCount(bean.getStatistics().getComment());
+            }
             mDelegation.setFavDrawable(mBean.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
-        if (mCommentCountView != null && mBean.getStatistics() != null) {
-            mCommentCountView.setText(String.valueOf(mBean.getStatistics().getComment()));
         }
     }
 
@@ -411,21 +403,31 @@ public abstract class DetailActivity extends BackActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_detail, menu);
-        MenuItem item = menu.findItem(R.id.menu_scroll_comment);
-        if (item != null) {
-            View action = item.getActionView();
-            if (action != null) {
-                View tv = action.findViewById(R.id.tv_comment_count);
-                if (tv != null && mBean != null) {
-                    mCommentCountView = (TextView) tv;
-                    if (mBean.getStatistics() != null)
-                        mCommentCountView.setText(mBean.getStatistics().getComment() + "");
-                }
-            }
-        }
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share:
+                if (mBean != null) {
+                    toShare(mBean.getTitle(), mBean.getBody(), mBean.getHref());
+                }
+                break;
+            case R.id.menu_report:
+                if (!AccountHelper.isLogin()) {
+                    LoginActivity.show(this);
+                    return false;
+                }
+                toReport(mBean.getId(), mBean.getHref());
+                break;
+        }
+        return false;
+    }
+
+    protected void toReport(long id, String href) {
+        ReportDialog.create(this, id, href, Report.TYPE_BLOG).show();
+    }
 
     @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})
     protected void toShare(String title, String content, String url) {
@@ -476,7 +478,7 @@ public abstract class DetailActivity extends BackActivity implements
         // 分享
         if (mAlertDialog == null) {
             mAlertDialog = new
-                    ShareDialog(this, mBean.getId(),(mBean.getType() == News.TYPE_BLOG || mBean.getType() == News.TYPE_NEWS))
+                    ShareDialog(this, mBean.getId(), (mBean.getType() == News.TYPE_BLOG || mBean.getType() == News.TYPE_NEWS))
                     .type(mBean.getType())
                     .title(title)
                     .content(content)
@@ -556,7 +558,7 @@ public abstract class DetailActivity extends BackActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        if(mShareCommentDialog!= null){
+        if (mShareCommentDialog != null) {
             mShareCommentDialog.dismiss();
         }
     }

@@ -12,17 +12,21 @@ import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.subscription.SubFragment;
 import net.oschina.app.improve.main.synthesize.top.TopFragment;
+import net.oschina.app.improve.search.activities.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 新版综合界面
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class SynthesizeFragment extends BasePagerFragment implements OnTabReselectListener{
+public class SynthesizeFragment extends BasePagerFragment implements OnTabReselectListener, View.OnClickListener {
 
     public static SynthesizeFragment newInstance() {
         return new SynthesizeFragment();
@@ -37,6 +41,16 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
     protected void initWidget(View root) {
         super.initWidget(root);
         setStatusBarPadding();
+    }
+
+    @OnClick({R.id.iv_search})
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_search:
+                SearchActivity.show(mContext);
+                break;
+        }
     }
 
     @Override

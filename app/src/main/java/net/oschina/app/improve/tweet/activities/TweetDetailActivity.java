@@ -284,7 +284,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
             }
         });
 
-        mDelegation.hideShare();
+        mDelegation.hideCommentCount();
         mDelegation.hideFav();
 
         mDelegation.getBottomSheet().setMentionListener(new View.OnClickListener() {

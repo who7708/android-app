@@ -133,7 +133,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
 
     @SuppressLint("PrivateApi")
-    protected void setMIUIStatusBarDarkMode() {
+    private void setMIUIStatusBarDarkMode() {
         if (isMiUi) {
             Class<? extends Window> clazz = getWindow().getClass();
             try {

@@ -178,7 +178,7 @@ public class QuesAnswerDetailActivity extends BaseBackActivity {
         mDelegation.getBottomSheet().getEditText().setText("");
 
         mDelegation.hideFav();
-        mDelegation.hideShare();
+        mDelegation.hideCommentCount();
 
         mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
 
