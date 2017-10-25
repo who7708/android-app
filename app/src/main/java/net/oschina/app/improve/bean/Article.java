@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class Top implements Serializable{
+public class Article implements Serializable{
     private int type;
     private String key;
     private String title;

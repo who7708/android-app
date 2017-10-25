@@ -1,32 +1,53 @@
 package net.oschina.app.improve.main.synthesize.top;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.util.Log;
+import android.view.View;
 
-import net.oschina.app.OSCApplication;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
-import net.oschina.app.improve.bean.Top;
+import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.main.header.HeaderView;
+import net.oschina.app.improve.main.header.NewsHeaderView;
 import net.oschina.app.interf.OnTabReselectListener;
+
+import java.util.List;
 
 /**
  * 头条界面
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Top> implements TopContract.View, OnTabReselectListener {
+public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Article> implements TopContract.View, OnTabReselectListener {
+
+    private HeaderView mHeaderView;
 
     public static TopFragment newInstance() {
-        getDeviceId(OSCApplication.getInstance());
         return new TopFragment();
     }
 
     @Override
-    protected void onItemClick(Top top, int position) {
+    protected void initWidget(View root) {
+        new TopPresenter(this);
+        super.initWidget(root);
+    }
 
+    @Override
+    protected void initData() {
+        mHeaderView = new NewsHeaderView(mContext, "https://www.oschina.net/action/apiv2/banner?catalog=1", "d6112fa662bc4bf21084670a857fbd20banner1");
+        super.initData();
+        mAdapter.setHeaderView(mHeaderView);
+    }
+
+    @Override
+    protected void onItemClick(Article top, int position) {
+
+    }
+
+    @Override
+    public void onRefreshSuccess(List<Article> data) {
+        super.onRefreshSuccess(data);
+        if(mHeaderView!= null){
+            mHeaderView.requestBanner();
+        }
     }
 
     @Override
@@ -39,17 +60,7 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Top
     }
 
     @Override
-    protected BaseRecyclerAdapter<Top> getAdapter() {
+    protected BaseRecyclerAdapter<Article> getAdapter() {
         return new TopAdapter(mContext);
-    }
-
-    @SuppressLint("HardwareIds")
-    private static String getDeviceId(Context context) {
-        String androidId = Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
-        if (!TextUtils.isEmpty(androidId)) {
-            Log.e("getDeviceId", androidId);
-            return androidId;
-        }
-        return android.os.Build.SERIAL;
     }
 }

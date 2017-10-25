@@ -1,6 +1,11 @@
 package net.oschina.app.improve.main.update;
 
 import android.content.Context;
+import android.provider.Settings;
+
+import net.oschina.app.OSCApplication;
+
+import java.util.UUID;
 
 /**
  * 应用存储
@@ -28,7 +33,7 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
     /**
      * 点击更新过的版本
      */
-     void putUpdateVersion(int code) {
+    void putUpdateVersion(int code) {
         put("osc_update_code", code);
     }
 
@@ -50,15 +55,32 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
      * 是否弹出更新
      * 或者是新版本重新更新 259200000
      */
-     boolean isShowUpdate() {
+    boolean isShowUpdate() {
         return getBoolean("osc_update_show", true);
     }
 
     /**
      * 是否已经弹出更新
+     *
      * @return 不弹出更新代表已经更新
      */
     public boolean hasShowUpdate() {
         return !getBoolean("osc_update_show", true);
+    }
+
+    /**
+     * 设备唯一标示
+     *
+     * @param id id
+     */
+    public void putDeviceUUID(String id) {
+        put("osc_device_uuid", id);
+    }
+
+    /**
+     * 设备唯一标示
+     */
+    public String getDeviceUUID() {
+        return getString("osc_device_uuid", "");
     }
 }

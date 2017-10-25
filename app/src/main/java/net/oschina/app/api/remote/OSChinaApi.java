@@ -1831,4 +1831,21 @@ public class OSChinaApi {
         params.put("content", blog.getContent());
         ApiHttpClient.post("action/apiv2/pub_blog", params, handler);
     }
+
+    /**
+     * 获取头条
+     *
+     * @param ident     手机唯一标示
+     * @param pageToken pageToken
+     * @param handler   handler
+     */
+    public static void getArticles(String ident, String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("ident", ident);
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        ApiHttpClient.get("action/apiv2/getArticles", params, handler);
+    }
+
 }

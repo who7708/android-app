@@ -7,16 +7,27 @@ import android.view.ViewGroup;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
-import net.oschina.app.improve.bean.Top;
+import net.oschina.app.improve.bean.Article;
 
 /**
  * 头条数据
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class TopAdapter extends BaseRecyclerAdapter<Top> {
+public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecyclerAdapter.OnLoadingHeaderCallBack {
     TopAdapter(Context context) {
-        super(context, ONLY_FOOTER);
+        super(context, NEITHER);
+        setOnLoadingHeaderCallBack(this);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderHolder(ViewGroup parent) {
+        return new HeaderHolder(mHeaderView);
+    }
+
+    @Override
+    public void onBindHeaderHolder(RecyclerView.ViewHolder holder, int position) {
+
     }
 
     @Override
@@ -25,8 +36,14 @@ public class TopAdapter extends BaseRecyclerAdapter<Top> {
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Top item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
 
+    }
+
+    private static final class HeaderHolder extends RecyclerView.ViewHolder {
+        HeaderHolder(View itemView) {
+            super(itemView);
+        }
     }
 
     private static final class TopHolder extends RecyclerView.ViewHolder {

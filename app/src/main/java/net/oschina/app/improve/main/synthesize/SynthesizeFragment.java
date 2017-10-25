@@ -97,6 +97,12 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
 
     private SubFragment getSubFragment(int type, String title, String url, int subType, String token) {
         SubTab tab = new SubTab();
+//        if(type == 6){
+//            SubTab.Banner banner = tab.new Banner();
+//            banner.setCatalog(1);
+//            banner.setHref("https://www.oschina.net/action/apiv2/banner?catalog=1");
+//            tab.setBanner(banner);
+//        }
         tab.setType(type);
         tab.setFixed(false);
         tab.setName(title);

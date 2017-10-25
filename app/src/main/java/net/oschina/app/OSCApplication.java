@@ -1,7 +1,9 @@
 package net.oschina.app;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 
 import com.baidu.mapapi.SDKInitializer;
 
@@ -11,6 +13,8 @@ import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.DetailCache;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.common.helper.ReadStateHelper;
+
+import java.util.UUID;
 
 /**
  * Created by qiujuer
@@ -33,6 +37,13 @@ public class OSCApplication extends AppContext {
 
     private void init() {
         OSCSharedPreference.init(this, "osc_update_sp");
+        if (TextUtils.isEmpty(OSCSharedPreference.getInstance().getDeviceUUID())) {
+            String androidId = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+            if (TextUtils.isEmpty(androidId)) {
+                androidId = UUID.randomUUID().toString().replaceAll("-", "");
+            }
+            OSCSharedPreference.getInstance().putDeviceUUID(androidId);
+        }
         // 初始化异常捕获类
         AppCrashHandler.getInstance().init(this);
         // 初始化账户基础信息

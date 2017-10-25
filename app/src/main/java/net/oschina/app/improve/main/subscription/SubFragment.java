@@ -15,8 +15,7 @@ import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.banner.EventHeaderView;
-import net.oschina.app.improve.main.banner.HeaderView;
-import net.oschina.app.improve.main.banner.NewsHeaderView;
+import net.oschina.app.improve.main.header.HeaderView;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
@@ -30,6 +29,7 @@ import java.lang.reflect.Type;
 public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     private SubTab mTab;
     private HeaderView mHeaderView;
+    private EventHeaderView mEventHeaderView;
     private OSCApplication.ReadState mReadState;
 
     public static SubFragment newInstance(SubTab subTab) {
@@ -52,12 +52,24 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     public void initData() {
         mReadState = OSCApplication.getReadState("sub_list");
         if (mTab.getBanner() != null) {
-            mHeaderView = mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS ?
-                    new NewsHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType()) :
-                    new EventHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
+//            mHeaderView = mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS ?
+//                    new NewsHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType()) :
+//                    new EventHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
+            if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS) {
+                mHeaderView = new net.oschina.app.improve.main.header.NewsHeaderView(mContext, mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
+            } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_EVENT) {
+                mEventHeaderView = new EventHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
+            }
         }
         super.initData();
-        mAdapter.setHeaderView(mHeaderView);
+        if (mTab.getBanner() != null) {
+            if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS) {
+                mAdapter.setHeaderView(mHeaderView);
+            } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_EVENT) {
+                mAdapter.setHeaderView(mEventHeaderView);
+            }
+        }
+
         mAdapter.setSystemTime(AppConfig.getAppConfig(getActivity()).get("system_time"));
         if (mAdapter instanceof NewsSubAdapter) {
             ((NewsSubAdapter) mAdapter).setTab(mTab);
@@ -66,7 +78,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
 
     @Override
     public void onItemClick(int position, long itemId) {
-        if(!TDevice.hasWebView(mContext))
+        if (!TDevice.hasWebView(mContext))
             return;
         SubBean sub = mAdapter.getItem(position);
         if (sub == null)
@@ -110,6 +122,9 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
         super.onRefreshing();
         if (mHeaderView != null)
             mHeaderView.requestBanner();
+        if(mEventHeaderView != null){
+            mEventHeaderView.requestBanner();
+        }
     }
 
     @Override
@@ -125,7 +140,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
 
     @Override
     protected BaseRecyclerAdapter<SubBean> getRecyclerAdapter() {
-        int mode = mHeaderView != null ? BaseRecyclerAdapter.BOTH_HEADER_FOOTER : BaseRecyclerAdapter.ONLY_FOOTER;
+        int mode = (mHeaderView != null || mEventHeaderView != null) ? BaseRecyclerAdapter.BOTH_HEADER_FOOTER : BaseRecyclerAdapter.ONLY_FOOTER;
         if (mTab.getType() == News.TYPE_BLOG)
             return new BlogSubAdapter(getActivity(), mode);
         else if (mTab.getType() == News.TYPE_EVENT)
