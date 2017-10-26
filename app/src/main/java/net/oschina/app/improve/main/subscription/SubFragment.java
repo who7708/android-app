@@ -15,6 +15,7 @@ import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.banner.EventHeaderView;
+import net.oschina.app.improve.main.header.BlogHeaderView;
 import net.oschina.app.improve.main.header.HeaderView;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -29,6 +30,7 @@ import java.lang.reflect.Type;
 public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     private SubTab mTab;
     private HeaderView mHeaderView;
+    private BlogHeaderView mBlogHeaderView;
     private EventHeaderView mEventHeaderView;
     private OSCApplication.ReadState mReadState;
 
@@ -59,6 +61,8 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
                 mHeaderView = new net.oschina.app.improve.main.header.NewsHeaderView(mContext, mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
             } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_EVENT) {
                 mEventHeaderView = new EventHeaderView(mContext, getImgLoader(), mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
+            } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_BLOG) {
+                mBlogHeaderView = new BlogHeaderView(mContext, mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
             }
         }
         super.initData();
@@ -67,6 +71,8 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
                 mAdapter.setHeaderView(mHeaderView);
             } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_EVENT) {
                 mAdapter.setHeaderView(mEventHeaderView);
+            } else if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_BLOG) {
+                mAdapter.setHeaderView(mBlogHeaderView);
             }
         }
 
@@ -122,7 +128,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
         super.onRefreshing();
         if (mHeaderView != null)
             mHeaderView.requestBanner();
-        if(mEventHeaderView != null){
+        if (mEventHeaderView != null) {
             mEventHeaderView.requestBanner();
         }
     }
@@ -140,7 +146,8 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
 
     @Override
     protected BaseRecyclerAdapter<SubBean> getRecyclerAdapter() {
-        int mode = (mHeaderView != null || mEventHeaderView != null) ? BaseRecyclerAdapter.BOTH_HEADER_FOOTER : BaseRecyclerAdapter.ONLY_FOOTER;
+        int mode = (mHeaderView != null || mEventHeaderView != null || mBlogHeaderView != null)
+                ? BaseRecyclerAdapter.BOTH_HEADER_FOOTER : BaseRecyclerAdapter.ONLY_FOOTER;
         if (mTab.getType() == News.TYPE_BLOG)
             return new BlogSubAdapter(getActivity(), mode);
         else if (mTab.getType() == News.TYPE_EVENT)

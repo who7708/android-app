@@ -5,8 +5,9 @@ import android.view.View;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
-import net.oschina.app.improve.main.header.HeaderView;
-import net.oschina.app.improve.main.header.NewsHeaderView;
+import net.oschina.app.improve.main.banner.HeaderView;
+import net.oschina.app.improve.main.banner.NewsHeaderView;
+import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 
 import java.util.List;
@@ -32,20 +33,22 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
 
     @Override
     protected void initData() {
-        mHeaderView = new NewsHeaderView(mContext, "https://www.oschina.net/action/apiv2/banner?catalog=1", "d6112fa662bc4bf21084670a857fbd20banner1");
+        mHeaderView = new NewsHeaderView(mContext, getImgLoader(),
+                "https://www.oschina.net/action/apiv2/banner?catalog=1",
+                "d6112fa662bc4bf21084670a857fbd20banner1");
         super.initData();
         mAdapter.setHeaderView(mHeaderView);
     }
 
     @Override
     protected void onItemClick(Article top, int position) {
-
+        ArticleDetailActivity.show(mContext, top);
     }
 
     @Override
     public void onRefreshSuccess(List<Article> data) {
         super.onRefreshSuccess(data);
-        if(mHeaderView!= null){
+        if (mHeaderView != null) {
             mHeaderView.requestBanner();
         }
     }

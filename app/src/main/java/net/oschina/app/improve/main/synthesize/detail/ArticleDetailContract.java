@@ -5,5 +5,5 @@ package net.oschina.app.improve.main.synthesize.detail;
  * Created by huanghaibin on 2017/10/23.
  */
 
- interface TopDetailContract {
+ interface ArticleDetailContract {
 }

@@ -199,6 +199,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".improve.main.synthesize.detail.ArticleDetailActivity"
+            android:label="头条详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".improve.detail.general.QuestionDetailActivity"
             android:label="问答详情"
