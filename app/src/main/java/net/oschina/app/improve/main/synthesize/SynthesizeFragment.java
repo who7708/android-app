@@ -18,7 +18,6 @@ import net.oschina.app.interf.OnTabReselectListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
@@ -63,6 +62,8 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
                     ((BaseGeneralListFragment) fragment).onTabReselect();
                 else if (fragment instanceof BaseGeneralRecyclerFragment)
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
+                else if (fragment instanceof TopFragment)
+                    ((TopFragment) fragment).onTabReselect();
             }
         }
     }

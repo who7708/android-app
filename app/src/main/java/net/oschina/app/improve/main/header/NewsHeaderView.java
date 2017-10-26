@@ -79,7 +79,7 @@ public class NewsHeaderView extends HeaderView {
 
             Holder(View itemView) {
                 super(itemView);
-                itemView.getLayoutParams().width = Util.getScreenWidth(itemView.getContext()) / 4 * 3;
+                itemView.getLayoutParams().width = Util.getScreenWidth(itemView.getContext()) / 5 * 3;
                 mImageBanner = (ImageView) itemView.findViewById(R.id.iv_banner);
                 mTextName = (TextView) itemView.findViewById(R.id.tv_name);
             }

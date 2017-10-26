@@ -12,10 +12,11 @@ public class Article implements Serializable{
     private String key;
     private String title;
     private String desc;
-    private String href;
+    private String url;
     private String pubDate;
-    private String origin;
-    private SubBean.Image[] images;
+    private String source;
+    private String[] imgs;
+    private int commentCount;
 
     public int getType() {
         return type;
@@ -49,12 +50,12 @@ public class Article implements Serializable{
         this.desc = desc;
     }
 
-    public String getHref() {
-        return href;
+    public String getUrl() {
+        return url;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getPubDate() {
@@ -65,19 +66,27 @@ public class Article implements Serializable{
         this.pubDate = pubDate;
     }
 
-    public String getOrigin() {
-        return origin;
+    public String getSource() {
+        return source;
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public SubBean.Image[] getImages() {
-        return images;
+    public String[] getImgs() {
+        return imgs;
     }
 
-    public void setImages(SubBean.Image[] images) {
-        this.images = images;
+    public void setImgs(String[] imgs) {
+        this.imgs = imgs;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 }

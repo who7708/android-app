@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    tools:ignore="RtlHardcoded"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,7 +30,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text_title_color"
             android:textSize="16sp"
-            tools:text="Large Text" />
+            tools:text="Large Text"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/tv_description"
