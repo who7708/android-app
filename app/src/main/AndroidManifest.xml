@@ -208,6 +208,13 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".improve.main.synthesize.detail.WebActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".improve.detail.general.QuestionDetailActivity"
             android:label="问答详情"
             android:screenOrientation="portrait"

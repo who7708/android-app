@@ -416,4 +416,14 @@
         <item>每日乱弹</item>
         <item>我的动弹</item>
     </string-array>
+
+    <string name="share_wechat">微信</string>
+    <string name="share_moments">朋友圈</string>
+    <string name="share_weibo">微博</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_qzone">Qzone</string>
+    <string name="share_browser">浏览器</string>
+    <string name="share_copy">复制链接</string>
+    <string name="share_save">保存相册</string>
+
 </resources>

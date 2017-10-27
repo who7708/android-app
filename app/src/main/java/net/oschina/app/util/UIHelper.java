@@ -42,6 +42,7 @@ import net.oschina.app.improve.detail.general.EventDetailActivity;
 import net.oschina.app.improve.detail.general.NewsDetailActivity;
 import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
+import net.oschina.app.improve.main.synthesize.detail.WebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.tweet.activities.TweetDetailActivity;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
@@ -372,9 +373,10 @@ public class UIHelper {
      */
     public static void openInternalBrowser(Context context, String url) {
         try {
-            Bundle bundle = new Bundle();
-            bundle.putString(BrowserFragment.BROWSER_KEY, url);
-            showSimpleBack(context, SimpleBackPage.BROWSER, bundle);
+//            Bundle bundle = new Bundle();
+//            bundle.putString(BrowserFragment.BROWSER_KEY, url);
+//            showSimpleBack(context, SimpleBackPage.BROWSER, bundle);
+            WebActivity.show(context,url);
         } catch (Exception e) {
             e.printStackTrace();
             openExternalBrowser(context, url);
