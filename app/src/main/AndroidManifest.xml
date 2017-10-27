@@ -184,8 +184,8 @@
         <activity
             android:name=".improve.write.WriteActivity"
             android:label="发布博客"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
 
         <activity
             android:name=".improve.detail.general.NewsDetailActivity"
@@ -420,44 +420,55 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="我的资料"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.data.MyDataActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="我的资料"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.data.ModifyDataActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="修改资料"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.data.ModifySkillActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="开发平台"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.data.ModifyFieldActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="专属领域"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.data.ModifyAreaActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="修改所在地区"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.tweet.activities.TopicTweetActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="话题动弹"
             android:screenOrientation="portrait"
             android:theme="@style/Base.App.Theme" />
-
+        <activity
+            android:name=".improve.setting.SettingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="设置"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.App.Theme" />
         <!-- 新账户中心模块 -->
         <activity
             android:name=".improve.account.activity.LoginActivity"
@@ -511,12 +522,14 @@
             android:name=".improve.user.activities.UserMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="消息中心"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.user.activities.UserSendMessageActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="聊天界面"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.media.SelectImageActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -587,7 +600,8 @@
         <activity
             android:name=".improve.user.event.UserEventActivity"
             android:label="我的活动"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
         <activity
             android:name=".improve.main.FeedBackActivity"
             android:label="意见反馈"
@@ -664,7 +678,7 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <service
             android:name=".improve.tweet.service.TweetPublishService"

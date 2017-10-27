@@ -36,7 +36,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setSwipeBackEnable(false);
+        setSwipeBackEnable(true);
         if (initBundle(getIntent().getExtras())) {
             setContentView(getContentView());
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -32,7 +31,7 @@ import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.app.AppOperator;
-import net.oschina.app.improve.base.activities.BaseActivity;
+import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.bean.Tweet;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.simple.About;
@@ -73,7 +72,7 @@ import cz.msebera.android.httpclient.Header;
  * on 16/6/13.
  */
 @SuppressWarnings("deprecation")
-public class TweetDetailActivity extends BaseActivity implements TweetDetailContract.Operator {
+public class TweetDetailActivity extends BackActivity implements TweetDetailContract.Operator {
 
     public static final String BUNDLE_KEY_TWEET = "BUNDLE_KEY_TWEET";
 
@@ -103,8 +102,6 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
     TextView mContent;
     @Bind(R.id.tweet_pics_layout)
     TweetPicturesLayout mLayoutGrid;
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
     @Bind(R.id.tv_ref_title)
     TextView mViewRefTitle;
     @Bind(R.id.tv_ref_content)
@@ -261,16 +258,14 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     }
 
+    @Override
     protected void initWidget() {
+        super.initWidget();
         setSwipeBackEnable(true);
-        mToolbar.setTitle("动弹详情");
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                supportFinishAfterTransition();
-            }
-        });
+        setStatusBarDarkMode();
+        setDarkToolBar();
+        mToolBar.setTitle("动弹详情");
+        setSupportActionBar(mToolBar);
 
         mDelegation = CommentBar.delegation(this, mCoordinatorLayout);
 
@@ -357,8 +352,8 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_share, menu);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
     }
 
     @Override
@@ -373,7 +368,7 @@ public class TweetDetailActivity extends BaseActivity implements TweetDetailCont
                     content = content.substring(0, 30);
 
                 if (alertDialog == null)
-                    alertDialog = new ShareDialog(this,true)
+                    alertDialog = new ShareDialog(this, true)
                             .title(content + " - 开源中国社区 ")
                             .content(content)
                             .url(tweet.getHref()).with();

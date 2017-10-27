@@ -1845,7 +1845,7 @@ public class OSChinaApi {
         if (!TextUtils.isEmpty(pageToken)) {
             params.put("pageToken", pageToken);
         }
-        ApiHttpClient.get("action/apiv2/getArticles", params, handler);
+        ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 
 }

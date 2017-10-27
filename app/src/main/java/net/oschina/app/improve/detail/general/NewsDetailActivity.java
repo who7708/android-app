@@ -2,13 +2,8 @@ package net.oschina.app.improve.detail.general;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
-import net.oschina.app.R;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.detail.v2.DetailActivity;
@@ -67,17 +62,7 @@ public class NewsDetailActivity extends DetailActivity {
     protected void initWidget() {
         super.initWidget();
         setStatusBarDarkMode();
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        if (mToolBar != null) {
-            setSupportActionBar(mToolBar);
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                actionBar.setHomeButtonEnabled(false);
-            }
-            mToolBar.setTitleTextColor(Color.BLACK);
-            DrawableCompat.setTint(mToolBar.getNavigationIcon(), Color.BLACK);
-        }
+        setDarkToolBar();
     }
 
 
