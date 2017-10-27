@@ -338,7 +338,7 @@ public class OtherUserHomeActivity extends BaseActivity
         String desc = user.getDesc();
         mSummary.setText(TextUtils.isEmpty(desc) ? "这人很懒,什么都没写" : desc);
         if (user.getStatistics() != null) {
-            mTextAvailScore.setText(String.format("技能积分 %s", user.getStatistics().getAvailScore()));
+            mTextAvailScore.setText(String.format("技能积分 %s", user.getStatistics().getHonorScore()));
             mTextActiveScore.setText(String.format("活跃积分 %s", user.getStatistics().getActiveScore()));
             mCountFans.setText(String.format("粉丝 %s", user.getStatistics().getFans()));
             mCountFollow.setText(String.format("关注 %s", user.getStatistics().getFollow()));
