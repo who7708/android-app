@@ -280,7 +280,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
 
-        mTextAvailScore.setText(String.format("技能积分 %s", userInfo.getStatistics().getAvailScore()));
+        mTextAvailScore.setText(String.format("技能积分 %s", userInfo.getStatistics().getHonorScore()));
         mTextActiveScore.setText(String.format("活跃积分 %s", userInfo.getStatistics().getActiveScore()));
         mTextAvailScore.setVisibility(View.VISIBLE);
         mTextActiveScore.setVisibility(View.VISIBLE);
