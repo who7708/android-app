@@ -9,16 +9,21 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.main.synthesize.top.TopAdapter;
+import net.oschina.app.improve.widget.PortraitView;
 
 /**
  * 文章详情
  * Created by huanghaibin on 2017/10/27.
  */
 
-public class ArticleFragment extends BaseRecyclerFragment<ArticleDetailContract.Presenter, Article> implements ArticleDetailContract.View {
+public class ArticleFragment extends BaseRecyclerFragment<ArticleDetailContract.Presenter, Article>
+        implements ArticleDetailContract.View,
+        View.OnClickListener {
 
-    private Article mArtice;
+    protected CommentView mCommentView;
+    private Article mArticle;
 
     public static ArticleFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -37,28 +42,61 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleDetailContract.
     @Override
     protected void initBundle(Bundle bundle) {
         super.initBundle(bundle);
-        mArtice = (Article) bundle.getSerializable("article");
+        mArticle = (Article) bundle.getSerializable("article");
     }
 
     @SuppressLint("InflateParams,CutPasteId")
     @Override
     protected void initData() {
         View view = mInflater.inflate(R.layout.layou_article_header, null);
-        super.initData();
         mAdapter.setHeaderView(view);
         TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) view.findViewById(R.id.tv_pub_date);
         TextView tv_detail_abstract = (TextView) view.findViewById(R.id.tv_detail_abstract);
-        tv_title.setText(mArtice.getTitle());
-        tv_name.setText(mArtice.getAuthorName());
-        tv_pub_date.setText(mArtice.getPubDate());
-        tv_detail_abstract.setText(mArtice.getDesc());
+        tv_title.setText(mArticle.getTitle());
+        tv_name.setText(mArticle.getSourceName());
+        tv_pub_date.setText(mArticle.getPubDate());
+        tv_detail_abstract.setText(mArticle.getDesc());
+        PortraitView portraitView = (PortraitView) view.findViewById(R.id.iv_avatar);
+        getImgLoader().load(mArticle.getSourceImg()).asBitmap().into(portraitView);
+        mCommentView = (CommentView) view.findViewById(R.id.commentView);
+        mCommentView.setTitle("热门评论");
+        mCommentView.init(mArticle, mArticle.getKey(), 1, getImgLoader(), (CommentView.OnCommentClickListener) mContext);
+        view.findViewById(R.id.btn_read_all).setOnClickListener(this);
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(false);
+                if (mPresenter == null)
+                    return;
+                mPresenter.onRefreshing();
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_read_all:
+                ArticleWebActivity.show(mContext, mArticle);
+                break;
+        }
     }
 
     @Override
     protected void onItemClick(Article article, int position) {
-        WebActivity.show(mContext, article);
+        ArticleDetailActivity.show(mContext, article);
+    }
+
+    @Override
+    public void showCommentSuccess(Comment comment) {
+
+    }
+
+    @Override
+    public void showCommentError(String message) {
+
     }
 
     @Override

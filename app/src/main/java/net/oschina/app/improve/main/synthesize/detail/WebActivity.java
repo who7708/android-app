@@ -13,10 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import net.oschina.app.R;
-import net.oschina.app.bean.Report;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.bean.Article;
-import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
 
@@ -31,28 +28,14 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     @Bind(R.id.webView)
     OSCWebView mWebView;
     private String mTitle;
-    private ShareDialog mShareDialog;
+    protected ShareDialog mShareDialog;
     private String mUrl;
-    private Article mArticle;
-    private int mType;
-    private static final int TYPE_URL = 1;
-    private static final int TYPE_ARTICLE = 2;
 
     public static void show(Context context, String url) {
         if (TextUtils.isEmpty(url))
             return;
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra("url", url);
-        intent.putExtra("type", TYPE_URL);
-        context.startActivity(intent);
-    }
-
-    public static void show(Context context, Article article) {
-        if (article == null)
-            return;
-        Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra("article", article);
-        intent.putExtra("type", TYPE_ARTICLE);
         context.startActivity(intent);
     }
 
@@ -66,16 +49,8 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     @Override
     protected void initWidget() {
         super.initWidget();
-        mType = getIntent().getIntExtra("type", 0);
-        if (mType == TYPE_URL) {
-            mUrl = getIntent().getStringExtra("url");
-        } else if (mType == TYPE_ARTICLE) {
-            mArticle = (Article) getIntent().getSerializableExtra("article");
-        } else {
-            finish();
-            return;
-        }
 
+        mUrl = getIntent().getStringExtra("url");
 
         setStatusBarDarkMode();
         setSwipeBackEnable(true);
@@ -92,7 +67,8 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         }
         mShareDialog = new ShareDialog(this);
         mWebView.setOnFinishFinish(this);
-        mWebView.loadUrl(mUrl);
+        if (!TextUtils.isEmpty(mUrl))
+            mWebView.loadUrl(mUrl);
 
     }
 
@@ -100,7 +76,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(mType == TYPE_URL ? R.menu.menu_web : R.menu.menu_web_artivle, menu);
+        inflater.inflate(R.menu.menu_web, menu);
         return true;
     }
 
@@ -110,11 +86,6 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             case R.id.menu_share:
                 if (!TextUtils.isEmpty(mTitle) && !TextUtils.isEmpty(mUrl)) {
                     mShareDialog.show();
-                }
-                break;
-            case R.id.menu_report:
-                if (mType == TYPE_ARTICLE && mArticle != null) {
-                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_BLOG).show();
                 }
                 break;
         }

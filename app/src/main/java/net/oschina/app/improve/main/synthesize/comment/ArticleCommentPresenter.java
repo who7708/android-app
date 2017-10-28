@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.detail;
+package net.oschina.app.improve.main.synthesize.comment;
 
 import android.util.Log;
 
@@ -13,7 +13,6 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
-import net.oschina.app.improve.main.update.OSCSharedPreference;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -21,29 +20,27 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * 头条详情
- * Created by huanghaibin on 2017/10/23.
+ * 头条评论列表
+ * Created by huanghaibin on 2017/10/28.
  */
-
-class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
-    private final ArticleDetailContract.View mView;
-    private final ArticleDetailContract.EmptyView mEmptyView;
-    private String mNextToken;
+class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
+    private final ArticleCommentContract.View mView;
+    private final ArticleCommentContract.Action mActionView;
     private final Article mArticle;
-
-    ArticleDetailPresenter(ArticleDetailContract.View mView,ArticleDetailContract.EmptyView mEmptyView, Article article) {
+    private String mNextToken;
+    ArticleCommentPresenter(ArticleCommentContract.View mView,
+                            ArticleCommentContract.Action mActionView,
+                            Article article) {
         this.mView = mView;
         this.mArticle = article;
-        this.mEmptyView = mEmptyView;
+        this.mActionView = mActionView;
         this.mView.setPresenter(this);
     }
 
     @Override
     public void onRefreshing() {
-        OSChinaApi.getArticleRecommends(
-                mArticle.getKey(),
-                OSCSharedPreference.getInstance().getDeviceUUID(),
-                "",
+        OSChinaApi.getArticleComments(mArticle.getKey(),
+                2, null,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -58,14 +55,14 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
                         try {
-                            Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
+                            Type type = new TypeToken<ResultBean<PageBean<Comment>>>() {
                             }.getType();
-                            ResultBean<PageBean<Article>> bean = new Gson().fromJson(responseString, type);
+                            ResultBean<PageBean<Comment>> bean = new Gson().fromJson(responseString, type);
                             if (bean != null && bean.isSuccess()) {
-                                PageBean<Article> pageBean = bean.getResult();
+                                PageBean<Comment> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
-                                List<Article> list = pageBean.getItems();
-                                mView.onRefreshSuccess(list);
+                                List<Comment> list = pageBean.getItems();
+                                mView.onLoadMoreSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
                                 }
@@ -84,10 +81,8 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
     @Override
     public void onLoadMore() {
-        OSChinaApi.getArticleRecommends(
-                mArticle.getKey(),
-                OSCSharedPreference.getInstance().getDeviceUUID(),
-                mNextToken,
+        OSChinaApi.getArticleComments(mArticle.getKey(),
+                2, mNextToken,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -102,13 +97,13 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
                         try {
-                            Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
+                            Type type = new TypeToken<ResultBean<PageBean<Comment>>>() {
                             }.getType();
-                            ResultBean<PageBean<Article>> bean = new Gson().fromJson(responseString, type);
+                            ResultBean<PageBean<Comment>> bean = new Gson().fromJson(responseString, type);
                             if (bean != null && bean.isSuccess()) {
-                                PageBean<Article> pageBean = bean.getResult();
+                                PageBean<Comment> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
-                                List<Article> list = pageBean.getItems();
+                                List<Comment> list = pageBean.getItems();
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
@@ -150,18 +145,18 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                             if (resultBean.isSuccess()) {
                                 Comment respComment = resultBean.getResult();
                                 if (respComment != null) {
-                                    mView.showCommentSuccess(respComment);
-                                    mEmptyView.showCommentSuccess(respComment);
+                                    mView.showAddCommentSuccess(respComment,R.string.pub_comment_success);
+                                    mActionView.showAddCommentSuccess(respComment,R.string.pub_comment_success);
                                 }
                             } else {
-                                mView.showCommentError(resultBean.getMessage());
-                                mEmptyView.showCommentError(resultBean.getMessage());
+                                mView.showAddCommentFailure(R.string.pub_comment_failed);
+                                mActionView.showAddCommentFailure(R.string.pub_comment_failed);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                             onFailure(statusCode, headers, responseString, e);
-                            mView.showCommentError("评论失败");
-                            mEmptyView.showCommentError("评论失败");
+                            mView.showAddCommentFailure(R.string.pub_comment_failed);
+                            mActionView.showAddCommentFailure(R.string.pub_comment_failed);
                         }
                     }
                 });

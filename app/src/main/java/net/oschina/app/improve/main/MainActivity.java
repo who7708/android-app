@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
     @Override
     protected void initWidget() {
         super.initWidget();
+        setSwipeBackEnable(false);
         setStatusBarDarkMode();
         FragmentManager manager = getSupportFragmentManager();
         mNavBar = ((NavFragment) manager.findFragmentById(R.id.fag_nav));

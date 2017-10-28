@@ -1848,4 +1848,77 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 
+
+    /**
+     * 获取头条相关推荐
+     *
+     * @param ident     手机唯一标示
+     * @param pageToken pageToken
+     * @param handler   handler
+     */
+    public static void getArticleRecommends(String key, String ident, String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+        params.put("ident", ident);
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        ApiHttpClient.get("action/apiv2/get_article_recommends", params, handler);
+    }
+
+    /**
+     * 获取头条评论
+     *
+     * @param key       key
+     * @param catalog   1:获取热门评论 2:最新所有评论
+     * @param pageToken catalog=1时不需要，catalog=2时按分页获取规则
+     * @param handler   回调
+     */
+    public static void getArticleComments(String key, int catalog, String pageToken, TextHttpResponseHandler handler) {
+        if (TextUtils.isEmpty(key)) return;
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+        params.put("catalog", catalog);
+        if (!TextUtils.isEmpty(pageToken))
+            params.put("pageToken", pageToken);
+        ApiHttpClient.get("action/apiv2/get_article_comments", params, handler);
+    }
+
+
+    /**
+     * 头条评论点赞
+     *
+     * @param commentId       commentId
+     * @param commentAuthorId commentAuthorId
+     * @param handler         handler
+     */
+    public static void voteArticleComment(long commentId, long commentAuthorId, TextHttpResponseHandler handler) {
+        if (commentId <= 0) return;
+        RequestParams params = new RequestParams();
+        params.put("commentId", commentId);
+        params.put("commentAuthorId", commentAuthorId);
+        post("action/apiv2/comment_vote", params, handler);
+
+    }
+
+    /**
+     * 发布评论
+     */
+    public static void pubArticleComment(String key,
+                                         String content,
+                                         long referId,
+                                         long reAuthorId,
+                                         TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+
+        params.put("content", content);
+        if (referId > 0)
+            params.put("referId", referId);
+        if (reAuthorId > 0)
+            params.put("reAuthorId", reAuthorId);
+        post("action/apiv2/pub_article_comment", params, handler);
+    }
+
+
 }

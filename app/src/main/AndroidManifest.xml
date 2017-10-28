@@ -208,11 +208,25 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".improve.main.synthesize.comment.ArticleCommentActivity"
+            android:label="评论列表"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".improve.main.synthesize.detail.WebActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".improve.main.synthesize.detail.ArticleWebActivity"
+            android:label="返回"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
 
         <activity
             android:name=".improve.detail.general.QuestionDetailActivity"
@@ -317,6 +331,7 @@
             android:name=".improve.comment.QuesAnswerDetailActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="问答答案详情"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -324,7 +339,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="评论列表"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme.NoTitle"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.main.SchemeUrlActivity"

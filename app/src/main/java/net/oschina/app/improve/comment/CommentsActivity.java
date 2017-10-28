@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -28,7 +27,7 @@ import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.app.AppOperator;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
@@ -54,14 +53,12 @@ import cz.msebera.android.httpclient.Header;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-import static net.oschina.app.R.id.tv_back_label;
-
 /**
  * Created by  fei
  * on  16/11/17
  * desc:详情评论列表ui
  */
-public class CommentsActivity extends BaseBackActivity implements
+public class CommentsActivity extends BackActivity implements
         BaseRecyclerAdapter.OnItemLongClickListener,
         EasyPermissions.PermissionCallbacks {
 
@@ -72,12 +69,9 @@ public class CommentsActivity extends BaseBackActivity implements
     RecyclerView mLayComments;
 
     @Bind(R.id.activity_comments)
-    CoordinatorLayout mCoordinatorLayout;
+    LinearLayout mCoordinatorLayout;
 
-    @Bind(tv_back_label)
-    TextView mBack_label;
-    @Bind(R.id.tv_title)
-    TextView mTitle;
+
     @Bind(R.id.shareView)
     CommentShareView mShareView;
     private CommentAdapter mCommentAdapter;
@@ -98,14 +92,14 @@ public class CommentsActivity extends BaseBackActivity implements
 
         @Override
         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-            if(isDestroy())
+            if (isDestroy())
                 return;
             AppContext.showToastShort(getResources().getString(R.string.pub_comment_failed));
         }
 
         @Override
         public void onSuccess(int statusCode, Header[] headers, String responseString) {
-            if(isDestroy())
+            if (isDestroy())
                 return;
             try {
                 Type type = new TypeToken<ResultBean<Comment>>() {
@@ -137,7 +131,7 @@ public class CommentsActivity extends BaseBackActivity implements
         @Override
         public void onFinish() {
             super.onFinish();
-            if(isDestroy())
+            if (isDestroy())
                 return;
             if (mDelegation == null) return;
             mDelegation.getBottomSheet().dismiss();
@@ -182,6 +176,8 @@ public class CommentsActivity extends BaseBackActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
+        setStatusBarDarkMode();
+        setDarkToolBar();
         mShareCommentDialog = DialogHelper.getRecyclerViewDialog(this, new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, long itemId) {
@@ -208,12 +204,7 @@ public class CommentsActivity extends BaseBackActivity implements
                 mShareCommentDialog.dismiss();
             }
         }).create();
-        mBack_label.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
 
         mDelegation = CommentBar.delegation(this, mCoordinatorLayout);
         mSourceId = R.string.pub_comment_hint;
@@ -417,7 +408,7 @@ public class CommentsActivity extends BaseBackActivity implements
         OSChinaApi.getComments(mId, mType, "refer,reply", mOrder, token, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if(isDestroy())
+                if (isDestroy())
                     return;
                 mCommentAdapter.setState(BaseRecyclerAdapter.STATE_LOAD_ERROR, true);
             }
@@ -425,7 +416,7 @@ public class CommentsActivity extends BaseBackActivity implements
             @Override
             public void onFinish() {
                 super.onFinish();
-                if(isDestroy())
+                if (isDestroy())
                     return;
                 mRefreshLayout.onComplete();
             }
@@ -433,7 +424,7 @@ public class CommentsActivity extends BaseBackActivity implements
             @SuppressLint("DefaultLocale")
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if(isDestroy())
+                if (isDestroy())
                     return;
                 try {
 
@@ -445,7 +436,7 @@ public class CommentsActivity extends BaseBackActivity implements
                         if (mType == OSChinaApi.COMMENT_EVENT || mType == OSChinaApi.COMMENT_QUESTION) {
                             titleHintId = R.string.answer_hint;
                         }
-                        mTitle.setText(String.format("%d%s%s", mPageBean.getTotalResults(), getString(R.string.item_hint), getString(titleHintId)));
+                        mToolBar.setTitle(String.format("%d%s%s", mPageBean.getTotalResults(), getString(R.string.item_hint), getString(titleHintId)));
                         handleData(mPageBean.getItems(), clearData);
                     }
 

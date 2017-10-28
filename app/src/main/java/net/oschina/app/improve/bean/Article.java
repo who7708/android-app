@@ -11,6 +11,7 @@ public class Article implements Serializable {
     private int type;
     private String authorName;
     private String authorId;
+    private String sourceName;
     private String key;
     private String title;
     private String desc;
@@ -115,5 +116,13 @@ public class Article implements Serializable {
 
     public void setSourceImg(String sourceImg) {
         this.sourceImg = sourceImg;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
     }
 }
