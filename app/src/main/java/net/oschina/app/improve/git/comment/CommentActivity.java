@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.git.bean.Comment;
@@ -22,7 +22,7 @@ import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
  * on 2017/3/14.
  */
 
-public class CommentActivity extends BaseBackActivity implements CommentContract.Action, View.OnClickListener {
+public class CommentActivity extends BackActivity implements CommentContract.Action, View.OnClickListener {
     private CommentPresenter mPresenter;
     protected CommentBar mDelegation;
     private String mMentionStr = "";
@@ -43,6 +43,8 @@ public class CommentActivity extends BaseBackActivity implements CommentContract
     @Override
     protected void initWidget() {
         super.initWidget();
+        setStatusBarDarkMode();
+        setDarkToolBar();
         CommentFragment fragment = CommentFragment.newInstance();
         final Project project = (Project) getIntent()
                 .getExtras()

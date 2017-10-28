@@ -4,17 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 
 import net.oschina.app.R;
+import net.oschina.app.fragment.AboutOSCFragment;
 import net.oschina.app.improve.base.activities.BackActivity;
 
 /**
- * 设置界面
- * Created by huanghaibin on 2017/10/27.
+ * 关于界面
+ * Created by huanghaibin on 2017/10/28.
  */
 
-public class SettingActivity extends BackActivity {
+public class AboutActivity extends BackActivity {
 
     public static void show(Context context) {
-        context.startActivity(new Intent(context, SettingActivity.class));
+        context.startActivity(new Intent(context, AboutActivity.class));
     }
 
     @Override
@@ -27,6 +28,6 @@ public class SettingActivity extends BackActivity {
         super.initWidget();
         setStatusBarDarkMode();
         setDarkToolBar();
-        addFragment(R.id.fl_content, SettingFragment.newInstance());
+        addFragment(R.id.fl_content, new AboutOSCFragment());
     }
 }

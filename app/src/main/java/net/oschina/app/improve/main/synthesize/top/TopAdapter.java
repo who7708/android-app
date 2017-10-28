@@ -26,8 +26,8 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     private static final int VIEW_TYPE_THREE_IMG = 3;
     private RequestManager mLoader;
 
-    TopAdapter(Context context) {
-        super(context, BOTH_HEADER_FOOTER);
+    public TopAdapter(Context context,int mode) {
+        super(context, mode);
         setOnLoadingHeaderCallBack(this);
         mLoader = Glide.with(mContext);
     }

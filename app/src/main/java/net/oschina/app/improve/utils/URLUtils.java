@@ -11,6 +11,7 @@ import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.git.detail.ProjectDetailActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
+import net.oschina.app.improve.tweet.activities.TopicActivity;
 import net.oschina.app.improve.tweet.activities.TweetDetailActivity;
 import net.oschina.app.improve.tweet.fragments.TweetFragment;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
@@ -157,10 +158,11 @@ public class URLUtils {
                 if (matcher.find()) {
                     // TODO replace by new activity
                     //  https://www.oschina.net/tweet-topic/Navicat+for+Postgresql
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(TweetFragment.BUNDLE_KEY_REQUEST_CATALOG, TweetFragment.CATALOG_TAG);
-                    bundle.putString(TweetFragment.BUNDLE_KEY_TAG, matcher.group(1));
-                    UIHelper.showSimpleBack(context, SimpleBackPage.TWEET_TOPIC_LIST, bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt(TweetFragment.BUNDLE_KEY_REQUEST_CATALOG, TweetFragment.CATALOG_TAG);
+//                    bundle.putString(TweetFragment.BUNDLE_KEY_TAG, matcher.group(1));
+//                    UIHelper.showSimpleBack(context, SimpleBackPage.TWEET_TOPIC_LIST, bundle);
+                    TopicActivity.show(context, TweetFragment.CATALOG_TAG, matcher.group(1));
                     break;
                 }
                 matcher = PATTERN_PATH_QUESTION.matcher(path);

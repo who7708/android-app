@@ -119,8 +119,8 @@
                     android:id="@+id/line1"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="@dimen/lay_8"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
                     android:background="@color/list_divider_color" />
 
                 <TextView
@@ -136,7 +136,7 @@
                     android:id="@+id/line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:background="@color/list_divider_color" />
             </LinearLayout>
 

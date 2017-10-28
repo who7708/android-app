@@ -29,6 +29,7 @@ import net.oschina.app.improve.media.SelectImageActivity;
 import net.oschina.app.improve.media.config.SelectOptions;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
+import net.oschina.app.improve.setting.SettingActivity;
 import net.oschina.app.improve.user.activities.UserFansActivity;
 import net.oschina.app.improve.user.activities.UserFollowsActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
@@ -423,7 +424,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
         int id = v.getId();
 
         if (id == R.id.iv_logo_setting) {
-            UIHelper.showSetting(getActivity());
+            SettingActivity.show(mContext);
         } else {
 
             if (!AccountHelper.isLogin()) {

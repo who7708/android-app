@@ -56,6 +56,8 @@ public class ApplyActivity extends BackActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
+        setStatusBarDarkMode();
+        setDarkToolBar();
         long sourceId = getIntent().getLongExtra("sourceId", 0);
         if (sourceId == 0) {
             SimplexToast.show(this, "活动不存在");

@@ -124,7 +124,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/actionbar_background"
+        android:background="@color/white"
         android:paddingTop="25dp">
 
         <ImageView
@@ -134,7 +134,8 @@
             android:background="@drawable/ic_material_ripple"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@mipmap/btn_back_normal" />
+            android:src="@mipmap/btn_back_dark_pressed"
+            tools:ignore="KeyboardInaccessibleWidget" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -143,8 +144,9 @@
             android:gravity="center"
             android:text="弹一弹"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_18" />
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/icon_send"
@@ -156,7 +158,12 @@
             android:gravity="center"
             android:text="发送"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/tweet_publish_send" />
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
+
+        <View
+            style="@style/h_line"
+            android:layout_gravity="bottom" />
     </FrameLayout>
 
     <LinearLayout

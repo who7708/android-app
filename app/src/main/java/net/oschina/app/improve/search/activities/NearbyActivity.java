@@ -40,7 +40,7 @@ import net.oschina.app.R;
 import net.oschina.app.Setting;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.app.AppOperator;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
+import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.NearbyResult;
 import net.oschina.app.improve.bean.User;
@@ -71,7 +71,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * on 2017/01/13
  */
 
-public class NearbyActivity extends BaseBackActivity implements RadarSearchListener, BDLocationListener,
+public class NearbyActivity extends BackActivity implements RadarSearchListener, BDLocationListener,
         RecyclerRefreshLayout.SuperRefreshLayoutListener, BaseRecyclerAdapter.OnItemClickListener,
         EasyPermissions.PermissionCallbacks, View.OnClickListener {
 
@@ -118,6 +118,8 @@ public class NearbyActivity extends BaseBackActivity implements RadarSearchListe
 
     @Override
     protected void initWidget() {
+        setStatusBarDarkMode();
+        setDarkToolBar();
         mEmptyLayout.setLoadingLocalFriend(true);
         mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override

@@ -66,8 +66,8 @@ public class UserDataActivity extends BackActivity implements View.OnClickListen
     @Override
     protected void initWidget() {
         super.initWidget();
-        setStatusBarDarkMode();
-        setDarkToolBar();
+//        setStatusBarDarkMode();
+//        setDarkToolBar();
     }
 
     @Override

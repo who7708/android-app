@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.improve.app.ParentLinkedHolder;
+import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.tweet.fragments.TweetPublishFragment;
@@ -51,7 +52,7 @@ import butterknife.Bind;
  *          <p>
  *          用户联系人列表
  */
-public class UserSelectFriendsActivity extends BaseBackActivity
+public class UserSelectFriendsActivity extends BackActivity
         implements RecentContactsView.OnSelectedChangeListener, ContactsCacheManager.OnSelectedChangeListener,
         IndexView.OnIndexTouchListener, SearchView.OnQueryTextListener {
 
@@ -134,7 +135,8 @@ public class UserSelectFriendsActivity extends BaseBackActivity
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        setStatusBarDarkMode();
+        setDarkToolBar();
         // 初始化最近联系人
         mRecentView = new RecentContactsView(this);
         mRecentView.setListener(this);

@@ -588,7 +588,7 @@ public class UIHelper {
      * 清除app缓存
      */
     public static void clearAppCache(boolean showToast) {
-        final Handler handler = showToast ? new Handler() {
+        @SuppressLint("HandlerLeak") final Handler handler = showToast ? new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {

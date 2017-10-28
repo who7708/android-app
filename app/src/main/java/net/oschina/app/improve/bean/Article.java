@@ -7,14 +7,17 @@ import java.io.Serializable;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class Article implements Serializable{
+public class Article implements Serializable {
     private int type;
+    private String authorName;
+    private String authorId;
     private String key;
     private String title;
     private String desc;
     private String url;
     private String pubDate;
     private String source;
+    private String sourceImg;
     private String[] imgs;
     private int commentCount;
 
@@ -88,5 +91,29 @@ public class Article implements Serializable{
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getSourceImg() {
+        return sourceImg;
+    }
+
+    public void setSourceImg(String sourceImg) {
+        this.sourceImg = sourceImg;
     }
 }

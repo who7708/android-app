@@ -258,16 +258,19 @@
             android:name=".improve.user.sign.InvitationActivity"
             android:label="活动报名"
             android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.user.sign.up.SignUpInfoActivity"
             android:label="我的报名信息"
             android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.user.sign.in.SignInInfoActivity"
             android:label="活动签到"
             android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.detail.general.SoftwareDetailActivity"
@@ -287,24 +290,27 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="活动报名"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeTranslucent"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.user.activities.UserTweetActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="动弹列表"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.user.activities.UserFollowsActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="关注列表"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".improve.user.activities.UserFansActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="粉丝列表"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -462,13 +468,36 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="话题动弹"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme" />
+            android:theme="@style/App.Theme.Tweet.Main" />
+
+        <activity
+            android:name=".improve.tweet.activities.TopicActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="话题列表"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
+
         <activity
             android:name=".improve.setting.SettingActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="设置"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme" />
+            android:theme="@style/App.Theme.Tweet.Main"/>
+
+
+        <activity
+            android:name=".improve.detail.EventActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="线下活动"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"/>
+
+        <activity
+            android:name=".improve.setting.AboutActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="关于开源中国"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"/>
         <!-- 新账户中心模块 -->
         <activity
             android:name=".improve.account.activity.LoginActivity"
@@ -585,10 +614,12 @@
         <activity
             android:name=".improve.main.discover.ShakePresentActivity"
             android:label="摇一摇"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.user.collection.UserCollectionActivity"
             android:label="收藏"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.main.ErrorActivity"
@@ -605,6 +636,7 @@
         <activity
             android:name=".improve.main.FeedBackActivity"
             android:label="意见反馈"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.user.activities.UserEventSigninActivity"
@@ -618,55 +650,64 @@
             android:label="选择好友"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/App.Theme.Light"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".improve.search.activities.NearbyActivity"
             android:label="@string/near_bodies_hint"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".improve.tweet.activities.TweetTopicActivity"
             android:label="话题"
             android:screenOrientation="portrait"
-            android:theme="@style/App.Theme.Light" />
+            android:theme="@style/App.Theme.Tweet.Main"  />
 
         <activity
             android:name=".improve.git.feature.FeatureActivity"
             android:label="码云推荐"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.git.gist.GistActivity"
             android:label="代码片段"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.git.gist.detail.GistDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="代码片段详情"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.git.gist.comment.GistCommentActivity"
             android:label="代码片段评论"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
         <activity
             android:name=".improve.git.detail.ProjectDetailActivity"
             android:label="项目详情"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".improve.git.tree.TreeActivity"
             android:label="代码"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".improve.git.code.CodeDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="代码详情"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="sensor" />
 
         <activity
             android:name=".improve.git.comment.CommentActivity"
             android:label="项目评论"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait" />
 
         <activity
@@ -691,6 +732,10 @@
         <service
             android:name=".improve.main.update.DownloadService"
             android:exported="false" />
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
