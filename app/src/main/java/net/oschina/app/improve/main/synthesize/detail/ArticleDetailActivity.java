@@ -218,6 +218,13 @@ public class ArticleDetailActivity extends BackActivity implements
     }
 
     @Override
+    public void onShowComment(View view) {
+        if (mDelegation != null) {
+            mDelegation.getBottomSheet().show(mCommentHint);
+        }
+    }
+
+    @Override
     public void showCommentSuccess(Comment comment) {
         if (isDestroy())
             return;

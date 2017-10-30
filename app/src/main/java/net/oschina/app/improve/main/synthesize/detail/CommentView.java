@@ -1,7 +1,6 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,12 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.RequestManager;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -31,7 +30,6 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.comment.Refer;
 import net.oschina.app.improve.bean.comment.Vote;
-import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.comment.CommentsUtil;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
@@ -53,17 +51,16 @@ import cz.msebera.android.httpclient.Header;
  * desc:  资讯、问答、博客、翻译、活动、软件详情评论列表当中进行展示的子view.
  * 包括直接渲染出评论下的refer和reply
  */
-public class CommentView extends LinearLayout implements View.OnClickListener {
+public class CommentView extends FrameLayout implements View.OnClickListener {
 
     private Article mArticle;
     private String mKey;
-    private int mCatalog;
     private TextView mTitle;
-    private String mShareTitle;
     private TextView mSeeMore;
     private LinearLayout mLayComments;
-    private ProgressDialog mDialog;
-    private CommentBar commentBar;
+    private LinearLayout mLinearComment, mLinearTip;
+    private OnCommentClickListener mListener;
+
 
     public CommentView(Context context) {
         super(context);
@@ -81,12 +78,21 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
     }
 
     private void init() {
-        setOrientation(VERTICAL);
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.lay_detail_comment_layout, this, true);
+        inflater.inflate(R.layout.layout_detail_article_comment, this, true);
         mTitle = (TextView) findViewById(R.id.tv_blog_detail_comment);
+        mLinearComment = (LinearLayout) findViewById(R.id.ll_comment);
         mLayComments = (LinearLayout) findViewById(R.id.lay_detail_comment);
+        mLinearTip = (LinearLayout) findViewById(R.id.ll_tip);
         mSeeMore = (TextView) findViewById(R.id.tv_see_more_comment);
+        findViewById(R.id.btn_comment).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onShowComment(v);
+                }
+            }
+        });
     }
 
     public void setTitle(String title) {
@@ -95,13 +101,6 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public void setShareTitle(String shareTitle) {
-        this.mShareTitle = shareTitle;
-    }
-
-    public void setCommentBar(CommentBar commentBar) {
-        this.commentBar = commentBar;
-    }
 
     /**
      * @return TypeToken
@@ -119,14 +118,15 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
         }.getType();
     }
 
-    public void init(Article mArticle,String key, final int mCatalog, final RequestManager imageLoader,
+    public void init(Article mArticle, String key, final int mCatalog,
                      final OnCommentClickListener onCommentClickListener) {
         this.mArticle = mArticle;
         this.mKey = key;
-        this.mCatalog = mCatalog;
 
         mSeeMore.setVisibility(View.GONE);
-        setVisibility(GONE);
+        //setVisibility(GONE);
+        mLinearComment.setVisibility(GONE);
+        mLinearTip.setVisibility(GONE);
 
         OSChinaApi.getArticleComments(mKey, mCatalog, null, new TextHttpResponseHandler() {
             @Override
@@ -150,7 +150,7 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
                         mSeeMore.setVisibility(VISIBLE);
                         mSeeMore.setOnClickListener(CommentView.this);
                         Comment[] array = CollectionUtil.toArray(comments, Comment.class);
-                        initComment(array, imageLoader, onCommentClickListener);
+                        initComment(array, onCommentClickListener);
                     }
 
                 } catch (Exception e) {
@@ -160,23 +160,23 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
         });
     }
 
-    private void initComment(final Comment[] comments, final RequestManager imageLoader, final OnCommentClickListener onCommentClickListener) {
+    private void initComment(final Comment[] comments, final OnCommentClickListener onCommentClickListener) {
+        this.mListener = onCommentClickListener;
         if (mLayComments != null)
             mLayComments.removeAllViews();
         if (comments != null && comments.length > 0) {
-            if (getVisibility() != VISIBLE) {
-                setVisibility(VISIBLE);
-            }
+//            mLayComments.setVisibility(VISIBLE);
+            mLinearComment.setVisibility(VISIBLE);
 
             for (int i = 0, len = comments.length; i < len; i++) {
                 final Comment comment = comments[i];
                 if (comment != null) {
-                    final ViewGroup lay = insertComment(true, comment, imageLoader, onCommentClickListener);
+                    final ViewGroup lay = insertComment(true, comment);
                     lay.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (onCommentClickListener != null) {
-                                onCommentClickListener.onClick(v, comment);
+                            if (mListener != null) {
+                                mListener.onClick(v, comment);
                             }
                         }
                     });
@@ -190,14 +190,15 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
                 }
             }
         } else {
-            setVisibility(View.GONE);
+            mLinearComment.setVisibility(View.GONE);
+            mLinearTip.setVisibility(View.VISIBLE);
         }
     }
 
 
+    @SuppressWarnings("all")
     @SuppressLint("DefaultLocale")
-    private ViewGroup insertComment(final boolean first, final Comment comment, final RequestManager imageLoader,
-                                    final OnCommentClickListener onCommentClickListener) {
+    private ViewGroup insertComment(final boolean first, final Comment comment) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         @SuppressLint("InflateParams") ViewGroup lay = (ViewGroup) inflater.inflate(R.layout.lay_comment_item, null, false);
 
@@ -313,9 +314,8 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (!TextUtils.isEmpty(mKey) && mArticle != null) {
-            ArticleCommentActivity.show(getContext(),mArticle);
+            ArticleCommentActivity.show(getContext(), mArticle);
         }
-        //CommentsActivity.show((AppCompatActivity) getContext(), mId, mType, OSChinaApi.COMMENT_NEW_ORDER, mShareTitle);
     }
 
     /**
@@ -332,6 +332,8 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
 
     public interface OnCommentClickListener {
         void onClick(View view, Comment comment);
+
+        void onShowComment(View view);
     }
 
 }

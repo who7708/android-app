@@ -2,6 +2,7 @@ package net.oschina.app.improve.main.synthesize.detail;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,10 +10,12 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.main.synthesize.top.TopAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.widget.PortraitView;
+import net.oschina.app.util.UIHelper;
 
 /**
  * 文章详情
@@ -63,7 +66,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         getImgLoader().load(mArticle.getSourceImg()).asBitmap().into(portraitView);
         mCommentView = (CommentView) view.findViewById(R.id.commentView);
         mCommentView.setTitle("热门评论");
-        mCommentView.init(mArticle, mArticle.getKey(), 1, getImgLoader(), (CommentView.OnCommentClickListener) mContext);
+        mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
         view.findViewById(R.id.btn_read_all).setOnClickListener(this);
         mRefreshLayout.post(new Runnable() {
             @Override
@@ -86,8 +89,58 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     }
 
     @Override
-    protected void onItemClick(Article article, int position) {
-        ArticleDetailActivity.show(mContext, article);
+    protected void onItemClick(Article top, int position) {
+        if (top.getType() == 0) {
+            ArticleDetailActivity.show(mContext, top);
+        } else {
+            String key = top.getKey();
+            if (TextUtils.isEmpty(key)) {
+                ArticleDetailActivity.show(mContext, top);
+                return;
+            }
+            String[] kv = key.split("_");
+            if (kv.length != 3) {
+                ArticleDetailActivity.show(mContext, top);
+                return;
+            }
+            try {
+                int type = Integer.parseInt(kv[1]);
+                int id = Integer.parseInt(kv[2]);
+                switch (type) {
+                    case News.TYPE_SOFTWARE:
+                        //SoftwareDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.SoftwareDetailActivity.show(mContext, id);
+                        break;
+                    case News.TYPE_QUESTION:
+                        //QuestionDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.QuestionDetailActivity.show(mContext, id);
+                        break;
+                    case News.TYPE_BLOG:
+                        //BlogDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.BlogDetailActivity.show(mContext, id);
+                        break;
+                    case News.TYPE_TRANSLATE:
+                        //TranslateDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        break;
+                    case News.TYPE_EVENT:
+                        //EventDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.EventDetailActivity.show(mContext, id);
+                        break;
+                    case News.TYPE_NEWS:
+                        //NewsDetailActivity.show(mContext, sub.getId());
+                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        break;
+                    default:
+                        UIHelper.showUrlRedirect(mContext, top.getUrl());
+                        break;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                ArticleDetailActivity.show(mContext, top);
+            }
+        }
     }
 
     @Override
