@@ -202,7 +202,7 @@
 
         <activity
             android:name=".improve.main.synthesize.detail.ArticleDetailActivity"
-            android:label="头条详情"
+            android:label="返回"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
@@ -214,14 +214,14 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".improve.main.synthesize.detail.WebActivity"
+            android:name=".improve.main.synthesize.web.WebActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".improve.main.synthesize.detail.ArticleWebActivity"
+            android:name=".improve.main.synthesize.web.ArticleWebActivity"
             android:label="返回"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
@@ -324,6 +324,13 @@
             android:name=".improve.user.activities.UserFansActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="粉丝列表"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".improve.user.activities.UserBlogActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="用户博客列表"
             android:theme="@style/App.Theme.Tweet.Main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
@@ -501,9 +508,9 @@
 
 
         <activity
-            android:name=".improve.detail.EventActivity"
+            android:name=".improve.detail.SubActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="线下活动"
+            android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"/>
 
@@ -739,7 +746,8 @@
         <service
             android:name=".improve.tweet.service.TweetPublishService"
             android:exported="true"
-            android:process="net.oschina.app.tweet.TweetPublishService" />
+            android:process="net.oschina.app.tweet.TweetPublishService"
+            tools:ignore="ExportedService" />
         <service
             android:name=".improve.notice.NoticeServer"
             android:exported="false"

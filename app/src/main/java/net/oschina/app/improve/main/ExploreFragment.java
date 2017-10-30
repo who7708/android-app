@@ -10,7 +10,7 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.SubTab;
-import net.oschina.app.improve.detail.EventActivity;
+import net.oschina.app.improve.detail.SubActivity;
 import net.oschina.app.improve.git.feature.FeatureActivity;
 import net.oschina.app.improve.git.gist.GistActivity;
 import net.oschina.app.improve.main.discover.ShakePresentActivity;
@@ -95,7 +95,7 @@ public class ExploreFragment extends BaseFragment implements View.OnClickListene
                 tab.setToken("727d77c15b2ca641fff392b779658512");
                 tab.setType(5);
 
-                EventActivity.show(mContext, tab);
+                SubActivity.show(mContext, tab);
                 break;
             case R.id.layout_nearby:
                 if (!AccountHelper.isLogin()) {

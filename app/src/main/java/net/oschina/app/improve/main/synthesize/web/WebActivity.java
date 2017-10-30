@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.detail;
+package net.oschina.app.improve.main.synthesize.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -3,7 +3,6 @@ package net.oschina.app.improve.main.synthesize.detail;
 import net.oschina.app.improve.base.BaseListPresenter;
 import net.oschina.app.improve.base.BaseListView;
 import net.oschina.app.improve.bean.Article;
-import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.comment.Comment;
 
 /**

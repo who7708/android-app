@@ -19,7 +19,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 @SuppressWarnings("unused")
 public class TencentQQShare extends BaseShare implements IUiListener {
 
-    public static final String APP_ID = "100942993";
+    private static final String APP_ID = "100942993";
     private static final String APP_KEY = "8edd3cc7ca8dcc15082d6fe75969601b";
 
     private Tencent tencent;
@@ -57,10 +57,10 @@ public class TencentQQShare extends BaseShare implements IUiListener {
         params.putString(QQShare.SHARE_TO_QQ_SUMMARY, mBuilder.content);
         params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, mBuilder.url);
         params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, mBuilder.imageUrl);
-        params.putInt(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, R.mipmap.ic_launcher);
+        params.putInt(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, R.mipmap.ic_share_app_logo);
         if (mBuilder.isShareApp) {
             params.putString(QQShare.SHARE_TO_QQ_APP_NAME, mBuilder.title);
-            params.putInt(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, R.mipmap.ic_launcher);
+            params.putInt(QQShare.SHARE_TO_QQ_IMAGE_LOCAL_URL, R.mipmap.ic_share_app_logo);
         }
         return params;
     }

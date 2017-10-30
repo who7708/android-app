@@ -16,6 +16,6 @@ import net.oschina.app.improve.bean.Article;
      }
 
      interface Presenter extends BaseListPresenter{
-
+         void loadCache();
      }
 }

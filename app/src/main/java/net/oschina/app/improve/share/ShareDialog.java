@@ -49,7 +49,7 @@ public class ShareDialog extends BottomDialog implements View.OnClickListener, D
         if (mBuilder == null) {
             mBuilder = new BaseShare.Builder(activity)
                     .title(title)
-                    .content(TextUtils.isEmpty(content) ? title : content)
+                    .content(TextUtils.isEmpty(content) ? title : content.length() > 30 ? content.substring(0, 30) : content)
                     .url(url);
         }
     }

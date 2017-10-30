@@ -1,5 +1,6 @@
 package net.oschina.app.improve.main.header;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.bumptech.glide.RequestManager;
 import net.oschina.app.R;
 import net.oschina.app.bean.Banner;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
+import net.oschina.app.improve.bean.SubTab;
+import net.oschina.app.improve.detail.SubActivity;
 import net.oschina.app.improve.detail.general.BlogDetailActivity;
 import net.oschina.app.improve.media.Util;
 
@@ -21,9 +24,26 @@ import net.oschina.app.improve.media.Util;
  * Created by huanghaibin on 2017/10/26.
  */
 
+@SuppressLint("ViewConstructor")
 public class BlogHeaderView extends HeaderView {
     public BlogHeaderView(Context context, String api, String cacheName) {
         super(context, api, cacheName);
+        findViewById(R.id.tv_all).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SubTab tab = new SubTab();
+                tab.setName("每日一博");
+                tab.setFixed(false);
+                tab.setHref("https://www.oschina.net/action/apiv2/sub_list?token=1abf09a23a87442184c2f9bf9dc29e35");
+                tab.setNeedLogin(false);
+                tab.setSubtype(1);
+                tab.setOrder(4);
+                tab.setToken("1abf09a23a87442184c2f9bf9dc29e35");
+                tab.setType(3);
+
+                SubActivity.show(getContext(), tab);
+            }
+        });
     }
 
     @Override

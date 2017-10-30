@@ -34,7 +34,7 @@ public abstract class HeaderView extends LinearLayout implements BaseRecyclerAda
     protected BaseRecyclerAdapter<Banner> mAdapter;
 
     public HeaderView(Context context, String api, String cacheName) {
-        super(context,null);
+        super(context, null);
         this.mAPI = api;
         this.mCacheName = cacheName;
         init(context);
@@ -47,6 +47,10 @@ public abstract class HeaderView extends LinearLayout implements BaseRecyclerAda
         mAdapter = getAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
+        List<Banner> banners = CacheManager.readListJson(context, mCacheName, Banner.class);
+        if (banners != null) {
+            mAdapter.resetItem(banners);
+        }
         requestBanner();
     }
 

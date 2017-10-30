@@ -13,12 +13,12 @@ import net.oschina.app.improve.main.subscription.SubFragment;
  * Created by huanghaibin on 2017/10/28.
  */
 
-public class EventActivity extends BackActivity {
+public class SubActivity extends BackActivity {
 
     public static void show(Context context, SubTab bean) {
         if (bean == null)
             return;
-        Intent intent = new Intent(context, EventActivity.class);
+        Intent intent = new Intent(context, SubActivity.class);
         intent.putExtra("sub_tab", bean);
         context.startActivity(intent);
     }
@@ -33,6 +33,9 @@ public class EventActivity extends BackActivity {
         super.initWidget();
         setStatusBarDarkMode();
         setDarkToolBar();
-        addFragment(R.id.fl_content, SubFragment.newInstance((SubTab) getIntent().getSerializableExtra("sub_tab")));
+        SubTab tab = (SubTab) getIntent().getSerializableExtra("sub_tab");
+        mToolBar.setTitle(tab.getName());
+        setTitle(tab.getName());
+        addFragment(R.id.fl_content, SubFragment.newInstance(tab));
     }
 }

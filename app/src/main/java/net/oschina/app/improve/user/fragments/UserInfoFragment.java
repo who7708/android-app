@@ -30,6 +30,7 @@ import net.oschina.app.improve.media.config.SelectOptions;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
 import net.oschina.app.improve.setting.SettingActivity;
+import net.oschina.app.improve.user.activities.UserBlogActivity;
 import net.oschina.app.improve.user.activities.UserFansActivity;
 import net.oschina.app.improve.user.activities.UserFollowsActivity;
 import net.oschina.app.improve.user.activities.UserMessageActivity;
@@ -463,7 +464,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     UserMessageActivity.show(getActivity());
                     break;
                 case R.id.rl_blog:
-                    UIHelper.showUserBlog(getActivity(), AccountHelper.getUserId());
+                    UserBlogActivity.show(mContext,AccountHelper.getUserId());
                     break;
                 case R.id.rl_info_question:
                     UIHelper.showUserQuestion(getActivity(), AccountHelper.getUserId());

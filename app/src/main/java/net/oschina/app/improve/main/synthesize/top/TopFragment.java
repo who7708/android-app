@@ -36,6 +36,9 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
 
     @Override
     protected void initData() {
+        if (mPresenter != null) {
+            mPresenter.loadCache();
+        }
         mHeaderView = new NewsHeaderView(mContext, getImgLoader(),
                 "https://www.oschina.net/action/apiv2/banner?catalog=1",
                 "d6112fa662bc4bf21084670a857fbd20banner1");

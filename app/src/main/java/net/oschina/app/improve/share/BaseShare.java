@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
  */
 @SuppressWarnings("unused")
 public abstract class BaseShare {
-    protected static final String APP_PROVIDER = "net.oschina.app.provider";
+    static final String APP_PROVIDER = "net.oschina.app.provider";
     Builder mBuilder;
 
     BaseShare(Builder mBuilder) {

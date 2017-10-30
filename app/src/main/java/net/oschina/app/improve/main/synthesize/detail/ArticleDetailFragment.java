@@ -11,6 +11,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.main.synthesize.top.TopAdapter;
+import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.widget.PortraitView;
 
 /**
@@ -18,17 +19,17 @@ import net.oschina.app.improve.widget.PortraitView;
  * Created by huanghaibin on 2017/10/27.
  */
 
-public class ArticleFragment extends BaseRecyclerFragment<ArticleDetailContract.Presenter, Article>
+public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailContract.Presenter, Article>
         implements ArticleDetailContract.View,
         View.OnClickListener {
 
     protected CommentView mCommentView;
     private Article mArticle;
 
-    public static ArticleFragment newInstance(Article article) {
+    public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("article", article);
-        ArticleFragment fragment = new ArticleFragment();
+        ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -56,7 +57,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleDetailContract.
         TextView tv_detail_abstract = (TextView) view.findViewById(R.id.tv_detail_abstract);
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(mArticle.getSourceName());
-        tv_pub_date.setText(mArticle.getPubDate());
+        tv_pub_date.setText(ArticleDetailPresenter.parsePubDate(mArticle.getPubDate()));
         tv_detail_abstract.setText(mArticle.getDesc());
         PortraitView portraitView = (PortraitView) view.findViewById(R.id.iv_avatar);
         getImgLoader().load(mArticle.getSourceImg()).asBitmap().into(portraitView);

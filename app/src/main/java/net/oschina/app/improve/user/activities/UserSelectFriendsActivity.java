@@ -27,7 +27,6 @@ import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.improve.app.ParentLinkedHolder;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.tweet.fragments.TweetPublishFragment;
 import net.oschina.app.improve.user.adapter.UserSearchFriendsAdapter;
@@ -132,6 +131,8 @@ public class UserSelectFriendsActivity extends BackActivity
         return R.layout.activity_main_user_select_friends;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @SuppressWarnings("all")
     @Override
     protected void initWidget() {
         super.initWidget();
@@ -164,6 +165,7 @@ public class UserSelectFriendsActivity extends BackActivity
         });
 
         mRecyclerFriends.setLayoutManager(new LinearLayoutManager(this));
+
         mRecyclerFriends.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

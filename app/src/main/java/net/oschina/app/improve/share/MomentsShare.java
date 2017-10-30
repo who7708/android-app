@@ -5,9 +5,6 @@ import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-
-import net.oschina.app.BuildConfig;
-
 import java.io.File;
 
 /**

@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import net.oschina.app.OSCApplication;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.app.improve.utils.CacheManager;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -23,10 +25,20 @@ import cz.msebera.android.httpclient.Header;
 class TopPresenter implements TopContract.Presenter {
     private final TopContract.View mView;
     private String mNextToken;
+    private static final String CACHE_NAME = "article_list";
 
     TopPresenter(TopContract.View nView) {
         this.mView = nView;
         this.mView.setPresenter(this);
+    }
+
+    @Override
+    public void loadCache() {
+        List<Article> items = CacheManager.readListJson(OSCApplication.getInstance(), CACHE_NAME, Article.class);
+        if (items != null) {
+            mView.onRefreshSuccess(items);
+            mView.onComplete();
+        }
     }
 
     @Override
@@ -42,6 +54,7 @@ class TopPresenter implements TopContract.Presenter {
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
+                            mView.onComplete();
                         }
                     }
 
@@ -55,6 +68,7 @@ class TopPresenter implements TopContract.Presenter {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Article> list = pageBean.getItems();
+                                CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                                 mView.onRefreshSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
@@ -114,4 +128,6 @@ class TopPresenter implements TopContract.Presenter {
                     }
                 });
     }
+
+
 }

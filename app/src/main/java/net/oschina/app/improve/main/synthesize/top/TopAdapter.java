@@ -2,6 +2,7 @@ package net.oschina.app.improve.main.synthesize.top;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     private static final int VIEW_TYPE_THREE_IMG = 3;
     private RequestManager mLoader;
 
-    public TopAdapter(Context context,int mode) {
+    public TopAdapter(Context context, int mode) {
         super(context, mode);
         setOnLoadingHeaderCallBack(this);
         mLoader = Glide.with(mContext);
@@ -58,11 +59,11 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        if(type == VIEW_TYPE_NOT_IMG){
+        if (type == VIEW_TYPE_NOT_IMG) {
             return new TextHolder(mInflater.inflate(R.layout.item_list_article_not_img, parent, false));
-        }else if(type == VIEW_TYPE_ONE_IMG){
+        } else if (type == VIEW_TYPE_ONE_IMG) {
             return new OneImgHolder(mInflater.inflate(R.layout.item_list_article_one_img, parent, false));
-        }else {
+        } else {
             return new ThreeImgHolder(mInflater.inflate(R.layout.item_list_article_three_img, parent, false));
         }
     }
@@ -75,14 +76,14 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 TextHolder h = (TextHolder) holder;
                 h.mTextTitle.setText(item.getTitle());
                 h.mTextDesc.setText(item.getDesc());
-                h.mTextTime.setText(item.getPubDate());
-                h.mTextOrigin.setText(item.getSource());
+                h.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h.mTextOrigin.setText(item.getAuthorName());
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
                 h1.mTextTitle.setText(item.getTitle());
-                h1.mTextTime.setText(item.getPubDate());
-                h1.mTextOrigin.setText(item.getSource());
+                h1.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h1.mTextOrigin.setText(item.getAuthorName());
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
@@ -91,8 +92,8 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
                 h2.mTextTitle.setText(item.getTitle());
-                h2.mTextTime.setText(item.getPubDate());
-                h2.mTextOrigin.setText(item.getSource());
+                h2.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h2.mTextOrigin.setText(item.getAuthorName());
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
@@ -168,5 +169,13 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
         HeaderHolder(View itemView) {
             super(itemView);
         }
+    }
+
+    private String parsePubDate(String pubDate) {
+        if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
+            return pubDate;
+        return String.format("%s-%s-%s", pubDate.substring(0, 4),
+                pubDate.substring(4, 6),
+                pubDate.substring(6, 8));
     }
 }

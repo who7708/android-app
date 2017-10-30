@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,11 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
+import net.oschina.app.bean.Report;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BackActivity;
@@ -21,7 +25,9 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.behavior.CommentBar;
+import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
+import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
@@ -44,7 +50,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class ArticleDetailActivity extends BackActivity implements
         CommentView.OnCommentClickListener,
         ArticleDetailContract.EmptyView,
-        EasyPermissions.PermissionCallbacks{
+        EasyPermissions.PermissionCallbacks {
     private CommentBar mDelegation;
     private String mCommentHint;
     private Article mArticle;
@@ -55,7 +61,9 @@ public class ArticleDetailActivity extends BackActivity implements
     protected EmptyLayout mEmptyLayout;
     protected CommentShareView mShareView;
     private AlertDialog mShareCommentDialog;
+    protected ShareDialog mShareDialog;
     protected Comment mComment;
+
     public static void show(Context context, Article article) {
         if (article == null)
             return;
@@ -76,7 +84,7 @@ public class ArticleDetailActivity extends BackActivity implements
         setStatusBarDarkMode();
         setDarkToolBar();
         mArticle = (Article) getIntent().getSerializableExtra("article");
-        ArticleFragment fragment = ArticleFragment.newInstance(mArticle);
+        ArticleDetailFragment fragment = ArticleDetailFragment.newInstance(mArticle);
         mPresenter = new ArticleDetailPresenter(fragment, this, mArticle);
         addFragment(R.id.fl_content, fragment);
 
@@ -177,6 +185,11 @@ public class ArticleDetailActivity extends BackActivity implements
                 }
             }).create();
         }
+        mDelegation.setCommentCount(mArticle.getCommentCount());
+
+        mShareDialog = new ShareDialog(this);
+        mShareDialog.setTitle(mArticle.getTitle());
+        mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
     }
 
     protected void handleKeyDel() {
@@ -235,6 +248,36 @@ public class ArticleDetailActivity extends BackActivity implements
         dismissLoadingDialog();
         SimplexToast.show(this, "评论失败");
     }
+
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_blog_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share:
+                if (mArticle != null) {
+                    mShareDialog.show();
+                }
+                break;
+            case R.id.menu_report:
+                if (!AccountHelper.isLogin()) {
+                    LoginActivity.show(this);
+                    return false;
+                }
+                if (mArticle != null) {
+                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE).show();
+                }
+                break;
+        }
+        return false;
+    }
+
 
     private static final int PERMISSION_ID = 0x0001;
 
