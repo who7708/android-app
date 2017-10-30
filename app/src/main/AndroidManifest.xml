@@ -586,7 +586,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="选择图片"
             android:screenOrientation="portrait"
-            android:theme="@style/Base.App.Theme.NoTitle" />
+            android:theme="@style/App.Theme.Tweet.Main"  />
         <activity
             android:name=".improve.media.ImageGalleryActivity"
             android:configChanges="keyboardHidden|orientation"

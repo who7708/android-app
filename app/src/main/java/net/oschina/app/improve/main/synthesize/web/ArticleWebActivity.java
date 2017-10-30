@@ -94,6 +94,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
                 return false;
             }
         });
+        mDelegation.setCommentCount(mArticle.getCommentCount());
         mDelegation.getBottomSheet().hideSyncAction();
         mDelegation.getBottomSheet().setCommitListener(new View.OnClickListener() {
             @Override

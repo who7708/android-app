@@ -85,7 +85,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
         mLayComments = (LinearLayout) findViewById(R.id.lay_detail_comment);
         mLinearTip = (LinearLayout) findViewById(R.id.ll_tip);
         mSeeMore = (TextView) findViewById(R.id.tv_see_more_comment);
-        findViewById(R.id.btn_comment).setOnClickListener(new OnClickListener() {
+        mLinearTip.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
