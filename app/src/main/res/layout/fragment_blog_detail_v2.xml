@@ -148,7 +148,7 @@
                 android:paddingBottom="@dimen/lay_12"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="@dimen/lay_12">
+                android:paddingTop="@dimen/lay_4">
 
                 <net.oschina.app.improve.widget.OWebView
                     android:id="@+id/webView"

@@ -11,11 +11,13 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
+import net.oschina.app.ui.empty.EmptyLayout;
 
 import butterknife.Bind;
 
@@ -27,6 +29,8 @@ import butterknife.Bind;
 public class WebActivity extends BackActivity implements OSCWebView.OnFinishListener {
     @Bind(R.id.webView)
     OSCWebView mWebView;
+    @Bind(R.id.emptyLayout)
+    EmptyLayout mEmptyLayout;
     private String mTitle;
     protected ShareDialog mShareDialog;
     private String mUrl;
@@ -69,6 +73,15 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mWebView.setOnFinishFinish(this);
         if (!TextUtils.isEmpty(mUrl))
             mWebView.loadUrl(mUrl);
+        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mEmptyLayout.isLoading()){
+                    if (!TextUtils.isEmpty(mUrl))
+                        mWebView.loadUrl(mUrl);
+                }
+            }
+        });
 
     }
 
@@ -105,6 +118,9 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     @Override
     public void onFinish() {
         // TODO: 2017/10/27
+        if (isDestroy())
+            return;
+        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
     }
 
 

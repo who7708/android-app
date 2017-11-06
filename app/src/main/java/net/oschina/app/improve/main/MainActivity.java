@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
                             if (bean.isSuccess()) {
                                 //清楚数据，避免清空没有上传的数据
                                 DBManager.getInstance()
-                                        .delete(Behavior.class,"id<=?", String.valueOf(behaviors.get(behaviors.size() - 1).getId()));
+                                        .delete(Behavior.class, "id<=?", String.valueOf(behaviors.get(behaviors.size() - 1).getId()));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

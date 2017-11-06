@@ -4,13 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -39,9 +36,11 @@ import net.oschina.app.improve.comment.OnCommentClickListener;
 import net.oschina.app.improve.detail.db.Behavior;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.dialog.ShareDialog;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.tweet.service.TweetPublishService;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
+import net.oschina.app.improve.utils.NetworkUtil;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
@@ -105,6 +104,8 @@ public abstract class DetailActivity extends BackActivity implements
         setSwipeBackEnable(true);
         DBManager.getInstance()
                 .create(Behavior.class);
+        DBManager.getInstance()
+                .alter(Behavior.class);
         CommentShareView.clearShareImage();
         if (!TDevice.hasWebView(this)) {
             finish();
@@ -210,8 +211,8 @@ public abstract class DetailActivity extends BackActivity implements
 
         if (AccountHelper.isLogin() &&
                 DBManager.getInstance()
-                        .getCount(Behavior.class) >= 15) {
-            mPresenter.uploadBehaviors(DBManager.getInstance().get(Behavior.class, 15, 0));
+                        .getCount(Behavior.class) >= 3) {
+            mPresenter.uploadBehaviors(DBManager.getInstance().get(Behavior.class));
         }
         if (mShareView != null) {
             mShareCommentDialog = DialogHelper.getRecyclerViewDialog(this, new BaseRecyclerAdapter.OnItemClickListener() {
@@ -251,7 +252,7 @@ public abstract class DetailActivity extends BackActivity implements
             mBehavior = new Behavior();
             mBehavior.setUser(AccountHelper.getUserId());
             mBehavior.setUserName(AccountHelper.getUser().getName());
-            mBehavior.setNetwork(getNetwork());
+            mBehavior.setNetwork(NetworkUtil.getNetwork(this));
             mBehavior.setUrl(mBean.getHref());
             mBehavior.setOperateType(mBean.getType());
             mBehavior.setOperateTime(System.currentTimeMillis());
@@ -260,55 +261,14 @@ public abstract class DetailActivity extends BackActivity implements
             mBehavior.setDevice(android.os.Build.MODEL);
             mBehavior.setVersion(TDevice.getVersionName());
             mBehavior.setOs(android.os.Build.VERSION.RELEASE);
-            isInsert = DBManager.getInstance()
-                    .insert(mBehavior);
+            mBehavior.setKey(String.format("%s_%s_%s", "osc", mBean.getType(), mBean.getId()));
+            mBehavior.setUuid(OSCSharedPreference.getInstance().getDeviceUUID());
+            // TODO: 2017/11/6 暂时取消收藏接口 
+//            isInsert = DBManager.getInstance()
+//                    .insert(mBehavior);
         }
     }
 
-    @SuppressWarnings("deprecation")
-    private String getNetwork() {
-        ConnectivityManager connect = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (connect == null)
-            return "null";
-        NetworkInfo activeNetInfo = connect.getActiveNetworkInfo();
-        if (activeNetInfo == null || !activeNetInfo.isAvailable()) {
-            return "null";
-        }
-        NetworkInfo wifiInfo = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null) {
-            NetworkInfo.State state = wifiInfo.getState();
-            if (state != null)
-                if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
-                    return "WIFI";
-                }
-        }
-        NetworkInfo networkInfo = connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        NetworkInfo.State state = networkInfo.getState();
-        if (null != state)
-            if (state == NetworkInfo.State.CONNECTED || state == NetworkInfo.State.CONNECTING) {
-                switch (activeNetInfo.getSubtype()) {
-                    case TelephonyManager.NETWORK_TYPE_GPRS: // 联通2g
-                    case TelephonyManager.NETWORK_TYPE_CDMA: // 电信2g
-                    case TelephonyManager.NETWORK_TYPE_EDGE: // 移动2g
-                    case TelephonyManager.NETWORK_TYPE_1xRTT:
-                    case TelephonyManager.NETWORK_TYPE_IDEN:
-                        return "2G";
-                    case TelephonyManager.NETWORK_TYPE_EVDO_A: // 电信3g
-                    case TelephonyManager.NETWORK_TYPE_UMTS:
-                    case TelephonyManager.NETWORK_TYPE_EVDO_0:
-                    case TelephonyManager.NETWORK_TYPE_HSDPA:
-                    case TelephonyManager.NETWORK_TYPE_HSUPA:
-                    case TelephonyManager.NETWORK_TYPE_HSPA:
-                    case TelephonyManager.NETWORK_TYPE_EVDO_B:
-                    case TelephonyManager.NETWORK_TYPE_EHRPD:
-                    case TelephonyManager.NETWORK_TYPE_HSPAP:
-                        return "3G";
-                    case TelephonyManager.NETWORK_TYPE_LTE:
-                        return "4G";
-                }
-            }
-        return "null";
-    }
 
     @Override
     public void hideEmptyLayout() {
@@ -324,7 +284,7 @@ public abstract class DetailActivity extends BackActivity implements
     public void showGetDetailSuccess(SubBean bean) {
         this.mBean = bean;
         initBehavior();
-        if (mDelegation != null){
+        if (mDelegation != null) {
             if (bean.getStatistics() != null) {
                 mDelegation.setCommentCount(bean.getStatistics().getComment());
             }

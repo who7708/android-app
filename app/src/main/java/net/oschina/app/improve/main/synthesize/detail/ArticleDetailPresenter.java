@@ -1,12 +1,13 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import net.oschina.app.AppConfig;
+import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.app.AppOperator;
@@ -14,9 +15,14 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
+import net.oschina.app.improve.detail.db.API;
+import net.oschina.app.improve.detail.db.Behavior;
+import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.common.utils.CollectionUtil;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -32,11 +38,26 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     private String mNextToken;
     private final Article mArticle;
 
-    ArticleDetailPresenter(ArticleDetailContract.View mView,ArticleDetailContract.EmptyView mEmptyView, Article article) {
+    ArticleDetailPresenter(ArticleDetailContract.View mView, ArticleDetailContract.EmptyView mEmptyView, Article article) {
         this.mView = mView;
         this.mArticle = article;
         this.mEmptyView = mEmptyView;
         this.mView.setPresenter(this);
+    }
+
+    @Override
+    public void uploadBehaviors() {
+        OSChinaApi.pushReadRecord(mArticle.getKey(), new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+            }
+        });
     }
 
     @Override
@@ -66,6 +87,9 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Article> list = pageBean.getItems();
+                                for (Article article : list) {
+                                    article.setImgs(removeImgs(article.getImgs()));
+                                }
                                 mView.onRefreshSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
@@ -110,6 +134,9 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Article> list = pageBean.getItems();
+                                for (Article article : list) {
+                                    article.setImgs(removeImgs(article.getImgs()));
+                                }
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
@@ -137,12 +164,10 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         mView.showNetworkError(R.string.tip_network_error);
-                        Log.e("onFailure","" + responseString);
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess","" + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Comment>>() {
                             }.getType();
@@ -169,11 +194,51 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     }
 
 
+    @Override
+    public void uploadBehaviors(final List<Behavior> behaviors) {
+        API.addBehaviors(new Gson().toJson(behaviors), new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                // TODO: 2017/5/25 不需要处理失败的情况
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    Type type = new TypeToken<ResultBean<String>>() {
+                    }.getType();
+                    ResultBean<String> bean = new Gson().fromJson(responseString, type);
+                    if (bean != null && bean.getCode() == 1) {
+                        DBManager.getInstance()
+                                .delete(Behavior.class, "id<=?", String.valueOf(behaviors.get(behaviors.size() - 1).getId()));
+                        AppConfig.getAppConfig(OSCApplication.getInstance()).set("upload_behavior_time", bean.getTime());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     static String parsePubDate(String pubDate) {
         if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
             return pubDate;
         return String.format("%s-%s-%s", pubDate.substring(0, 4),
                 pubDate.substring(4, 6),
                 pubDate.substring(6, 8));
+    }
+
+    private static String[] removeImgs(String[] imgs) {
+        if (imgs == null || imgs.length == 0)
+            return null;
+        List<String> list = new ArrayList<>();
+        for (String img : imgs) {
+            if (!TextUtils.isEmpty(img)) {
+                if (img.startsWith("http")) {
+                    list.add(img + "!/both/82x110/quality/80");
+                }
+            }
+        }
+        return CollectionUtil.toArray(list, String.class);
     }
 }

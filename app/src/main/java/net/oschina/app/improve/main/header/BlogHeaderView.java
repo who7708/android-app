@@ -86,6 +86,8 @@ public class BlogHeaderView extends HeaderView {
                     .fitCenter()
                     .into(h.mImageBanner);
             h.mTextName.setText(item.getName());
+            int p = Util.dipTopx(mContext, 16);
+            ((RecyclerView.LayoutParams) h.itemView.getLayoutParams()).setMargins(position == 0 ? p : 0, 0, p, 0);
         }
 
         private static final class Holder extends RecyclerView.ViewHolder {

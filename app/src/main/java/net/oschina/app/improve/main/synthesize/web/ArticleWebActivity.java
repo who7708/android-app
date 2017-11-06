@@ -110,6 +110,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
             }
         });
         mDelegation.getBottomSheet().getEditText().setOnKeyArrivedListener(new OnKeyArrivedListenerAdapterV2(this));
+
     }
 
     @Override
@@ -119,6 +120,14 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
         mToolBar.setTitle(mArticle.getTitle());
         mWebView.loadUrl(mArticle.getUrl());
+        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mEmptyLayout.isLoading() && mArticle != null) {
+                    mWebView.loadUrl(mArticle.getUrl());
+                }
+            }
+        });
     }
 
     @Override

@@ -25,11 +25,15 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.behavior.CommentBar;
+import net.oschina.app.improve.detail.db.Behavior;
+import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
+import net.oschina.app.improve.utils.NetworkUtil;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
@@ -63,6 +67,9 @@ public class ArticleDetailActivity extends BackActivity implements
     private AlertDialog mShareCommentDialog;
     protected ShareDialog mShareDialog;
     protected Comment mComment;
+    protected Behavior mBehavior;
+    private long mStart;
+    protected long mStay;//该界面停留时间
 
     public static void show(Context context, Article article) {
         if (article == null)
@@ -192,6 +199,33 @@ public class ArticleDetailActivity extends BackActivity implements
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        if (AccountHelper.isLogin() &&
+                DBManager.getInstance()
+                        .getCount(Behavior.class) >= 3) {
+            mPresenter.uploadBehaviors(DBManager.getInstance().get(Behavior.class));
+        }
+        mBehavior = new Behavior();
+        mBehavior.setUser(AccountHelper.getUserId());
+        mBehavior.setUserName(AccountHelper.getUser().getName());
+        mBehavior.setNetwork(NetworkUtil.getNetwork(this));
+        mBehavior.setUrl(mArticle.getUrl());
+        mBehavior.setOperateType(mArticle.getType());
+        mBehavior.setOperateTime(System.currentTimeMillis());
+        mStart = mBehavior.getOperateTime();
+        mBehavior.setOperation("read");
+        mBehavior.setDevice(android.os.Build.MODEL);
+        mBehavior.setVersion(TDevice.getVersionName());
+        mBehavior.setOs(android.os.Build.VERSION.RELEASE);
+        mBehavior.setKey(mArticle.getKey());
+        mBehavior.setUuid(OSCSharedPreference.getInstance().getDeviceUUID());
+        // TODO: 2017/11/6 暂时取消收藏习惯接口 
+        //DBManager.getInstance().insert(mBehavior);
+        mPresenter.uploadBehaviors();
+    }
+
     protected void handleKeyDel() {
         if (mCommentId != 0) {
             if (TextUtils.isEmpty(mDelegation.getBottomSheet().getCommentText())) {
@@ -285,6 +319,24 @@ public class ArticleDetailActivity extends BackActivity implements
         return false;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mStart != 0)
+            mStart = System.currentTimeMillis();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mStay += (System.currentTimeMillis() - mStart) / 1000;
+        if (mBehavior != null) {
+            mBehavior.setStay(mStay);
+            DBManager.getInstance()
+                    .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
+        }
+    }
 
     private static final int PERMISSION_ID = 0x0001;
 

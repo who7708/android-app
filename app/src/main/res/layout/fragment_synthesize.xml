@@ -19,7 +19,7 @@
             android:background="@color/white"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/main_green"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_green"
             app:tabTextColor="@color/black" />
 

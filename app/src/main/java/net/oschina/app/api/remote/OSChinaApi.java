@@ -17,6 +17,7 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.bean.SignUpEventOptions;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.detail.sign.StringParams;
+import net.oschina.app.improve.utils.MD5;
 import net.oschina.app.improve.write.Blog;
 import net.oschina.app.team.bean.Team;
 import net.oschina.app.util.StringUtils;
@@ -1845,6 +1846,7 @@ public class OSChinaApi {
         if (!TextUtils.isEmpty(pageToken)) {
             params.put("pageToken", pageToken);
         }
+        ApiHttpClient.getHttpClient().addHeader("sessionKey", MD5.get32MD5Str(ident + System.currentTimeMillis()));
         ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 
@@ -1921,4 +1923,13 @@ public class OSChinaApi {
     }
 
 
+    /**
+     * 收集阅读习惯
+     */
+    public static void pushReadRecord(String key,
+                                         TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key",key);
+        post("action/apiv2/send_read_record", params, handler);
+    }
 }

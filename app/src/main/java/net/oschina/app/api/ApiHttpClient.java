@@ -16,6 +16,7 @@ import net.oschina.app.AppContext;
 import net.oschina.app.Setting;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.git.api.API;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.TLog;
 import net.oschina.common.verify.Verifier;
@@ -171,6 +172,7 @@ public class ApiHttpClient {
         c.addHeader("Accept-Language", Locale.getDefault().toString());
         c.addHeader("Host", HOST);
         c.addHeader("Connection", "Keep-Alive");
+        c.addHeader("uuid", OSCSharedPreference.getInstance().getDeviceUUID());
         //noinspection deprecation
         c.getHttpClient().getParams()
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);

@@ -218,7 +218,7 @@ public class DetailPresenter implements DetailContract.Presenter {
                     Type type = new TypeToken<ResultBean<String>>() {
                     }.getType();
                     ResultBean<String> bean = new Gson().fromJson(responseString, type);
-                    if (bean.isSuccess()) {
+                    if (bean != null && bean.getCode() == 1) {
                         mEmptyView.showUploadBehaviorsSuccess(behaviors.get(behaviors.size() - 1).getId()
                                 , bean.getTime());
                     }
@@ -246,8 +246,8 @@ public class DetailPresenter implements DetailContract.Presenter {
 
     @Override
     public void payDonate(long authorId, long objId, float money, final int payType) {
-        DecimalFormat decimalFormat=new DecimalFormat(".00");
-        OSChinaApi.getPayDonate(authorId, objId, (float)(Math.round(money*100)/100), payType, new TextHttpResponseHandler() {
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        OSChinaApi.getPayDonate(authorId, objId, (float) (Math.round(money * 100) / 100), payType, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showPayDonateError();
@@ -264,7 +264,7 @@ public class DetailPresenter implements DetailContract.Presenter {
                         ResultBean<String> resultBean = new Gson().fromJson(responseString, type);
                         if (resultBean.isSuccess()) {
                             mView.showPayDonateSuccess(payType, resultBean.getResult(), null);
-                        }else {
+                        } else {
                             mView.showPayDonateError();
                         }
                     } else {
@@ -273,7 +273,7 @@ public class DetailPresenter implements DetailContract.Presenter {
                         ResultBean<WeChatPay.PayResult> resultBean = new Gson().fromJson(responseString, type);
                         if (resultBean.isSuccess()) {
                             mView.showPayDonateSuccess(payType, null, resultBean.getResult());
-                        }else {
+                        } else {
                             mView.showPayDonateError();
                         }
                     }

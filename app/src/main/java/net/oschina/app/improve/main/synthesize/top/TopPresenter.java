@@ -1,5 +1,8 @@
 package net.oschina.app.improve.main.synthesize.top;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -11,8 +14,10 @@ import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.utils.CacheManager;
+import net.oschina.common.utils.CollectionUtil;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -60,6 +65,7 @@ class TopPresenter implements TopContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess", "" + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
@@ -68,6 +74,9 @@ class TopPresenter implements TopContract.Presenter {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Article> list = pageBean.getItems();
+                                for (Article article : list) {
+                                    article.setImgs(removeImgs(article.getImgs()));
+                                }
                                 CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                                 mView.onRefreshSuccess(list);
                                 if (list.size() < 20) {
@@ -112,6 +121,9 @@ class TopPresenter implements TopContract.Presenter {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Article> list = pageBean.getItems();
+                                for (Article article : list) {
+                                    article.setImgs(removeImgs(article.getImgs()));
+                                }
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
@@ -129,5 +141,18 @@ class TopPresenter implements TopContract.Presenter {
                 });
     }
 
+    private static String[] removeImgs(String[] imgs) {
+        if (imgs == null || imgs.length == 0)
+            return null;
+        List<String> list = new ArrayList<>();
+        for (String img : imgs) {
+            if (!TextUtils.isEmpty(img)) {
+                if (img.startsWith("http")) {
+                    list.add(img + "!/both/82x110/quality/80");
+                }
+            }
+        }
+        return CollectionUtil.toArray(list, String.class);
+    }
 
 }

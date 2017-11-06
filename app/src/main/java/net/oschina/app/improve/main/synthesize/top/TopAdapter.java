@@ -14,6 +14,10 @@ import com.bumptech.glide.RequestManager;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.util.StringUtils;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 头条数据
@@ -77,7 +81,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h.mTextTitle.setText(item.getTitle());
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(parsePubDate(item.getPubDate()));
-                h.mTextOrigin.setText(item.getAuthorName());
+                h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
@@ -93,7 +97,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
                 h2.mTextTitle.setText(item.getTitle());
                 h2.mTextTime.setText(parsePubDate(item.getPubDate()));
-                h2.mTextOrigin.setText(item.getAuthorName());
+                h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
@@ -174,8 +178,38 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     private String parsePubDate(String pubDate) {
         if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
             return pubDate;
-        return String.format("%s-%s-%s", pubDate.substring(0, 4),
-                pubDate.substring(4, 6),
-                pubDate.substring(6, 8));
+        int year = parseInt(pubDate.substring(0, 4));
+        int month = parseInt(pubDate.substring(4, 6));
+        int day = parseInt(pubDate.substring(6, 8));
+        String date = String.format("%s-%s-%s", year,
+                month,
+                day);
+        if (isToday(date)) {
+            return "今天";
+        }
+        if (isYesterday(year, month, day))
+            return "昨天";
+        return date;
+    }
+
+    private int parseInt(String intStr) {
+        try {
+            return Integer.parseInt(intStr);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private boolean isToday(String pubDate) {
+        String today = StringUtils.getCurrentTimeStr();
+        return pubDate.equalsIgnoreCase(today);
+    }
+
+    private boolean isYesterday(int year, int month, int day) {
+        Calendar mCurrentDate = Calendar.getInstance();
+        mCurrentDate.set(year, month, day - 1, 0, 0, 0);
+        Date date = new Date(mCurrentDate.getTimeInMillis());
+        long delta = new Date().getTime() - date.getTime();
+        return delta <= 48L * 3600000L;
     }
 }

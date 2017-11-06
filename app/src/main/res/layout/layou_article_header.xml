@@ -79,13 +79,29 @@
                 </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_pub_date"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#6a6a6a"
-                    android:textSize="12sp"
-                    tools:text="发表于1天前 (2016-06-24 20:12)" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_origin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#6a6a6a"
+                        android:textSize="12sp"
+                        tools:text="CSDN" />
+
+                    <TextView
+                        android:id="@+id/tv_pub_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#6a6a6a"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="@dimen/lay_8"
+                        android:layout_marginRight="@dimen/lay_8"
+                        tools:text="2016-06-24" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
@@ -125,7 +141,7 @@
                 android:layout_gravity="bottom"
                 android:background="@drawable/bg_article"
                 android:paddingBottom="@dimen/lay_20"
-                android:paddingTop="@dimen/lay_20">
+                android:paddingTop="@dimen/lay_12">
 
                 <Button
                     android:id="@+id/btn_read_all"
@@ -135,8 +151,11 @@
                     android:layout_marginRight="@dimen/lay_16"
                     android:background="@drawable/bg_article_detail"
                     android:text="阅读全文"
+                    android:elevation="0dp"
+                    android:outlineProvider="none"
                     android:textColor="@color/main_green"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"
+                    tools:targetApi="lollipop" />
 
             </FrameLayout>
         </FrameLayout>

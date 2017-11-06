@@ -4,6 +4,9 @@ import net.oschina.app.improve.base.BaseListPresenter;
 import net.oschina.app.improve.base.BaseListView;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
+import net.oschina.app.improve.detail.db.Behavior;
+
+import java.util.List;
 
 /**
  * 头条详情
@@ -28,5 +31,9 @@ interface ArticleDetailContract {
 
     interface Presenter extends BaseListPresenter {
         void putArticleComment(String content, long referId, long reAuthorId);
+
+        void uploadBehaviors(List<Behavior> behaviors);
+
+        void uploadBehaviors();
     }
 }
