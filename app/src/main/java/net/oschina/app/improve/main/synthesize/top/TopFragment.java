@@ -3,6 +3,7 @@ package net.oschina.app.improve.main.synthesize.top;
 import android.text.TextUtils;
 import android.view.View;
 
+import net.oschina.app.OSCApplication;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
@@ -23,7 +24,7 @@ import java.util.List;
 public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Article> implements TopContract.View, OnTabReselectListener {
 
     private HeaderView mHeaderView;
-
+    private OSCApplication.ReadState mReadState;
     public static TopFragment newInstance() {
         return new TopFragment();
     }
@@ -36,6 +37,7 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
 
     @Override
     protected void initData() {
+        mReadState = OSCApplication.getReadState("sub_list");
         if (mPresenter != null) {
             mPresenter.loadCache();
         }
@@ -99,6 +101,8 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
                 ArticleDetailActivity.show(mContext, top);
             }
         }
+        mReadState.put(top.getKey());
+        mAdapter.updateItem(position);
     }
 
     @Override

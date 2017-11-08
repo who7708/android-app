@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.top;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,10 +12,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.main.synthesize.DataFormat;
+import net.oschina.app.util.TDevice;
 
 /**
  * 头条数据
@@ -27,9 +30,11 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     private static final int VIEW_TYPE_ONE_IMG = 2;
     private static final int VIEW_TYPE_THREE_IMG = 3;
     private RequestManager mLoader;
+    private OSCApplication.ReadState mReadState;
 
     public TopAdapter(Context context, int mode) {
         super(context, mode);
+        mReadState = OSCApplication.getReadState("sub_list");
         setOnLoadingHeaderCallBack(this);
         mLoader = Glide.with(mContext);
     }
@@ -72,6 +77,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         int type = getItemViewType(position);
+        Resources resources = mContext.getResources();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
@@ -79,6 +85,13 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                if (mReadState.already(item.getKey())) {
+                    h.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
+                    h.mTextDesc.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
+                } else {
+                    h.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
+                    h.mTextDesc.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
+                }
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
@@ -89,6 +102,11 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h1.mImageView);
+                if (mReadState.already(item.getKey())) {
+                    h1.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
+                } else {
+                    h1.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
+                }
                 break;
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
@@ -106,6 +124,11 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageThree);
+                if (mReadState.already(item.getKey())) {
+                    h2.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
+                } else {
+                    h2.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
+                }
                 break;
         }
 
