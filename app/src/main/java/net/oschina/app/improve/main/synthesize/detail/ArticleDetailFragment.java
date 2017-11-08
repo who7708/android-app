@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.oschina.app.R;
@@ -56,6 +57,13 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     protected void initData() {
         View view = mInflater.inflate(R.layout.layou_article_header, null);
         mAdapter.setHeaderView(view);
+        ImageView imageView = (ImageView) view.findViewById(R.id.iv_article);
+        if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
+            imageView.setVisibility(View.VISIBLE);
+            getImgLoader().load(mArticle.getImgs()[0])
+                    .fitCenter()
+                    .into(imageView);
+        }
         TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) view.findViewById(R.id.tv_pub_date);
