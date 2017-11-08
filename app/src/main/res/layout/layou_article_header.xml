@@ -96,30 +96,20 @@
                         android:id="@+id/tv_pub_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#6a6a6a"
-                        android:textSize="12sp"
                         android:layout_marginLeft="@dimen/lay_8"
                         android:layout_marginRight="@dimen/lay_8"
+                        android:textColor="#6a6a6a"
+                        android:textSize="12sp"
                         tools:text="2016-06-24" />
                 </LinearLayout>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_relation"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:background="@drawable/ic_bg_btn_blue"
-                android:minWidth="48dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:visibility="gone"
-                tools:text="关注" />
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_detail_abstract"
@@ -127,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_20"
                 android:lineSpacingExtra="4dp"
-                android:paddingBottom="@dimen/lay_12"
                 android:paddingLeft="@dimen/lay_16"
                 android:paddingRight="@dimen/lay_16"
                 android:paddingTop="@dimen/lay_12"
@@ -139,9 +128,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="-40dp"
                 android:background="@drawable/bg_article"
-                android:paddingBottom="@dimen/lay_20"
-                android:paddingTop="@dimen/lay_12">
+                android:paddingBottom="@dimen/lay_12"
+                android:paddingTop="20dp">
 
                 <Button
                     android:id="@+id/btn_read_all"
@@ -150,15 +140,15 @@
                     android:layout_marginLeft="@dimen/lay_16"
                     android:layout_marginRight="@dimen/lay_16"
                     android:background="@drawable/bg_article_detail"
-                    android:text="阅读全文"
                     android:elevation="0dp"
                     android:outlineProvider="none"
+                    android:text="阅读全文"
                     android:textColor="@color/main_green"
                     tools:ignore="HardcodedText"
                     tools:targetApi="lollipop" />
 
             </FrameLayout>
-        </FrameLayout>
+        </LinearLayout>
 
         <net.oschina.app.improve.main.synthesize.detail.CommentView
             android:id="@+id/commentView"

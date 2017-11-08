@@ -55,7 +55,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="50dp"
             android:contentDescription="@null"
-            android:src="@mipmap/tips_subscribe"
+            android:src="@mipmap/tip_subscribe"
             tools:ignore="RtlHardcoded" />
 
     </net.oschina.app.improve.widget.RippleIntroView>

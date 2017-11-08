@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import net.oschina.app.BuildConfig;
 import net.oschina.app.R;
 import net.oschina.app.Setting;
 import net.oschina.app.base.BaseFragment;
@@ -42,7 +43,7 @@ public class AboutOSCFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        mTvVersionName.setText(TDevice.getVersionName());
+        mTvVersionName.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override
