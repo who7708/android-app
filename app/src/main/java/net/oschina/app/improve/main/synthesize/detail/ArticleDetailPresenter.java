@@ -220,14 +220,6 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         });
     }
 
-    static String parsePubDate(String pubDate) {
-        if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
-            return pubDate;
-        return String.format("%s-%s-%s", pubDate.substring(0, 4),
-                pubDate.substring(4, 6),
-                pubDate.substring(6, 8));
-    }
-
     private static String[] removeImgs(String[] imgs) {
         if (imgs == null || imgs.length == 0)
             return null;

@@ -17,6 +17,7 @@ import net.oschina.app.Setting;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.git.api.API;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.app.improve.utils.MD5;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.TLog;
 import net.oschina.common.verify.Verifier;
@@ -172,6 +173,7 @@ public class ApiHttpClient {
         c.addHeader("Accept-Language", Locale.getDefault().toString());
         c.addHeader("Host", HOST);
         c.addHeader("Connection", "Keep-Alive");
+        c.addHeader("sessionKey", MD5.get32MD5Str(OSCSharedPreference.getInstance().getDeviceUUID() + System.currentTimeMillis()));
         c.addHeader("uuid", OSCSharedPreference.getInstance().getDeviceUUID());
         //noinspection deprecation
         c.getHttpClient().getParams()

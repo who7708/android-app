@@ -14,10 +14,7 @@ import com.bumptech.glide.RequestManager;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
-import net.oschina.app.util.StringUtils;
-
-import java.util.Calendar;
-import java.util.Date;
+import net.oschina.app.improve.main.synthesize.DataFormat;
 
 /**
  * 头条数据
@@ -80,13 +77,13 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 TextHolder h = (TextHolder) holder;
                 h.mTextTitle.setText(item.getTitle());
                 h.mTextDesc.setText(item.getDesc());
-                h.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
                 h1.mTextTitle.setText(item.getTitle());
-                h1.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextOrigin.setText(item.getAuthorName());
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
@@ -96,7 +93,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
                 h2.mTextTitle.setText(item.getTitle());
-                h2.mTextTime.setText(parsePubDate(item.getPubDate()));
+                h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
@@ -175,41 +172,5 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
         }
     }
 
-    private String parsePubDate(String pubDate) {
-        if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
-            return pubDate;
-        int year = parseInt(pubDate.substring(0, 4));
-        int month = parseInt(pubDate.substring(4, 6));
-        int day = parseInt(pubDate.substring(6, 8));
-        String date = String.format("%s-%s-%s", year,
-                month,
-                day);
-        if (isToday(date)) {
-            return "今天";
-        }
-        if (isYesterday(year, month, day))
-            return "昨天";
-        return date;
-    }
 
-    private int parseInt(String intStr) {
-        try {
-            return Integer.parseInt(intStr);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    private boolean isToday(String pubDate) {
-        String today = StringUtils.getCurrentTimeStr();
-        return pubDate.equalsIgnoreCase(today);
-    }
-
-    private boolean isYesterday(int year, int month, int day) {
-        Calendar mCurrentDate = Calendar.getInstance();
-        mCurrentDate.set(year, month, day - 1, 0, 0, 0);
-        Date date = new Date(mCurrentDate.getTimeInMillis());
-        long delta = new Date().getTime() - date.getTime();
-        return delta <= 48L * 3600000L;
-    }
 }

@@ -1846,7 +1846,6 @@ public class OSChinaApi {
         if (!TextUtils.isEmpty(pageToken)) {
             params.put("pageToken", pageToken);
         }
-        ApiHttpClient.getHttpClient().addHeader("sessionKey", MD5.get32MD5Str(ident + System.currentTimeMillis()));
         ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 

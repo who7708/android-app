@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
 import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
@@ -57,6 +58,11 @@ public class SinaShare extends BaseShare {
         webpageObject.defaultText = mBuilder.content;
 
         WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+
+        TextObject textObject = new TextObject();
+        textObject.text = mBuilder.title;
+        textObject.title = mBuilder.title;
+        weiboMessage.textObject = textObject;
 
         weiboMessage.mediaObject = webpageObject;
 

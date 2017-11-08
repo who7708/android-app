@@ -13,6 +13,7 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.Author;
+import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.improve.main.synthesize.top.TopAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.widget.PortraitView;
@@ -62,7 +63,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         TextView tv_detail_abstract = (TextView) view.findViewById(R.id.tv_detail_abstract);
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
-        tv_pub_date.setText(ArticleDetailPresenter.parsePubDate(mArticle.getPubDate()));
+        tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
         tv_detail_abstract.setText(mArticle.getDesc());
         PortraitView portraitView = (PortraitView) view.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSourceName());

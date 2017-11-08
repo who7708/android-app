@@ -54,6 +54,7 @@ class TopPresenter implements TopContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure", "" + responseString);
                         try {
                             mView.showMoreMore();
                             mView.onComplete();

@@ -12,6 +12,7 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.DetailCache;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.app.improve.utils.MD5;
 import net.oschina.common.helper.ReadStateHelper;
 
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class OSCApplication extends AppContext {
             if (TextUtils.isEmpty(androidId)) {
                 androidId = UUID.randomUUID().toString().replaceAll("-", "");
             }
-            OSCSharedPreference.getInstance().putDeviceUUID(androidId);
+            OSCSharedPreference.getInstance().putDeviceUUID(MD5.get32MD5Str(androidId));
         }
         // 初始化异常捕获类
         AppCrashHandler.getInstance().init(this);
