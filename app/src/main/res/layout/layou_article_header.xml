@@ -127,19 +127,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/lay_20"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="6dp"
                 android:paddingLeft="@dimen/lay_16"
                 android:paddingRight="@dimen/lay_16"
                 android:paddingTop="@dimen/lay_12"
                 android:textColor="#6a6a6a"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 tools:text="在Google IO大会中不仅仅带来了Android Studio 2.2在Google IO大会中不仅仅带来了Android Studi赖约束的库。在Google IO大会中不仅仅带来了Android Studi赖约束的库。在Google IO大会中不仅仅带来了Android Studi赖约束的库。在Google IO大会中不仅仅带来了Android Studi赖约束的库。在Google IO大会中不仅仅带来了Android Studi赖约束的库。" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="-40dp"
+                android:layout_marginTop="-46dp"
                 android:background="@drawable/bg_article"
                 android:paddingBottom="@dimen/lay_12"
                 android:paddingTop="20dp">
