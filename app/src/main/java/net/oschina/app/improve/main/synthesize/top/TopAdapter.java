@@ -99,7 +99,8 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 OneImgHolder h1 = (OneImgHolder) holder;
                 h1.mTextTitle.setText(item.getTitle());
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
-                h1.mTextOrigin.setText(item.getAuthorName());
+                h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                h1.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
                 h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
@@ -163,6 +164,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
         TextView mTextTitle,
                 mTextTime,
                 mTextOrigin,
+                mTextAuthor,
                 mTextCommentCount;
         ImageView mImageView;
 
@@ -172,6 +174,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mImageView = (ImageView) itemView.findViewById(R.id.iv_image);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
+            mTextAuthor = (TextView) itemView.findViewById(R.id.tv_author);
             mTextCommentCount = (TextView) itemView.findViewById(R.id.tv_comment_count);
         }
     }
