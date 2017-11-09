@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
@@ -14,9 +15,15 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.Author;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.improve.main.synthesize.top.TopAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
+import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
 
@@ -28,7 +35,7 @@ import net.oschina.app.util.UIHelper;
 public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailContract.Presenter, Article>
         implements ArticleDetailContract.View,
         View.OnClickListener {
-
+    private OSCApplication.ReadState mReadState;
     protected CommentView mCommentView;
     private Article mArticle;
 
@@ -55,6 +62,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @SuppressLint("InflateParams,CutPasteId")
     @Override
     protected void initData() {
+        mReadState = OSCApplication.getReadState("sub_list");
         View view = mInflater.inflate(R.layout.layou_article_header, null);
         mAdapter.setHeaderView(view);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_article);
@@ -63,6 +71,12 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             getImgLoader().load(mArticle.getImgs()[0])
                     .fitCenter()
                     .into(imageView);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageGalleryActivity.show(mContext,mArticle.getImgs()[0]);
+                }
+            });
         }
         TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
@@ -107,43 +121,27 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         if (top.getType() == 0) {
             ArticleDetailActivity.show(mContext, top);
         } else {
-            String key = top.getKey();
-            if (TextUtils.isEmpty(key)) {
-                ArticleDetailActivity.show(mContext, top);
-                return;
-            }
-            String[] kv = key.split("_");
-            if (kv.length != 3) {
-                ArticleDetailActivity.show(mContext, top);
-                return;
-            }
             try {
-                int type = Integer.parseInt(kv[1]);
-                int id = Integer.parseInt(kv[2]);
+                int type = top.getType();
+                long id = top.getOscId();
                 switch (type) {
                     case News.TYPE_SOFTWARE:
-                        //SoftwareDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.SoftwareDetailActivity.show(mContext, id);
+                        SoftwareDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_QUESTION:
-                        //QuestionDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.QuestionDetailActivity.show(mContext, id);
+                        QuestionDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_BLOG:
-                        //BlogDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.BlogDetailActivity.show(mContext, id);
+                        BlogDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_TRANSLATE:
-                        //TranslateDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_EVENT:
-                        //EventDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.EventDetailActivity.show(mContext, id);
+                        EventDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_NEWS:
-                        //NewsDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id);
                         break;
                     default:
                         UIHelper.showUrlRedirect(mContext, top.getUrl());
@@ -155,6 +153,8 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 ArticleDetailActivity.show(mContext, top);
             }
         }
+        mReadState.put(top.getKey());
+        mAdapter.updateItem(position);
     }
 
     @Override

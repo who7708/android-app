@@ -84,7 +84,9 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h.mTextTitle.setText(item.getTitle());
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
-                h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                h.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
+                h.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 if (mReadState.already(item.getKey())) {
                     h.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
                     h.mTextDesc.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
@@ -98,6 +100,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h1.mTextTitle.setText(item.getTitle());
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextOrigin.setText(item.getAuthorName());
+                h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
@@ -112,7 +115,9 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
                 h2.mTextTitle.setText(item.getTitle());
                 h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
-                h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
+                h2.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
+                h2.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 mLoader.load(item.getImgs()[0])
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
@@ -140,6 +145,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 mTextDesc,
                 mTextTime,
                 mTextOrigin,
+                mTextAuthor,
                 mTextCommentCount;
 
         TextHolder(View itemView) {
@@ -148,6 +154,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
             mTextDesc = (TextView) itemView.findViewById(R.id.tv_desc);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
+            mTextAuthor = (TextView) itemView.findViewById(R.id.tv_author);
             mTextCommentCount = (TextView) itemView.findViewById(R.id.tv_comment_count);
         }
     }
@@ -173,6 +180,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
         TextView mTextTitle,
                 mTextTime,
                 mTextOrigin,
+                mTextAuthor,
                 mTextCommentCount;
         ImageView mImageOne, mImageTwo, mImageThree;
 
@@ -184,6 +192,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
             mImageTwo = (ImageView) itemView.findViewById(R.id.iv_img_2);
             mImageThree = (ImageView) itemView.findViewById(R.id.iv_img_3);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
+            mTextAuthor = (TextView) itemView.findViewById(R.id.tv_author);
             mTextCommentCount = (TextView) itemView.findViewById(R.id.tv_comment_count);
         }
     }

@@ -1,5 +1,7 @@
 package net.oschina.app.improve.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -21,6 +23,12 @@ public class Article implements Serializable {
     private String sourceImg;
     private String[] imgs;
     private int commentCount;
+
+    @SerializedName("osc_id")
+    private long oscId;
+
+    @SerializedName("view_count")
+    private int viewCount;
 
     public int getType() {
         return type;
@@ -124,5 +132,21 @@ public class Article implements Serializable {
 
     public void setSourceName(String sourceName) {
         this.sourceName = sourceName;
+    }
+
+    public long getOscId() {
+        return oscId;
+    }
+
+    public void setOscId(long oscId) {
+        this.oscId = oscId;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 }

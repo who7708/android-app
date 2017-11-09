@@ -1,6 +1,5 @@
 package net.oschina.app.improve.main.synthesize.top;
 
-import android.text.TextUtils;
 import android.view.View;
 
 import net.oschina.app.OSCApplication;
@@ -8,6 +7,11 @@ import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.banner.HeaderView;
 import net.oschina.app.improve.main.banner.NewsHeaderView;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
@@ -53,43 +57,27 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
         if (top.getType() == 0) {
             ArticleDetailActivity.show(mContext, top);
         } else {
-            String key = top.getKey();
-            if (TextUtils.isEmpty(key)) {
-                ArticleDetailActivity.show(mContext, top);
-                return;
-            }
-            String[] kv = key.split("_");
-            if (kv.length != 3) {
-                ArticleDetailActivity.show(mContext, top);
-                return;
-            }
             try {
-                int type = Integer.parseInt(kv[1]);
-                int id = Integer.parseInt(kv[2]);
+                int type = top.getType();
+                long id = top.getOscId();
                 switch (type) {
                     case News.TYPE_SOFTWARE:
-                        //SoftwareDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.SoftwareDetailActivity.show(mContext, id);
+                        SoftwareDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_QUESTION:
-                        //QuestionDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.QuestionDetailActivity.show(mContext, id);
+                        QuestionDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_BLOG:
-                        //BlogDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.BlogDetailActivity.show(mContext, id);
+                        BlogDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_TRANSLATE:
-                        //TranslateDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_EVENT:
-                        //EventDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.EventDetailActivity.show(mContext, id);
+                        EventDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_NEWS:
-                        //NewsDetailActivity.show(mContext, sub.getId());
-                        net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id);
                         break;
                     default:
                         UIHelper.showUrlRedirect(mContext, top.getUrl());

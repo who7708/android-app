@@ -110,6 +110,19 @@
             tools:ignore="RtlHardcoded" />
 
         <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:layout_marginRight="@dimen/lay_8"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/text_secondary_color"
+            android:textSize="14sp"
+            tools:text="黄海彬"
+            android:maxLength="8"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
             android:id="@+id/tv_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -137,7 +150,7 @@
                 android:src="@mipmap/ic_comment" />
 
             <TextView
-                android:id="@+id/tv_info_comment"
+                android:id="@+id/tv_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
