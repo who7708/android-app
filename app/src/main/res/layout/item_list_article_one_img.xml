@@ -15,8 +15,8 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="110dp"
-            android:layout_height="82dp"
+            android:layout_width="102dp"
+            android:layout_height="60dp"
             android:background="@drawable/bg_image"
             android:padding="1dp">
 
