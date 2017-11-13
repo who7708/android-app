@@ -185,6 +185,7 @@
             android:name=".improve.write.WriteActivity"
             android:label="发布博客"
             android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
 
         <activity

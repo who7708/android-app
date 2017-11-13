@@ -33,7 +33,7 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/bg_image"
             android:padding="1dp">
@@ -51,7 +51,7 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="@dimen/lay_12"
             android:layout_marginRight="@dimen/lay_12"
             android:layout_weight="1"
@@ -71,7 +71,7 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/bg_image"
             android:padding="1dp">
