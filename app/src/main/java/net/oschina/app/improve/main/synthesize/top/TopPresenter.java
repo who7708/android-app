@@ -80,7 +80,7 @@ class TopPresenter implements TopContract.Presenter {
                                 }
                                 CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                                 mView.onRefreshSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {
@@ -127,7 +127,7 @@ class TopPresenter implements TopContract.Presenter {
                                     article.setImgs(removeImgs(article.getImgs()));
                                 }
                                 mView.onLoadMoreSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {
@@ -150,7 +150,7 @@ class TopPresenter implements TopContract.Presenter {
         for (String img : imgs) {
             if (!TextUtils.isEmpty(img)) {
                 if (img.startsWith("http")) {
-                    list.add(img + "!/both/246x330/quality/100");
+                    list.add(img );
                 }
             }
         }

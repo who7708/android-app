@@ -168,7 +168,7 @@ public class BlogDetailFragment extends DetailFragment {
             spannable.append(" [icon] ");
             Drawable originate = resources.getDrawable(R.mipmap.ic_label_reprint);
             if (originate != null) {
-                originate.setBounds(0, -top, originate.getIntrinsicWidth(), originate.getIntrinsicHeight() + top);
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() + top);
             }
             ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
             spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);

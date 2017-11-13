@@ -227,7 +227,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         for (String img : imgs) {
             if (!TextUtils.isEmpty(img)) {
                 if (img.startsWith("http")) {
-                    list.add(img + "!/both/246x330/quality/80");
+                    list.add(img);
                 }
             }
         }

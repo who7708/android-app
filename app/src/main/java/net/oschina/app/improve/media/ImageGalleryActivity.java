@@ -121,6 +121,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     @Override
     protected void initWindow() {
         super.initWindow();
+        setSwipeBackEnable(false);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
 

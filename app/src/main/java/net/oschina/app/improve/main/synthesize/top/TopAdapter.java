@@ -102,7 +102,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h1.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
                 h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0])
+                mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h1.mImageView);
@@ -119,14 +119,14 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h2.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
                 h2.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0])
+                mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageOne);
-                mLoader.load(item.getImgs()[1])
+                mLoader.load(item.getImgs()[1] + "!/both/246x330/quality/100")
                         .fitCenter()
                         .into(h2.mImageTwo);
-                mLoader.load(item.getImgs()[2])
+                mLoader.load(item.getImgs()[2] + "!/both/246x330/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageThree);
