@@ -18,7 +18,7 @@
             android:layout_width="102dp"
             android:layout_height="70dp"
             android:background="@drawable/bg_image"
-            android:padding="1dp">
+            android:padding="1px">
 
             <ImageView
                 android:id="@+id/iv_image"

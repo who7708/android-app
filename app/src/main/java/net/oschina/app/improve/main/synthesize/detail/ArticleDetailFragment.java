@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,8 +67,10 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         View view = mInflater.inflate(R.layout.layou_article_header, null);
         mAdapter.setHeaderView(view);
         ImageView imageView = (ImageView) view.findViewById(R.id.iv_article);
+        FrameLayout frameLayout = (FrameLayout)view.findViewById(R.id.fl_img);
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
             imageView.setVisibility(View.VISIBLE);
+            frameLayout.setVisibility(View.VISIBLE);
             getImgLoader().load(mArticle.getImgs()[0])
                     .fitCenter()
                     .into(imageView);
