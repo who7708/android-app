@@ -42,63 +42,115 @@
                 android:descendantFocusability="blocksDescendants"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp"
                 app:layout_scrollFlags="scroll">
 
-                <!--portrait and nick-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/lay_12"
+                    android:paddingLeft="@dimen/lay_16"
+                    android:paddingTop="@dimen/lay_16"
+                    tools:ignore="RtlHardcoded,RtlSymmetry">
 
                     <net.oschina.app.improve.widget.PortraitView
                         android:id="@+id/iv_portrait"
-                        android:layout_width="@dimen/size_48"
-                        android:layout_height="@dimen/size_48"
-                        tools:src="@mipmap/widget_default_face" />
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:clickable="true"
+                        android:src="@mipmap/widget_default_face"
+                        tools:ignore="KeyboardInaccessibleWidget" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        tools:ignore="RtlHardcoded">
 
-                        <TextView
-                            android:id="@+id/tv_nick"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#111111"
-                            android:textSize="16sp"
-                            tools:text="李大神" />
+                            android:layout_marginLeft="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        <net.oschina.app.improve.widget.IdentityView
-                            android:id="@+id/identityView"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/tv_nick"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/text_title_color"
+                                android:textSize="16sp"
+                                tools:text="Large Text" />
+
+                            <net.oschina.app.improve.widget.IdentityView
+                                android:id="@+id/identityView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/lay_4"
+                                android:layout_marginRight="16dp"
+                                app:oscWipeOffBorder="true" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/lay_4"
-                            tools:ignore="RtlHardcoded" />
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="@dimen/lay_4"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:singleLine="true"
+                                android:textColor="#9d9d9d"
+                                android:textSize="@dimen/font_12"
+                                tools:text="6分钟" />
+
+                            <TextView
+                                android:id="@+id/tv_client"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/space_4"
+                                android:layout_marginRight="@dimen/space_4"
+                                android:gravity="center"
+                                android:lines="1"
+                                android:singleLine="true"
+                                android:textColor="#9d9d9d"
+                                android:textSize="@dimen/font_12"
+                                tools:text="来自 iPhone" />
+                        </LinearLayout>
 
                     </LinearLayout>
+
+
                 </LinearLayout>
+                <!--portrait and nick-->
 
                 <!--content-->
-                <TextView
+
+                <net.oschina.app.widget.TweetTextView
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginTop="8dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:includeFontPadding="false"
                     android:lineSpacingMultiplier="1.2"
                     android:textColor="#333"
-                    android:textSize="16sp"
-                    tools:text="Content" />
+                    android:textSize="14sp"
+                    tools:text="最近研究了这个项目，学习rx系列,修复了楼主的bug 主要原因在mainActivity里面资讯fragment的构建" />
+
 
                 <net.oschina.app.improve.widget.TweetPicturesLayout
                     android:id="@+id/tweet_pics_layout"
@@ -190,65 +242,98 @@
                         app:verticalSpace="@dimen/lay_4" />
                 </LinearLayout>
 
-                <!--bottom info-->
-                <RelativeLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="@dimen/lay_8">
-
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textSize="12sp"
-                        tools:text="6分钟前" />
-
-                    <TextView
-                        android:id="@+id/tv_client"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/lay_8"
-                        android:layout_toEndOf="@id/tv_time"
-                        android:textSize="12sp"
-                        android:visibility="gone"
-                        tools:text="Android"
-                        tools:visibility="visible" />
+                    android:layout_height="40dp"
+                    android:background="@color/transparent"
+                    android:layout_marginTop="@dimen/lay_8"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/iv_thumbup"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/selector_thumb" />
-
-                        <ImageView
-                            android:id="@+id/iv_comment"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_marginStart="12dp"
-                            android:contentDescription="@string/app_name"
-                            android:src="@mipmap/ic_comment_30" />
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
                         <ImageView
                             android:id="@+id/iv_dispatch"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:layout_marginStart="12dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:scaleType="fitCenter"
                             android:src="@mipmap/ic_forward" />
+
+                        <TextView
+                            android:id="@+id/tv_dispatch_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
                     </LinearLayout>
-                </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_comment"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:src="@mipmap/ic_comment_30" />
+
+                        <TextView
+                            android:id="@+id/tv_tweet_comment_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_like"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_material_ripple"
+                        android:gravity="center">
+
+
+                        <ImageView
+                            android:id="@+id/iv_thumbup"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:src="@mipmap/ic_thumb_normal"
+                            tools:ignore="RtlHardcoded" />
+
+                        <TextView
+                            android:id="@+id/tv_tweet_like_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 

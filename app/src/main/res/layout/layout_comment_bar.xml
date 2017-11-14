@@ -29,18 +29,9 @@
             android:layout_marginRight="@dimen/lay_8"
             android:layout_marginTop="@dimen/lay_8"
             android:layout_weight="1"
-            android:background="@drawable/bg_text_comment"
+            android:background="@drawable/ic_bg_edit"
             android:orientation="horizontal"
             tools:ignore="RtlHardcoded">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:contentDescription="@string/comment_hint"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:src="@mipmap/ic_comment_40"
-                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tv_comment"

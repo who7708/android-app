@@ -70,6 +70,7 @@ public class ArticleDetailActivity extends BackActivity implements
     protected Behavior mBehavior;
     private long mStart;
     protected long mStay;//该界面停留时间
+    private ArticleDetailFragment mFragment;
 
     public static void show(Context context, Article article) {
         if (article == null)
@@ -91,9 +92,9 @@ public class ArticleDetailActivity extends BackActivity implements
         setStatusBarDarkMode();
         setDarkToolBar();
         mArticle = (Article) getIntent().getSerializableExtra("article");
-        ArticleDetailFragment fragment = ArticleDetailFragment.newInstance(mArticle);
-        mPresenter = new ArticleDetailPresenter(fragment, this, mArticle);
-        addFragment(R.id.fl_content, fragment);
+        mFragment = ArticleDetailFragment.newInstance(mArticle);
+        mPresenter = new ArticleDetailPresenter(mFragment, this, mArticle);
+        addFragment(R.id.fl_content, mFragment);
 
         LinearLayout layComment = (LinearLayout) findViewById(R.id.ll_comment);
         if (TextUtils.isEmpty(mCommentHint))
@@ -280,6 +281,7 @@ public class ArticleDetailActivity extends BackActivity implements
         mDelegation.getBottomSheet().dismiss();
         dismissLoadingDialog();
         SimplexToast.show(this, "评论成功");
+        mDelegation.setCommentCount(mArticle.getCommentCount());
     }
 
     @Override
@@ -335,6 +337,15 @@ public class ArticleDetailActivity extends BackActivity implements
             mBehavior.setStay(mStay);
             DBManager.getInstance()
                     .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && mFragment != null) {
+            mFragment.onRefreshing();
         }
     }
 

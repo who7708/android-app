@@ -17,7 +17,6 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.bean.SignUpEventOptions;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.detail.sign.StringParams;
-import net.oschina.app.improve.utils.MD5;
 import net.oschina.app.improve.write.Blog;
 import net.oschina.app.team.bean.Team;
 import net.oschina.app.util.StringUtils;

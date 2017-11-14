@@ -95,14 +95,14 @@
                             android:layout_height="wrap_content"
                             android:textColor="#6a6a6a"
                             android:textSize="12sp"
+                            android:visibility="gone"
+                            android:layout_marginRight="@dimen/lay_8"
                             tools:text="CSDN" />
 
                         <TextView
                             android:id="@+id/tv_pub_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/lay_8"
-                            android:layout_marginRight="@dimen/lay_8"
                             android:textColor="#6a6a6a"
                             android:textSize="12sp"
                             tools:text="2016-06-24" />

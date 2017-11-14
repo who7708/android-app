@@ -31,6 +31,7 @@ public class SinaShare extends BaseShare {
         super(mBuilder);
         mAPI = WeiboShareSDK.createWeiboAPI(mBuilder.mActivity, APP_KEY, false);
         mAPI.registerApp();
+        mBuilder.isShareImage = false;
     }
 
     @Override

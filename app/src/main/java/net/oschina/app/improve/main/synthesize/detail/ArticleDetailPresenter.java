@@ -174,6 +174,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
                             ResultBean<Comment> resultBean = AppOperator.createGson().fromJson(responseString, type);
                             if (resultBean.isSuccess()) {
+                                mArticle.setCommentCount(mArticle.getCommentCount() + 1);
                                 Comment respComment = resultBean.getResult();
                                 if (respComment != null) {
                                     mView.showCommentSuccess(respComment);

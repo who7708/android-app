@@ -1,12 +1,12 @@
 package net.oschina.app.improve.main.synthesize.comment;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -54,11 +54,10 @@ public class ArticleCommentActivity extends BackActivity implements ArticleComme
     protected long mCommentId;
     protected long mCommentAuthorId;
     private Article mArticle;
-
-    public static void show(Context context, Article article) {
-        Intent intent = new Intent(context, ArticleCommentActivity.class);
+    public static void show(AppCompatActivity activity, Article article) {
+        Intent intent = new Intent(activity, ArticleCommentActivity.class);
         intent.putExtra("article", article);
-        context.startActivity(intent);
+        activity.startActivityForResult(intent, 1);
     }
 
     @Override
@@ -184,6 +183,12 @@ public class ArticleCommentActivity extends BackActivity implements ArticleComme
                 mInputDoubleEmpty = false;
             }
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        setResult(RESULT_OK);
     }
 
     private static final int PERMISSION_ID = 0x0001;

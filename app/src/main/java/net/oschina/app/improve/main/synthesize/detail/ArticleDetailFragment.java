@@ -28,8 +28,6 @@ import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
 
-import java.util.List;
-
 /**
  * 文章详情
  * Created by huanghaibin on 2017/10/27.
@@ -75,7 +73,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             imageView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
             getImgLoader().load(mArticle.getImgs()[0])
-                    .fitCenter()
+                    .centerCrop()
                     .into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +109,12 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 mPresenter.onRefreshing();
             }
         });
+    }
+
+    @Override
+    public void onRefreshing() {
+        super.onRefreshing();
+        mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
     }
 
     @Override
@@ -165,17 +169,11 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
 
     @Override
     public void showCommentSuccess(Comment comment) {
-
+        
     }
 
     @Override
     public void showCommentError(String message) {
-
-    }
-
-    @Override
-    public void onRefreshSuccess(List<Article> data) {
-        super.onRefreshSuccess(data);
 
     }
 

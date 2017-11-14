@@ -3,6 +3,7 @@ package net.oschina.app.improve.main.synthesize.detail;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -80,7 +81,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
     private void init() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.layout_detail_article_comment, this, true);
-        mTitle = (TextView) findViewById(R.id.tv_blog_detail_comment);
+        mTitle = (TextView) findViewById(R.id.tv_comment);
         mLinearComment = (LinearLayout) findViewById(R.id.ll_comment);
         mLayComments = (LinearLayout) findViewById(R.id.lay_detail_comment);
         mLinearTip = (LinearLayout) findViewById(R.id.ll_tip);
@@ -314,7 +315,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (!TextUtils.isEmpty(mKey) && mArticle != null) {
-            ArticleCommentActivity.show(getContext(), mArticle);
+            ArticleCommentActivity.show((AppCompatActivity) getContext(), mArticle);
         }
     }
 
