@@ -21,7 +21,7 @@
             app:tabIndicatorColor="@color/main_green"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/main_green"
-            app:tabTextColor="@color/black" />
+            app:tabTextColor="#6A6A6A" />
 
         <ImageView
             android:id="@+id/iv_search"

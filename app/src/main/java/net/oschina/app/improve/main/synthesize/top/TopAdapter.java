@@ -78,6 +78,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
+        String sourceName = item.getType() != 0 ? "开源中国" : item.getSourceName();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
@@ -85,7 +86,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
-                h.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
+                h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 if (mReadState.already(item.getKey())) {
                     h.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
@@ -100,7 +101,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h1.mTextTitle.setText(item.getTitle());
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
-                h1.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
+                h1.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
                         .fitCenter()
@@ -117,7 +118,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
                 h2.mTextTitle.setText(item.getTitle());
                 h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
-                h2.mTextOrigin.setText(item.getType() != 0 ? "开源中国" : item.getSourceName());
+                h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h2.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
                 mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
                         .fitCenter()

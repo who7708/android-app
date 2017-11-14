@@ -148,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="-46dp"
+                android:layout_marginTop="-38dp"
                 android:background="@drawable/bg_article"
                 android:paddingBottom="@dimen/lay_12"
                 android:paddingTop="20dp">

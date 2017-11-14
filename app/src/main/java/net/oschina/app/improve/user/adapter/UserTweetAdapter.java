@@ -31,13 +31,13 @@ import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.TweetLikeReverse;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
+import net.oschina.app.improve.utils.Platform;
 import net.oschina.app.improve.utils.parser.TweetParser;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.TweetPicturesLayout;
 import net.oschina.app.util.ImageUtils;
-import net.oschina.app.util.PlatfromUtil;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -125,8 +125,8 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
 
 
         holder.mViewTime.setText(StringUtils.formatSomeAgo(item.getPubDate()));
-        PlatfromUtil.setPlatFromString(holder.mViewPlatform, item.getAppClient());
-
+        holder.mViewPlatform.setText(String.format("来自 %s", Platform.getPlatform(item.getAppClient())));
+        holder.mViewPlatform.setVisibility(TextUtils.isEmpty(Platform.getPlatform(item.getAppClient())) ? View.GONE : View.VISIBLE);
         if (!TextUtils.isEmpty(item.getContent())) {
             String content = item.getContent().replaceAll("[\n\\s]+", " ");
             //holder.mViewContent.setText(AssimilateUtils.assimilate(mContext, content));
@@ -155,11 +155,8 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
                 item.isLiked()
                         ? R.mipmap.ic_thumbup_actived
                         : R.mipmap.ic_thumb_normal);
-        holder.mViewLikeState.setTag(position);
-        holder.mViewLikeState.setOnClickListener(mOnLikeClickListener);
-
-        holder.mViewLikeCount.setTag(position);
-        holder.mViewLikeCount.setOnClickListener(mOnLikeClickListener);
+        holder.mLinearLike.setTag(position);
+        holder.mLinearLike.setOnClickListener(mOnLikeClickListener);
 
         Tweet.Image[] images = item.getImages();
         holder.mLayoutFlow.setImage(images);
@@ -279,6 +276,8 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
         TextView mViewDispatchCount;
         @Bind(R.id.layout_ref)
         LinearLayout mLayoutRef;
+        @Bind(R.id.ll_like)
+        LinearLayout mLinearLike;
 
 
         public ViewHolder(View itemView) {

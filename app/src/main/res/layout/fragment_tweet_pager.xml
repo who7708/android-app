@@ -14,7 +14,7 @@
         app:tabIndicatorColor="@color/main_green"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/main_green"
-        app:tabTextColor="@color/black" />
+        app:tabTextColor="#6A6A6A" />
 
     <View style="@style/h_line" />
 

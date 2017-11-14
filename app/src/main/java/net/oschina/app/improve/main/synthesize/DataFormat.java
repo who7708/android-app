@@ -2,10 +2,10 @@ package net.oschina.app.improve.main.synthesize;
 
 import android.text.TextUtils;
 
-import net.oschina.app.util.StringUtils;
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 头条时间格式化
@@ -13,6 +13,9 @@ import java.util.Date;
  */
 
 public final class DataFormat {
+
+    private static final SimpleDateFormat CUR_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
     public static String parsePubDate(String pubDate) {
         if (TextUtils.isEmpty(pubDate) || pubDate.length() < 8)
             return pubDate;
@@ -39,7 +42,7 @@ public final class DataFormat {
     }
 
     private static boolean isToday(String pubDate) {
-        String today = StringUtils.getCurrentTimeStr();
+        String today = CUR_FORMAT.format(new Date());
         return pubDate.equalsIgnoreCase(today);
     }
 

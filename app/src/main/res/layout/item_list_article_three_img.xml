@@ -120,6 +120,7 @@
             android:textSize="14sp"
             tools:text="黄海彬"
             android:maxLength="8"
+            android:visibility="gone"
             tools:ignore="RtlHardcoded" />
 
         <TextView
@@ -131,7 +132,7 @@
             android:lines="1"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="12sp"
+            android:textSize="14sp"
             tools:text="2012-12-01 22:10" />
 
         <LinearLayout
