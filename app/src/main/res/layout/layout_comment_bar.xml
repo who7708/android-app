@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:hint="发表评论"
-                android:paddingLeft="@dimen/lay_16"
+                android:paddingLeft="@dimen/lay_8"
                 tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
         </LinearLayout>
 

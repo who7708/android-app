@@ -112,7 +112,7 @@
             android:layout_marginRight="@dimen/lay_8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="csdn"
             tools:ignore="RtlHardcoded" />
 
@@ -139,7 +139,7 @@
             android:lines="1"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="2012-12-01 22:10" />
 
         <LinearLayout

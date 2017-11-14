@@ -48,10 +48,9 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:lineSpacingExtra="4dp"
-                android:paddingLeft="@dimen/lay_16"
-                android:paddingRight="@dimen/lay_16"
-                android:text="Java JNI实现原理初探,JNI实现原理初探"
+                android:paddingLeft="@dimen/lay_12"
+                android:paddingRight="@dimen/lay_12"
+                android:text="Java JNI实现原理初探JNI实现原理初探"
                 android:textColor="@color/text_title_color"
                 android:textSize="@dimen/font_16"
                 tools:ignore="HardcodedText" />
@@ -61,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="@dimen/lay_16"
+                android:paddingLeft="@dimen/lay_12"
                 tools:ignore="RtlHardcoded,RtlSymmetry">
 
                 <TextView

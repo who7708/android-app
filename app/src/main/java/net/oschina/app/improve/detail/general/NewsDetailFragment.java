@@ -62,7 +62,7 @@ public class NewsDetailFragment extends DetailFragment {
     public void showGetDetailSuccess(SubBean bean) {
         super.showGetDetailSuccess(bean);
         mTextTitle.setText(bean.getTitle());
-        mTextPubDate.setText("发布于 " + StringUtils.formatYearMonthDay(bean.getPubDate()));
+        mTextPubDate.setText(StringUtils.formatYearMonthDay(bean.getPubDate()));
         Author author = mBean.getAuthor();
         if (author != null) {
             mTextAuthor.setText(author.getName());
