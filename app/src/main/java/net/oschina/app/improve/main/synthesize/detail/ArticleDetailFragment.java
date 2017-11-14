@@ -22,11 +22,13 @@ import net.oschina.app.improve.detail.general.NewsDetailActivity;
 import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.DataFormat;
-import net.oschina.app.improve.main.synthesize.top.TopAdapter;
+import net.oschina.app.improve.main.synthesize.article.ArticleAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
+
+import java.util.List;
 
 /**
  * 文章详情
@@ -39,6 +41,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     private OSCApplication.ReadState mReadState;
     protected CommentView mCommentView;
     private Article mArticle;
+    private View mHeaderView;
 
     public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -64,10 +67,10 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     protected void initData() {
         mReadState = OSCApplication.getReadState("sub_list");
-        View view = mInflater.inflate(R.layout.layou_article_header, null);
-        mAdapter.setHeaderView(view);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv_article);
-        FrameLayout frameLayout = (FrameLayout)view.findViewById(R.id.fl_img);
+        mHeaderView = mInflater.inflate(R.layout.layou_article_header, null);
+        mAdapter.setHeaderView(mHeaderView);
+        ImageView imageView = (ImageView) mHeaderView.findViewById(R.id.iv_article);
+        FrameLayout frameLayout = (FrameLayout) mHeaderView.findViewById(R.id.fl_img);
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
             imageView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
@@ -77,28 +80,28 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ImageGalleryActivity.show(mContext,mArticle.getImgs()[0]);
+                    ImageGalleryActivity.show(mContext, mArticle.getImgs()[0]);
                 }
             });
         }
-        TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
-        TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
-        TextView tv_pub_date = (TextView) view.findViewById(R.id.tv_pub_date);
-        TextView tv_origin = (TextView) view.findViewById(R.id.tv_origin);
-        TextView tv_detail_abstract = (TextView) view.findViewById(R.id.tv_detail_abstract);
+        TextView tv_title = (TextView) mHeaderView.findViewById(R.id.tv_title);
+        TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
+        TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
+        TextView tv_origin = (TextView) mHeaderView.findViewById(R.id.tv_origin);
+        TextView tv_detail_abstract = (TextView) mHeaderView.findViewById(R.id.tv_detail_abstract);
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
         tv_detail_abstract.setText(mArticle.getDesc());
-        PortraitView portraitView = (PortraitView) view.findViewById(R.id.iv_avatar);
+        PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSourceName());
         Author author = new Author();
         author.setName(mArticle.getAuthorName());
         portraitView.setup(author);
-        mCommentView = (CommentView) view.findViewById(R.id.commentView);
+        mCommentView = (CommentView) mHeaderView.findViewById(R.id.commentView);
         mCommentView.setTitle("热门评论");
         mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
-        view.findViewById(R.id.btn_read_all).setOnClickListener(this);
+        mHeaderView.findViewById(R.id.btn_read_all).setOnClickListener(this);
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -171,7 +174,35 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     }
 
     @Override
+    public void onRefreshSuccess(List<Article> data) {
+        super.onRefreshSuccess(data);
+
+    }
+
+    @Override
+    public void onComplete() {
+        super.onComplete();
+        if (mContext == null)
+            return;
+        hideOrShowTitle(mAdapter.getItems().size() != 0);
+    }
+
+    private void hideOrShowTitle(boolean isShow) {
+        if (isShow) {
+            mHeaderView.findViewById(R.id.line1).setVisibility(View.VISIBLE);
+            mHeaderView.findViewById(R.id.line2).setVisibility(View.VISIBLE);
+            mHeaderView.findViewById(R.id.tv_blog_detail_comment).setVisibility(View.VISIBLE);
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+        } else {
+            mHeaderView.findViewById(R.id.line1).setVisibility(View.GONE);
+            mHeaderView.findViewById(R.id.line2).setVisibility(View.GONE);
+            mHeaderView.findViewById(R.id.tv_blog_detail_comment).setVisibility(View.GONE);
+            mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE,true);
+        }
+    }
+
+    @Override
     protected BaseRecyclerAdapter<Article> getAdapter() {
-        return new TopAdapter(mContext, BaseRecyclerAdapter.BOTH_HEADER_FOOTER);
+        return new ArticleAdapter(mContext, BaseRecyclerAdapter.BOTH_HEADER_FOOTER);
     }
 }

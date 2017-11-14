@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.top;
+package net.oschina.app.improve.main.synthesize.article;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,7 +24,7 @@ import net.oschina.app.util.TDevice;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecyclerAdapter.OnLoadingHeaderCallBack {
+public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements BaseRecyclerAdapter.OnLoadingHeaderCallBack {
 
     private static final int VIEW_TYPE_NOT_IMG = 1;
     private static final int VIEW_TYPE_ONE_IMG = 2;
@@ -32,7 +32,7 @@ public class TopAdapter extends BaseRecyclerAdapter<Article> implements BaseRecy
     private RequestManager mLoader;
     private OSCApplication.ReadState mReadState;
 
-    public TopAdapter(Context context, int mode) {
+    public ArticleAdapter(Context context, int mode) {
         super(context, mode);
         mReadState = OSCApplication.getReadState("sub_list");
         setOnLoadingHeaderCallBack(this);

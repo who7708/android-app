@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.top;
+package net.oschina.app.improve.main.synthesize.article;
 
 import net.oschina.app.improve.base.BaseListPresenter;
 import net.oschina.app.improve.base.BaseListView;
@@ -9,7 +9,7 @@ import net.oschina.app.improve.bean.Article;
  * Created by huanghaibin on 2017/10/23.
  */
 
- interface TopContract {
+ interface ArticleContract {
 
      interface View extends BaseListView<Presenter,Article>{
 

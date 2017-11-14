@@ -176,7 +176,10 @@
             android:layout_height="wrap_content"
             android:background="@color/ques_detail_bg_color" />
 
-        <View style="@style/h_line" />
+        <View
+            android:visibility="gone"
+            android:id="@+id/line1"
+            style="@style/h_line" />
 
         <TextView
             android:id="@+id/tv_blog_detail_comment"
@@ -190,8 +193,12 @@
             android:text="相关推荐"
             android:textColor="#9d9d9d"
             android:textSize="12sp"
+            android:visibility="gone"
             tools:ignore="HardcodedText" />
 
-        <View style="@style/h_line" />
+        <View
+            android:visibility="gone"
+            android:id="@+id/line2"
+            style="@style/h_line" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.top;
+package net.oschina.app.improve.main.synthesize.article;
 
 import android.view.View;
 
@@ -25,17 +25,17 @@ import java.util.List;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Article> implements TopContract.View, OnTabReselectListener {
+public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presenter, Article> implements ArticleContract.View, OnTabReselectListener {
 
     private HeaderView mHeaderView;
     private OSCApplication.ReadState mReadState;
-    public static TopFragment newInstance() {
-        return new TopFragment();
+    public static ArticleFragment newInstance() {
+        return new ArticleFragment();
     }
 
     @Override
     protected void initWidget(View root) {
-        new TopPresenter(this);
+        new ArticlePresenter(this);
         super.initWidget(root);
     }
 
@@ -112,6 +112,6 @@ public class TopFragment extends BaseRecyclerFragment<TopContract.Presenter, Art
 
     @Override
     protected BaseRecyclerAdapter<Article> getAdapter() {
-        return new TopAdapter(mContext, BaseRecyclerAdapter.BOTH_HEADER_FOOTER);
+        return new ArticleAdapter(mContext, BaseRecyclerAdapter.BOTH_HEADER_FOOTER);
     }
 }

@@ -1,4 +1,4 @@
-package net.oschina.app.improve.main.synthesize.top;
+package net.oschina.app.improve.main.synthesize.article;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,12 +27,12 @@ import cz.msebera.android.httpclient.Header;
  * Created by huanghaibin on 2017/10/23.
  */
 
-class TopPresenter implements TopContract.Presenter {
-    private final TopContract.View mView;
+class ArticlePresenter implements ArticleContract.Presenter {
+    private final ArticleContract.View mView;
     private String mNextToken;
     private static final String CACHE_NAME = "article_list";
 
-    TopPresenter(TopContract.View nView) {
+    ArticlePresenter(ArticleContract.View nView) {
         this.mView = nView;
         this.mView.setPresenter(this);
     }

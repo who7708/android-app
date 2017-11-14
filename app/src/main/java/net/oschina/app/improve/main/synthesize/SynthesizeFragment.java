@@ -11,7 +11,7 @@ import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.subscription.SubFragment;
-import net.oschina.app.improve.main.synthesize.top.TopFragment;
+import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
 import net.oschina.app.improve.search.activities.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 
@@ -62,8 +62,8 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
                     ((BaseGeneralListFragment) fragment).onTabReselect();
                 else if (fragment instanceof BaseGeneralRecyclerFragment)
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
-                else if (fragment instanceof TopFragment)
-                    ((TopFragment) fragment).onTabReselect();
+                else if (fragment instanceof ArticleFragment)
+                    ((ArticleFragment) fragment).onTabReselect();
             }
         }
     }
@@ -71,7 +71,7 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
     @Override
     protected List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(TopFragment.newInstance());
+        fragments.add(ArticleFragment.newInstance());
         fragments.add(getSubFragment(6,
                 "开源资讯",
                 "https://www.oschina.net/action/apiv2/sub_list?token=d6112fa662bc4bf21084670a857fbd20",
