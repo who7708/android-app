@@ -22,7 +22,6 @@
             android:background="@drawable/ic_material"
             android:gravity="center|left"
             android:lineSpacingExtra="4dp"
-            android:paddingBottom="@dimen/lay_8"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="@dimen/lay_12"
@@ -34,7 +33,7 @@
             android:id="@+id/fl_lab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/lay_4"
+            android:layout_marginTop="@dimen/lay_8"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             app:oscHorizontalSpace="8dp"
@@ -46,10 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:paddingBottom="@dimen/lay_12"
+            android:paddingBottom="@dimen/lay_8"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="@dimen/lay_12">
+            android:paddingRight="16dp">
 
             <net.oschina.app.improve.widget.OWebView
                 android:id="@+id/webView"

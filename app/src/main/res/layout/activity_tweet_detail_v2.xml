@@ -10,22 +10,22 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:titleTextColor="@color/black"
         app:navigationIcon="@mipmap/btn_back_dark_pressed"
         app:popupTheme="@style/ToolbarPopupBlackTheme"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         tools:ignore="UnusedAttribute" />
 
 
     <View style="@style/h_line" />
 
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/layout_coordinator"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <!--detail header-->
         <android.support.design.widget.AppBarLayout
@@ -43,7 +43,6 @@
                 android:descendantFocusability="blocksDescendants"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/lay_12"
                 app:layout_scrollFlags="scroll">
 
                 <LinearLayout
@@ -58,8 +57,8 @@
 
                     <net.oschina.app.improve.widget.PortraitView
                         android:id="@+id/iv_portrait"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:clickable="true"
                         android:src="@mipmap/widget_default_face"
                         tools:ignore="KeyboardInaccessibleWidget" />
@@ -245,6 +244,97 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/transparent"
+                    android:layout_marginTop="@dimen/lay_8"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/iv_dispatch"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:scaleType="fitCenter"
+                            android:src="@mipmap/ic_forward" />
+
+                        <TextView
+                            android:id="@+id/tv_dispatch_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/iv_comment"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:src="@mipmap/ic_comment_30" />
+
+                        <TextView
+                            android:id="@+id/tv_tweet_comment_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_like"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_material_ripple"
+                        android:gravity="center">
+
+
+                        <ImageView
+                            android:id="@+id/iv_thumbup"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginLeft="@dimen/space_4"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/space_4"
+                            android:src="@mipmap/ic_thumb_normal"
+                            tools:ignore="RtlHardcoded" />
+
+                        <TextView
+                            android:id="@+id/tv_tweet_like_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="#9d9d9d"
+                            android:textSize="@dimen/font_10"
+                            tools:text="12" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -252,116 +342,9 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/lay_44"
             android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <View style="@style/h_line" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        tools:ignore="HardcodedText">
-
-        <FrameLayout
-            android:id="@+id/fl_footer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <LinearLayout
-                android:id="@+id/ll_dispatch"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/ic_material_ripple"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/iv_dispatch"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="@dimen/space_4"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/ic_forward" />
-
-                <TextView
-                    android:id="@+id/tv_dispatch_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="转发"
-                    android:textColor="#9d9d9d"
-                    android:textSize="@dimen/font_12" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_comment"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/ic_material_ripple"
-                android:gravity="center"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_comment"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/app_name"
-                    android:padding="@dimen/space_4"
-                    android:src="@mipmap/ic_comment_30" />
-
-                <TextView
-                    android:id="@+id/tv_tweet_comment_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="评论"
-                    android:textColor="#9d9d9d"
-                    android:textSize="@dimen/font_12" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_like"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/ic_material_ripple"
-                android:gravity="center">
-
-
-                <ImageView
-                    android:id="@+id/iv_thumbup"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="@dimen/space_4"
-                    android:contentDescription="@string/app_name"
-                    android:padding="@dimen/space_4"
-                    android:src="@drawable/selector_thumb"
-                    tools:ignore="RtlHardcoded" />
-
-                <TextView
-                    android:id="@+id/tv_tweet_like_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="点赞"
-                    android:textColor="#9d9d9d"
-                    android:textSize="@dimen/font_12" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </FrameLayout>
 </LinearLayout>

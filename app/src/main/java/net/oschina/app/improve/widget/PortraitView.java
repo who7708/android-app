@@ -177,7 +177,7 @@ public class PortraitView extends CircleImageView {
 
         Canvas canvas = new Canvas(bitmap);
         canvas.drawColor(getBackgroundColor(firstChar));
-        canvas.drawText(firstChar, centerX, centerY + fontHalfH, paint);
+        canvas.drawText(firstChar, centerX + 4, centerY + fontHalfH, paint);
 
         return bitmap;
     }

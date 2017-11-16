@@ -301,6 +301,13 @@
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".improve.main.tweet.detail.TweetDetailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="动弹详情"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".improve.detail.sign.SignUpActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="活动报名"

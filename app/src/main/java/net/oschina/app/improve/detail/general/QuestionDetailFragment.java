@@ -63,6 +63,10 @@ public class QuestionDetailFragment extends DetailFragment {
         mTextCommentCount.setText(String.valueOf(bean.getStatistics().getComment()));
         mTextViewCount.setText(String.valueOf(bean.getStatistics().getView()));
         mFlowLayout.removeAllViews();
+        if (bean.getTags() == null || bean.getTags().length == 0) {
+            mFlowLayout.setVisibility(View.GONE);
+            return;
+        }
         for (String tag : bean.getTags()) {
             TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
             if (!TextUtils.isEmpty(tag))

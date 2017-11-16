@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@drawable/ic_material"
     android:orientation="vertical"
-    android:paddingTop="@dimen/lay_12">
+    android:paddingTop="@dimen/lay_12"
+    tools:ignore="RtlHardcoded,SmallSp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -17,7 +18,7 @@
         android:paddingRight="@dimen/lay_16"
         android:text="Java JNI实现原理初探"
         android:textColor="@color/text_title_color"
-        android:textSize="@dimen/font_16"
+        android:textSize="@dimen/font_18"
         tools:ignore="HardcodedText" />
 
 
@@ -28,12 +29,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:lineSpacingExtra="4dp"
+        android:lineSpacingExtra="2dp"
         android:maxLines="2"
         android:paddingLeft="@dimen/lay_16"
         android:paddingRight="@dimen/lay_16"
         android:textColor="@color/text_desc_color"
-        android:textSize="14sp"
+        android:textSize="12sp"
         tools:text="New Text" />
 
     <LinearLayout
@@ -47,29 +48,28 @@
             android:id="@+id/tv_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
             android:layout_marginRight="@dimen/lay_8"
+            android:lines="1"
+            android:maxLength="8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="12sp"
-            tools:text="csdn"
-            android:maxLength="8"
-            tools:ignore="RtlHardcoded" />
+            android:textSize="10sp"
+            tools:ignore="RtlHardcoded"
+            tools:text="csdn" />
 
 
         <TextView
             android:id="@+id/tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
             android:layout_marginRight="@dimen/lay_8"
-            android:visibility="gone"
+            android:lines="1"
+            android:maxLength="8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="14sp"
-            tools:text="黄海彬"
-            android:maxLength="8"
-            tools:ignore="RtlHardcoded" />
+            android:textSize="10sp"
+            android:visibility="gone"
+            tools:text="黄海彬" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -78,9 +78,8 @@
             android:layout_gravity="center"
             android:layout_weight="2"
             android:lines="1"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
-            android:textSize="12sp"
+            android:textSize="10sp"
             tools:text="2012-12-01 22:10" />
 
         <LinearLayout
@@ -105,7 +104,7 @@
                 android:gravity="center_vertical"
                 android:text="0"
                 android:textColor="#9d9d9d"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 tools:ignore="HardcodedText"
                 tools:text="12" />
         </LinearLayout>

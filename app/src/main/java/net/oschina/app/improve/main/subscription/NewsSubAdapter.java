@@ -94,7 +94,6 @@ public class NewsSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
             SpannableString spannable = new SpannableString(text);
             spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             vh.tv_title.setText(spannable);
-            vh.tv_title.setTextSize(16.0f);
         } else {
             vh.tv_title.setText(item.getTitle());
         }

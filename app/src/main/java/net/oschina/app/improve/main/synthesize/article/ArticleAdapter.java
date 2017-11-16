@@ -78,7 +78,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
-        String sourceName = item.getType() != 0 ? "开源中国" : item.getSourceName();
+        String sourceName = item.getType() != 0 ? "开源中国" : item.getSource();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
@@ -103,7 +103,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h1.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
+                mLoader.load(item.getImgs()[0] + "!/both/330x246/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h1.mImageView);
@@ -120,14 +120,14 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h2.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0] + "!/both/246x330/quality/100")
+                mLoader.load(item.getImgs()[0] + "!/both/330x246/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageOne);
-                mLoader.load(item.getImgs()[1] + "!/both/246x330/quality/100")
+                mLoader.load(item.getImgs()[1] + "!/both/330x246/quality/100")
                         .fitCenter()
                         .into(h2.mImageTwo);
-                mLoader.load(item.getImgs()[2] + "!/both/246x330/quality/100")
+                mLoader.load(item.getImgs()[2] + "!/both/330x246/quality/100")
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageThree);

@@ -72,6 +72,7 @@ import cz.msebera.android.httpclient.Header;
  * on 16/6/13.
  */
 @SuppressWarnings("deprecation")
+@Deprecated
 public class TweetDetailActivity extends BackActivity implements TweetDetailContract.Operator {
 
     public static final String BUNDLE_KEY_TWEET = "BUNDLE_KEY_TWEET";
@@ -113,6 +114,8 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
     @Bind(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
+    @Bind(R.id.fl_footer)
+    FrameLayout mFrameFooter;
     private Tweet tweet;
     private final List<TweetComment> replies = new ArrayList<>();
     private RecordButtonUtil mRecordUtil;
@@ -267,7 +270,7 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
         mToolBar.setTitle("动弹详情");
         setSupportActionBar(mToolBar);
 
-        mDelegation = CommentBar.delegation(this, mCoordinatorLayout);
+        mDelegation = CommentBar.delegation(this, mFrameFooter);
 
         mDelegation.getBottomSheet().getEditText().setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -494,6 +497,22 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
             this.replies.add(comment);
         }
         this.mDelegation.performClick();
+    }
+
+
+    @OnClick({R.id.ll_dispatch, R.id.ll_comment, R.id.ll_like})
+    void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_dispatch:
+                onClickTransmit();
+                break;
+            case R.id.ll_comment:
+                onClickComment();
+                break;
+            case R.id.ll_like:
+                onClickThumbUp();
+                break;
+        }
     }
 
     @Override

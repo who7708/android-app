@@ -92,7 +92,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
         tv_detail_abstract.setText(mArticle.getDesc());
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
-        tv_origin.setText(mArticle.getSourceName());
+        tv_origin.setText(mArticle.getSource());
         Author author = new Author();
         author.setName(mArticle.getAuthorName());
         portraitView.setup(author);

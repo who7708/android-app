@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/ic_material"
     android:orientation="vertical"
-    android:paddingTop="@dimen/lay_12">
+    android:paddingTop="@dimen/lay_12"
+    tools:ignore="RtlHardcoded,SmallSp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +20,9 @@
             android:layout_width="119dp"
             android:layout_height="64dp"
             android:background="@drawable/bg_image"
-            app:ratio_flag="height"
+            android:padding="1px"
             app:layout_ratio="1.7"
-            android:padding="1px">
+            app:ratio_flag="height">
 
             <ImageView
                 android:id="@+id/iv_image"
@@ -52,42 +53,41 @@
                 android:paddingRight="@dimen/lay_12"
                 android:text="Java JNI实现原理初探JNI实现原理初探"
                 android:textColor="@color/text_title_color"
-                android:textSize="@dimen/font_16"
+                android:textSize="@dimen/font_18"
                 tools:ignore="HardcodedText" />
 
             <LinearLayout
-                android:paddingTop="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/lay_12"
+                android:paddingTop="2dp"
                 tools:ignore="RtlHardcoded,RtlSymmetry">
 
                 <TextView
                     android:id="@+id/tv_origin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lines="1"
                     android:layout_marginRight="@dimen/lay_8"
+                    android:lines="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
-                    android:textSize="14sp"
-                    tools:text="csdn" />
+                    android:textSize="10sp"
+                    tools:text="开源" />
 
                 <TextView
                     android:id="@+id/tv_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:visibility="gone"
                     android:layout_marginLeft="@dimen/lay_8"
                     android:layout_marginRight="@dimen/lay_8"
+                    android:lines="1"
+                    android:maxLength="8"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
-                    android:textSize="14sp"
-                    tools:text="黄海彬"
-                    android:maxLength="8"
-                    tools:ignore="RtlHardcoded" />
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    tools:text="黄海彬" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -98,7 +98,7 @@
                     android:lines="1"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     tools:text="2012-12-01" />
 
                 <LinearLayout
@@ -108,8 +108,8 @@
 
                     <ImageView
                         android:id="@+id/iv_info_comment"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="4dp"
                         android:contentDescription="@string/app_name"
@@ -123,7 +123,7 @@
                         android:gravity="center_vertical"
                         android:text="0"
                         android:textColor="#9d9d9d"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         tools:ignore="HardcodedText"
                         tools:text="12" />
                 </LinearLayout>

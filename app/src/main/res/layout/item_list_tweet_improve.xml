@@ -21,8 +21,8 @@
 
         <net.oschina.app.improve.widget.PortraitView
             android:id="@+id/iv_tweet_face"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:clickable="true"
             android:src="@mipmap/widget_default_face"
             tools:ignore="KeyboardInaccessibleWidget" />
