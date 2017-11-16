@@ -1,22 +1,20 @@
 package net.oschina.app.improve.detail.general;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
-import net.oschina.app.improve.bean.Software;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.detail.v2.DetailFragment;
 import net.oschina.app.improve.utils.ReadedIndexCacheManager;
+import net.oschina.app.improve.widget.AutoScrollView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.StringUtils;
-
-import butterknife.Bind;
-import butterknife.OnLongClick;
 
 /**
  * Created by haibin
@@ -24,23 +22,13 @@ import butterknife.OnLongClick;
  */
 
 public class NewsDetailFragment extends DetailFragment {
-    @Bind(R.id.tv_title)
-    TextView mTextTitle;
+    private TextView mTextTitle;
 
-    @Bind(R.id.tv_pub_date)
-    TextView mTextPubDate;
+    private TextView mTextPubDate;
 
-    @Bind(R.id.tv_author)
-    TextView mTextAuthor;
+    private TextView mTextAuthor;
 
-    @Bind(R.id.lay_about_software)
-    LinearLayout mLinearSoftware;
-
-    @Bind(R.id.tv_about_software_title)
-    TextView mTextSoftwareTitle;
-
-    @Bind(R.id.iv_avatar)
-    PortraitView mPortraitView;
+    private PortraitView mPortraitView;
 
     public static NewsDetailFragment newInstance() {
         return new NewsDetailFragment();
@@ -49,6 +37,15 @@ public class NewsDetailFragment extends DetailFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_news_detail_v2;
+    }
+
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+        mTextTitle = (TextView)mHeaderView.findViewById(R.id.tv_title);
+        mTextPubDate = (TextView)mHeaderView.findViewById(R.id.tv_pub_date);
+        mTextAuthor = (TextView)mHeaderView.findViewById(R.id.tv_author);
+        mPortraitView = (PortraitView)mHeaderView.findViewById(R.id.iv_avatar);
     }
 
     @Override
@@ -68,19 +65,6 @@ public class NewsDetailFragment extends DetailFragment {
             mTextAuthor.setText(author.getName());
         }
         mPortraitView.setup(author);
-        final Software software = bean.getSoftware();
-        if (software != null) {
-            mLinearSoftware.setVisibility(View.VISIBLE);
-            mTextSoftwareTitle.setText(software.getName());
-            mLinearSoftware.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SoftwareDetailActivity.show(getActivity(), software.getId());
-                }
-            });
-        } else {
-            mLinearSoftware.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -97,9 +81,15 @@ public class NewsDetailFragment extends DetailFragment {
         super.onDestroy();
     }
 
-    @OnLongClick(R.id.tv_title)
-    boolean onLongClickTitle() {
-        showCopyTitle();
-        return true;
+    @Override
+    protected View getHeaderView() {
+        return new NewsDetailHeaderView(mContext);
+    }
+
+    private static class NewsDetailHeaderView extends AutoScrollView{
+        public NewsDetailHeaderView(Context context) {
+            super(context);
+            LayoutInflater.from(context).inflate(R.layout.layout_news_detail_header, this, true);
+        }
     }
 }

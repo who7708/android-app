@@ -54,7 +54,6 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         return R.layout.fragment_article;
     }
 
-
     @Override
     protected void initBundle(Bundle bundle) {
         super.initBundle(bundle);
@@ -65,7 +64,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     protected void initData() {
         mReadState = OSCApplication.getReadState("sub_list");
-        mHeaderView = mInflater.inflate(R.layout.layou_article_header, null);
+        mHeaderView = mInflater.inflate(R.layout.layout_article_header, null);
         mAdapter.setHeaderView(mHeaderView);
         ImageView imageView = (ImageView) mHeaderView.findViewById(R.id.iv_article);
         FrameLayout frameLayout = (FrameLayout) mHeaderView.findViewById(R.id.fl_img);
@@ -189,12 +188,12 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         if (isShow) {
             mHeaderView.findViewById(R.id.line1).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.VISIBLE);
-            mHeaderView.findViewById(R.id.tv_blog_detail_comment).setVisibility(View.VISIBLE);
+            mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.VISIBLE);
             mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
         } else {
             mHeaderView.findViewById(R.id.line1).setVisibility(View.GONE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.GONE);
-            mHeaderView.findViewById(R.id.tv_blog_detail_comment).setVisibility(View.GONE);
+            mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.GONE);
             mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE,true);
         }
     }
