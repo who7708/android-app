@@ -150,7 +150,7 @@
                     android:includeFontPadding="false"
                     android:lineSpacingMultiplier="1.2"
                     android:textColor="#333"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     tools:text="最近研究了这个项目，学习rx系列,修复了楼主的bug 主要原因在mainActivity里面资讯fragment的构建" />
 
 

@@ -42,7 +42,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:textColor="@color/text_title_color"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     tools:text="Title" />
 
                 <TextView

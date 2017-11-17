@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/ic_material"
     android:orientation="vertical"
-    tools:ignore="RtlHardcoded,SmallSp"
-    android:paddingTop="@dimen/lay_12">
+    android:paddingTop="@dimen/lay_12"
+    tools:ignore="RtlHardcoded,SmallSp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -19,7 +19,7 @@
         android:paddingRight="@dimen/lay_16"
         android:text="Java JNI实现原理初探"
         android:textColor="@color/text_title_color"
-        android:textSize="@dimen/font_18"
+        android:textSize="17sp"
         tools:ignore="HardcodedText" />
 
 
@@ -38,9 +38,9 @@
             android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/bg_image"
-            app:ratio_flag="width"
+            android:padding="1px"
             app:layout_ratio="1.7"
-            android:padding="1px">
+            app:ratio_flag="width">
 
             <ImageView
                 android:id="@+id/iv_img_1"
@@ -59,10 +59,10 @@
             android:layout_marginLeft="@dimen/lay_8"
             android:layout_marginRight="@dimen/lay_8"
             android:layout_weight="1"
-            app:ratio_flag="width"
-            app:layout_ratio="1.7"
             android:background="@drawable/bg_image"
-            android:padding="1px">
+            android:padding="1px"
+            app:layout_ratio="1.7"
+            app:ratio_flag="width">
 
             <ImageView
                 android:id="@+id/iv_img_2"
@@ -80,9 +80,9 @@
             android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/bg_image"
-            app:ratio_flag="width"
+            android:padding="1px"
             app:layout_ratio="1.7"
-            android:padding="1px">
+            app:ratio_flag="width">
 
             <ImageView
                 android:id="@+id/iv_img_3"
@@ -109,27 +109,28 @@
             android:id="@+id/tv_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/lay_4"
             android:lines="1"
-            android:layout_marginRight="@dimen/lay_8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
+            android:text="csdn"
             tools:text="csdn"
-             />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
             android:layout_marginRight="@dimen/lay_8"
+            android:lines="1"
+            android:maxLength="8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
-            tools:text="黄海彬"
-            android:maxLength="8"
             android:visibility="gone"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="HardcodedText,RtlHardcoded"
+            android:text="黄海彬" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -141,7 +142,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
-            tools:text="2012-12-01 22:10" />
+            tools:ignore="HardcodedText"
+            android:text="2012-12-01 22:10" />
 
         <LinearLayout
             android:layout_width="wrap_content"

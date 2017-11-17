@@ -18,7 +18,7 @@
         android:paddingRight="@dimen/lay_16"
         android:text="Java JNI实现原理初探"
         android:textColor="@color/text_title_color"
-        android:textSize="@dimen/font_18"
+        android:textSize="17sp"
         tools:ignore="HardcodedText" />
 
 
@@ -42,20 +42,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/lay_16"
+        tools:ignore="HardcodedText,RtlHardcoded"
         android:paddingRight="@dimen/lay_16">
 
         <TextView
             android:id="@+id/tv_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/lay_8"
+            android:layout_marginRight="@dimen/lay_4"
             android:lines="1"
             android:maxLength="8"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
-            tools:ignore="RtlHardcoded"
-            tools:text="csdn" />
+            android:text="csdn" />
 
 
         <TextView
@@ -69,7 +69,7 @@
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
             android:visibility="gone"
-            tools:text="黄海彬" />
+            android:text="黄海彬" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -80,7 +80,7 @@
             android:lines="1"
             android:textColor="@color/text_secondary_color"
             android:textSize="10sp"
-            tools:text="2012-12-01 22:10" />
+            android:text="2012-12-01 22:10" />
 
         <LinearLayout
             android:layout_width="wrap_content"

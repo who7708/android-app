@@ -268,7 +268,9 @@ public abstract class DetailFragment extends BaseFragment implements
 
     @Override
     public void showPayDonateError() {
-
+        if (mContext == null)
+            return;
+        SimplexToast.show(mContext,"获取支付信息失败");
     }
 
     @Override
@@ -278,7 +280,12 @@ public abstract class DetailFragment extends BaseFragment implements
         if (type == 1) {
             new Alipay(getActivity()).payV2(sign);
         } else {
-            new WeChatPay(getActivity()).pay(result);
+            WeChatPay pay = new WeChatPay(getActivity());
+            if(!pay.isWxAppInstalled()){
+                SimplexToast.show(mContext,"请安装微信");
+                return;
+            }
+            pay.pay(result);
         }
     }
 
