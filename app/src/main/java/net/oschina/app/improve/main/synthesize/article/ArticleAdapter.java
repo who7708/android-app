@@ -2,12 +2,8 @@ package net.oschina.app.improve.main.synthesize.article;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -88,7 +84,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
                 //h.mTextTitle.setText(item.getTitle());
-                setTag(h.mTextTitle, item);
+                setTag(h.mTextTitle, h.mImageTag, item);
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
@@ -105,7 +101,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
                 //h1.mTextTitle.setText(item.getTitle());
-                setTag(h1.mTextTitle, item);
+                setTag(h1.mTextTitle, h1.mImageTag, item);
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h1.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
@@ -123,7 +119,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
                 //h2.mTextTitle.setText(item.getTitle());
-                setTag(h2.mTextTitle, item);
+                setTag(h2.mTextTitle, h2.mImageTag, item);
                 h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
@@ -151,33 +147,22 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
 
     private static final String FORMAT = "!/both/330x246/quality/100";
 
-    private void setTag(TextView textView, Article article) {
+    private void setTag(TextView textView, ImageView imageView, Article article) {
         if (article.getType() == News.TYPE_QUESTION) {
-            String text = "[icon] " + article.getTitle();
-            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_question);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
-            SpannableString spannable = new SpannableString(text);
-            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            textView.setText(spannable);
-        }else if (isGit(article)) {
-            String text = "[icon] " + article.getTitle();
-            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_gitee);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
-            SpannableString spannable = new SpannableString(text);
-            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            textView.setText(spannable);
-        }else if (isZB(article)) {
-            String text = "[icon] " + article.getTitle();
-            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_zb);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
-            SpannableString spannable = new SpannableString(text);
-            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-            textView.setText(spannable);
+            textView.setText(String.format("         %s",article.getTitle()));
+            imageView.setImageResource(R.mipmap.tag_question);
+            imageView.setVisibility(View.VISIBLE);
+        } else if (isGit(article)) {
+            textView.setText(String.format("         %s",article.getTitle()));
+            imageView.setImageResource(R.mipmap.tag_gitee);
+            imageView.setVisibility(View.VISIBLE);
+        } else if (isZB(article)) {
+            textView.setText(String.format("         %s",article.getTitle()));
+            imageView.setImageResource(R.mipmap.tag_zb);
+            imageView.setVisibility(View.VISIBLE);
         } else {
             textView.setText(article.getTitle());
+            imageView.setVisibility(View.GONE);
         }
 
     }
@@ -200,9 +185,10 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 mTextOrigin,
                 mTextAuthor,
                 mTextCommentCount;
-
+        ImageView  mImageTag;
         TextHolder(View itemView) {
             super(itemView);
+            mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
             mTextDesc = (TextView) itemView.findViewById(R.id.tv_desc);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
@@ -218,7 +204,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 mTextOrigin,
                 mTextAuthor,
                 mTextCommentCount;
-        ImageView mImageView;
+        ImageView mImageView, mImageTag;
 
         OneImgHolder(View itemView) {
             super(itemView);
@@ -227,6 +213,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             mImageView = (ImageView) itemView.findViewById(R.id.iv_image);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
             mTextAuthor = (TextView) itemView.findViewById(R.id.tv_author);
+            mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);
             mTextCommentCount = (TextView) itemView.findViewById(R.id.tv_comment_count);
         }
     }
@@ -237,10 +224,11 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 mTextOrigin,
                 mTextAuthor,
                 mTextCommentCount;
-        ImageView mImageOne, mImageTwo, mImageThree;
+        ImageView mImageOne, mImageTwo, mImageThree, mImageTag;
 
         ThreeImgHolder(View itemView) {
             super(itemView);
+            mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mImageOne = (ImageView) itemView.findViewById(R.id.iv_img_1);

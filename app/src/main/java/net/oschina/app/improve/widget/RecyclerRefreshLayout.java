@@ -35,6 +35,8 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
 
     private int mLastY;
 
+    private int mBottomCount = 1;
+
     public RecyclerRefreshLayout(Context context) {
         this(context, null);
     }
@@ -149,12 +151,16 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
         }
     }
 
+    public void setBottomCount(int mBottomCount) {
+        this.mBottomCount = mBottomCount;
+    }
+
     /**
      * 判断是否到了最底部
      */
     private boolean isScrollBottom() {
         return (mRecycleView != null && mRecycleView.getAdapter() != null)
-                && getLastVisiblePosition() == (mRecycleView.getAdapter().getItemCount() - 1);
+                && getLastVisiblePosition() == (mRecycleView.getAdapter().getItemCount() - mBottomCount);
     }
 
     /**

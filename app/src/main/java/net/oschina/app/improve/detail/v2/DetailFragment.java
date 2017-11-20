@@ -257,7 +257,7 @@ public abstract class DetailFragment extends BaseFragment implements
             mHeaderView.findViewById(R.id.line1).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.VISIBLE);
-            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+            //mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
         } else {
             mHeaderView.findViewById(R.id.line1).setVisibility(View.GONE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.GONE);

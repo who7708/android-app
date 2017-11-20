@@ -50,6 +50,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
                 "d6112fa662bc4bf21084670a857fbd20banner1");
         super.initData();
         mAdapter.setHeaderView(mHeaderView);
+        mRefreshLayout.setBottomCount(2);
     }
 
     @Override

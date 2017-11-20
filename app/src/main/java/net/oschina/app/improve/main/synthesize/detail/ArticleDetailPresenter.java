@@ -142,7 +142,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                     mView.showMoreMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNetworkError(R.string.footer_type_net_error);
                             }
                             mView.onComplete();
                         } catch (Exception e) {

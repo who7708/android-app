@@ -42,19 +42,33 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_title"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:paddingLeft="@dimen/lay_12"
-                android:paddingRight="@dimen/lay_12"
-                android:text="Java JNI实现原理初探JNI实现原理初探"
-                android:textColor="@color/text_title_color"
-                android:textSize="17sp"
-                tools:ignore="HardcodedText" />
+                android:paddingRight="@dimen/lay_12">
+
+                <ImageView
+                    android:id="@+id/iv_tag"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/tag_gitee" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="          Java JNI实现原理初探Java JNI实现原理初探"
+                    android:textColor="@color/text_title_color"
+                    android:textSize="17sp"
+                    tools:ignore="HardcodedText" />
+            </FrameLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,10 +84,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/lay_4"
                     android:lines="1"
+                    android:text="开源"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
                     android:textSize="10sp"
-                    android:text="开源"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -84,11 +98,11 @@
                     android:layout_marginRight="@dimen/lay_8"
                     android:lines="1"
                     android:maxLength="8"
+                    android:text="黄海彬"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
                     android:textSize="10sp"
-                    android:visibility="gone"
-                    android:text="黄海彬" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -97,10 +111,10 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:lines="1"
+                    android:text="2012-12-01"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/text_secondary_color"
-                    android:textSize="10sp"
-                    android:text="2012-12-01" />
+                    android:textSize="10sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

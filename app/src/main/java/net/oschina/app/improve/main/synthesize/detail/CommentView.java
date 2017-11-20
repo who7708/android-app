@@ -125,6 +125,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
         this.mKey = key;
 
         mSeeMore.setVisibility(View.GONE);
+        mSeeMore.setText(String.format("查看所有 %s 条评论",mArticle.getCommentCount()));
         //setVisibility(GONE);
         mLinearComment.setVisibility(GONE);
         mLinearTip.setVisibility(GONE);

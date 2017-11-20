@@ -9,18 +9,32 @@
     android:paddingTop="@dimen/lay_12"
     tools:ignore="RtlHardcoded,SmallSp">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
         android:paddingLeft="@dimen/lay_16"
-        android:paddingRight="@dimen/lay_16"
-        android:text="Java JNI实现原理初探"
-        android:textColor="@color/text_title_color"
-        android:textSize="17sp"
-        tools:ignore="HardcodedText" />
+        android:paddingRight="@dimen/lay_16">
+
+        <ImageView
+            android:id="@+id/iv_tag"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/tag_gitee" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="          Java JNI实现原理初探Java JNI实现原理初探"
+            android:textColor="@color/text_title_color"
+            android:textSize="17sp"
+            tools:ignore="HardcodedText" />
+    </FrameLayout>
+
 
 
     <LinearLayout
