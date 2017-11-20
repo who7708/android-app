@@ -175,6 +175,7 @@ public class ApiHttpClient {
         c.addHeader("Connection", "Keep-Alive");
         c.addHeader("sessionKey", MD5.get32MD5Str(OSCSharedPreference.getInstance().getDeviceUUID() + System.currentTimeMillis()));
         c.addHeader("uuid", OSCSharedPreference.getInstance().getDeviceUUID());
+        c.addHeader("Accept","image/webp");
         //noinspection deprecation
         c.getHttpClient().getParams()
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);

@@ -2,6 +2,7 @@ package net.oschina.app.improve.base;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import net.oschina.app.R;
@@ -80,32 +81,39 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
 
     @Override
     public void onLoadMore() {
-        mPresenter.onLoadMore();
         mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+        mPresenter.onLoadMore();
+        Log.e("onLoadMore","onLoadMore");
     }
 
     @Override
     public void onRefreshSuccess(List<Model> data) {
         mAdapter.resetItem(data);
+        Log.e("onRefreshSuccess","onRefreshSuccess");
     }
 
     @Override
     public void onLoadMoreSuccess(List<Model> data) {
+        Log.e("onLoadMoreSuccess","onLoadMoreSuccess");
         mAdapter.addAll(data);
     }
 
     @Override
     public void showMoreMore() {
+        Log.e("showMoreMore","showMoreMore");
         mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
     }
 
     @Override
     public void showNetworkError(int strId) {
+        Log.e("showNetworkError","showNetworkError");
         mAdapter.setState(BaseRecyclerAdapter.STATE_INVALID_NETWORK, true);
+        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD, true);
     }
 
     @Override
     public void onComplete() {
+        Log.e("onComplete","onComplete");
         mRefreshLayout.onComplete();
     }
 

@@ -171,6 +171,7 @@
 
     <View
         android:layout_marginTop="@dimen/lay_8"
+        android:background="#E3E3E3"
         style="@style/h_line"/>
 
     <LinearLayout

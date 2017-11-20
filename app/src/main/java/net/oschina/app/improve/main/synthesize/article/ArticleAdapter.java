@@ -2,8 +2,12 @@ package net.oschina.app.improve.main.synthesize.article;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +20,7 @@ import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.util.TDevice;
 
@@ -82,7 +87,8 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
-                h.mTextTitle.setText(item.getTitle());
+                //h.mTextTitle.setText(item.getTitle());
+                setTag(h.mTextTitle, item);
                 h.mTextDesc.setText(item.getDesc());
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
@@ -98,12 +104,13 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
-                h1.mTextTitle.setText(item.getTitle());
+                //h1.mTextTitle.setText(item.getTitle());
+                setTag(h1.mTextTitle, item);
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h1.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h1.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0] + "!/both/330x246/quality/100")
+                mLoader.load(item.getImgs()[0] + FORMAT)
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h1.mImageView);
@@ -115,19 +122,20 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 break;
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
-                h2.mTextTitle.setText(item.getTitle());
+                //h2.mTextTitle.setText(item.getTitle());
+                setTag(h2.mTextTitle, item);
                 h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h2.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
                 h2.mTextCommentCount.setText(String.valueOf(item.getCommentCount()));
-                mLoader.load(item.getImgs()[0] + "!/both/330x246/quality/100")
+                mLoader.load(item.getImgs()[0] + FORMAT)
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageOne);
-                mLoader.load(item.getImgs()[1] + "!/both/330x246/quality/100")
+                mLoader.load(item.getImgs()[1] + FORMAT)
                         .fitCenter()
                         .into(h2.mImageTwo);
-                mLoader.load(item.getImgs()[2] + "!/both/330x246/quality/100")
+                mLoader.load(item.getImgs()[2] + FORMAT)
                         .fitCenter()
                         .error(R.mipmap.ic_split_graph)
                         .into(h2.mImageThree);
@@ -139,6 +147,49 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 break;
         }
 
+    }
+
+    private static final String FORMAT = "!/both/330x246/quality/100";
+
+    private void setTag(TextView textView, Article article) {
+        if (article.getType() == News.TYPE_QUESTION) {
+            String text = "[icon] " + article.getTitle();
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_question);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
+            SpannableString spannable = new SpannableString(text);
+            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            textView.setText(spannable);
+        }else if (isGit(article)) {
+            String text = "[icon] " + article.getTitle();
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_gitee);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
+            SpannableString spannable = new SpannableString(text);
+            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            textView.setText(spannable);
+        }else if (isZB(article)) {
+            String text = "[icon] " + article.getTitle();
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.tag_zb);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
+            SpannableString spannable = new SpannableString(text);
+            spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            textView.setText(spannable);
+        } else {
+            textView.setText(article.getTitle());
+        }
+
+    }
+
+    private static boolean isGit(Article article) {
+        String url = article.getUrl();
+        return !TextUtils.isEmpty(url) && (url.startsWith("https://gitee.com/") || url.startsWith("https://git.oschina.net/"));
+    }
+
+    private static boolean isZB(Article article) {
+        String url = article.getUrl();
+        return !TextUtils.isEmpty(url) && (url.startsWith("https://zb.oschina.net/"));
     }
 
 

@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.OSCApplication;
+import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.base.PageBean;
@@ -104,12 +105,8 @@ class ArticlePresenter implements ArticleContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        try {
-                            mView.showMoreMore();
-                            mView.onComplete();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        mView.showNetworkError(R.string.state_network_error);
+                        mView.onComplete();
                     }
 
                     @Override

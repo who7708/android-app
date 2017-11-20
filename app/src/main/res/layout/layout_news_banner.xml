@@ -16,8 +16,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/banner_linear_bg"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/banner_linear_bg">
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,6 +38,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
+                android:textSize="15sp"
                 android:textColor="@color/white" />
 
             <net.oschina.app.improve.main.banner.CircleBannerIndicator

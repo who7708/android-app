@@ -6,7 +6,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
@@ -40,6 +45,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     protected CommentView mCommentView;
     private Article mArticle;
     private View mHeaderView;
+    private ProgressBar mLoadingBar;
 
     public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -68,11 +74,25 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         mAdapter.setHeaderView(mHeaderView);
         ImageView imageView = (ImageView) mHeaderView.findViewById(R.id.iv_article);
         FrameLayout frameLayout = (FrameLayout) mHeaderView.findViewById(R.id.fl_img);
+        mLoadingBar = (ProgressBar) mHeaderView.findViewById(R.id.pb_loading);
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
             imageView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
-            getImgLoader().load(mArticle.getImgs()[0])
+            getImgLoader().load(mArticle.getImgs()[0] )
                     .centerCrop()
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            mLoadingBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            mLoadingBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
                     .into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,6 +101,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 }
             });
         }
+
         TextView tv_title = (TextView) mHeaderView.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
@@ -168,7 +189,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
 
     @Override
     public void showCommentSuccess(Comment comment) {
-        
+
     }
 
     @Override
@@ -189,12 +210,12 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             mHeaderView.findViewById(R.id.line1).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.VISIBLE);
-            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
         } else {
             mHeaderView.findViewById(R.id.line1).setVisibility(View.GONE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.GONE);
             mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.GONE);
-            mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE,true);
+            mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE, true);
         }
     }
 

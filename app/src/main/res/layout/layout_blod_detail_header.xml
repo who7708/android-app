@@ -24,6 +24,7 @@
             android:paddingTop="12dp"
             android:textColor="#111111"
             android:textSize="20sp"
+            android:textStyle="bold"
             tools:text="Webpack从零开始" />
 
 

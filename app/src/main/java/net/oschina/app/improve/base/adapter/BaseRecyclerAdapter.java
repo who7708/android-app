@@ -36,6 +36,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     private static final int STATE_REFRESHING = 6;
     public static final int STATE_LOAD_ERROR = 7;
     public static final int STATE_LOADING = 8;
+    public static final int STATE_LOAD = 9;
 
     private final int BEHAVIOR_MODE;
     protected int mState;
@@ -135,6 +136,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
                         fvh.pb_footer.setVisibility(View.GONE);
                         break;
                     case STATE_LOAD_MORE:
+                        fvh.tv_footer.setText(mContext.getResources().getString(R.string.state_load));
+                        fvh.pb_footer.setVisibility(View.GONE);
+                        break;
                     case STATE_LOADING:
                         fvh.tv_footer.setText(mContext.getResources().getString(R.string.state_loading));
                         fvh.pb_footer.setVisibility(View.VISIBLE);
@@ -149,6 +153,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
                         break;
                     case STATE_LOAD_ERROR:
                         fvh.tv_footer.setText(mContext.getResources().getString(R.string.state_load_error));
+                        fvh.pb_footer.setVisibility(View.GONE);
+                        break;
+                    case STATE_LOAD:
+                        fvh.tv_footer.setText(mContext.getResources().getString(R.string.state_load));
                         fvh.pb_footer.setVisibility(View.GONE);
                         break;
                     case STATE_HIDE:

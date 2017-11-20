@@ -122,6 +122,7 @@ public class CommentView extends LinearLayout implements View.OnClickListener {
         this.mType = type;
 
         mSeeMore.setVisibility(View.GONE);
+        mSeeMore.setText(String.format("查看所有 %s 条评论",commentCount));
         setVisibility(GONE);
 
         OSChinaApi.getComments(id, type, "refer,reply", order, null, new TextHttpResponseHandler() {

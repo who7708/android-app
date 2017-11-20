@@ -43,19 +43,21 @@
                     android:layout_width="@dimen/size_40"
                     android:layout_height="@dimen/size_40"
                     android:contentDescription="@string/app_name"
+                    android:layout_gravity="center_vertical"
                     android:src="@color/grey_300"
                     tools:contentDescription="icon" />
 
                 <TextView
                     android:id="@+id/tv_software_name"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_40"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/lay_12"
                     android:gravity="center_vertical"
                     android:lineSpacingExtra="2dp"
                     android:textColor="#111111"
-                    android:textSize="17sp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     tools:text="在Google IO大会中不仅仅带来了间的" />
             </LinearLayout>
 
@@ -284,10 +286,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:background="@color/list_divider_color" />
 
             <net.oschina.app.improve.widget.DetailAboutView
                 android:id="@+id/lay_detail_about"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

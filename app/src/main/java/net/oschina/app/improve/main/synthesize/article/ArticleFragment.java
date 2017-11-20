@@ -93,9 +93,10 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
         mAdapter.updateItem(position);
     }
 
+
     @Override
-    public void onRefreshSuccess(List<Article> data) {
-        super.onRefreshSuccess(data);
+    public void onRefreshing() {
+        super.onRefreshing();
         if (mHeaderView != null) {
             mHeaderView.requestBanner();
         }
