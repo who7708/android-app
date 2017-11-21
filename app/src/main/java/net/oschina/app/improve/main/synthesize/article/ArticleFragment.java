@@ -18,8 +18,6 @@ import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
-import java.util.List;
-
 /**
  * 头条界面
  * Created by huanghaibin on 2017/10/23.
@@ -101,6 +99,11 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
         if (mHeaderView != null) {
             mHeaderView.requestBanner();
         }
+    }
+
+    @Override
+    public void onScrollToBottom() {
+        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
     }
 
     @Override

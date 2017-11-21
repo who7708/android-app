@@ -160,7 +160,11 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             textView.setText(String.format("         %s",article.getTitle()));
             imageView.setImageResource(R.mipmap.tag_zb);
             imageView.setVisibility(View.VISIBLE);
-        } else {
+        }else if (article.getType() == News.TYPE_SOFTWARE) {
+            textView.setText(String.format("         %s",article.getTitle()));
+            imageView.setImageResource(R.mipmap.tag_software);
+            imageView.setVisibility(View.VISIBLE);
+        }  else {
             textView.setText(article.getTitle());
             imageView.setVisibility(View.GONE);
         }

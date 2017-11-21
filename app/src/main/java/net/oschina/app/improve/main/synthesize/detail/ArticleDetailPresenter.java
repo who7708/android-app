@@ -91,7 +91,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                     article.setImgs(removeImgs(article.getImgs()));
                                 }
                                 mView.onRefreshSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {
@@ -138,7 +138,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                     article.setImgs(removeImgs(article.getImgs()));
                                 }
                                 mView.onLoadMoreSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {

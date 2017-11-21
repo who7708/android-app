@@ -271,7 +271,7 @@ public class DetailPresenter implements DetailContract.Presenter {
                                     article.setImgs(removeImgs(article.getImgs()));
                                 }
                                 mView.onRefreshSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {
@@ -320,7 +320,7 @@ public class DetailPresenter implements DetailContract.Presenter {
                                     article.setImgs(removeImgs(article.getImgs()));
                                 }
                                 mView.onLoadMoreSuccess(list);
-                                if (list.size() < 20) {
+                                if (list.size() == 0) {
                                     mView.showMoreMore();
                                 }
                             } else {

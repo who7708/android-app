@@ -152,6 +152,11 @@ public class CommentExsActivity extends BaseBackActivity {
                     token = mPageBean.getNextPageToken();
                 getData(false, token);
             }
+
+            @Override
+            public void onScrollToBottom() {
+
+            }
         });
 
         mRefreshLayout.post(new Runnable() {

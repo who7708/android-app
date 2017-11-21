@@ -86,6 +86,8 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
                     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                         if (canLoad() && mCanLoadMore) {
                             loadData();
+                        } else if (isNextScrollBottom() && listener != null && mCanLoadMore && !mIsOnLoading) {
+                            listener.onScrollToBottom();
                         }
                     }
                 });
@@ -164,6 +166,14 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
     }
 
     /**
+     * 判断是否到了最底部
+     */
+    private boolean isNextScrollBottom() {
+        return (mRecycleView != null && mRecycleView.getAdapter() != null)
+                && getLastVisiblePosition() == (mRecycleView.getAdapter().getItemCount() - 1);
+    }
+
+    /**
      * 加载结束记得调用
      */
     public void onComplete() {
@@ -229,5 +239,7 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
         void onRefreshing();
 
         void onLoadMore();
+
+        void onScrollToBottom();
     }
 }

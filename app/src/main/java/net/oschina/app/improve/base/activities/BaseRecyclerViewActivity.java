@@ -131,6 +131,11 @@ public abstract class BaseRecyclerViewActivity<T> extends BackActivity implement
         requestData();
     }
 
+    @Override
+    public void onScrollToBottom() {
+
+    }
+
     protected void onItemClick(T item, int position) {
 
     }

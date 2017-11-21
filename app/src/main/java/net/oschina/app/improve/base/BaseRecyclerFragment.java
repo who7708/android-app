@@ -87,6 +87,11 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
     }
 
     @Override
+    public void onScrollToBottom() {
+
+    }
+
+    @Override
     public void onRefreshSuccess(List<Model> data) {
         mAdapter.resetItem(data);
         Log.e("onRefreshSuccess","onRefreshSuccess");

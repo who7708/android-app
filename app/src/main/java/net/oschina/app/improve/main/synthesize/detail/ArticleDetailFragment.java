@@ -33,6 +33,8 @@ import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
 
+import java.util.List;
+
 /**
  * 文章详情
  * Created by huanghaibin on 2017/10/27.
@@ -78,7 +80,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
             imageView.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
-            getImgLoader().load(mArticle.getImgs()[0] )
+            getImgLoader().load(mArticle.getImgs()[0])
                     .centerCrop()
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
@@ -134,7 +136,13 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     public void onRefreshing() {
         super.onRefreshing();
-        mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
+        if (mCommentView != null)
+            mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
+    }
+
+    @Override
+    public void onScrollToBottom() {
+        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
     }
 
     @Override
@@ -195,6 +203,22 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     public void showCommentError(String message) {
 
+    }
+
+    @Override
+    public void onRefreshSuccess(List<Article> data) {
+        super.onRefreshSuccess(data);
+        mRefreshLayout.setCanLoadMore(true);
+    }
+
+    @Override
+    public void onLoadMoreSuccess(List<Article> data) {
+        super.onLoadMoreSuccess(data);
+        if(data != null && data.size() > 0){
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+        }else {
+            mRefreshLayout.setCanLoadMore(false);
+        }
     }
 
     @Override

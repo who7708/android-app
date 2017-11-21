@@ -110,6 +110,13 @@ public abstract class DetailFragment extends BaseFragment implements
                         mPresenter.onLoadMore();
                     }
                 }
+
+                @Override
+                public void onScrollToBottom() {
+                    if(mAdapter!= null){
+                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
+                    }
+                }
             });
             mRefreshLayout.post(new Runnable() {
                 @Override
@@ -227,6 +234,7 @@ public abstract class DetailFragment extends BaseFragment implements
     public void onRefreshSuccess(List<Article> data) {
         if (mAdapter == null)
             return;
+        mRefreshLayout.setCanLoadMore(true);
         mAdapter.resetItem(data);
     }
 
@@ -235,6 +243,11 @@ public abstract class DetailFragment extends BaseFragment implements
         if (mAdapter == null)
             return;
         mAdapter.addAll(data);
+        if(data != null && data.size() > 0){
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+        }else {
+            mRefreshLayout.setCanLoadMore(false);
+        }
     }
 
     @Override

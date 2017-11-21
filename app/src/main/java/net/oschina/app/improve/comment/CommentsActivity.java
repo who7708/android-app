@@ -309,6 +309,11 @@ public class CommentsActivity extends BackActivity implements
                     token = mPageBean.getNextPageToken();
                 getData(false, token);
             }
+
+            @Override
+            public void onScrollToBottom() {
+
+            }
         });
 
         mRefreshLayout.post(new Runnable() {

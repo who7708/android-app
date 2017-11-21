@@ -274,6 +274,11 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
     }
 
     @Override
+    public void onScrollToBottom() {
+
+    }
+
+    @Override
     public void onItemClick(int position, long itemId) {
         NearbyResult result = mAdapter.getItem(position);
         if (result == null) return;
