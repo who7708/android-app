@@ -2,8 +2,12 @@ package net.oschina.app.improve.main.synthesize.article;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -149,26 +153,38 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
 
     private void setTag(TextView textView, ImageView imageView, Article article) {
         if (article.getType() == News.TYPE_QUESTION) {
-            textView.setText(String.format("         %s",article.getTitle()));
+            setEmptyTag(textView,article);
             imageView.setImageResource(R.mipmap.tag_question);
             imageView.setVisibility(View.VISIBLE);
         } else if (isGit(article)) {
-            textView.setText(String.format("         %s",article.getTitle()));
+            setEmptyTag(textView,article);
             imageView.setImageResource(R.mipmap.tag_gitee);
             imageView.setVisibility(View.VISIBLE);
         } else if (isZB(article)) {
-            textView.setText(String.format("         %s",article.getTitle()));
+            setEmptyTag(textView,article);
             imageView.setImageResource(R.mipmap.tag_zb);
             imageView.setVisibility(View.VISIBLE);
-        }else if (article.getType() == News.TYPE_SOFTWARE) {
-            textView.setText(String.format("         %s",article.getTitle()));
+        } else if (article.getType() == News.TYPE_SOFTWARE) {
+            setEmptyTag(textView,article);
             imageView.setImageResource(R.mipmap.tag_software);
             imageView.setVisibility(View.VISIBLE);
-        }  else {
+        } else {
             textView.setText(article.getTitle());
             imageView.setVisibility(View.GONE);
         }
+    }
 
+    private void setEmptyTag(TextView textView, Article article) {
+        SpannableStringBuilder spannable = new SpannableStringBuilder();
+        spannable.append("[icon] ");
+        spannable.append(article.getTitle());
+        Drawable img = mContext.getResources().getDrawable(R.mipmap.tag_empty);
+        if (img != null) {
+            img.setBounds(0, 0, img.getIntrinsicWidth(), img.getIntrinsicHeight());
+        }
+        ImageSpan imageSpan = new ImageSpan(img, ImageSpan.ALIGN_BOTTOM);
+        spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
     }
 
     private static boolean isGit(Article article) {
@@ -189,7 +205,8 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 mTextOrigin,
                 mTextAuthor,
                 mTextCommentCount;
-        ImageView  mImageTag;
+        ImageView mImageTag;
+
         TextHolder(View itemView) {
             super(itemView);
             mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);

@@ -333,7 +333,7 @@ public abstract class DetailActivity extends BackActivity implements
         mDelegation.getBottomSheet().getEditText().setText("");
         mDelegation.getBottomSheet().getEditText().setHint(mCommentHint);
         mDelegation.getBottomSheet().dismiss();
-
+        mDelegation.setCommentCount(Integer.parseInt(mDelegation.getCommentCountText().toString()) + 1);
     }
 
     @Override

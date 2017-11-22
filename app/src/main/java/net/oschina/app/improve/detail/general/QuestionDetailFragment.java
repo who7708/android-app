@@ -2,15 +2,18 @@ package net.oschina.app.improve.detail.general;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.Author;
+import net.oschina.app.improve.bean.simple.UserRelation;
 import net.oschina.app.improve.detail.v2.DetailFragment;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.widget.PortraitView;
+import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.StringUtils;
 import net.oschina.common.widget.FlowLayout;
 
@@ -33,6 +36,8 @@ public class QuestionDetailFragment extends DetailFragment {
 //    TextView mTextViewCount;
 //    @Bind(R.id.tv_info_comment)
 //    TextView mTextCommentCount;
+    @Bind(R.id.btn_relation)
+    Button mBtnRelation;
     @Bind(R.id.fl_lab)
     FlowLayout mFlowLayout;
     @Bind(R.id.iv_avatar)
@@ -58,6 +63,14 @@ public class QuestionDetailFragment extends DetailFragment {
                 }
             }
         });
+        mBtnRelation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mBean.getAuthor() != null) {
+                    mPresenter.addUserRelation(mBean.getAuthor().getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -74,6 +87,9 @@ public class QuestionDetailFragment extends DetailFragment {
         mTextPubDate.setText(StringUtils.formatYearMonthDay(bean.getPubDate()));
 //        mTextCommentCount.setText(String.valueOf(bean.getStatistics().getComment()));
 //        mTextViewCount.setText(String.valueOf(bean.getStatistics().getView()));
+        mBtnRelation.setText(bean.getAuthor().getRelation() < UserRelation.RELATION_ONLY_HER
+                ? "已关注" : "关注");
+
         mFlowLayout.removeAllViews();
         if (bean.getTags() == null || bean.getTags().length == 0) {
             mFlowLayout.setVisibility(View.GONE);
@@ -90,6 +106,12 @@ public class QuestionDetailFragment extends DetailFragment {
             mTextAuthor.setText(author.getName());
             mImageAvatar.setup(author);
         }
+    }
+
+    @Override
+    public void showAddRelationSuccess(boolean isRelation, int strId) {
+        mBtnRelation.setText(isRelation ? "已关注" : "关注");
+        SimplexToast.show(mContext, strId);
     }
 
     @Override

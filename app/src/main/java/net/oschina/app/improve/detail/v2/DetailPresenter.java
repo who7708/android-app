@@ -342,7 +342,7 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     boolean isHideCommentBar() {
-        return mBean.getType() == News.TYPE_SOFTWARE || mBean.getType() == News.TYPE_EVENT;
+        return mBean.getType() == News.TYPE_EVENT;
     }
 
     @Override

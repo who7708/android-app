@@ -72,7 +72,6 @@ import cz.msebera.android.httpclient.Header;
  * on 16/6/13.
  */
 @SuppressWarnings("deprecation")
-@Deprecated
 public class TweetDetailActivity extends BackActivity implements TweetDetailContract.Operator {
 
     public static final String BUNDLE_KEY_TWEET = "BUNDLE_KEY_TWEET";
@@ -87,8 +86,8 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
     TextView tvTime;
     @Bind(R.id.tv_client)
     TextView tvClient;
-    @Bind(R.id.iv_thumbup)
-    ImageView ivThumbup;
+//    @Bind(R.id.iv_thumbup)
+//    ImageView ivThumbup;
     @Bind(R.id.layout_coordinator)
     CoordinatorLayout mCoordinatorLayout;
     @Bind(R.id.fragment_container)
@@ -109,8 +108,8 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
     TextView mViewRefContent;
     @Bind(R.id.layout_ref_images)
     TweetPicturesLayout mLayoutRefImages;
-    @Bind(R.id.iv_dispatch)
-    ImageView mViewDispatch;
+//    @Bind(R.id.iv_dispatch)
+//    ImageView mViewDispatch;
     @Bind(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
@@ -165,7 +164,7 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString,
                                   Throwable throwable) {
-                AppContext.showToastShort(ivThumbup.isSelected() ? "取消失败" : "点赞失败");
+                AppContext.showToastShort(mDelegation.getLikeImage().isSelected() ? "取消失败" : "点赞失败");
             }
 
             @Override
@@ -174,7 +173,7 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
                         responseString, new TypeToken<ResultBean<TweetLike>>() {
                         }.getType());
                 if (result != null && result.isSuccess()) {
-                    ivThumbup.setSelected(result.getResult().isLiked());
+                    mDelegation.getLikeImage().setSelected(result.getResult().isLiked());
                     mThumbupViewImp.onLikeSuccess(result.getResult().isLiked(), null);
                 } else {
                     onFailure(statusCode, headers, responseString, null);
@@ -272,6 +271,22 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
 
         mDelegation = CommentBar.delegation(this, mFrameFooter);
 
+        mDelegation.hideFav();
+        mDelegation.hideCommentCount();
+        mDelegation.showLike();
+        mDelegation.showDispatch();
+        mDelegation.setLikeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickThumbUp();
+            }
+        });
+        mDelegation.setDispatchListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickTransmit();
+            }
+        });
         mDelegation.getBottomSheet().getEditText().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -411,9 +426,9 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
             tvTime.setText(StringUtils.formatSomeAgo(tweet.getPubDate()));
         PlatfromUtil.setPlatFromString(tvClient, tweet.getAppClient());
         if (tweet.isLiked()) {
-            ivThumbup.setSelected(true);
+            mDelegation.getLikeImage().setSelected(true);
         } else {
-            ivThumbup.setSelected(false);
+            mDelegation.getLikeImage().setSelected(false);
         }
         if (!TextUtils.isEmpty(tweet.getContent())) {
             String content = tweet.getContent().replaceAll("[\n\\s]+", " ");
@@ -499,29 +514,13 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
         this.mDelegation.performClick();
     }
 
-
-    @OnClick({R.id.ll_dispatch, R.id.ll_comment, R.id.ll_like})
-    void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_dispatch:
-                onClickTransmit();
-                break;
-            case R.id.ll_comment:
-                onClickComment();
-                break;
-            case R.id.ll_like:
-                onClickThumbUp();
-                break;
-        }
-    }
-
     @Override
     public void onScroll() {
         if (mDelegation != null) mDelegation.getBottomSheet().dismiss();
     }
 
-    @OnClick(R.id.iv_thumbup)
-    void onClickThumbUp() {
+
+    private void onClickThumbUp() {
         if (checkLogin()) return;
         OSChinaApi.reverseTweetLike(tweet.getId(), publishAdmireHandler);
     }
@@ -532,15 +531,15 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
         UIHelper.showDetail(this, tweet.getAbout().getType(), tweet.getAbout().getId(), null);
     }
 
-    @OnClick(R.id.iv_comment)
-    void onClickComment() {
+
+    private void onClickComment() {
         if (checkLogin()) return;
         replies.clear();
         mDelegation.getBottomSheet().show("发表评论");
     }
 
-    @OnClick(R.id.iv_dispatch)
-    void onClickTransmit() {
+
+    private void onClickTransmit() {
         if (tweet == null || tweet.getId() <= 0 && tweet.getAuthor() == null) return;
 
         String content = null;

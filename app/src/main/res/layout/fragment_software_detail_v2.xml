@@ -118,8 +118,7 @@
                 android:background="@color/white"
                 android:paddingBottom="@dimen/lay_12"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="@dimen/lay_12">
+                android:paddingRight="16dp">
 
                 <net.oschina.app.improve.widget.OWebView
                     android:id="@+id/webView"
@@ -302,99 +301,4 @@
                 android:background="@color/transparent" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <View style="@style/h_line" />
-
-    <LinearLayout
-        android:id="@+id/lay_option"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        tools:ignore="DisableBaselineAlignment,ObsoleteLayoutParam">
-
-        <LinearLayout
-            android:id="@+id/ll_comment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/size_44"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_comment_40_selector" />
-
-            <TextView
-                android:id="@+id/tv_comment_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/lay_8"
-                android:text="评论 (0)"
-                android:textColor="#9d9d9d"
-                android:textSize="@dimen/font_16"
-                tools:ignore="HardcodedText,RtlHardcoded" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_fav"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/size_44"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/iv_fav"
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_fav" />
-
-            <TextView
-                android:id="@+id/tv_fav_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/lay_8"
-                android:text="收藏"
-                android:textColor="#9d9d9d"
-                android:textSize="@dimen/font_16"
-                tools:ignore="HardcodedText,RtlHardcoded" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_share"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/size_44"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="@dimen/size_20"
-                android:layout_height="@dimen/size_20"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_share_black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/lay_8"
-                android:text="分享"
-                android:textColor="#9d9d9d"
-                android:textSize="@dimen/font_16"
-                tools:ignore="HardcodedText,RtlHardcoded" />
-        </LinearLayout>
-
-
-    </LinearLayout>
 </LinearLayout>

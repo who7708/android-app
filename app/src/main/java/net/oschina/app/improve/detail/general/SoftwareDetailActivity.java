@@ -1,9 +1,12 @@
 package net.oschina.app.improve.detail.general;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 
+import net.oschina.app.R;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.detail.v2.DetailActivity;
 import net.oschina.app.improve.detail.v2.DetailFragment;
@@ -58,6 +61,11 @@ public class SoftwareDetailActivity extends DetailActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_software_detail;
+    }
+
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void initWidget() {
@@ -65,6 +73,13 @@ public class SoftwareDetailActivity extends DetailActivity {
         super.initWidget();
         setStatusBarDarkMode();
         setDarkToolBar();
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_blog_detail, menu);
+        return true;
     }
 
 
