@@ -1848,6 +1848,19 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 
+    /**
+     * 获取头条
+     *
+     * @param key     key
+     * @param ident   手机唯一标示
+     * @param handler handler
+     */
+    public static void getArticleDetail(String key, String ident, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("ident", ident);
+        params.put("key", key);
+        ApiHttpClient.get("action/apiv2/get_article_detail", params, handler);
+    }
 
     /**
      * 获取头条相关推荐
@@ -1925,9 +1938,9 @@ public class OSChinaApi {
      * 收集阅读习惯
      */
     public static void pushReadRecord(String key,
-                                         TextHttpResponseHandler handler) {
+                                      TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("key",key);
+        params.put("key", key);
         post("action/apiv2/send_read_record", params, handler);
     }
 }

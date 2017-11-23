@@ -36,7 +36,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     private final ArticleDetailContract.View mView;
     private final ArticleDetailContract.EmptyView mEmptyView;
     private String mNextToken;
-    private final Article mArticle;
+    private Article mArticle;
 
     ArticleDetailPresenter(ArticleDetailContract.View mView, ArticleDetailContract.EmptyView mEmptyView, Article article) {
         this.mView = mView;
@@ -45,20 +45,34 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         this.mView.setPresenter(this);
     }
 
+
     @Override
-    public void uploadBehaviors() {
-        OSChinaApi.pushReadRecord(mArticle.getKey(), new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+    public void getArticleDetail() {
+        OSChinaApi.getArticleDetail(mArticle.getKey(),
+                OSCSharedPreference.getInstance().getDeviceUUID(),
+                new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
-            }
+                    }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-
-            }
-        });
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        try {
+                            Type type = new TypeToken<ResultBean<Article>>() {
+                            }.getType();
+                            ResultBean<Article> bean = new Gson().fromJson(responseString, type);
+                            if (bean != null && bean.isSuccess() && bean.getResult() != null) {
+                                mArticle = bean.getResult();
+                                mView.showGetDetailSuccess(mArticle);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
+
 
     @Override
     public void onRefreshing() {

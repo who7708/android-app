@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_nsv"
     android:layout_width="match_parent"
@@ -98,11 +99,11 @@
                         android:id="@+id/tv_pub_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/lay_8"
+                        android:layout_marginRight="@dimen/lay_8"
                         android:text="2016-06-24"
                         android:textColor="#6a6a6a"
                         android:textSize="10sp"
-                        android:layout_marginLeft="@dimen/lay_8"
-                        android:layout_marginRight="@dimen/lay_8"
                         tools:ignore="HardcodedText,SmallSp"
                         tools:text="2016-06-24" />
                 </LinearLayout>
@@ -169,6 +170,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
+
+        <net.oschina.common.widget.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/lay_12"
+            android:layout_marginLeft="@dimen/lay_16"
+            android:layout_marginRight="@dimen/lay_16"
+            android:visibility="gone"
+            app:oscHorizontalSpace="8dp"
+            app:oscVerticalSpace="8dp" />
 
         <ImageButton
             android:id="@+id/btn_pay"

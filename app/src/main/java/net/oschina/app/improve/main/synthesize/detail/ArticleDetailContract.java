@@ -20,20 +20,23 @@ interface ArticleDetailContract {
         void showCommentSuccess(Comment comment);
 
         void showCommentError(String message);
-
     }
 
-    interface View extends BaseListView<Presenter,Article>{
+    interface View extends BaseListView<Presenter, Article> {
         void showCommentSuccess(Comment comment);
 
         void showCommentError(String message);
+
+        void showGetDetailSuccess(Article article);
     }
 
     interface Presenter extends BaseListPresenter {
+
+        void getArticleDetail();
+
         void putArticleComment(String content, long referId, long reAuthorId);
 
         void uploadBehaviors(List<Behavior> behaviors);
 
-        void uploadBehaviors();
     }
 }

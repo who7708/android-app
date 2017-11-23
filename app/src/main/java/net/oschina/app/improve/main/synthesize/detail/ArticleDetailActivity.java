@@ -224,7 +224,6 @@ public class ArticleDetailActivity extends BackActivity implements
         mBehavior.setUuid(OSCSharedPreference.getInstance().getDeviceUUID());
         // TODO: 2017/11/6 暂时取消收藏习惯接口 
         //DBManager.getInstance().insert(mBehavior);
-        mPresenter.uploadBehaviors();
     }
 
     protected void handleKeyDel() {

@@ -38,8 +38,6 @@ public class QuestionDetailFragment extends DetailFragment {
 //    TextView mTextCommentCount;
     @Bind(R.id.btn_relation)
     Button mBtnRelation;
-    @Bind(R.id.fl_lab)
-    FlowLayout mFlowLayout;
     @Bind(R.id.iv_avatar)
     PortraitView mImageAvatar;
     public static QuestionDetailFragment newInstance() {
@@ -90,17 +88,6 @@ public class QuestionDetailFragment extends DetailFragment {
         mBtnRelation.setText(bean.getAuthor().getRelation() < UserRelation.RELATION_ONLY_HER
                 ? "已关注" : "关注");
 
-        mFlowLayout.removeAllViews();
-        if (bean.getTags() == null || bean.getTags().length == 0) {
-            mFlowLayout.setVisibility(View.GONE);
-            return;
-        }
-        for (String tag : bean.getTags()) {
-            TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
-            if (!TextUtils.isEmpty(tag))
-                tvTag.setText(tag);
-            mFlowLayout.addView(tvTag);
-        }
         Author author = bean.getAuthor();
         if (author != null) {
             mTextAuthor.setText(author.getName());

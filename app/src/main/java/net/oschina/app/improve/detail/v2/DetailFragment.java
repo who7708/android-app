@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
@@ -14,6 +15,7 @@ import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.SubBean;
+import net.oschina.app.improve.bean.Tag;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.comment.CommentView;
 import net.oschina.app.improve.comment.OnCommentClickListener;
@@ -34,6 +36,7 @@ import net.oschina.app.improve.widget.ScreenView;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.UIHelper;
+import net.oschina.common.widget.FlowLayout;
 
 import java.util.List;
 
@@ -60,6 +63,7 @@ public abstract class DetailFragment extends BaseFragment implements
 
     protected RecyclerView mRecyclerView;
     protected View mHeaderView;
+    protected FlowLayout mFlowLayout;
 
     @Override
     protected int getLayoutId() {
@@ -72,11 +76,13 @@ public abstract class DetailFragment extends BaseFragment implements
         mReadState = OSCApplication.getReadState("sub_list");
         mHeaderView = getHeaderView();
         if (mHeaderView != null) {
+            mFlowLayout = (FlowLayout) mHeaderView.findViewById(R.id.flowLayout);
             mWebView = (OWebView) mHeaderView.findViewById(R.id.webView);
             mCommentView = (CommentView) mHeaderView.findViewById(R.id.cv_comment);
             mViewScroller = (NestedScrollView) mHeaderView.findViewById(R.id.lay_nsv);
             mScreenView = (ScreenView) mHeaderView.findViewById(R.id.screenView);
         } else {
+            mFlowLayout = (FlowLayout) mRoot.findViewById(R.id.flowLayout);
             mWebView = (OWebView) mRoot.findViewById(R.id.webView);
             mCommentView = (CommentView) mRoot.findViewById(R.id.cv_comment);
             mViewScroller = (NestedScrollView) mRoot.findViewById(R.id.lay_nsv);
@@ -113,8 +119,8 @@ public abstract class DetailFragment extends BaseFragment implements
 
                 @Override
                 public void onScrollToBottom() {
-                    if(mAdapter!= null){
-                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
+                    if (mAdapter != null) {
+                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD, true);
                     }
                 }
             });
@@ -209,6 +215,23 @@ public abstract class DetailFragment extends BaseFragment implements
                 getCommentOrder(),
                 bean.getStatistics().getComment(),
                 getImgLoader(), (OnCommentClickListener) mContext);
+
+        if (mFlowLayout == null) {
+            return;
+        }
+
+        mFlowLayout.removeAllViews();
+        if (bean.getiTags() == null || bean.getiTags().length == 0) {
+            mFlowLayout.setVisibility(View.GONE);
+            return;
+        }
+        mFlowLayout.setVisibility(View.VISIBLE);
+        for (Tag tag : bean.getiTags()) {
+            TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
+            if (!TextUtils.isEmpty(tag.getName()))
+                tvTag.setText(tag.getName());
+            mFlowLayout.addView(tvTag);
+        }
     }
 
     public void onPageFinished() {
@@ -243,9 +266,9 @@ public abstract class DetailFragment extends BaseFragment implements
         if (mAdapter == null)
             return;
         mAdapter.addAll(data);
-        if(data != null && data.size() > 0){
+        if (data != null && data.size() > 0) {
             mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
-        }else {
+        } else {
             mRefreshLayout.setCanLoadMore(false);
         }
     }
@@ -283,7 +306,7 @@ public abstract class DetailFragment extends BaseFragment implements
     public void showPayDonateError() {
         if (mContext == null)
             return;
-        SimplexToast.show(mContext,"获取支付信息失败");
+        SimplexToast.show(mContext, "获取支付信息失败");
     }
 
     @Override
@@ -294,8 +317,8 @@ public abstract class DetailFragment extends BaseFragment implements
             new Alipay(getActivity()).payV2(sign);
         } else {
             WeChatPay pay = new WeChatPay(getActivity());
-            if(!pay.isWxAppInstalled()){
-                SimplexToast.show(mContext,"请安装微信");
+            if (!pay.isWxAppInstalled()) {
+                SimplexToast.show(mContext, "请安装微信");
                 return;
             }
             pay.pay(result);
@@ -321,14 +344,14 @@ public abstract class DetailFragment extends BaseFragment implements
         SimplexToast.show(mContext, mContext.getResources().getString(strId));
     }
 
-    public void toShare(String title, String content, String url) {
-        ((DetailActivity) mContext).toShare(title, content, url);
-    }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void showCommentSuccess(Comment comment) {
         if (mCommentView == null)
             return;
+        mBean.getStatistics().setComment(mBean.getStatistics().getComment() + 1);
+        mCommentView.setTitle(String.format("%s (%d)", getResources().getString(R.string.answer_hint), mBean.getStatistics().getComment()));
         mCommentView.init(mBean.getId(),
                 mBean.getType(),
                 getCommentOrder(),
@@ -382,7 +405,7 @@ public abstract class DetailFragment extends BaseFragment implements
     public void showScrollToTop() {
         if (mViewScroller != null)
             mViewScroller.scrollTo(0, 0);
-        if(mRecyclerView != null ){
+        if (mRecyclerView != null) {
             mRecyclerView.scrollToPosition(0);
         }
     }

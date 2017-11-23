@@ -29,6 +29,7 @@ public class SubBean implements Serializable {
     private List<Image> images;
     private HashMap<String, Object> extra;
     private String[] tags;
+    private Tag[] iTags;
     private Statistics statistics;
     private ArrayList<About> abouts;
     private Software software;
@@ -42,6 +43,14 @@ public class SubBean implements Serializable {
             }
         }
         return false;
+    }
+
+    public Tag[] getiTags() {
+        return iTags;
+    }
+
+    public void setiTags(Tag[] iTags) {
+        this.iTags = iTags;
     }
 
     public boolean isAD() {

@@ -145,7 +145,7 @@ public class BlogDetailFragment extends DetailFragment {
             spannable.append(" [icon] ");
             Drawable originate = resources.getDrawable(R.mipmap.ic_label_today);
             if (originate != null) {
-                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() - top);
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight());
             }
             ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
             spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -155,7 +155,7 @@ public class BlogDetailFragment extends DetailFragment {
             spannable.append(" [icon] ");
             Drawable originate = resources.getDrawable(R.mipmap.ic_label_originate);
             if (originate != null) {
-                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() - top);
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight());
             }
             ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
             spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -163,7 +163,7 @@ public class BlogDetailFragment extends DetailFragment {
             spannable.append(" [icon] ");
             Drawable originate = resources.getDrawable(R.mipmap.ic_label_reprint);
             if (originate != null) {
-                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight() - top);
+                originate.setBounds(0, -top, originate.getIntrinsicWidth() + top, originate.getIntrinsicHeight());
             }
             ImageSpan imageSpan = new ImageSpan(originate, ImageSpan.ALIGN_BOTTOM);
             spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -173,7 +173,7 @@ public class BlogDetailFragment extends DetailFragment {
             spannable.append(" [icon] ");
             Drawable recommend = resources.getDrawable(R.mipmap.ic_label_recommend);
             if (recommend != null) {
-                recommend.setBounds(0, -top, recommend.getIntrinsicWidth() + top , recommend.getIntrinsicHeight() - top);
+                recommend.setBounds(0, -top, recommend.getIntrinsicWidth() + top , recommend.getIntrinsicHeight());
             }
             ImageSpan imageSpan = new ImageSpan(recommend, ImageSpan.ALIGN_BOTTOM);
             spannable.setSpan(imageSpan, spannable.length() - 7, spannable.length() - 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);

@@ -19,6 +19,7 @@ import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
+import net.oschina.app.improve.bean.Tag;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.detail.general.BlogDetailActivity;
@@ -32,6 +33,7 @@ import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
+import net.oschina.common.widget.FlowLayout;
 
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     private Article mArticle;
     private View mHeaderView;
     private ProgressBar mLoadingBar;
+    private FlowLayout mFlowLayout;
 
     public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -103,7 +106,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 }
             });
         }
-
+        mFlowLayout = (FlowLayout) mHeaderView.findViewById(R.id.flowLayout);
         TextView tv_title = (TextView) mHeaderView.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
@@ -128,6 +131,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 mRefreshLayout.setRefreshing(false);
                 if (mPresenter == null)
                     return;
+                mPresenter.getArticleDetail();
                 mPresenter.onRefreshing();
             }
         });
@@ -142,7 +146,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
 
     @Override
     public void onScrollToBottom() {
-        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
+        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD, true);
     }
 
     @Override
@@ -214,10 +218,28 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     public void onLoadMoreSuccess(List<Article> data) {
         super.onLoadMoreSuccess(data);
-        if(data != null && data.size() > 0){
+        if (data != null && data.size() > 0) {
             mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
-        }else {
+        } else {
             mRefreshLayout.setCanLoadMore(false);
+        }
+    }
+
+    @Override
+    public void showGetDetailSuccess(Article article) {
+        if (mContext == null)
+            return;
+        mFlowLayout.removeAllViews();
+        if (article.getTags() == null || article.getTags().length == 0) {
+            mFlowLayout.setVisibility(View.GONE);
+            return;
+        }
+        mFlowLayout.setVisibility(View.VISIBLE);
+        for (Tag tag : article.getTags()) {
+            TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
+            if (!TextUtils.isEmpty(tag.getName()))
+                tvTag.setText(tag.getName());
+            mFlowLayout.addView(tvTag);
         }
     }
 

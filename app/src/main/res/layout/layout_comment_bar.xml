@@ -86,12 +86,10 @@
 
         <LinearLayout
             android:id="@+id/ll_dispatch"
-            android:layout_width="wrap_content"
+            android:layout_width="46dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_material_ripple"
             android:gravity="center"
-            android:paddingLeft="@dimen/lay_8"
-            android:paddingRight="@dimen/lay_8"
             android:visibility="gone">
 
             <ImageView
@@ -109,6 +107,7 @@
                 android:layout_marginLeft="@dimen/lay_8"
                 android:gravity="center_vertical"
                 android:text="转发"
+                android:visibility="gone"
                 android:textColor="#9d9d9d"
                 android:textSize="@dimen/font_14"
                 tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
@@ -116,7 +115,7 @@
 
         <LinearLayout
             android:id="@+id/ll_like"
-            android:layout_width="wrap_content"
+            android:layout_width="46dp"
             android:layout_height="match_parent"
             android:background="@drawable/ic_material_ripple"
             android:gravity="center"
@@ -142,6 +141,7 @@
                 android:layout_marginLeft="@dimen/lay_8"
                 android:gravity="center_vertical"
                 android:text="点赞"
+                android:visibility="gone"
                 android:textColor="#9d9d9d"
                 android:textSize="@dimen/font_14"
                 tools:ignore="HardcodedText,RtlHardcoded" />

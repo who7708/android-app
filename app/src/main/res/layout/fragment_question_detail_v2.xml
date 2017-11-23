@@ -125,17 +125,6 @@
                 tools:text="关注" />
         </LinearLayout>
 
-        <net.oschina.common.widget.FlowLayout
-            android:id="@+id/fl_lab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/lay_8"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            app:oscHorizontalSpace="8dp"
-            app:oscVerticalSpace="8dp" />
-
-
         <FrameLayout
             android:id="@+id/lay_webview"
             android:layout_width="match_parent"
@@ -150,6 +139,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
+
+        <net.oschina.common.widget.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:oscHorizontalSpace="8dp"
+            app:oscVerticalSpace="8dp"
+            android:layout_marginLeft="@dimen/lay_16"
+            android:layout_marginRight="@dimen/lay_16"
+            android:layout_marginBottom="@dimen/lay_12" />
 
         <View
             android:layout_width="match_parent"

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -163,6 +164,17 @@
                 android:layout_marginTop="-40dp"
                 android:background="@drawable/bg_article" />
 
+            <net.oschina.common.widget.FlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:oscHorizontalSpace="8dp"
+                app:oscVerticalSpace="8dp"
+                android:layout_marginLeft="@dimen/lay_16"
+                android:layout_marginRight="@dimen/lay_16"
+                android:layout_marginTop="@dimen/lay_12" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -185,7 +197,6 @@
                     android:textColor="@color/main_green"
                     tools:ignore="HardcodedText"
                     tools:targetApi="lollipop" />
-
             </FrameLayout>
         </LinearLayout>
 

@@ -147,6 +147,7 @@ public class DetailPresenter implements DetailContract.Presenter {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.e("onSuccess","onSuccess" + responseString);
                 try {
                     Type type = new TypeToken<ResultBean<Comment>>() {
                     }.getType();
