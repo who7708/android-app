@@ -1,7 +1,9 @@
 package net.oschina.app.improve.detail.general;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,13 +15,11 @@ import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.detail.v2.DetailFragment;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
+import net.oschina.app.improve.widget.AutoScrollView;
 import net.oschina.app.util.UIHelper;
 
 import java.util.List;
 import java.util.Map;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Created by haibin
@@ -27,25 +27,22 @@ import butterknife.OnClick;
  */
 
 public class SoftwareDetailFragment extends DetailFragment {
-    @Bind(R.id.iv_label_recommend)
+
     ImageView mImageRecommend;
-    @Bind(R.id.iv_software_icon)
     ImageView mImageSoftware;
-    @Bind(R.id.tv_software_name)
+
     TextView mTextName;
-    @Bind(R.id.tv_software_author_name)
+
     TextView mTextAuthor;
-    @Bind(R.id.tv_software_protocol)
+
     TextView mTextProtocol;
-    @Bind(R.id.tv_software_language)
+
     TextView mTextLanguage;
-    @Bind(R.id.tv_software_system)
+
     TextView mTextSystem;
-    @Bind(R.id.tv_software_record_time)
+
     TextView mTextRecordTime;
 
-
-    @Bind(R.id.ll_avatar)
     LinearLayout mLinearAvatar;
 
     public static SoftwareDetailFragment newInstance() {
@@ -58,13 +55,28 @@ public class SoftwareDetailFragment extends DetailFragment {
     }
 
     @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+        mImageRecommend = (ImageView) mHeaderView.findViewById(R.id.iv_label_recommend);
+        mImageSoftware = (ImageView) mHeaderView.findViewById(R.id.iv_software_icon);
+        mTextName = (TextView) mHeaderView.findViewById(R.id.tv_software_name);
+        mTextAuthor = (TextView) mHeaderView.findViewById(R.id.tv_software_author_name);
+        mTextProtocol = (TextView) mHeaderView.findViewById(R.id.tv_software_protocol);
+        mTextLanguage = (TextView) mHeaderView.findViewById(R.id.tv_software_language);
+        mTextSystem = (TextView) mHeaderView.findViewById(R.id.tv_software_system);
+        mTextRecordTime = (TextView) mHeaderView.findViewById(R.id.tv_software_record_time);
+        mLinearAvatar = (LinearLayout) mHeaderView.findViewById(R.id.ll_avatar);
+        mTextAuthor.setOnClickListener(this);
+        mHeaderView.findViewById(R.id.tv_home).setOnClickListener(this);
+        mHeaderView.findViewById(R.id.tv_document).setOnClickListener(this);
+    }
+
+    @Override
     protected void initData() {
         super.initData();
         CACHE_CATALOG = OSChinaApi.CATALOG_SOFTWARE;
     }
 
-    @OnClick({ R.id.tv_software_author_name,
-            R.id.tv_home, R.id.tv_document})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -119,4 +131,16 @@ public class SoftwareDetailFragment extends DetailFragment {
         return OSChinaApi.COMMENT_HOT_ORDER;
     }
 
+
+    @Override
+    protected View getHeaderView() {
+        return new SoftwareDetailHeaderView(mContext);
+    }
+
+    private static class SoftwareDetailHeaderView extends AutoScrollView {
+        public SoftwareDetailHeaderView(Context context) {
+            super(context);
+            LayoutInflater.from(context).inflate(R.layout.layout_software_detail_header, this, true);
+        }
+    }
 }

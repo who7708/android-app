@@ -146,7 +146,10 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
 
     @Override
     public void onScrollToBottom() {
-        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD, true);
+        if(mPresenter!=null){
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+            mPresenter.onLoadMore();
+        }
     }
 
     @Override

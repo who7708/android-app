@@ -199,6 +199,22 @@ public abstract class DetailFragment extends BaseFragment implements
                 "<code><script src='https:$2'></script></code>"));
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
 
+
+        if(mFlowLayout != null ){
+            mFlowLayout.removeAllViews();
+            if (bean.getiTags() == null || bean.getiTags().length == 0) {
+                mFlowLayout.setVisibility(View.GONE);
+            }else {
+                mFlowLayout.setVisibility(View.VISIBLE);
+                for (Tag tag : bean.getiTags()) {
+                    TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
+                    if (!TextUtils.isEmpty(tag.getName()))
+                        tvTag.setText(tag.getName());
+                    mFlowLayout.addView(tvTag);
+                }
+            }
+        }
+
         if (mCommentView == null || mBean.getType() == News.TYPE_TRANSLATE) {
             if (mCommentView != null) {
                 mCommentView.setVisibility(View.GONE);
@@ -216,22 +232,7 @@ public abstract class DetailFragment extends BaseFragment implements
                 bean.getStatistics().getComment(),
                 getImgLoader(), (OnCommentClickListener) mContext);
 
-        if (mFlowLayout == null) {
-            return;
-        }
 
-        mFlowLayout.removeAllViews();
-        if (bean.getiTags() == null || bean.getiTags().length == 0) {
-            mFlowLayout.setVisibility(View.GONE);
-            return;
-        }
-        mFlowLayout.setVisibility(View.VISIBLE);
-        for (Tag tag : bean.getiTags()) {
-            TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
-            if (!TextUtils.isEmpty(tag.getName()))
-                tvTag.setText(tag.getName());
-            mFlowLayout.addView(tvTag);
-        }
     }
 
     public void onPageFinished() {

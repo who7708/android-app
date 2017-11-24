@@ -15,7 +15,6 @@ import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.banner.HeaderView;
 import net.oschina.app.improve.main.banner.NewsHeaderView;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
-import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
@@ -106,7 +105,10 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
 
     @Override
     public void onScrollToBottom() {
-        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD,true);
+        if(mPresenter!=null){
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+            mPresenter.onLoadMore();
+        }
     }
 
     @Override
@@ -122,21 +124,8 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
     public void onRefreshSuccess(List<Article> data) {
         super.onRefreshSuccess(data);
         if(data.size()<8){
-            SimplexToast.show(mContext,String.format("获得 %s 条数据，数据不足，继续加载",data.size()));
             mRefreshLayout.setOnLoading(true);
             onLoadMore();
-        }else {
-            SimplexToast.show(mContext,String.format("刷新获得 %s 条数据",data.size()));
-        }
-    }
-
-    @Override
-    public void onLoadMoreSuccess(List<Article> data) {
-        super.onLoadMoreSuccess(data);
-        if(data.size()<8){
-            SimplexToast.show(mContext,String.format("加载获得 %s 条数据，数据不足",data.size()));
-        }else {
-            SimplexToast.show(mContext,String.format("加载获得 %s 条数据",data.size()));
         }
     }
 
