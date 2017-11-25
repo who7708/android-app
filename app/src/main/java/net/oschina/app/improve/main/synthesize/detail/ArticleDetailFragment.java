@@ -233,16 +233,24 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         if (mContext == null)
             return;
         mFlowLayout.removeAllViews();
-        if (article.getTags() == null || article.getTags().length == 0) {
+        if (article.getiTags() == null || article.getiTags().length == 0) {
             mFlowLayout.setVisibility(View.GONE);
             return;
         }
         mFlowLayout.setVisibility(View.VISIBLE);
-        for (Tag tag : article.getTags()) {
+        for (final Tag tag : article.getiTags()) {
             TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
             if (!TextUtils.isEmpty(tag.getName()))
                 tvTag.setText(tag.getName());
             mFlowLayout.addView(tvTag);
+            if(tag.getOscId() != 0){
+                tvTag.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SoftwareDetailActivity.show(mContext,tag.getOscId());
+                    }
+                });
+            }
         }
     }
 

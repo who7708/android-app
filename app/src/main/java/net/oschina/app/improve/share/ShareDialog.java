@@ -54,6 +54,12 @@ public class ShareDialog extends BottomDialog implements View.OnClickListener, D
         }
     }
 
+    public void setShareApp(boolean isShareApp) {
+        if (mBuilder != null) {
+            mBuilder.isShareApp(true);
+        }
+    }
+
     public void setBitmap(Bitmap bitmap) {
         if (mBuilder != null) {
             mBuilder.bitmap(bitmap);

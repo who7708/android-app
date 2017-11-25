@@ -83,4 +83,19 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
     public String getDeviceUUID() {
         return getString("osc_device_uuid", "");
     }
+
+
+    /**
+     * 第一次安装
+     */
+    public void putFirstInstall(boolean isFirst) {
+        put("osc_first_install", isFirst);
+    }
+
+    /**
+     * 第一次安装
+     */
+    public boolean isFirstInstall() {
+        return getBoolean("osc_first_install", true);
+    }
 }

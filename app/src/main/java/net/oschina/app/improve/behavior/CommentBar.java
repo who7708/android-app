@@ -31,7 +31,7 @@ public class CommentBar {
     private FrameLayout mFrameLayout;
     private ViewGroup mParent;
     private ImageButton mFavView;
-    private LinearLayout mLinearComment;
+    private FrameLayout mLinearComment;
     private TextView mTextCommentCount;
     private TextView mCommentText;
     private BottomSheetBar mDelegation;
@@ -57,7 +57,7 @@ public class CommentBar {
     private void initView() {
         //((CoordinatorLayout.LayoutParams) mRootView.getLayoutParams()).setBehavior(new FloatingAutoHideDownBehavior());
         mFavView = (ImageButton) mRootView.findViewById(R.id.ib_fav);
-        mLinearComment = (LinearLayout) mRootView.findViewById(R.id.ll_comment_count);
+        mLinearComment = (FrameLayout) mRootView.findViewById(R.id.fl_comment_count);
         mCommentText = (TextView) mRootView.findViewById(R.id.tv_comment);
         mTextCommentCount = (TextView) mRootView.findViewById(R.id.tv_comment_count);
         mCommentLayout = (LinearLayout) mRootView.findViewById(R.id.ll_comment);

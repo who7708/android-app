@@ -3,6 +3,7 @@ package net.oschina.app.improve.main;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,6 +90,10 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
     private LocationClient mLocationClient;
     private RadarSearchAdapter mRadarSearchAdapter;
 
+
+    public static void show(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
 
     public interface TurnBackListener {
         boolean onTurnBack();

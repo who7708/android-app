@@ -87,9 +87,9 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
-                //h.mTextTitle.setText(item.getTitle());
                 setTag(h.mTextTitle, h.mImageTag, item);
                 h.mTextDesc.setText(item.getDesc());
+                h.mTextDesc.setVisibility(TextUtils.isEmpty(item.getDesc()) ? View.GONE : View.VISIBLE);
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
@@ -104,7 +104,6 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 break;
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
-                //h1.mTextTitle.setText(item.getTitle());
                 setTag(h1.mTextTitle, h1.mImageTag, item);
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
@@ -122,7 +121,6 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 break;
             case VIEW_TYPE_THREE_IMG:
                 ThreeImgHolder h2 = (ThreeImgHolder) holder;
-                //h2.mTextTitle.setText(item.getTitle());
                 setTag(h2.mTextTitle, h2.mImageTag, item);
                 h2.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h2.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
@@ -153,19 +151,19 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
 
     private void setTag(TextView textView, ImageView imageView, Article article) {
         if (article.getType() == News.TYPE_QUESTION) {
-            setEmptyTag(textView,article);
+            setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_question);
             imageView.setVisibility(View.VISIBLE);
         } else if (isGit(article)) {
-            setEmptyTag(textView,article);
+            setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_gitee);
             imageView.setVisibility(View.VISIBLE);
         } else if (isZB(article)) {
-            setEmptyTag(textView,article);
+            setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_zb);
             imageView.setVisibility(View.VISIBLE);
         } else if (article.getType() == News.TYPE_SOFTWARE) {
-            setEmptyTag(textView,article);
+            setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_software);
             imageView.setVisibility(View.VISIBLE);
         } else {

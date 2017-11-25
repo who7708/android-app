@@ -115,7 +115,7 @@ public class SoftwareDetailFragment extends DetailFragment {
         }
         Map<String, Object> extras = bean.getExtra();
         if (extras != null) {
-            mTextName.setText(getExtraString(extras.get("softwareTitle")) + getExtraString(extras.get("softwareName")));
+            mTextName.setText(getExtraString(extras.get("softwareTitle")) + "   " +  getExtraString(extras.get("softwareName")));
             String protocol = getExtraString(extras.get("softwareLicense"));
             if (TextUtils.isEmpty(protocol))
                 protocol = "未知";

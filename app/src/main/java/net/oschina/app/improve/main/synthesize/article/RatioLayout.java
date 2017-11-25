@@ -19,6 +19,7 @@ public class RatioLayout extends FrameLayout {
     private int mFlag;
     private static final int FLAG_WIDTH = 1;
     private static final int FLAG_HEIGHT = 2;
+    private int mRatioHeight;
 
     public RatioLayout(@NonNull Context context) {
         this(context, null);
@@ -39,12 +40,17 @@ public class RatioLayout extends FrameLayout {
         if (mFlag == FLAG_HEIGHT) {
             height = MeasureSpec.getSize(heightMeasureSpec);
             width = (int) ((float) height * mRatio);
-            widthMeasureSpec = MeasureSpec.makeMeasureSpec(width,MeasureSpec.EXACTLY);
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
         } else {
             width = MeasureSpec.getSize(widthMeasureSpec);
             height = (int) ((float) width / mRatio);
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height,MeasureSpec.EXACTLY);
+            mRatioHeight = height;
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    public int getRatioHeight() {
+        return mRatioHeight;
     }
 }

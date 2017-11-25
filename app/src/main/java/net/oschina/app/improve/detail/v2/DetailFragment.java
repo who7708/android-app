@@ -195,6 +195,7 @@ public abstract class DetailFragment extends BaseFragment implements
     public void showGetDetailSuccess(SubBean bean) {
         this.mBean = bean;
         if (mContext == null) return;
+        //码云挂件替换
         mBean.setBody(bean.getBody().replaceAll("(|<pre>)<code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s+</code>(|</pre>)",
                 "<code><script src='https:$2'></script></code>"));
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
@@ -206,11 +207,19 @@ public abstract class DetailFragment extends BaseFragment implements
                 mFlowLayout.setVisibility(View.GONE);
             }else {
                 mFlowLayout.setVisibility(View.VISIBLE);
-                for (Tag tag : bean.getiTags()) {
+                for (final Tag tag : bean.getiTags()) {
                     TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
                     if (!TextUtils.isEmpty(tag.getName()))
                         tvTag.setText(tag.getName());
                     mFlowLayout.addView(tvTag);
+                    if(tag.getOscId() != 0){
+                        tvTag.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                SoftwareDetailActivity.show(mContext,tag.getOscId());
+                            }
+                        });
+                    }
                 }
             }
         }

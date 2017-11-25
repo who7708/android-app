@@ -15,6 +15,7 @@ import android.view.View;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
+import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
 import net.oschina.app.ui.empty.EmptyLayout;
@@ -34,6 +35,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     private String mTitle;
     protected ShareDialog mShareDialog;
     private String mUrl;
+    private boolean isShowAd;
 
     public static void show(Context context, String url) {
         if (TextUtils.isEmpty(url))
@@ -43,6 +45,14 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         context.startActivity(intent);
     }
 
+    public static void show(Context context, String url, boolean isShowAd) {
+        if (TextUtils.isEmpty(url))
+            return;
+        Intent intent = new Intent(context, WebActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("isShowAd", isShowAd);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getContentView() {
@@ -55,7 +65,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         super.initWidget();
 
         mUrl = getIntent().getStringExtra("url");
-
+        isShowAd = getIntent().getBooleanExtra("isShowAd", false);
         setStatusBarDarkMode();
         setSwipeBackEnable(true);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,7 +86,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mEmptyLayout.isLoading()){
+                if (!mEmptyLayout.isLoading()) {
                     if (!TextUtils.isEmpty(mUrl))
                         mWebView.loadUrl(mUrl);
                 }
@@ -123,6 +133,14 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
     }
 
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (isShowAd) {
+            MainActivity.show(this);
+        }
+    }
 
     @Override
     public void onBackPressed() {

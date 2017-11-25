@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +59,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess", "" + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Article>>() {
                             }.getType();

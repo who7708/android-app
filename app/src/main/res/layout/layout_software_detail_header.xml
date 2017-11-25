@@ -119,6 +119,17 @@
                 android:layout_height="match_parent" />
         </FrameLayout>
 
+        <net.oschina.common.widget.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:oscHorizontalSpace="8dp"
+            app:oscVerticalSpace="8dp"
+            android:layout_marginLeft="@dimen/lay_16"
+            android:layout_marginRight="@dimen/lay_16"
+            android:layout_marginBottom="@dimen/lay_12" />
+
         <LinearLayout
             android:id="@+id/ll_avatar"
             android:layout_width="match_parent"
@@ -274,12 +285,6 @@
                 tools:ignore="RtlHardcoded"
                 tools:text="2015-01-12" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:visibility="gone"
-            android:background="@color/list_divider_color" />
 
 
         <View

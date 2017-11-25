@@ -21,7 +21,7 @@ public class Article implements Serializable {
     private String source;
     private String sourceImg;
     private String[] imgs;
-    private Tag[] tags;
+    private Tag[] iTags;
     private int commentCount;
 
     @SerializedName("osc_id")
@@ -30,12 +30,12 @@ public class Article implements Serializable {
     @SerializedName("view_count")
     private int viewCount;
 
-    public Tag[] getTags() {
-        return tags;
+    public Tag[] getiTags() {
+        return iTags;
     }
 
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
+    public void setiTags(Tag[] iTags) {
+        this.iTags = iTags;
     }
 
     public int getType() {

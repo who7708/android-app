@@ -1943,4 +1943,13 @@ public class OSChinaApi {
         params.put("key", key);
         post("action/apiv2/send_read_record", params, handler);
     }
+
+
+    /**
+     * 获取启动页展示
+     * @param handler handler
+     */
+    public static void getLauncher(TextHttpResponseHandler handler) {
+        ApiHttpClient.get("action/apiv2/get_launcher", handler);
+    }
 }

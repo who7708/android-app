@@ -64,10 +64,12 @@ public class DetailPresenter implements DetailContract.Presenter {
 
     @Override
     public void getDetail() {
+        Log.e("getDetail","  --  " + mBean.getId());
         OSChinaApi.getDetail(mBean.getType(), mIdent, mBean.getId(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 //mView.showNetworkError(R.string.tip_network_error);
+                Log.e("onFailure","  --  " + responseString);
                 if (mCacheBean != null)
                     return;
                 mEmptyView.showErrorLayout(EmptyLayout.NETWORK_ERROR);
@@ -75,6 +77,7 @@ public class DetailPresenter implements DetailContract.Presenter {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                Log.e("onSuccess","  --  " + responseString);
                 try {
                     Type type = new TypeToken<ResultBean<SubBean>>() {
                     }.getType();
