@@ -69,7 +69,7 @@ public class SoftwareDetailActivity extends DetailActivity {
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void initWidget() {
-        mCommentHint = "我要回答";
+        mCommentHint = "我要评论";
         super.initWidget();
         setStatusBarDarkMode();
         setDarkToolBar();

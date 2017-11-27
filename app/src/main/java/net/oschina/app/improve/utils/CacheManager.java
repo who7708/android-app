@@ -107,7 +107,7 @@ public final class CacheManager {
     @SuppressWarnings("all")
     public static <T> T readJson(Context context, String fileName, Type clx) {
         if (clx == null || context == null) return null;
-        String path = context.getCacheDir() + "/" + fileName;
+        String path = context.getCacheDir() + "/" + fileName + ".json";
         File file = new File(path);
         if (!file.exists())
             return null;

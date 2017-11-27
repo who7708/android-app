@@ -30,6 +30,7 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.bean.simple.TweetLikeReverse;
+import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.utils.Platform;
 import net.oschina.app.improve.utils.parser.TweetParser;
@@ -57,6 +58,7 @@ import cz.msebera.android.httpclient.Header;
 public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implements View.OnClickListener {
     private Bitmap mRecordBitmap;
     private View.OnClickListener mOnLikeClickListener;
+    private View.OnClickListener mOnDispatchClickListener;
     private boolean isShowIdentityView;
 
     public UserTweetAdapter(Callback callback) {
@@ -81,6 +83,32 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
                 Tweet tweet = getItem(position);
                 if (tweet == null) return;
                 OSChinaApi.reverseTweetLike(tweet.getId(), new TweetLikedHandler(position));
+            }
+        };
+        mOnDispatchClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!AccountHelper.isLogin()) {
+                    UIHelper.showLoginActivity(mContext);
+                    return;
+                }
+                final int position = Integer.valueOf(v.getTag().toString());
+                Tweet tweet = getItem(position);
+                if (tweet == null) return;
+                String content = null;
+                About.Share share;
+                if (tweet.getAbout() == null) {
+                    share = About.buildShare(tweet.getId(), OSChinaApi.CATALOG_TWEET);
+                    share.title = tweet.getAuthor().getName();
+                    share.content = tweet.getContent();
+                } else {
+                    share = About.buildShare(tweet.getAbout());
+                    content = "//@" + tweet.getAuthor().getName() + " :" + tweet.getContent();
+                    content = TweetParser.getInstance().clearHtmlTag(content).toString();
+                }
+                share.commitTweetId = tweet.getId();
+                share.fromTweetId = tweet.getId();
+                TweetPublishActivity.show(mContext, null, content, share);
             }
         };
     }
@@ -157,6 +185,8 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
                         : R.mipmap.ic_thumb_normal);
         holder.mLinearLike.setTag(position);
         holder.mLinearLike.setOnClickListener(mOnLikeClickListener);
+        holder.mLinearDispatch.setTag(position);
+        holder.mLinearDispatch.setOnClickListener(mOnDispatchClickListener);
 
         Tweet.Image[] images = item.getImages();
         holder.mLayoutFlow.setImage(images);
@@ -278,6 +308,8 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
         LinearLayout mLayoutRef;
         @Bind(R.id.ll_like)
         LinearLayout mLinearLike;
+        @Bind(R.id.ll_dispatch)
+        LinearLayout mLinearDispatch;
 
 
         public ViewHolder(View itemView) {

@@ -177,7 +177,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
                     }.getType();
                     ResultBean<Launcher> bean = new Gson().fromJson(responseString, type);
                     if (bean != null && bean.isSuccess() && bean.getResult() != null) {
-                        CacheManager.saveToJson(OSCApplication.getInstance(), "Launcher", bean.getResult());
+                        CacheManager.saveToJson(OSCApplication.getInstance(), "Launcher.json", bean.getResult());
                         saveAdImage(bean.getResult());
                     }
                 } catch (Exception e) {
