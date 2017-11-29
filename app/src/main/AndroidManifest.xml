@@ -102,6 +102,11 @@
             android:theme="@style/Account_Base.App.Theme.NoTitle"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity
+            android:name=".improve.main.introduce.ArticleIntroduceActivity"
+            android:label="推荐列表引导"
+            android:screenOrientation="portrait"
+            android:theme="@style/PubTheme" />
 
         <activity
             android:name=".ui.DetailActivity"
@@ -229,7 +234,7 @@
 
         <activity
             android:name=".improve.main.synthesize.web.WebActivity"
-            android:label=""
+            android:label="返回"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />

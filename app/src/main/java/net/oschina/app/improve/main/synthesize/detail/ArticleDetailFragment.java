@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
@@ -33,7 +36,6 @@ import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
-import net.oschina.common.widget.FlowLayout;
 
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     private Article mArticle;
     private View mHeaderView;
     private ProgressBar mLoadingBar;
-    private FlowLayout mFlowLayout;
+    private TagFlowLayout mFlowLayout;
 
     public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -106,7 +108,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 }
             });
         }
-        mFlowLayout = (FlowLayout) mHeaderView.findViewById(R.id.flowLayout);
+        mFlowLayout = (TagFlowLayout) mHeaderView.findViewById(R.id.flowLayout);
         TextView tv_title = (TextView) mHeaderView.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
@@ -146,8 +148,8 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
 
     @Override
     public void onScrollToBottom() {
-        if(mPresenter!=null){
-            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+        if (mPresenter != null) {
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
             mPresenter.onLoadMore();
         }
     }
@@ -229,7 +231,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     }
 
     @Override
-    public void showGetDetailSuccess(Article article) {
+    public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
         mFlowLayout.removeAllViews();
@@ -238,20 +240,25 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             return;
         }
         mFlowLayout.setVisibility(View.VISIBLE);
-        for (final Tag tag : article.getiTags()) {
-            TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
-            if (!TextUtils.isEmpty(tag.getName()))
+        mFlowLayout.setAdapter(new TagAdapter<Tag>(article.getiTags()) {
+            @Override
+            public View getView(FlowLayout parent, int position, final Tag tag) {
+                TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.tag_item, mFlowLayout, false);
                 tvTag.setText(tag.getName());
-            mFlowLayout.addView(tvTag);
-            if(tag.getOscId() != 0){
-                tvTag.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SoftwareDetailActivity.show(mContext,tag.getOscId());
-                    }
-                });
+
+                return tvTag;
             }
-        }
+        });
+        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                Tag tag = article.getiTags()[position];
+                if (tag.getOscId() != 0) {
+                    SoftwareDetailActivity.show(mContext, tag.getOscId());
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -267,7 +274,6 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             mHeaderView.findViewById(R.id.line1).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.VISIBLE);
             mHeaderView.findViewById(R.id.tv_recommend).setVisibility(View.VISIBLE);
-            //mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
         } else {
             mHeaderView.findViewById(R.id.line1).setVisibility(View.GONE);
             mHeaderView.findViewById(R.id.line2).setVisibility(View.GONE);

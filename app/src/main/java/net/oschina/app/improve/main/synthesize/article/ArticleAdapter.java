@@ -84,12 +84,13 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
         String sourceName = item.getType() != 0 ? "开源中国" : item.getSource();
+        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().trim();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
                 setTag(h.mTextTitle, h.mImageTag, item);
-                h.mTextDesc.setText(item.getDesc());
-                h.mTextDesc.setVisibility(TextUtils.isEmpty(item.getDesc()) ? View.GONE : View.VISIBLE);
+                h.mTextDesc.setText(desc);
+                h.mTextDesc.setVisibility(TextUtils.isEmpty(desc) ? View.GONE : View.VISIBLE);
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());

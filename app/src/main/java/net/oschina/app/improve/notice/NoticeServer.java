@@ -24,6 +24,7 @@ import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.MainActivity;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.utils.ListenAccountChangeReceiver;
 import net.oschina.app.util.TLog;
 
@@ -268,7 +269,7 @@ public class NoticeServer extends Service {
         log("refreshNoticeForNet: mRunning:" + mRunning);
 
         mRunning = true;
-        OSChinaApi.getNotice(new TextHttpResponseHandler() {
+        OSChinaApi.getNotice(OSCSharedPreference.getInstance().getLastNewsId(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 log("onFailure:" + statusCode + " " + responseString);

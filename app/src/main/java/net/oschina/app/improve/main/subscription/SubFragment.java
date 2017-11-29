@@ -17,6 +17,7 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.banner.EventHeaderView;
 import net.oschina.app.improve.main.header.BlogHeaderView;
 import net.oschina.app.improve.main.header.HeaderView;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
@@ -142,6 +143,15 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     protected void setListData(ResultBean<PageBean<SubBean>> resultBean) {
         super.setListData(resultBean);
         mAdapter.setSystemTime(resultBean.getTime());
+        if (mTab != null &&
+                mTab.getType() == 6 &&
+                mTab.getSubtype() == 1 &&
+                mAdapter.getItems().size() != 0) {
+            SubBean bean = mAdapter.getItem(0);
+            if (bean != null) {
+                OSCSharedPreference.getInstance().putLastNewsId(bean.getId());
+            }
+        }
     }
 
     @Override

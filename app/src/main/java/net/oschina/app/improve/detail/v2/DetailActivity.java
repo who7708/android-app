@@ -50,6 +50,7 @@ import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.TDevice;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,6 +77,7 @@ public abstract class DetailActivity extends BackActivity implements
     protected long mStay;//该界面停留时间
     private long mStart;
     protected Behavior mBehavior;
+    @SuppressWarnings("unused")
     private boolean isInsert;
 
     protected CommentBar mDelegation;
@@ -371,7 +373,14 @@ public abstract class DetailActivity extends BackActivity implements
         switch (item.getItemId()) {
             case R.id.menu_share:
                 if (mBean != null) {
-                    toShare(mBean.getTitle(), mBean.getBody(), mBean.getHref());
+                    if (mBean.getType() != News.TYPE_SOFTWARE) {
+                        toShare(mBean.getTitle(), mBean.getBody(), mBean.getHref());
+                    } else {
+                        Map<String, Object> extras = mBean.getExtra();
+                        if (extras != null) {
+                            toShare(getExtraString(extras.get("softwareTitle")) + "   " + getExtraString(extras.get("softwareName")), mBean.getBody(), mBean.getHref());
+                        }
+                    }
                 }
                 break;
             case R.id.menu_report:

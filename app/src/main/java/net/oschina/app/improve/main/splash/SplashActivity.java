@@ -58,7 +58,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        Launcher launcher = CacheManager.readJson(OSCApplication.getInstance(), "Launcher.json", Launcher.class);
+        Launcher launcher = CacheManager.readJson(OSCApplication.getInstance(), "Launcher", Launcher.class);
         String savePath = OSCApplication.getInstance().getCacheDir() + "/launcher";
         File file = new File(savePath);
         if (launcher != null && !launcher.isExpired() && file.exists()) {

@@ -12,6 +12,7 @@ import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.Launcher;
 import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
+import net.oschina.app.util.UIHelper;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -63,7 +64,7 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
         mCountDownView.setListener(new CountDownView.OnProgressListener() {
             @Override
             public void onFinish() {
-                if (isClickAd)
+                if (isClickAd || mContext == null)
                     return;
                 MainActivity.show(mContext);
                 mCountDownView.cancel();
@@ -73,6 +74,8 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
         mCountDownView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isClickAd || mContext == null)
+                    return;
                 MainActivity.show(mContext);
                 mCountDownView.cancel();
                 getActivity().finish();
@@ -85,7 +88,7 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         isClickAd = true;
-        WebActivity.show(mContext, mLauncher.getHref(), true);
+        UIHelper.showUrlRedirect(mContext,mLauncher.getHref());
         getActivity().finish();
     }
 }

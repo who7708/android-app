@@ -122,7 +122,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mShareDialog.setTitle(title);
         mTitle = title;
         mShareDialog.init(this, title, null, mUrl);
-        mToolBar.setTitle(title);
+        mToolBar.setTitle("返回");
     }
 
     @Override

@@ -35,7 +35,7 @@ public class IntroduceActivity extends BaseActivity {
     @Override
     protected void initWidget() {
         super.initWidget();
-        OSCSharedPreference.getInstance().putFirstInstall(false);
+        OSCSharedPreference.getInstance().putFirstInstall();
         setSwipeBackEnable(false);
         mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
         mViewPager.getAdapter().notifyDataSetChanged();

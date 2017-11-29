@@ -14,6 +14,7 @@ import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.banner.HeaderView;
 import net.oschina.app.improve.main.banner.NewsHeaderView;
+import net.oschina.app.improve.main.introduce.ArticleIntroduceActivity;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
@@ -41,6 +42,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
 
     @Override
     protected void initData() {
+        ArticleIntroduceActivity.show(mContext);
         mReadState = OSCApplication.getReadState("sub_list");
         if (mPresenter != null) {
             mPresenter.loadCache();

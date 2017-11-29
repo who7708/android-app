@@ -1303,8 +1303,10 @@ public class OSChinaApi {
      *
      * @param handler TextHttpResponseHandler
      */
-    public static void getNotice(TextHttpResponseHandler handler) {
-        ApiHttpClient.get("action/apiv2/notice?clear=false", handler);
+    public static void getNotice(long id, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("newsId", id);
+        ApiHttpClient.get("action/apiv2/notice?clear=false", params, handler);
     }
 
     /**
@@ -1947,6 +1949,7 @@ public class OSChinaApi {
 
     /**
      * 获取启动页展示
+     *
      * @param handler handler
      */
     public static void getLauncher(TextHttpResponseHandler handler) {

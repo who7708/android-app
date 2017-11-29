@@ -17,6 +17,15 @@ public class NoticeBean implements Serializable {
     private int review;
     private int fans;
     private int like = 0;
+    private int newsCount;
+
+    public int getNewsCount() {
+        return newsCount;
+    }
+
+    public void setNewsCount(int newsCount) {
+        this.newsCount = newsCount;
+    }
 
     public int getMention() {
         return mention;

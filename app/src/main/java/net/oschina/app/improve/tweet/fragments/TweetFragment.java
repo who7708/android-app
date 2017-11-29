@@ -175,6 +175,12 @@ public class TweetFragment extends BaseGeneralRecyclerFragment<Tweet>
         }
     }
 
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+        mRecyclerView.setItemAnimator(null);
+    }
+
     /**
      * fragment被销毁的时候重新调用，初始化保存的数据
      *

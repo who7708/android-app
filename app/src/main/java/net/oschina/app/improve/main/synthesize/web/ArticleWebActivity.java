@@ -21,7 +21,6 @@ import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
-import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
@@ -116,6 +115,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
     @Override
     protected void initData() {
         super.initData();
+        mToolBar.setTitle("返回");
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
         mToolBar.setTitle(mArticle.getTitle());
@@ -132,7 +132,9 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
 
     @Override
     public void onReceivedTitle(String title) {
-
+        if(isDestroy())
+            return;
+        mToolBar.setTitle("返回");
     }
 
 

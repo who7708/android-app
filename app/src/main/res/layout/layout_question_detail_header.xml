@@ -151,6 +151,18 @@
             android:layout_marginBottom="@dimen/lay_12" />
 
         <View
+            style="@style/h_line"
+            android:visibility="visible" />
+
+        <net.oschina.app.improve.comment.CommentView
+            android:id="@+id/cv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@color/ques_detail_bg_color" />
+
+
+        <View
             android:id="@+id/line1"
             style="@style/h_line"
             android:visibility="gone" />

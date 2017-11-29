@@ -16,6 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
             android:background="@color/white"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/main_green"

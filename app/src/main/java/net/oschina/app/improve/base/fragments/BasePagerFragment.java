@@ -21,6 +21,7 @@ import java.util.List;
 public abstract class BasePagerFragment extends BaseFragment {
     protected TabLayout mTabLayout;
     protected ViewPager mViewPager;
+    protected Adapter mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -32,12 +33,19 @@ public abstract class BasePagerFragment extends BaseFragment {
         super.initWidget(root);
         mTabLayout = (TabLayout) root.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) root.findViewById(R.id.viewPager);
-        Adapter mAdapter = new Adapter(getChildFragmentManager());
+        mAdapter = new Adapter(getChildFragmentManager());
         mAdapter.reset(getFragments());
         mAdapter.reset(getTitles());
         mViewPager.setAdapter(mAdapter);
-        if (mTabLayout != null)
+        if (mTabLayout != null) {
             mTabLayout.setupWithViewPager(mViewPager);
+            setupTabView();
+        }
+
+    }
+
+    protected void setupTabView() {
+
     }
 
     @Override

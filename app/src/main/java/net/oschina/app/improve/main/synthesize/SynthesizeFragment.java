@@ -1,9 +1,13 @@
 package net.oschina.app.improve.main.synthesize;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
@@ -12,6 +16,8 @@ import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.subscription.SubFragment;
 import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
+import net.oschina.app.improve.notice.NoticeBean;
+import net.oschina.app.improve.notice.NoticeManager;
 import net.oschina.app.improve.search.activities.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 
@@ -25,7 +31,13 @@ import butterknife.OnClick;
  * Created by huanghaibin on 2017/10/23.
  */
 
-public class SynthesizeFragment extends BasePagerFragment implements OnTabReselectListener, View.OnClickListener {
+public class SynthesizeFragment extends BasePagerFragment implements
+        OnTabReselectListener,
+        NoticeManager.NoticeNotify,
+        View.OnClickListener {
+
+    private int mCurrentItem;
+    private TextView mTextCount;
 
     public static SynthesizeFragment newInstance() {
         return new SynthesizeFragment();
@@ -40,6 +52,82 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
     protected void initWidget(View root) {
         super.initWidget(root);
         setStatusBarPadding();
+        NoticeManager.bindNotify(this);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setTitleText(false, mCurrentItem);
+                setTitleText(true, position);
+                mCurrentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void setTitleText(boolean isSelected, int position) {
+        TabLayout.Tab tab = mTabLayout.getTabAt(position);
+        if (tab == null) return;
+        View view = tab.getCustomView();
+        if (view == null) return;
+        TextView textView = (TextView) view.findViewById(R.id.tv_title);
+        textView.setTextColor(isSelected ? 0xff24cf5f : 0xff6A6A6A);
+    }
+
+    @Override
+    protected void setupTabView() {
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null) {
+                tab.setCustomView(getTabView(i));
+                if (tab.getCustomView() != null) {
+                    View tabView = (View) tab.getCustomView().getParent();
+                    tabView.setTag(i);
+                    tabView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onNoticeArrived(NoticeBean bean) {
+        if (mTextCount == null || bean == null)
+            return;
+        if (bean.getNewsCount() == 0) {
+            mTextCount.setVisibility(View.GONE);
+        } else {
+            mTextCount.setVisibility(View.VISIBLE);
+            mTextCount.setText(String.valueOf(bean.getNewsCount()));
+        }
+    }
+
+
+    @SuppressLint("InflateParams")
+    private View getTabView(int i) {
+        View view = mInflater.inflate(R.layout.tab_synthesize, null);
+        TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
+        TextView tv_count = (TextView) view.findViewById(R.id.tv_count);
+        if (i == 0) {
+            tv_title.setTextColor(0xff24cf5f);
+        }
+        if (i == 1) {
+            mTextCount = tv_count;
+        }
+        tv_title.setText(mAdapter.getPageTitle(i));
+        return view;
     }
 
     @OnClick({R.id.iv_search})
@@ -98,7 +186,7 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
 
     private SubFragment getSubFragment(int type, String title, String url, int subType, String token) {
         SubTab tab = new SubTab();
-        if(type == 3){
+        if (type == 3) {
             SubTab.Banner banner = tab.new Banner();
             banner.setCatalog(4);
             banner.setHref("https://www.oschina.net/action/apiv2/banner?catalog=4");
@@ -115,5 +203,11 @@ public class SynthesizeFragment extends BasePagerFragment implements OnTabResele
         Bundle bundle = new Bundle();
         bundle.putSerializable("sub_tab", tab);
         return SubFragment.newInstance(tab);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        NoticeManager.unBindNotify(this);
     }
 }

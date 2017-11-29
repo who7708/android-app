@@ -1,11 +1,6 @@
 package net.oschina.app.improve.main.update;
 
 import android.content.Context;
-import android.provider.Settings;
-
-import net.oschina.app.OSCApplication;
-
-import java.util.UUID;
 
 /**
  * 应用存储
@@ -88,8 +83,8 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
     /**
      * 第一次安装
      */
-    public void putFirstInstall(boolean isFirst) {
-        put("osc_first_install", isFirst);
+    public void putFirstInstall() {
+        put("osc_first_install", false);
     }
 
     /**
@@ -97,5 +92,36 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
      */
     public boolean isFirstInstall() {
         return getBoolean("osc_first_install", true);
+    }
+
+    /**
+     * 第一次使用
+     */
+    public void putFirstUsing() {
+        put("osc_first_using", false);
+    }
+
+    /**
+     * 第一次使用
+     */
+    public boolean isFirstUsing() {
+        return getBoolean("osc_first_using", true);
+    }
+
+
+    /**
+     * putLastNewsId
+     * @param id id
+     */
+    public void putLastNewsId(long id) {
+        put("last_news_id", id);
+    }
+
+    /**
+     * 获取最新的id
+     * @return return
+     */
+    public long getLastNewsId() {
+        return getLong("last_news_id", 0);
     }
 }
