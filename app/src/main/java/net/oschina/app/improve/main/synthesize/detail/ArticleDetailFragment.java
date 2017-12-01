@@ -125,7 +125,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         portraitView.setup(author);
         mCommentView = (CommentView) mHeaderView.findViewById(R.id.commentView);
         mCommentView.setTitle("热门评论");
-        mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
+        mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
         mHeaderView.findViewById(R.id.btn_read_all).setOnClickListener(this);
         mRefreshLayout.post(new Runnable() {
             @Override
@@ -143,7 +143,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     public void onRefreshing() {
         super.onRefreshing();
         if (mCommentView != null)
-            mCommentView.init(mArticle, mArticle.getKey(), 1, (CommentView.OnCommentClickListener) mContext);
+            mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
     }
 
     @Override

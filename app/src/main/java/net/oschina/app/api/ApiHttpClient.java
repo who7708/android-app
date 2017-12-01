@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpRequest;
@@ -119,12 +120,18 @@ public class ApiHttpClient {
     }
 
     public static void get(String partUrl, AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.get(getAbsoluteApiUrl(partUrl), handler);
         log("GET " + partUrl);
     }
 
     public static void get(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.get(getAbsoluteApiUrl(partUrl), params, handler);
         log("GET " + partUrl + "?" + params);
     }
@@ -148,12 +155,16 @@ public class ApiHttpClient {
     }
 
     public static void post(String partUrl, AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
         CLIENT.post(getAbsoluteApiUrl(partUrl), handler);
         log("POST " + partUrl);
     }
 
     public static void post(String partUrl, RequestParams params,
                             AsyncHttpResponseHandler handler) {
+        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.post(getAbsoluteApiUrl(partUrl), params, handler);
         log("POST " + partUrl + "?" + params);
     }
@@ -175,7 +186,7 @@ public class ApiHttpClient {
         c.addHeader("Connection", "Keep-Alive");
         c.addHeader("sessionKey", MD5.get32MD5Str(OSCSharedPreference.getInstance().getDeviceUUID() + System.currentTimeMillis()));
         c.addHeader("uuid", OSCSharedPreference.getInstance().getDeviceUUID());
-        c.addHeader("Accept","image/webp");
+        c.addHeader("Accept", "image/webp");
         //noinspection deprecation
         c.getHttpClient().getParams()
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);

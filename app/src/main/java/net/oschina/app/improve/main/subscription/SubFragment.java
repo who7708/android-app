@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.subscription;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -34,6 +35,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     private BlogHeaderView mBlogHeaderView;
     private EventHeaderView mEventHeaderView;
     private OSCApplication.ReadState mReadState;
+    public static boolean SAVE_ID = false;//是否保存新闻id
 
     public static SubFragment newInstance(SubTab subTab) {
         SubFragment fragment = new SubFragment();
@@ -143,13 +145,17 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     protected void setListData(ResultBean<PageBean<SubBean>> resultBean) {
         super.setListData(resultBean);
         mAdapter.setSystemTime(resultBean.getTime());
-        if (mTab != null &&
+        if( mTab!= null &&
                 mTab.getType() == 6 &&
-                mTab.getSubtype() == 1 &&
-                mAdapter.getItems().size() != 0) {
+                mAdapter.getItems().size() != 0){
             SubBean bean = mAdapter.getItem(0);
-            if (bean != null) {
+            if(bean == null)
+                return;
+            Log.e("putLastNewsId", "   --  " + bean.getId());
+            if(SAVE_ID){
                 OSCSharedPreference.getInstance().putLastNewsId(bean.getId());
+            }else {
+                OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
             }
         }
     }

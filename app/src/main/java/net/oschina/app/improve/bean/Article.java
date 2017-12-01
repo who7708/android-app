@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 
 public class Article implements Serializable {
+    public static final int TYPE_AD = 9999;//广告类型
+
     private int type;
     private String authorName;
     private String authorId;

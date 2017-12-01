@@ -111,6 +111,7 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
 
     /**
      * putLastNewsId
+     *
      * @param id id
      */
     public void putLastNewsId(long id) {
@@ -119,9 +120,25 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
 
     /**
      * 获取最新的id
+     *
      * @return return
      */
     public long getLastNewsId() {
         return getLong("last_news_id", 0);
+    }
+
+
+    /**
+     * 返回新闻有多少
+     */
+    public long getTheNewsId() {
+        return getLong("the_last_news_id", 0);
+    }
+
+    /**
+     * 存储最新新闻数量
+     */
+    public void putTheNewsId(long count) {
+        put("the_last_news_id", count);
     }
 }

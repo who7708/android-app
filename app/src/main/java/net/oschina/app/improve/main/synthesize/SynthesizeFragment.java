@@ -16,6 +16,7 @@ import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.subscription.SubFragment;
 import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
 import net.oschina.app.improve.search.activities.SearchActivity;
@@ -32,8 +33,8 @@ import butterknife.OnClick;
  */
 
 public class SynthesizeFragment extends BasePagerFragment implements
-        OnTabReselectListener,
         NoticeManager.NoticeNotify,
+        OnTabReselectListener,
         View.OnClickListener {
 
     private int mCurrentItem;
@@ -64,6 +65,25 @@ public class SynthesizeFragment extends BasePagerFragment implements
                 setTitleText(false, mCurrentItem);
                 setTitleText(true, position);
                 mCurrentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                SubFragment.SAVE_ID = position == 1;
+                if (SubFragment.SAVE_ID) {
+                    OSCSharedPreference.getInstance().putLastNewsId(OSCSharedPreference.getInstance().getTheNewsId());
+                }
             }
 
             @Override
@@ -205,9 +225,10 @@ public class SynthesizeFragment extends BasePagerFragment implements
         return SubFragment.newInstance(tab);
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        NoticeManager.unBindNotify(this);
+        NoticeManager.bindNotify(this);
     }
 }

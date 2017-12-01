@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import net.oschina.app.improve.media.Util;
@@ -79,7 +78,6 @@ public class CountDownView extends View implements Runnable {
             return;
         }
         mProgress += 2;
-        Log.e("onAnimationUpdate", "  --  " + mProgress);
         if (mProgress < 360) {
             postDelayed(this, 1000 * mCount / 180);
             invalidate();

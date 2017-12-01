@@ -1306,7 +1306,8 @@ public class OSChinaApi {
     public static void getNotice(long id, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("newsId", id);
-        ApiHttpClient.get("action/apiv2/notice?clear=false", params, handler);
+        params.put("clear", false);
+        ApiHttpClient.get("action/apiv2/notice", params, handler);
     }
 
     /**

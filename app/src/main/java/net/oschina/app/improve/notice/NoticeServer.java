@@ -272,13 +272,11 @@ public class NoticeServer extends Service {
         OSChinaApi.getNotice(OSCSharedPreference.getInstance().getLastNewsId(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                log("onFailure:" + statusCode + " " + responseString);
                 doNetFinish(null);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                log("onSuccess:" + statusCode + " " + responseString);
                 if (!TextUtils.isEmpty(responseString)) {
                     try {
                         Type type = new TypeToken<ResultBean>() {

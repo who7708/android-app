@@ -24,7 +24,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
- * 发布界面
+ * 发布选择界面
  * Created by huanghaibin on 2017/9/25.
  */
 

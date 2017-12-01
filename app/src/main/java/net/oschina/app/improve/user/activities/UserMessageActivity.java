@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
 import net.oschina.app.improve.user.fragments.UserCommentFragment;

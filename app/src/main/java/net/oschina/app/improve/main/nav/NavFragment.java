@@ -36,7 +36,7 @@ import butterknife.OnLongClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavFragment extends BaseFragment implements View.OnClickListener, NoticeManager.NoticeNotify,View.OnLongClickListener {
+public class NavFragment extends BaseFragment implements View.OnClickListener, NoticeManager.NoticeNotify, View.OnLongClickListener {
     @Bind(R.id.nav_item_news)
     NavigationButton mNavNews;
     @Bind(R.id.nav_item_tweet)
@@ -216,7 +216,7 @@ public class NavFragment extends BaseFragment implements View.OnClickListener, N
 
     @Override
     public void onNoticeArrived(NoticeBean bean) {
-        mNavMe.showRedDot(bean.getAllCount());
+        mNavMe.showRedDot(bean.getUserCount());
     }
 
     public interface OnNavigationReselectListener {
