@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.article;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
@@ -77,6 +78,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
                             ResultBean<PageBean<Article>> bean = new Gson().fromJson(responseString, type);
+                            Log.e("bean","" + new Gson().toJson(bean.getNotice()));
                             if (bean != null && bean.isSuccess()) {
                                 PageBean<Article> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
