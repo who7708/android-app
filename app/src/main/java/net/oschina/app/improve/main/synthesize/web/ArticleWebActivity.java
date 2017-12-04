@@ -118,25 +118,10 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mToolBar.setTitle("返回");
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
-        mToolBar.setTitle(mArticle.getTitle());
-        mWebView.loadUrl(mArticle.getUrl());
-        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mEmptyLayout.isLoading() && mArticle != null) {
-                    mWebView.loadUrl(mArticle.getUrl());
-                }
-            }
-        });
+        mWebView.loadUrl(mArticle.getUrl().contains("?") ?
+                String.format("%s&%s",mArticle.getUrl(),"utm_source=oschina-app") :
+                String.format("%s?%s",mArticle.getUrl(),"utm_source=oschina-app"));
     }
-
-    @Override
-    public void onReceivedTitle(String title) {
-        if(isDestroy())
-            return;
-        mToolBar.setTitle("返回");
-    }
-
 
     @Override
     public void showNetworkError(int strId) {

@@ -159,6 +159,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         switch (v.getId()) {
             case R.id.btn_read_all:
                 ArticleWebActivity.show(mContext, mArticle);
+                mPresenter.addClickCount();
                 break;
         }
     }

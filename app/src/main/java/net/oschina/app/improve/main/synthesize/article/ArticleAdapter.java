@@ -171,6 +171,10 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_ad);
             imageView.setVisibility(View.VISIBLE);
+        } else if (article.getType() == News.TYPE_TRANSLATE) {
+            setEmptyTag(textView, article);
+            imageView.setImageResource(R.mipmap.tag_translate);
+            imageView.setVisibility(View.VISIBLE);
         } else {
             textView.setText(article.getTitle());
             imageView.setVisibility(View.GONE);

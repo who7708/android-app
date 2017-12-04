@@ -43,6 +43,15 @@ public class OSCWebView extends WebView {
                     mOnFinishFinish.onReceivedTitle(title);
                 }
             }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                Log.e("onProgressChanged","  --  " + newProgress);
+                if(mOnFinishFinish!= null){
+                    mOnFinishFinish.onProgressChange(newProgress);
+                }
+            }
         });
 
         setWebViewClient(new WebViewClient() {
@@ -54,6 +63,7 @@ public class OSCWebView extends WebView {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return super.shouldOverrideUrlLoading(view, request);
+
             }
 
             @Override
@@ -185,6 +195,8 @@ public class OSCWebView extends WebView {
 
     public interface OnFinishListener {
         void onReceivedTitle(String title);
+
+        void onProgressChange(int progress);
 
         void onFinish();
     }

@@ -12,13 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
-import net.oschina.app.ui.empty.EmptyLayout;
 
 import butterknife.Bind;
 
@@ -30,8 +30,9 @@ import butterknife.Bind;
 public class WebActivity extends BackActivity implements OSCWebView.OnFinishListener {
     @Bind(R.id.webView)
     OSCWebView mWebView;
-    @Bind(R.id.emptyLayout)
-    EmptyLayout mEmptyLayout;
+    @Bind(R.id.progressBar)
+    ProgressBar mProgressBar;
+
     private String mTitle;
     protected ShareDialog mShareDialog;
     private String mUrl;
@@ -83,16 +84,6 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mWebView.setOnFinishFinish(this);
         if (!TextUtils.isEmpty(mUrl))
             mWebView.loadUrl(mUrl);
-        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mEmptyLayout.isLoading()) {
-                    if (!TextUtils.isEmpty(mUrl))
-                        mWebView.loadUrl(mUrl);
-                }
-            }
-        });
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -126,11 +117,17 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     }
 
     @Override
-    public void onFinish() {
-        // TODO: 2017/10/27
-        if (isDestroy())
+    public void onProgressChange(int progress) {
+        if (isDestroyed())
             return;
-        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+        mProgressBar.setProgress(progress);
+    }
+
+    @Override
+    public void onFinish() {
+        if (isDestroyed())
+            return;
+        mProgressBar.setVisibility(View.GONE);
     }
 
 

@@ -116,7 +116,12 @@ public class ArticleDetailActivity extends BackActivity implements
         });
 
         mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        mDelegation.hideFav();
+        mDelegation.setLikeListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         mDelegation.getBottomSheet().setMentionListener(new View.OnClickListener() {
             @Override

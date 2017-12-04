@@ -11,7 +11,6 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.Launcher;
 import net.oschina.app.improve.main.MainActivity;
-import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.util.UIHelper;
 
 import butterknife.Bind;
@@ -88,7 +87,8 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         isClickAd = true;
-        UIHelper.showUrlRedirect(mContext,mLauncher.getHref());
+        MainActivity.show(mContext);
+        UIHelper.showUrlRedirect(mContext, mLauncher.getHref());
         getActivity().finish();
     }
 }

@@ -124,11 +124,12 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
         mBtnPub.clearAnimation();
         mBtnPub.animate()
                 .rotation(0f)
-                .setDuration(280)
+                .setDuration(200)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
+                        mBtnPub.setVisibility(View.GONE);
                         finish();
                     }
                 })
@@ -136,10 +137,10 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void show(int position) {
-        int angle = 35 + position * 55;
+        int angle = 30 + position * 60;
 
-        float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 80);
-        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position == 1 ? 110 : 80);
+        float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 100);
+        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position!=1 ? 160 : 100);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(mLays[position], "translationX", 0, x);
         ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(mLays[position], "translationY", 0, y);
         AnimatorSet animatorSet = new AnimatorSet();
@@ -148,16 +149,23 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
         animatorSet.start();
     }
 
-    private void close(int position) {
-        int angle = 35 + position * 55;
-        float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 80);
-        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position == 1 ? 110 : 80);
+    private void close(final int position) {
+        int angle = 30 + position * 60;
+        float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 100);
+        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position!=1 ? 160 : 100);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(mLays[position], "translationX", x, 0);
         ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(mLays[position], "translationY", y, 0);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(180);
         animatorSet.setInterpolator(new DecelerateInterpolator());
         animatorSet.play(objectAnimatorX).with(objectAnimatorY);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mLays[position].setVisibility(View.GONE);
+            }
+        });
         animatorSet.start();
     }
 

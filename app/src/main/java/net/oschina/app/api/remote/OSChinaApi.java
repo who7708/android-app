@@ -1956,4 +1956,28 @@ public class OSChinaApi {
     public static void getLauncher(TextHttpResponseHandler handler) {
         ApiHttpClient.get("action/apiv2/get_launcher", handler);
     }
+
+    /**
+     * 统计点击数
+     *
+     * @param key     key
+     * @param handler handler
+     */
+    public static void addClickCount(String key, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+        ApiHttpClient.get("action/apiv2/click_count", params, handler);
+    }
+
+    /**
+     * 收藏推荐
+     *
+     * @param json    json
+     * @param handler handler
+     */
+    public static void articleFav(String json, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("article", json);
+        ApiHttpClient.get("action/apiv2/favorite_hot_article", params, handler);
+    }
 }

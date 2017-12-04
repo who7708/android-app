@@ -75,6 +75,20 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                 });
     }
 
+    @Override
+    public void addClickCount() {
+        OSChinaApi.addClickCount(mArticle.getKey(), new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+
+            }
+        });
+    }
 
     @Override
     public void onRefreshing() {

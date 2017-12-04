@@ -38,5 +38,6 @@ interface ArticleDetailContract {
 
         void uploadBehaviors(List<Behavior> behaviors);
 
+        void addClickCount();
     }
 }
