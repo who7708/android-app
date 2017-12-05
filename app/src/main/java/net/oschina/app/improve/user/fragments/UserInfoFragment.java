@@ -25,6 +25,7 @@ import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.User;
 import net.oschina.app.improve.bean.base.ResultBean;
+import net.oschina.app.improve.main.synthesize.read.ReadHistoryActivity;
 import net.oschina.app.improve.media.SelectImageActivity;
 import net.oschina.app.improve.media.config.SelectOptions;
 import net.oschina.app.improve.notice.NoticeBean;
@@ -418,7 +419,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
             R.id.user_view_solar_system, R.id.ly_tweet, R.id.ly_favorite,
             R.id.ly_following, R.id.ly_follower, R.id.rl_message,
-            R.id.rl_blog, R.id.rl_data, R.id.rl_share,
+            R.id.rl_blog, R.id.rl_read, R.id.rl_share,
             R.id.rl_info_question, R.id.rl_info_activities, R.id.rl_team
     })
     @Override
@@ -477,8 +478,8 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                 case R.id.rl_team:
                     UIHelper.showTeamMainActivity(getActivity());
                     break;
-                case R.id.rl_data:
-                    MyDataActivity.show(mContext, mUserInfo);
+                case R.id.rl_read:
+                    ReadHistoryActivity.show(mContext);
                     break;
                 case R.id.rl_share:
                     if (mShareDialog == null) {

@@ -76,7 +76,7 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
         show(2);
     }
 
-    @OnClick({R.id.rl_main, R.id.ll_pub_tweet, R.id.ll_pub_blog})
+    @OnClick({R.id.rl_main, R.id.ll_pub_tweet, R.id.ll_pub_blog, R.id.ll_pub_article})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -107,7 +107,7 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
                     finish();
                     return;
                 }
-                PubArticleActivity.show(this);
+                PubArticleActivity.show(this, "");
                 finish();
                 break;
         }
@@ -140,7 +140,7 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
         int angle = 30 + position * 60;
 
         float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 100);
-        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position!=1 ? 160 : 100);
+        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position != 1 ? 160 : 100);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(mLays[position], "translationX", 0, x);
         ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(mLays[position], "translationY", 0, y);
         AnimatorSet animatorSet = new AnimatorSet();
@@ -152,7 +152,7 @@ public class PubActivity extends BaseActivity implements View.OnClickListener {
     private void close(final int position) {
         int angle = 30 + position * 60;
         float x = (float) Math.cos(angle * (Math.PI / 180)) * Util.dipTopx(this, 100);
-        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position!=1 ? 160 : 100);
+        float y = (float) -Math.sin(angle * (Math.PI / 180)) * Util.dipTopx(this, position != 1 ? 160 : 100);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(mLays[position], "translationX", x, 0);
         ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(mLays[position], "translationY", y, 0);
         AnimatorSet animatorSet = new AnimatorSet();

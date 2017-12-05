@@ -20,6 +20,7 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.detail.v2.ReportDialog;
+import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.widget.SimplexToast;
@@ -170,6 +171,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_share:
+                ClipManager.IS_SYSTEM_URL = true;
                 mShareDialog.show();
                 break;
             case R.id.menu_report:
@@ -205,5 +207,17 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
     @Override
     public void setPresenter(ArticleWebContract.Presenter presenter) {
         // TODO: 2017/10/30
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ClipManager.IS_SYSTEM_URL = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ClipManager.IS_SYSTEM_URL = false;
     }
 }

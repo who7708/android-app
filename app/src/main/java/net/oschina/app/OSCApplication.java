@@ -9,6 +9,7 @@ import com.baidu.mapapi.SDKInitializer;
 
 import net.oschina.app.api.ApiHttpClient;
 import net.oschina.app.improve.account.AccountHelper;
+import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.DetailCache;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
@@ -37,6 +38,7 @@ public class OSCApplication extends AppContext {
     }
 
     private void init() {
+        BaseActivity.IS_ACTIVE = true;
         OSCSharedPreference.init(this, "osc_update_sp");
         if (TextUtils.isEmpty(OSCSharedPreference.getInstance().getDeviceUUID())) {
             String androidId = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);

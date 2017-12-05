@@ -1,6 +1,8 @@
 package net.oschina.app.improve.base.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,9 +17,11 @@ import com.bumptech.glide.RequestManager;
 import com.umeng.analytics.MobclickAgent;
 
 import net.oschina.app.improve.base.activities.swipe.SwipeBackActivity;
+import net.oschina.app.improve.main.ClipManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -29,6 +33,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends SwipeBackActivity {
     protected RequestManager mImageLoader;
     private boolean mIsDestroy;
+    public static boolean IS_ACTIVE = true;
     private static boolean isMiUi = false;
     private final String mPackageNameUmeng = this.getClass().getName();
     private Fragment mFragment;
@@ -88,6 +93,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ClipManager.onResume();
         MobclickAgent.onPageStart(this.mPackageNameUmeng);
         MobclickAgent.onResume(this);
     }
@@ -97,6 +103,12 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onPause();
         MobclickAgent.onPageEnd(this.mPackageNameUmeng);
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        IS_ACTIVE = isOnForeground();
     }
 
     protected abstract int getContentView();
@@ -120,6 +132,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         return mImageLoader;
     }
 
+
     @Override
     protected void onDestroy() {
         mIsDestroy = true;
@@ -129,7 +142,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public boolean isDestroy() {
         return mIsDestroy;
     }
-
 
 
     @SuppressLint("PrivateApi")
@@ -163,7 +175,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
             e.printStackTrace();
         }
     }
-
 
 
     /**
@@ -227,5 +238,29 @@ public abstract class BaseActivity extends SwipeBackActivity {
         } else if (type == 3) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+    }
+
+    /**
+     * 是否在前台
+     *
+     * @return isOnForeground APP是否在前台
+     */
+    protected boolean isOnForeground() {
+        ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = getApplicationContext().getPackageName();
+
+        assert activityManager != null;
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null)
+            return false;
+
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
     }
 }

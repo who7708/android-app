@@ -65,21 +65,6 @@ public class SynthesizeFragment extends BasePagerFragment implements
                 setTitleText(false, mCurrentItem);
                 setTitleText(true, position);
                 mCurrentItem = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
                 SubFragment.SAVE_ID = position == 1;
                 if (SubFragment.SAVE_ID) {
                     OSCSharedPreference.getInstance().putLastNewsId(OSCSharedPreference.getInstance().getTheNewsId());

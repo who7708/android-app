@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -47,7 +48,6 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                Log.e("onProgressChanged","  --  " + newProgress);
                 if(mOnFinishFinish!= null){
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
@@ -78,6 +78,14 @@ public class OSCWebView extends WebView {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (mOnFinishFinish != null) {
+                    mOnFinishFinish.onError();
+                }
             }
         });
 
@@ -197,6 +205,8 @@ public class OSCWebView extends WebView {
         void onReceivedTitle(String title);
 
         void onProgressChange(int progress);
+
+        void onError();
 
         void onFinish();
     }

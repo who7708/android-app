@@ -1543,7 +1543,7 @@ public class OSChinaApi {
     public static void getSubscription(String api, String pageToken, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("pageToken", pageToken);
-        ApiHttpClient.getHttpClient().get(api, params, handler);
+        ApiHttpClient.get(api, params, handler);
     }
 
     /**
@@ -1553,7 +1553,7 @@ public class OSChinaApi {
      * @param handler handler
      */
     public static void getBanner(String api, TextHttpResponseHandler handler) {
-        ApiHttpClient.getHttpClient().get(api, handler);
+        ApiHttpClient.get(api, handler);
     }
 
     /**
@@ -1978,6 +1978,33 @@ public class OSChinaApi {
     public static void articleFav(String json, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("article", json);
-        ApiHttpClient.get("action/apiv2/favorite_hot_article", params, handler);
+        ApiHttpClient.post("action/apiv2/favorite_hot_article", params, handler);
+    }
+
+
+    /**
+     * 投递文章
+     *
+     * @param link    link
+     * @param handler handler
+     */
+    public static void putArticle(String link, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("link", link);
+        ApiHttpClient.post("action/apiv2/post_link_article", params, handler);
+    }
+
+
+    /**
+     * 阅读记录
+     *
+     * @param handler handler
+     */
+    public static void readHistory(String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        ApiHttpClient.get("action/apiv2/user_read_list", handler);
     }
 }

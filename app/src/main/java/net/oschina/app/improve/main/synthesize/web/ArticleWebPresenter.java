@@ -40,12 +40,10 @@ class ArticleWebPresenter implements ArticleWebContract.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         mView.showNetworkError(R.string.tip_network_error);
-                        Log.e("onFailure","" + responseString);
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess","" + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Comment>>() {
                             }.getType();

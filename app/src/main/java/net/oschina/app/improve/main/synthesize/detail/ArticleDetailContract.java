@@ -20,6 +20,12 @@ interface ArticleDetailContract {
         void showCommentSuccess(Comment comment);
 
         void showCommentError(String message);
+
+        void showFavReverseSuccess(boolean isFav);
+
+        void showFavError();
+
+        void showGetDetailSuccess(Article article);
     }
 
     interface View extends BaseListView<Presenter, Article> {
@@ -39,5 +45,7 @@ interface ArticleDetailContract {
         void uploadBehaviors(List<Behavior> behaviors);
 
         void addClickCount();
+
+        void fav();
     }
 }

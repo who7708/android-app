@@ -72,6 +72,37 @@
                 style="@style/option_item_toggleButton" />
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View
+                style="@style/h_line"
+                android:layout_marginLeft="@dimen/lay_14"
+                tools:ignore="RtlHardcoded" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_clip"
+            style="@style/option_item_rl"
+            android:background="@drawable/ic_material"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/option_item_text_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="自动检测粘贴板中的URL"
+                android:textColor="?attr/textColor"
+                android:textSize="@dimen/text_size_16"
+                tools:ignore="HardcodedText" />
+
+            <net.oschina.app.improve.widget.togglebutton.ToggleButton
+                android:id="@+id/tb_clip"
+                style="@style/option_item_toggleButton" />
+        </LinearLayout>
+
         <View style="@style/h_line" />
 
         <View

@@ -124,6 +124,11 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     }
 
     @Override
+    public void onError() {
+
+    }
+
+    @Override
     public void onFinish() {
         if (isDestroyed())
             return;

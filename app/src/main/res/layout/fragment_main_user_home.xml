@@ -359,7 +359,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/rl_data"
+                        android:id="@+id/rl_read"
                         style="@style/option_item_rl">
 
                         <ImageView

@@ -21,10 +21,10 @@ public class Article implements Serializable {
     private String url;
     private String pubDate;
     private String source;
-    private String sourceImg;
     private String[] imgs;
     private Tag[] iTags;
     private int commentCount;
+    private boolean favorite;
 
     @SerializedName("osc_id")
     private long oscId;
@@ -128,14 +128,6 @@ public class Article implements Serializable {
         this.authorId = authorId;
     }
 
-    public String getSourceImg() {
-        return sourceImg;
-    }
-
-    public void setSourceImg(String sourceImg) {
-        this.sourceImg = sourceImg;
-    }
-
 
     public long getOscId() {
         return oscId;
@@ -151,5 +143,13 @@ public class Article implements Serializable {
 
     public void setViewCount(int viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

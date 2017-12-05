@@ -1,7 +1,6 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,6 +12,7 @@ import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.Collection;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
@@ -59,7 +59,6 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess", "" + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Article>>() {
                             }.getType();
@@ -67,6 +66,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                             if (bean != null && bean.isSuccess() && bean.getResult() != null) {
                                 mArticle = bean.getResult();
                                 mView.showGetDetailSuccess(mArticle);
+                                mEmptyView.showGetDetailSuccess(mArticle);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -88,6 +88,36 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void fav() {
+        OSChinaApi.articleFav(new Gson().toJson(mArticle),
+                new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        mEmptyView.showFavError();
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        try {
+                            Type type = new TypeToken<ResultBean<Collection>>() {
+                            }.getType();
+                            ResultBean<Collection> resultBean = AppOperator.createGson().fromJson(responseString, type);
+                            if (resultBean != null && resultBean.isSuccess()) {
+                                Collection collection = resultBean.getResult();
+                                mArticle.setFavorite(collection.isFavorite());
+                                mEmptyView.showFavReverseSuccess(collection.isFavorite());
+                            } else {
+                                mEmptyView.showFavError();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            onFailure(statusCode, headers, responseString, e);
+                        }
+                    }
+                });
     }
 
     @Override

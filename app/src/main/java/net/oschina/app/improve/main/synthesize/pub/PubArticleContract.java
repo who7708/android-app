@@ -14,9 +14,15 @@ interface PubArticleContract {
         void showPubSuccess(int strId);
 
         void showPubFailure(String message);
+
+        void onGetTitleSuccess(String title);
+
+        void getTitleError();
     }
 
     interface Presenter extends BasePresenter {
         void putArticle(String url, String title);
+
+        void getTitle(String url);
     }
 }

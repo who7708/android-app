@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpRequest;
@@ -115,13 +114,14 @@ public class ApiHttpClient {
     }
 
     public static void delete(String partUrl, AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.delete(getAbsoluteApiUrl(partUrl), handler);
         log("DELETE " + partUrl);
     }
 
     public static void get(String partUrl, AsyncHttpResponseHandler handler) {
         CLIENT.removeHeader("newsId");
-        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.get(getAbsoluteApiUrl(partUrl), handler);
         log("GET " + partUrl);
@@ -130,7 +130,6 @@ public class ApiHttpClient {
     public static void get(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
         CLIENT.removeHeader("newsId");
-        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.get(getAbsoluteApiUrl(partUrl), params, handler);
         log("GET " + partUrl + "?" + params);
@@ -146,6 +145,8 @@ public class ApiHttpClient {
     }
 
     public static void getDirect(String url, AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.get(url, handler);
         log("GET " + url);
     }
@@ -156,13 +157,13 @@ public class ApiHttpClient {
 
     public static void post(String partUrl, AsyncHttpResponseHandler handler) {
         CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.post(getAbsoluteApiUrl(partUrl), handler);
         log("POST " + partUrl);
     }
 
     public static void post(String partUrl, RequestParams params,
                             AsyncHttpResponseHandler handler) {
-        Log.e("headerId", "   --  " + String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.removeHeader("newsId");
         CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.post(getAbsoluteApiUrl(partUrl), params, handler);
@@ -170,12 +171,16 @@ public class ApiHttpClient {
     }
 
     public static void put(String partUrl, AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.put(getAbsoluteApiUrl(partUrl), handler);
         log("PUT " + partUrl);
     }
 
     public static void put(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
         CLIENT.put(getAbsoluteApiUrl(partUrl), params, handler);
         log("PUT " + partUrl + "?" + params);
     }

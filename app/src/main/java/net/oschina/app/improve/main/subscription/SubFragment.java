@@ -154,6 +154,7 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
             Log.e("putLastNewsId", "   --  " + bean.getId());
             if(SAVE_ID){
                 OSCSharedPreference.getInstance().putLastNewsId(bean.getId());
+                OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
             }else {
                 OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
             }

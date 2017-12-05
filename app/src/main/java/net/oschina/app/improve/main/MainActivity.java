@@ -15,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -48,6 +47,7 @@ import net.oschina.app.improve.main.location.BDLocationAdapter;
 import net.oschina.app.improve.main.location.RadarSearchAdapter;
 import net.oschina.app.improve.main.nav.NavFragment;
 import net.oschina.app.improve.main.nav.NavigationButton;
+import net.oschina.app.improve.main.synthesize.pub.PubTipActivity;
 import net.oschina.app.improve.main.update.CheckUpdateManager;
 import net.oschina.app.improve.main.update.DownloadService;
 import net.oschina.app.improve.notice.NoticeManager;
@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
     public static final String ACTION_NOTICE = "ACTION_NOTICE";
     private long mBackPressedTime;
+
 
     private Version mVersion;
 
@@ -211,6 +212,13 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
         checkUpdate();
         checkLocation();
         TweetNotificationManager.setup(this);
+
+        ClipManager.register(this, new ClipManager.OnClipChangeListener() {
+            @Override
+            public void onClipChange(String url) {
+                PubTipActivity.show(MainActivity.this, url);
+            }
+        });
     }
 
     private void checkLocation() {
@@ -305,6 +313,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
         super.onDestroy();
         NoticeManager.stopListen(this);
         releaseLbs();
+        ClipManager.unregister();
     }
 
     public void addOnTurnBackListener(TurnBackListener l) {
@@ -548,4 +557,5 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
             mRadarSearchManager = null;
         }
     }
+
 }

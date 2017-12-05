@@ -21,6 +21,7 @@ import net.oschina.app.improve.bean.Version;
 import net.oschina.app.improve.main.FeedBackActivity;
 import net.oschina.app.improve.main.update.CheckUpdateManager;
 import net.oschina.app.improve.main.update.DownloadService;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.SystemConfigView;
 import net.oschina.app.improve.widget.togglebutton.ToggleButton;
@@ -53,6 +54,8 @@ public class SettingFragment extends BaseFragment implements
     FrameLayout mRlCheck_version;
     @Bind(R.id.tb_double_click_exit)
     ToggleButton mTbDoubleClickExit;
+    @Bind(R.id.tb_clip)
+    ToggleButton mTbClip;
     @Bind(R.id.setting_line_top)
     View mSettingLineTop;
     @Bind(R.id.setting_line_bottom)
@@ -82,8 +85,16 @@ public class SettingFragment extends BaseFragment implements
             }
         });
 
+        mTbClip.setOnToggleChanged(new ToggleButton.OnToggleChanged() {
+            @Override
+            public void onToggle(boolean on) {
+                OSCSharedPreference.getInstance().putRelateClip(on);
+            }
+        });
+
         view.findViewById(R.id.rl_clean_cache).setOnClickListener(this);
         view.findViewById(R.id.rl_double_click_exit).setOnClickListener(this);
+        view.findViewById(R.id.rl_clip).setOnClickListener(this);
         view.findViewById(R.id.rl_about).setOnClickListener(this);
         view.findViewById(R.id.rl_check_version).setOnClickListener(this);
         // view.findViewById(R.id.rl_exit).setOnClickListener(this);
@@ -100,6 +111,11 @@ public class SettingFragment extends BaseFragment implements
             mTbDoubleClickExit.setToggleOn();
         } else {
             mTbDoubleClickExit.setToggleOff();
+        }
+        if(OSCSharedPreference.getInstance().isRelateClip()){
+            mTbClip.setToggleOn();
+        }else {
+            mTbClip.setToggleOff();
         }
         calculateCacheSize();
     }
@@ -150,6 +166,9 @@ public class SettingFragment extends BaseFragment implements
                 break;
             case R.id.rl_double_click_exit:
                 mTbDoubleClickExit.toggle();
+                break;
+            case R.id.rl_clip:
+                mTbClip.toggle();
                 break;
             case R.id.rl_feedback:
                 //UIHelper.showSimpleBack(getActivity(), SimpleBackPage.FEED_BACK);

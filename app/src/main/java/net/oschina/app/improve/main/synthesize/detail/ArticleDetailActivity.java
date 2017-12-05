@@ -116,10 +116,10 @@ public class ArticleDetailActivity extends BackActivity implements
         });
 
         mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        mDelegation.setLikeListener(new View.OnClickListener() {
+        mDelegation.setFavListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mPresenter.fav();
             }
         });
 
@@ -257,6 +257,19 @@ public class ArticleDetailActivity extends BackActivity implements
     }
 
     @Override
+    public void showFavReverseSuccess(boolean isFav) {
+        if (isDestroyed()) {
+            return;
+        }
+        mDelegation.setFavDrawable(isFav ? R.drawable.ic_faved : R.drawable.ic_fav);
+    }
+
+    @Override
+    public void showFavError() {
+
+    }
+
+    @Override
     public void onShowComment(View view) {
         if (mDelegation != null) {
             mDelegation.getBottomSheet().show(mCommentHint);
@@ -296,6 +309,12 @@ public class ArticleDetailActivity extends BackActivity implements
         SimplexToast.show(this, "评论失败");
     }
 
+    @Override
+    public void showGetDetailSuccess(Article article) {
+        if (isDestroy())
+            return;
+        mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
+    }
 
     @SuppressLint("SetTextI18n")
     @Override

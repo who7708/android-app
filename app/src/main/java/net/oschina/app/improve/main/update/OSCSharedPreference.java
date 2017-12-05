@@ -141,4 +141,40 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
     public void putTheNewsId(long count) {
         put("the_last_news_id", count);
     }
+
+
+    /**
+     * 关联剪切版
+     *
+     * @param isRelate isRelate
+     */
+    public void putRelateClip(boolean isRelate) {
+        put("osc_is_relate_clip", isRelate);
+    }
+
+    /**
+     * 是否关联剪切版
+     *
+     * @return 是否关联剪切版
+     */
+    public boolean isRelateClip() {
+        return getBoolean("osc_is_relate_clip", true);
+    }
+
+    /**
+     * 最后一次分享的url
+     *
+     * @param url 最后一次分享的url
+     */
+    public void putLastShareUrl(String url) {
+        put("osc_last_share_url", url);
+    }
+
+    /**
+     * 最后一次分享的url
+     * @return 最后一次分享的url
+     */
+    public String getLastShareUrl() {
+        return getString("osc_last_share_url", "");
+    }
 }
