@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import net.oschina.app.R;
+import net.oschina.app.api.ApiHttpClient;
 import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
 import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
@@ -68,7 +69,19 @@ public class SynthesizeFragment extends BasePagerFragment implements
                 SubFragment.SAVE_ID = position == 1;
                 if (SubFragment.SAVE_ID) {
                     OSCSharedPreference.getInstance().putLastNewsId(OSCSharedPreference.getInstance().getTheNewsId());
+                    if(mRoot!= null && mAdapter!= null){
+                        mRoot.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Fragment fragment = mAdapter.getCurFragment();
+                                if (fragment != null && fragment instanceof SubFragment) {
+
+                                }
+                            }
+                        }, 2000);
+                    }
                 }
+                ApiHttpClient.setHeaderNewsId();
             }
 
             @Override

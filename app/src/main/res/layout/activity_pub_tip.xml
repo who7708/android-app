@@ -6,7 +6,6 @@
     android:background="@color/transparent"
     android:id="@+id/fl_content"
     android:orientation="vertical"
-
     tools:ignore="HardcodedText">
 
     <LinearLayout
@@ -22,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/lay_16"
             android:layout_marginTop="@dimen/lay_16"
-            android:text="将复制的 URL 分享到开源中国？"
+            android:text="将复制的 URL 投递到开源中国？"
             android:textColor="#111111"
             android:textSize="14sp" />
 
@@ -49,7 +48,7 @@
             android:background="@drawable/selector_event_sign_up"
             android:elevation="0dp"
             android:outlineProvider="none"
-            android:text="立即分享"
+            android:text="立即投递"
             android:textColor="@color/white"
             tools:ignore="UnusedAttribute" />
 
@@ -64,7 +63,7 @@
             android:background="@drawable/bg_cancel_share"
             android:elevation="0dp"
             android:outlineProvider="none"
-            android:text="暂不分享"
+            android:text="暂不投递"
             android:textColor="#9d9d9d"
             tools:ignore="UnusedAttribute" />
     </LinearLayout>

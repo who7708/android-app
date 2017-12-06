@@ -72,7 +72,7 @@ public class OSCWebView extends WebView {
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onFinish();
                 }
-                addJavaScript();
+                //addJavaScript();
             }
 
             @Override

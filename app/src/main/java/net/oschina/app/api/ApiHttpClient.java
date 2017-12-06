@@ -92,6 +92,13 @@ public class ApiHttpClient {
     private ApiHttpClient() {
     }
 
+    public static void setHeaderNewsId(){
+        if(CLIENT == null)
+            return;
+        CLIENT.removeHeader("newsId");
+        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+    }
+
     /**
      * 初始化网络请求，包括Cookie的初始化
      *
@@ -114,28 +121,26 @@ public class ApiHttpClient {
     }
 
     public static void delete(String partUrl, AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.delete(getAbsoluteApiUrl(partUrl), handler);
         log("DELETE " + partUrl);
     }
 
     public static void get(String partUrl, AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.get(getAbsoluteApiUrl(partUrl), handler);
         log("GET " + partUrl);
     }
 
     public static void get(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.get(getAbsoluteApiUrl(partUrl), params, handler);
         log("GET " + partUrl + "?" + params);
     }
 
     public static String getAbsoluteApiUrl(String partUrl) {
+        setHeaderNewsId();
         String url = partUrl;
         if (!partUrl.startsWith("http:") && !partUrl.startsWith("https:")) {
             url = String.format(API_URL, partUrl);
@@ -145,8 +150,7 @@ public class ApiHttpClient {
     }
 
     public static void getDirect(String url, AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.get(url, handler);
         log("GET " + url);
     }
@@ -156,31 +160,27 @@ public class ApiHttpClient {
     }
 
     public static void post(String partUrl, AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.post(getAbsoluteApiUrl(partUrl), handler);
         log("POST " + partUrl);
     }
 
     public static void post(String partUrl, RequestParams params,
                             AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.post(getAbsoluteApiUrl(partUrl), params, handler);
         log("POST " + partUrl + "?" + params);
     }
 
     public static void put(String partUrl, AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.put(getAbsoluteApiUrl(partUrl), handler);
         log("PUT " + partUrl);
     }
 
     public static void put(String partUrl, RequestParams params,
                            AsyncHttpResponseHandler handler) {
-        CLIENT.removeHeader("newsId");
-        CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
+        setHeaderNewsId();
         CLIENT.put(getAbsoluteApiUrl(partUrl), params, handler);
         log("PUT " + partUrl + "?" + params);
     }
@@ -201,6 +201,7 @@ public class ApiHttpClient {
         // setUserAgent
         c.setUserAgent(ApiClientHelper.getUserAgent(AppContext.getInstance()));
         CLIENT = c;
+        setHeaderNewsId();
         initSSL(CLIENT);
         initSSL(API.mClient);
     }

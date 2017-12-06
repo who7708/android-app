@@ -91,6 +91,11 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     }
 
     @Override
+    public void scrollToTop() {
+        mView.showScrollToTop();
+    }
+
+    @Override
     public void fav() {
         OSChinaApi.articleFav(new Gson().toJson(mArticle),
                 new TextHttpResponseHandler() {
@@ -237,6 +242,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                 mArticle.setCommentCount(mArticle.getCommentCount() + 1);
                                 Comment respComment = resultBean.getResult();
                                 if (respComment != null) {
+                                    getArticleDetail();
                                     mView.showCommentSuccess(respComment);
                                     mEmptyView.showCommentSuccess(respComment);
                                 }

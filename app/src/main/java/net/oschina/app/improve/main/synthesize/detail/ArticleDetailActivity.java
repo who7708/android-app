@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -28,6 +30,7 @@ import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.detail.db.Behavior;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.detail.v2.ReportDialog;
+import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.share.ShareDialog;
@@ -42,6 +45,7 @@ import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.TDevice;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -205,6 +209,8 @@ public class ArticleDetailActivity extends BackActivity implements
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @SuppressWarnings("all")
     @Override
     protected void initData() {
         super.initData();
@@ -229,6 +235,16 @@ public class ArticleDetailActivity extends BackActivity implements
         mBehavior.setUuid(OSCSharedPreference.getInstance().getDeviceUUID());
         // TODO: 2017/11/6 暂时取消收藏习惯接口 
         //DBManager.getInstance().insert(mBehavior);
+
+
+        mToolBar.setOnTouchListener(new OnDoubleTouchListener() {
+            @Override
+            void onMultiTouch(View v, MotionEvent event, int touchCount) {
+                if (touchCount == 2) {
+                    mPresenter.scrollToTop();
+                }
+            }
+        });
     }
 
     protected void handleKeyDel() {
@@ -278,15 +294,10 @@ public class ArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showCommentSuccess(Comment comment) {
-        if (isDestroy())
+        if (isDestroyed())
             return;
         if (mDelegation == null)
             return;
-//        if (mDelegation.getBottomSheet().isSyncToTweet()) {
-////            TweetPublishService.startActionPublish(this,
-////                    mDelegation.getBottomSheet().getCommentText(), null,
-////                    About.buildShare(mBean.getId(), mBean.getType()));
-//        }
         mCommentId = 0;
         mCommentAuthorId = 0;
         mDelegation.getBottomSheet().dismiss();
@@ -314,6 +325,7 @@ public class ArticleDetailActivity extends BackActivity implements
         if (isDestroy())
             return;
         mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
+        mDelegation.setCommentCount(article.getCommentCount());
     }
 
     @SuppressLint("SetTextI18n")
@@ -328,6 +340,7 @@ public class ArticleDetailActivity extends BackActivity implements
         switch (item.getItemId()) {
             case R.id.menu_share:
                 if (mArticle != null) {
+                    ClipManager.IS_SYSTEM_URL = true;
                     mShareDialog.show();
                 }
                 break;
@@ -355,6 +368,7 @@ public class ArticleDetailActivity extends BackActivity implements
     @Override
     protected void onStop() {
         super.onStop();
+        ClipManager.IS_SYSTEM_URL = false;
         mStay += (System.currentTimeMillis() - mStart) / 1000;
         if (mBehavior != null) {
             mBehavior.setStay(mStay);
@@ -412,4 +426,60 @@ public class ArticleDetailActivity extends BackActivity implements
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ClipManager.IS_SYSTEM_URL = false;
+    }
+
+    private abstract class OnDoubleTouchListener implements View.OnTouchListener {
+        private long lastTouchTime = 0;
+        private AtomicInteger touchCount = new AtomicInteger(0);
+        private Runnable mRun = null;
+        private Handler mHandler;
+
+        OnDoubleTouchListener() {
+            mHandler = new Handler(getMainLooper());
+        }
+
+        void removeCallback() {
+            if (mRun != null) {
+                mHandler.removeCallbacks(mRun);
+                mRun = null;
+            }
+        }
+
+        @Override
+        public boolean onTouch(final View v, final MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                final long now = System.currentTimeMillis();
+                lastTouchTime = now;
+
+                touchCount.incrementAndGet();
+                removeCallback();
+
+                mRun = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (now == lastTouchTime) {
+                            onMultiTouch(v, event, touchCount.get());
+                            touchCount.set(0);
+                        }
+                    }
+                };
+
+                mHandler.postDelayed(mRun, getMultiTouchInterval());
+            }
+            return true;
+        }
+
+
+        int getMultiTouchInterval() {
+            return 400;
+        }
+
+
+        abstract void onMultiTouch(View v, MotionEvent event, int touchCount);
+    }
 }

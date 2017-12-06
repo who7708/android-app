@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import net.oschina.app.AppConfig;
 import net.oschina.app.OSCApplication;
+import net.oschina.app.api.ApiHttpClient;
 import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
@@ -152,11 +153,10 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
             if(bean == null)
                 return;
             Log.e("putLastNewsId", "   --  " + bean.getId());
+            OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
             if(SAVE_ID){
                 OSCSharedPreference.getInstance().putLastNewsId(bean.getId());
-                OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
-            }else {
-                OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
+                ApiHttpClient.setHeaderNewsId();
             }
         }
     }

@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:text="推荐"
         android:textColor="#6A6A6A"
-        android:textSize="@dimen/font_14"
+        android:textSize="16sp"
         tools:ignore="HardcodedText" />
 
     <TextView

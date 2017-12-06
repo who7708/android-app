@@ -3,6 +3,7 @@ package net.oschina.app.improve.main.synthesize.pub;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
+import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.widget.SimplexToast;
 
 import butterknife.Bind;
@@ -54,6 +56,9 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
     protected void initData() {
         super.initData();
         String mUrl = getIntent().getStringExtra("url");
+        if(TextUtils.isEmpty(mUrl)){
+            mUrl = ClipManager.getClipUrl();
+        }
         mTextUrl.setText(mUrl);
         mPresenter = new PubArticlePresenter(this);
         mTextUrl.addTextChangedListener(new TextWatcher() {

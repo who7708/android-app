@@ -40,7 +40,7 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
     @Override
     public void onRefreshing() {
         OSChinaApi.getArticleComments(mArticle.getKey(),
-                2, null,
+                1, null,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -82,7 +82,7 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
     @Override
     public void onLoadMore() {
         OSChinaApi.getArticleComments(mArticle.getKey(),
-                2, mNextToken,
+                1, mNextToken,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

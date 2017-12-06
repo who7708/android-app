@@ -49,9 +49,9 @@ public final class NoticeManager {
      */
     public static void init(Context context) {
         // 未登陆时不启动服务
-//        if (!AccountHelper.isLogin()) {
-//            return;
-//        }
+        if (!AccountHelper.isLogin()) {
+            return;
+        }
         // 启动服务
         NoticeServer.startAction(context);
         // 注册广播

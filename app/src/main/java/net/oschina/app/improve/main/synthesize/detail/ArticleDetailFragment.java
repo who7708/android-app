@@ -235,6 +235,8 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
+        mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
+        mCommentView.setCommentCount(article);
         mFlowLayout.removeAllViews();
         if (article.getiTags() == null || article.getiTags().length == 0) {
             mFlowLayout.setVisibility(View.GONE);
@@ -261,6 +263,14 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             }
         });
     }
+
+    @Override
+    public void showScrollToTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.scrollToPosition(0);
+        }
+    }
+
 
     @Override
     public void onComplete() {

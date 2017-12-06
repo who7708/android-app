@@ -72,7 +72,7 @@
             android:paddingLeft="@dimen/lay_8"
             android:paddingRight="@dimen/lay_8"
             android:paddingTop="2dp"
-            android:text="分享文章"
+            android:text="投递文章"
             android:textColor="@color/white"
             android:textSize="@dimen/font_12" />
 
@@ -87,7 +87,7 @@
                 android:layout_gravity="center"
                 android:tint="@color/white"
                 android:contentDescription="@string/tweet_public"
-                android:src="@mipmap/ic_new_blog" />
+                android:src="@mipmap/ic_new_article" />
         </FrameLayout>
     </LinearLayout>
 

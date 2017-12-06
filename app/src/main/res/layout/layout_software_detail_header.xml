@@ -5,6 +5,7 @@
     android:id="@+id/lay_nsv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     tools:ignore="RtlHardcoded">
 
     <LinearLayout
@@ -115,6 +116,7 @@
 
             <net.oschina.app.improve.widget.OWebView
                 android:id="@+id/webView"
+                android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>

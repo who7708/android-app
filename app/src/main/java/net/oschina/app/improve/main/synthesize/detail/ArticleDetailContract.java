@@ -34,6 +34,8 @@ interface ArticleDetailContract {
         void showCommentError(String message);
 
         void showGetDetailSuccess(Article article);
+
+        void showScrollToTop();
     }
 
     interface Presenter extends BaseListPresenter {
@@ -47,5 +49,7 @@ interface ArticleDetailContract {
         void addClickCount();
 
         void fav();
+
+        void scrollToTop();
     }
 }

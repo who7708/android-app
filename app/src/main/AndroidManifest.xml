@@ -210,7 +210,7 @@
 
         <activity
             android:name=".improve.main.synthesize.pub.PubArticleActivity"
-            android:label="分享文章"
+            android:label="投递文章"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />

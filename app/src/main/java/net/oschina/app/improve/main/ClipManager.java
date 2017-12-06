@@ -98,4 +98,12 @@ public final class ClipManager {
         }
         return "";
     }
+
+    public static String getClipUrl() {
+        String text = getClipText();
+        if (checkUrl(text)) {
+            return text;
+        }
+        return "";
+    }
 }
