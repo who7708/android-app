@@ -78,6 +78,6 @@ public class QuestionDetailActivity extends DetailActivity {
 
 
     protected void toReport(long id, String href) {
-        ReportDialog.create(this, id, href, Report.TYPE_QUESTION).show();
+        ReportDialog.create(this, id, href, Report.TYPE_QUESTION,"").show();
     }
 }

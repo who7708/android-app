@@ -33,6 +33,7 @@ public class SubBean implements Serializable {
     private Statistics statistics;
     private ArrayList<About> abouts;
     private Software software;
+    private long newsId;
 
     public boolean isOriginal() {
         if (tags != null) {
@@ -92,6 +93,14 @@ public class SubBean implements Serializable {
             }
         }
         return false;
+    }
+
+    public long getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(long newsId) {
+        this.newsId = newsId;
     }
 
     public List<Image> getImages() {

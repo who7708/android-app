@@ -89,6 +89,7 @@ public class OSCWebView extends WebView {
             }
         });
 
+        getSettings().setDomStorageEnabled(true);
         getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         getSettings().setJavaScriptEnabled(true);
         addJavascriptInterface(new JavascriptInterface(), "mark");

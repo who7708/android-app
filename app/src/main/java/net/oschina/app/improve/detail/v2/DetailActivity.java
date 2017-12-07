@@ -395,7 +395,7 @@ public abstract class DetailActivity extends BackActivity implements
     }
 
     protected void toReport(long id, String href) {
-        ReportDialog.create(this, id, href, Report.TYPE_BLOG).show();
+        ReportDialog.create(this, id, href, Report.TYPE_BLOG,"").show();
     }
 
     @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})

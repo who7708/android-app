@@ -1303,9 +1303,8 @@ public class OSChinaApi {
      *
      * @param handler TextHttpResponseHandler
      */
-    public static void getNotice(long id, TextHttpResponseHandler handler) {
+    public static void getNotice(TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
-        params.put("newsId", id);
         params.put("clear", false);
         ApiHttpClient.get("action/apiv2/notice", params, handler);
     }
@@ -1676,7 +1675,12 @@ public class OSChinaApi {
      * @param memo     其他原因的描述字段
      * @param handler
      */
-    public static void report(long sourceId, int type, String href, int reason, String memo,
+    public static void report(long sourceId,
+                              int type,
+                              String href,
+                              int reason,
+                              String memo,
+                              String key,
                               TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("sourceId", sourceId);
@@ -1684,6 +1688,9 @@ public class OSChinaApi {
         params.put("href", href);
         params.put("reason", reason);
         params.put("memo", memo);
+        if(!TextUtils.isEmpty(key)){
+            params.put("key",key);
+        }
         ApiHttpClient.post("action/apiv2/report", params, handler);
     }
 

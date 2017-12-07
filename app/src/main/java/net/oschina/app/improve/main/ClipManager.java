@@ -88,7 +88,7 @@ public final class ClipManager {
         if (TextUtils.isEmpty(url)) {
             return false;
         }
-        Pattern pattern = Pattern.compile("https?://[^\\s<>\"]+");
+        Pattern pattern = Pattern.compile("^https?://[^\\s<>\"]+");
         return pattern.matcher(url).find();
     }
 

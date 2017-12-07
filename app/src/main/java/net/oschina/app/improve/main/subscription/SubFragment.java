@@ -1,7 +1,6 @@
 package net.oschina.app.improve.main.subscription;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -152,10 +151,9 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
             SubBean bean = mAdapter.getItem(0);
             if(bean == null)
                 return;
-            Log.e("putLastNewsId", "   --  " + bean.getId());
-            OSCSharedPreference.getInstance().putTheNewsId(bean.getId());
+            OSCSharedPreference.getInstance().putTheNewsId(bean.getNewsId());
             if(SAVE_ID){
-                OSCSharedPreference.getInstance().putLastNewsId(bean.getId());
+                OSCSharedPreference.getInstance().putLastNewsId(bean.getNewsId());
                 ApiHttpClient.setHeaderNewsId();
             }
         }

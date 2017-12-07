@@ -795,12 +795,12 @@
         <service
             android:name=".improve.tweet.service.TweetPublishService"
             android:exported="true"
-            android:process="net.oschina.app.tweet.TweetPublishService"
             tools:ignore="ExportedService" />
+        <!--net.oschina.app.tweet.TweetPublishService"-->
         <service
             android:name=".improve.notice.NoticeServer"
             android:exported="false"
-            android:process="net.oschina.app.notice.NoticeServer" />
+            /><!--android:process="net.oschina.app.notice.NoticeServer"-->
         <service
             android:name=".improve.main.update.DownloadService"
             android:exported="false" />

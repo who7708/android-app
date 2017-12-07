@@ -180,7 +180,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
                     return false;
                 }
                 if (mArticle != null) {
-                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE).show();
+                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE,mArticle.getKey()).show();
                 }
                 break;
         }

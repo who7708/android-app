@@ -69,16 +69,16 @@ public class SynthesizeFragment extends BasePagerFragment implements
                 SubFragment.SAVE_ID = position == 1;
                 if (SubFragment.SAVE_ID) {
                     OSCSharedPreference.getInstance().putLastNewsId(OSCSharedPreference.getInstance().getTheNewsId());
-                    if(mRoot!= null && mAdapter!= null){
+                    if (mRoot != null && mAdapter != null && hasCount()) {
                         mRoot.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 Fragment fragment = mAdapter.getCurFragment();
                                 if (fragment != null && fragment instanceof SubFragment) {
-
+                                    ((SubFragment) fragment).onRefreshing();
                                 }
                             }
-                        }, 2000);
+                        }, 1000);
                     }
                 }
                 ApiHttpClient.setHeaderNewsId();
@@ -89,6 +89,10 @@ public class SynthesizeFragment extends BasePagerFragment implements
 
             }
         });
+    }
+
+    private boolean hasCount() {
+        return mTextCount != null && !"0".equals(mTextCount.getText().toString());
     }
 
     private void setTitleText(boolean isSelected, int position) {
