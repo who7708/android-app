@@ -66,7 +66,12 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mDelegation = CommentBar.delegation(this, mLinearRoot);
         mDelegation.setCommentHint(mCommentHint);
         mDelegation.getBottomSheet().getEditText().setHint(mCommentHint);
-        mDelegation.hideFav();
+        mDelegation.setFavListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.fav();
+            }
+        });
         mDelegation.getBottomSheet().setMentionListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +127,19 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mWebView.loadUrl(mArticle.getUrl().contains("?") ?
                 String.format("%s&%s",mArticle.getUrl(),"utm_source=oschina-app") :
                 String.format("%s?%s",mArticle.getUrl(),"utm_source=oschina-app"));
+    }
+
+    @Override
+    public void showFavReverseSuccess(boolean isFav) {
+        if (isDestroyed()) {
+            return;
+        }
+        mDelegation.setFavDrawable(isFav ? R.drawable.ic_faved : R.drawable.ic_fav);
+    }
+
+    @Override
+    public void showFavError() {
+
     }
 
     @Override

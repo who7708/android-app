@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/iv_logo"
@@ -21,7 +22,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:contentDescription="@string/app_name"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon_logo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
             android:text="4.0 全新上线"
             android:textColor="#333333"
             android:textSize="18dp"
-            tools:ignore="HardcodedText,SpUsage" />+
+            tools:ignore="HardcodedText,SpUsage" />
     </LinearLayout>
 
     <net.oschina.app.improve.main.synthesize.article.RatioLayout

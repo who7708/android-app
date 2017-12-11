@@ -31,6 +31,7 @@ import net.oschina.app.improve.detail.general.NewsDetailActivity;
 import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.DataFormat;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.article.ArticleAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
@@ -117,7 +118,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
-        tv_detail_abstract.setText(mArticle.getDesc());
+        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\r\n", ""));
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSource());
         Author author = new Author();
@@ -167,7 +168,11 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
-            ArticleDetailActivity.show(mContext, top);
+            if (TypeFormat.isGit(top)) {
+                ArticleWebActivity.show(mContext, top);
+            } else {
+                ArticleDetailActivity.show(mContext, top);
+            }
         } else {
             try {
                 int type = top.getType();

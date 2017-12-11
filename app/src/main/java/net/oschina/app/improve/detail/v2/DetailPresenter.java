@@ -1,7 +1,6 @@
 package net.oschina.app.improve.detail.v2;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -83,7 +82,6 @@ public class DetailPresenter implements DetailContract.Presenter {
                         mBean = bean.getResult();
                         mView.showGetDetailSuccess(mBean);
                         mEmptyView.showGetDetailSuccess(mBean);
-                        mEmptyView.hideEmptyLayout();
                     } else {
                         if (mCacheBean != null)
                             return;

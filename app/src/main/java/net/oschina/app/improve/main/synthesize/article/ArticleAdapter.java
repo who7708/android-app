@@ -22,6 +22,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.util.TDevice;
 
 /**
@@ -155,11 +156,11 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_question);
             imageView.setVisibility(View.VISIBLE);
-        } else if (isGit(article)) {
+        } else if (TypeFormat.isGit(article)) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_gitee);
             imageView.setVisibility(View.VISIBLE);
-        } else if (isZB(article)) {
+        } else if (TypeFormat.isZB(article)) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_zb);
             imageView.setVisibility(View.VISIBLE);
@@ -167,7 +168,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_software);
             imageView.setVisibility(View.VISIBLE);
-        }  else if (article.getType() == Article.TYPE_AD) {
+        } else if (article.getType() == Article.TYPE_AD) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_ad);
             imageView.setVisibility(View.VISIBLE);
@@ -192,16 +193,6 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         ImageSpan imageSpan = new ImageSpan(img, ImageSpan.ALIGN_BOTTOM);
         spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);
-    }
-
-    private static boolean isGit(Article article) {
-        String url = article.getUrl();
-        return !TextUtils.isEmpty(url) && (url.startsWith("https://gitee.com/") || url.startsWith("https://git.oschina.net/"));
-    }
-
-    private static boolean isZB(Article article) {
-        String url = article.getUrl();
-        return !TextUtils.isEmpty(url) && (url.startsWith("https://zb.oschina.net/"));
     }
 
 

@@ -15,9 +15,15 @@ interface ArticleWebContract {
         void showCommentSuccess(Comment comment);
 
         void showCommentError(String message);
+
+        void showFavReverseSuccess(boolean isFav);
+
+        void showFavError();
     }
 
     interface Presenter extends BasePresenter {
         void putArticleComment(String content, long referId, long reAuthorId);
+
+        void fav();
     }
 }

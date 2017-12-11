@@ -62,7 +62,7 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
                                 PageBean<Comment> pageBean = bean.getResult();
                                 mNextToken = pageBean.getNextPageToken();
                                 List<Comment> list = pageBean.getItems();
-                                mView.onLoadMoreSuccess(list);
+                                mView.onRefreshSuccess(list);
                                 if (list.size() < 20) {
                                     mView.showMoreMore();
                                 }
