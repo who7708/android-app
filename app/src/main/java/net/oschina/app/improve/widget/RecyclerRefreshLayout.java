@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -124,7 +123,6 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
      * 如果到了最底部,而且是上拉操作.那么执行onLoad方法
      */
     private void loadData() {
-        Log.e("loadData", "loadData");
         if (listener != null) {
             setOnLoading(true);
             listener.onLoadMore();
@@ -153,6 +151,7 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
         }
     }
 
+    @SuppressWarnings("all")
     public void setBottomCount(int mBottomCount) {
         this.mBottomCount = mBottomCount;
     }

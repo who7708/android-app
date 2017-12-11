@@ -1,7 +1,6 @@
 package net.oschina.app.improve.main.synthesize.article;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
