@@ -3,13 +3,11 @@ package net.oschina.app.improve.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
-import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
-import net.oschina.app.improve.git.detail.ProjectDetailActivity;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.tweet.activities.TopicActivity;
 import net.oschina.app.improve.tweet.activities.TweetDetailActivity;
@@ -188,18 +186,19 @@ public class URLUtils {
             case "git.oschina.net":
                 // TODO 如果用户安装了git@osc application, 使用git@osc打开
             case "gitee.com":
-                Matcher matcherGit = PATTERN_GIT.matcher(uri);
-                if (matcherGit.find() && matcherGit.groupCount() >= 2) {
-                    String group1 = matcherGit.group(2);
-                    String group2 = matcherGit.group(3);
-                    if ("explore".equals(group1) || "gists".equals(group1) || "enterprises".equals(group1)) {
-                        UIHelper.openInternalBrowser(context, url);
-                    } else {
-                        ProjectDetailActivity.show(context, group1, group2, uri);
-                    }
-                } else {
-                    UIHelper.openInternalBrowser(context, url);
-                }
+//                Matcher matcherGit = PATTERN_GIT.matcher(uri);
+//                if (matcherGit.find() && matcherGit.groupCount() >= 2) {
+//                    String group1 = matcherGit.group(2);
+//                    String group2 = matcherGit.group(3);
+//                    if ("explore".equals(group1) || "gists".equals(group1) || "enterprises".equals(group1)) {
+//                        UIHelper.openInternalBrowser(context, url);
+//                    } else {
+//                        ProjectDetailActivity.show(context, group1, group2, uri);
+//                    }
+//                } else {
+//                    UIHelper.openInternalBrowser(context, url);
+//                }
+                WebActivity.show(context, TypeFormat.formatUrl(url));
                 break;
             case "my.oschina.net":
                 matcher = PATTERN_PATH_USER_BLOG.matcher(path);

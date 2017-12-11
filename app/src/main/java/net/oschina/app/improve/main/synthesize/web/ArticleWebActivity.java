@@ -21,6 +21,7 @@ import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.ClipManager;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.widget.SimplexToast;
@@ -124,9 +125,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mToolBar.setTitle("返回");
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
-        mWebView.loadUrl(mArticle.getUrl().contains("?") ?
-                String.format("%s&%s",mArticle.getUrl(),"utm_source=oschina-app") :
-                String.format("%s?%s",mArticle.getUrl(),"utm_source=oschina-app"));
+        mWebView.loadUrl(TypeFormat.formatUrl(mArticle));
     }
 
     @Override
@@ -198,7 +197,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
                     return false;
                 }
                 if (mArticle != null) {
-                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE,mArticle.getKey()).show();
+                    ReportDialog.create(this, 0, TypeFormat.formatUrl(mArticle), Report.TYPE_ARTICLE,mArticle.getKey()).show();
                 }
                 break;
         }

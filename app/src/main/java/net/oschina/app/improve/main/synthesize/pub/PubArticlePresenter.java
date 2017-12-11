@@ -1,7 +1,5 @@
 package net.oschina.app.improve.main.synthesize.pub;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -45,7 +43,6 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess", responseString);
                         try {
                             Type type = new TypeToken<ResultBean>() {
                             }.getType();
@@ -73,32 +70,46 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
         if (!checkUrl(url)) {
             return;
         }
-        mClient.get(url, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                mView.getTitleError();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                try {
-                    Pattern pattern = Pattern.compile("<title[^>]*>([^<>]+)</title>");
-                    Matcher matcher = pattern.matcher(responseString);
-                    if (matcher.find()) {
-                        mView.onGetTitleSuccess(matcher.group(1));
-                    }else {
-                        mView.getTitleError();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        try {
+            mClient.get(url, new TextHttpResponseHandler() {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     mView.getTitleError();
                 }
-            }
-        });
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    try {
+                        Pattern pattern = Pattern.compile("<title[^>]*>([^<>]+)</title>");
+                        Matcher matcher = pattern.matcher(responseString);
+                        if (matcher.find()) {
+                            mView.onGetTitleSuccess(matcher.group(1));
+                        } else {
+                            mView.getTitleError();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mView.getTitleError();
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+            mView.showPubFailure("发布失败");
+        }
     }
 
     private static boolean checkUrl(String email) {
         Pattern pattern = Pattern.compile("^https?://[^\\s<>\"]+");
         return pattern.matcher(email).find();
+    }
+
+    static String findUrl(String text) {
+        Pattern pattern = Pattern.compile("https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            return matcher.group(0);
+        }
+        return "";
     }
 }

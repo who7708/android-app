@@ -27,7 +27,7 @@ import net.oschina.app.improve.detail.pay.wx.WeChatPay;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.article.ArticleAdapter;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
-import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.utils.QuickOptionDialogHelper;
 import net.oschina.app.improve.utils.ReadedIndexCacheManager;
 import net.oschina.app.improve.widget.OWebView;
@@ -153,7 +153,7 @@ public abstract class DetailFragment extends BaseFragment implements
             return;
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                ArticleWebActivity.show(mContext, top);
+                WebActivity.show(mContext,TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }

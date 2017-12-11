@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -27,7 +28,7 @@ public class PubTipActivity extends BaseActivity implements View.OnClickListener
     private String mUrl;
 
     public static void show(Context context, String url) {
-        if (IS_SHOW) {
+        if (IS_SHOW || !OSCSharedPreference.getInstance().isRelateClip()) {
             return;
         }
         IS_SHOW = true;

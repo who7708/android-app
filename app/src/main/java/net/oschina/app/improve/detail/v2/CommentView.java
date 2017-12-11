@@ -1,7 +1,6 @@
 package net.oschina.app.improve.detail.v2;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +30,6 @@ import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.comment.Refer;
 import net.oschina.app.improve.bean.comment.Vote;
-import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.comment.CommentsActivity;
 import net.oschina.app.improve.comment.CommentsUtil;
 import net.oschina.app.improve.comment.QuesAnswerDetailActivity;
@@ -63,8 +61,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
     private TextView mSeeMore;
     private LinearLayout mLayComments;
     private LinearLayout mLinearComment, mLinearTip;
-    private ProgressDialog mDialog;
-    private CommentBar commentBar;
+
     private OnCommentClickListener mListener;
 
     public CommentView(Context context) {
@@ -111,9 +108,6 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
         this.mShareTitle = shareTitle;
     }
 
-    public void setCommentBar(CommentBar commentBar) {
-        this.commentBar = commentBar;
-    }
 
     /**
      * @return TypeToken

@@ -11,7 +11,7 @@ import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
-import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.util.UIHelper;
 
 /**
@@ -31,7 +31,7 @@ public class ReadHistoryFragment extends BaseRecyclerFragment<ReadHistoryContrac
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                ArticleWebActivity.show(mContext, top);
+                WebActivity.show(mContext,TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }

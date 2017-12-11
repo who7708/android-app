@@ -17,7 +17,7 @@ import net.oschina.app.improve.main.banner.NewsHeaderView;
 import net.oschina.app.improve.main.introduce.ArticleIntroduceActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
-import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
@@ -61,7 +61,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                ArticleWebActivity.show(mContext, top);
+                WebActivity.show(mContext,TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }

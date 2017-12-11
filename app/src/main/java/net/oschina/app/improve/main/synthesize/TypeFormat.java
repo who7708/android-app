@@ -20,4 +20,16 @@ public final class TypeFormat {
         return !TextUtils.isEmpty(url) && (url.startsWith("https://zb.oschina.net/"));
     }
 
+
+    public static String formatUrl(Article article){
+        return article.getUrl().contains("?") ?
+                String.format("%s&%s",article.getUrl(),"utm_source=oschina-app") :
+                String.format("%s?%s",article.getUrl(),"utm_source=oschina-app");
+    }
+
+    public static String formatUrl(String url){
+        return url.contains("?") ?
+                String.format("%s&%s",url,"utm_source=oschina-app") :
+                String.format("%s?%s",url,"utm_source=oschina-app");
+    }
 }

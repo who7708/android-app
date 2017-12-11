@@ -213,7 +213,14 @@
             android:label="投递文章"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".improve.detail.general.NewsDetailActivity"
@@ -799,8 +806,7 @@
         <!--net.oschina.app.tweet.TweetPublishService"-->
         <service
             android:name=".improve.notice.NoticeServer"
-            android:exported="false"
-            /><!--android:process="net.oschina.app.notice.NoticeServer"-->
+            android:exported="false" /><!--android:process="net.oschina.app.notice.NoticeServer"-->
         <service
             android:name=".improve.main.update.DownloadService"
             android:exported="false" />

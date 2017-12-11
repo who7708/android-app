@@ -55,8 +55,28 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
     @Override
     protected void initData() {
         super.initData();
-        String mUrl = getIntent().getStringExtra("url");
-        if(TextUtils.isEmpty(mUrl)){
+        Intent intent = getIntent();
+
+        String mUrl = "";
+        String action = intent.getAction();//action
+        String type = intent.getType();//类型
+
+        if (Intent.ACTION_SEND.equals(action) && type != null && "text/plain".equals(type)) {
+            try {
+                String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+                if(!TextUtils.isEmpty(text)){
+                    mUrl = PubArticlePresenter.findUrl(text);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                mUrl = "";
+            }
+
+        } else {
+            mUrl = intent.getStringExtra("url");
+        }
+
+        if (TextUtils.isEmpty(mUrl)) {
             mUrl = ClipManager.getClipUrl();
         }
         mTextUrl.setText(mUrl);
@@ -80,6 +100,8 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
             }
         });
         mPresenter.getTitle(mUrl);
+
+
     }
 
     @OnClick({R.id.btn_commit})
