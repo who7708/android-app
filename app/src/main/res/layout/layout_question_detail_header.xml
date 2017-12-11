@@ -156,7 +156,7 @@
             style="@style/h_line"
             android:visibility="visible" />
 
-        <net.oschina.app.improve.comment.CommentView
+        <net.oschina.app.improve.detail.v2.CommentView
             android:id="@+id/cv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -32,7 +32,6 @@ import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.comment.CommentsActivity;
-import net.oschina.app.improve.comment.OnCommentClickListener;
 import net.oschina.app.improve.detail.db.Behavior;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.dialog.ShareDialog;
@@ -66,7 +65,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public abstract class DetailActivity extends BackActivity implements
         DetailContract.EmptyView, Runnable,
-        OnCommentClickListener, EasyPermissions.PermissionCallbacks {
+        CommentView.OnCommentClickListener, EasyPermissions.PermissionCallbacks {
 
     protected String mCommentHint;
     protected DetailPresenter mPresenter;
@@ -292,6 +291,15 @@ public abstract class DetailActivity extends BackActivity implements
             }
             mDelegation.setFavDrawable(mBean.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
         }
+        if (mEmptyLayout != null) {
+            mEmptyLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mEmptyLayout != null)
+                        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+                }
+            }, 2000);
+        }
     }
 
     @Override
@@ -395,7 +403,7 @@ public abstract class DetailActivity extends BackActivity implements
     }
 
     protected void toReport(long id, String href) {
-        ReportDialog.create(this, id, href, Report.TYPE_BLOG,"").show();
+        ReportDialog.create(this, id, href, Report.TYPE_BLOG, "").show();
     }
 
     @SuppressWarnings({"LoopStatementThatDoesntLoop", "SuspiciousMethodCalls"})
@@ -468,6 +476,13 @@ public abstract class DetailActivity extends BackActivity implements
         this.mComment = comment;
         if (mShareCommentDialog != null) {
             mShareCommentDialog.show();
+        }
+    }
+
+    @Override
+    public void onShowComment(View view) {
+        if (mDelegation != null) {
+            mDelegation.getBottomSheet().show(mCommentHint);
         }
     }
 

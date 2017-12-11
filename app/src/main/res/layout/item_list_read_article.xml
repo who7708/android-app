@@ -34,12 +34,12 @@
                 android:paddingRight="@dimen/lay_4"
                 android:paddingTop="@dimen/lay_2"
                 android:textColor="#9d9d9d"
-                tools:text="博客"
-                tools:ignore="RtlHardcoded" />
+                android:text="博客"
+                tools:ignore="HardcodedText,RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"

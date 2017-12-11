@@ -288,6 +288,12 @@
                 tools:text="2015-01-12" />
         </LinearLayout>
 
+        <net.oschina.app.improve.detail.v2.CommentView
+            android:id="@+id/cv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@color/ques_detail_bg_color" />
 
         <View
             android:id="@+id/line1"

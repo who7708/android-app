@@ -156,6 +156,9 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                         mSeeMore.setOnClickListener(CommentView.this);
                         Comment[] array = CollectionUtil.toArray(comments, Comment.class);
                         initComment(array, onCommentClickListener);
+                    }else {
+                        mLinearComment.setVisibility(View.GONE);
+                        mLinearTip.setVisibility(View.VISIBLE);
                     }
 
                 } catch (Exception e) {

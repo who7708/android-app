@@ -9,7 +9,9 @@ import net.oschina.app.improve.detail.general.EventDetailActivity;
 import net.oschina.app.improve.detail.general.NewsDetailActivity;
 import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.util.UIHelper;
 
 /**
@@ -28,7 +30,11 @@ public class ReadHistoryFragment extends BaseRecyclerFragment<ReadHistoryContrac
     @Override
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
-            ArticleDetailActivity.show(mContext, top);
+            if (TypeFormat.isGit(top)) {
+                ArticleWebActivity.show(mContext, top);
+            } else {
+                ArticleDetailActivity.show(mContext, top);
+            }
         } else {
             try {
                 int type = top.getType();

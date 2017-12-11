@@ -144,12 +144,12 @@
             android:layout_height="1px"
             android:background="@color/list_divider_color" />
 
-        <net.oschina.app.improve.comment.CommentView
+        <net.oschina.app.improve.detail.v2.CommentView
             android:id="@+id/cv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:background="@color/ques_detail_bg_color" />
-
 
         <View
             android:id="@+id/line1"

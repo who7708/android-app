@@ -17,8 +17,6 @@ import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.Tag;
 import net.oschina.app.improve.bean.comment.Comment;
-import net.oschina.app.improve.comment.CommentView;
-import net.oschina.app.improve.comment.OnCommentClickListener;
 import net.oschina.app.improve.detail.general.BlogDetailActivity;
 import net.oschina.app.improve.detail.general.EventDetailActivity;
 import net.oschina.app.improve.detail.general.NewsDetailActivity;
@@ -114,6 +112,9 @@ public abstract class DetailFragment extends BaseFragment implements
 
                 @Override
                 public void onLoadMore() {
+                    if (mAdapter != null) {
+                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+                    }
                     if (mPresenter != null) {
                         mPresenter.onLoadMore();
                     }
@@ -122,7 +123,10 @@ public abstract class DetailFragment extends BaseFragment implements
                 @Override
                 public void onScrollToBottom() {
                     if (mAdapter != null) {
-                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOAD, true);
+                        mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
+                    }
+                    if (mPresenter != null) {
+                        mPresenter.onLoadMore();
                     }
                 }
             });
@@ -245,7 +249,7 @@ public abstract class DetailFragment extends BaseFragment implements
                 bean.getType(),
                 getCommentOrder(),
                 bean.getStatistics().getComment(),
-                getImgLoader(), (OnCommentClickListener) mContext);
+                getImgLoader(), (CommentView.OnCommentClickListener) mContext);
 
 
     }
@@ -372,7 +376,7 @@ public abstract class DetailFragment extends BaseFragment implements
                 mBean.getType(),
                 getCommentOrder(),
                 mBean.getStatistics().getComment(),
-                getImgLoader(), (OnCommentClickListener) mContext);
+                getImgLoader(), (CommentView.OnCommentClickListener) mContext);
     }
 
     @Override

@@ -1,4 +1,5 @@
 package net.oschina.app.improve.detail.v2;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,7 +34,6 @@ import net.oschina.app.improve.bean.comment.Vote;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.comment.CommentsActivity;
 import net.oschina.app.improve.comment.CommentsUtil;
-import net.oschina.app.improve.comment.OnCommentClickListener;
 import net.oschina.app.improve.comment.QuesAnswerDetailActivity;
 import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.widget.IdentityView;
@@ -44,7 +44,6 @@ import net.oschina.app.widget.TweetTextView;
 import net.oschina.common.utils.CollectionUtil;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -62,10 +61,12 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
     private TextView mTitle;
     private String mShareTitle;
     private TextView mSeeMore;
+    private LinearLayout mLayComments;
     private LinearLayout mLinearComment, mLinearTip;
     private ProgressDialog mDialog;
     private CommentBar commentBar;
     private OnCommentClickListener mListener;
+
     public CommentView(Context context) {
         super(context);
         init();
@@ -85,8 +86,9 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         inflater.inflate(R.layout.detail_comment_view, this, true);
-        mTitle = (TextView) findViewById(R.id.tv_blog_detail_comment);
-        mLinearComment = (LinearLayout) findViewById(R.id.lay_detail_comment);
+        mTitle = (TextView) findViewById(R.id.tv_detail_comment);
+        mLinearComment = (LinearLayout) findViewById(R.id.ll_comment);
+        mLayComments = (LinearLayout) findViewById(R.id.lay_detail_comment);
         mLinearTip = (LinearLayout) findViewById(R.id.ll_tip);
         mSeeMore = (TextView) findViewById(R.id.tv_see_more_comment);
         mLinearTip.setOnClickListener(new OnClickListener() {
@@ -135,15 +137,15 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
         this.mType = type;
 
         mSeeMore.setVisibility(View.GONE);
-        mSeeMore.setText(String.format("查看所有 %s 条评论",commentCount));
+        mSeeMore.setText(String.format("查看所有 %s 条评论", commentCount));
         mLinearComment.setVisibility(GONE);
         mLinearTip.setVisibility(GONE);
-
+        this.mListener = onCommentClickListener;
         OSChinaApi.getComments(id, type, "refer,reply", order, null, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (throwable != null)
-                    throwable.printStackTrace();
+                mLinearComment.setVisibility(View.GONE);
+                mLinearTip.setVisibility(View.VISIBLE);
             }
 
             @SuppressLint("DefaultLocale")
@@ -155,37 +157,15 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                     if (resultBean.isSuccess()) {
 
                         List<Comment> comments = resultBean.getResult().getItems();
-
-                        int size = comments.size();
-                        if (type == OSChinaApi.COMMENT_NEWS ||
-                                type == OSChinaApi.COMMENT_TRANSLATION ||
-                                type == OSChinaApi.COMMENT_BLOG ||
-                                type == OSChinaApi.COMMENT_SOFT) {
-                            List<Comment> hotComments = new ArrayList<>();
-                            hotComments.clear();
-                            //筛选出热门评论
-                            for (int i = 0, len = comments.size(); i < (len > 5 ? 5 : len); i++) {
-                                Comment comment = comments.get(i);
-//                                if (comment.getVote() > 0) {
-//
-//                                }
-                                hotComments.add(comment);
-                            }
-                            comments = hotComments;
-                            int len = comments.size();
-                            if (len > 0) {
-                                //表示热门评论数目
-                                setTitle(String.format("%s", getResources().getString(R.string.hot_comment_hint)));
-                                mSeeMore.setVisibility(VISIBLE);
-                                mSeeMore.setOnClickListener(CommentView.this);
-                            }
-                        } else if (commentCount > size) {
-                            mSeeMore.setVisibility(VISIBLE);
-                            mSeeMore.setOnClickListener(CommentView.this);
-                        }
-
+                        mSeeMore.setText(String.format("查看所有 %s 条评论", comments.size()));
+                        setTitle(String.format("%s", getResources().getString(R.string.hot_comment_hint)));
+                        mSeeMore.setVisibility(VISIBLE);
+                        mSeeMore.setOnClickListener(CommentView.this);
                         Comment[] array = CollectionUtil.toArray(comments, Comment.class);
-                        initComment(array, imageLoader, onCommentClickListener);
+                        initComment(array,imageLoader, onCommentClickListener);
+                    }else {
+                        mLinearComment.setVisibility(View.GONE);
+                        mLinearTip.setVisibility(View.VISIBLE);
                     }
 
                 } catch (Exception e) {
@@ -196,12 +176,12 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
     }
 
     private void initComment(final Comment[] comments, final RequestManager imageLoader, final OnCommentClickListener onCommentClickListener) {
-        this.mListener = onCommentClickListener;
-        if (mLinearComment != null)
-            mLinearComment.removeAllViews();
+
+        if (mLayComments != null)
+            mLayComments.removeAllViews();
         if (comments != null && comments.length > 0) {
             mLinearComment.setVisibility(VISIBLE);
-
+            mLayComments.setVisibility(VISIBLE);
             for (int i = 0, len = comments.length; i < len; i++) {
                 final Comment comment = comments[i];
                 if (comment != null) {
@@ -217,7 +197,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                         }
                     });
 
-                    mLinearComment.addView(lay);
+                    mLayComments.addView(lay);
                     if (i == len - 1) {
                         lay.findViewById(R.id.line).setVisibility(GONE);
                     } else {
