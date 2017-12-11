@@ -157,7 +157,6 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                     if (resultBean.isSuccess()) {
 
                         List<Comment> comments = resultBean.getResult().getItems();
-                        mSeeMore.setText(String.format("查看所有 %s 条评论", comments.size()));
                         setTitle(String.format("%s", getResources().getString(R.string.hot_comment_hint)));
                         mSeeMore.setVisibility(VISIBLE);
                         mSeeMore.setOnClickListener(CommentView.this);
