@@ -100,7 +100,7 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
     }
 
     private static boolean checkUrl(String email) {
-        Pattern pattern = Pattern.compile("^https?://[^\\s<>\"]+");
+        Pattern pattern = Pattern.compile("^https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         return pattern.matcher(email).find();
     }
 

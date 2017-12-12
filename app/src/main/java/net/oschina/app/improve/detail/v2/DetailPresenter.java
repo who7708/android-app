@@ -358,7 +358,6 @@ public class DetailPresenter implements DetailContract.Presenter {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 try {
-                    //Log.e("success",responseString);
                     Type type = null;
                     if (payType == 1) {
                         type = new TypeToken<ResultBean<String>>() {

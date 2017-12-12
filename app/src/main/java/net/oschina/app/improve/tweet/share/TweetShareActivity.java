@@ -43,7 +43,6 @@ public class TweetShareActivity extends BackActivity implements
         View.OnClickListener {
 
 
-
     private int mType;
     private static final int TYPE_SHARE = 1;
     private static final int TYPE_SAVE = 2;
@@ -70,11 +69,12 @@ public class TweetShareActivity extends BackActivity implements
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        setStatusBarDarkMode();
+        setDarkToolBar();
         Tweet tweet = (Tweet) getIntent().getSerializableExtra("tweet");
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new ShareCommentAdapter(this,BaseRecyclerAdapter.ONLY_HEADER,tweet);
+        mAdapter = new ShareCommentAdapter(this, BaseRecyclerAdapter.ONLY_HEADER, tweet);
         mRecycleView.setAdapter(mAdapter);
 
         mFragment = TweetShareFragment.newInstance(tweet);

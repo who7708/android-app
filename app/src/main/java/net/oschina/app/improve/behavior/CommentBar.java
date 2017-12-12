@@ -1,7 +1,6 @@
 package net.oschina.app.improve.behavior;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,7 +159,6 @@ public class CommentBar {
     }
 
     public void setCommentCount(int count) {
-        Log.e("setCommentCount","   --  " + count);
         if (mTextCommentCount != null) {
             mTextCommentCount.setText(String.valueOf(count));
         }

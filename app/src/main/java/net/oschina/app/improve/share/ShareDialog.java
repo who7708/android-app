@@ -54,6 +54,7 @@ public class ShareDialog extends BottomDialog implements View.OnClickListener, D
         }
     }
 
+    @SuppressWarnings("all")
     public void setShareApp(boolean isShareApp) {
         if (mBuilder != null) {
             mBuilder.isShareApp(true);
@@ -63,6 +64,13 @@ public class ShareDialog extends BottomDialog implements View.OnClickListener, D
     public void setBitmap(Bitmap bitmap) {
         if (mBuilder != null) {
             mBuilder.bitmap(bitmap);
+        }
+        clearShare();
+    }
+
+    public void setThumbBitmap(Bitmap thumbBitmap) {
+        if (mBuilder != null) {
+            mBuilder.thumbBitmap(thumbBitmap);
         }
         clearShare();
     }

@@ -19,11 +19,11 @@ import net.oschina.app.AppConfig;
 import net.oschina.app.AppContext;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.media.ImageGalleryActivity;
+import net.oschina.app.improve.utils.UIFormat;
 import net.oschina.app.interf.OnWebViewImageListener;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.TLog;
-import net.oschina.app.util.UIHelper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -298,7 +298,8 @@ public class OWebView extends WebView {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            UIHelper.showUrlRedirect(view.getContext(), url);
+            //UIHelper.showUrlRedirect(view.getContext(), url);
+            UIFormat.show(view.getContext(), url);
             return true;
         }
 

@@ -1,9 +1,11 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -35,7 +37,9 @@ import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.article.ArticleAdapter;
 import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.media.ImageGalleryActivity;
+import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
 
@@ -156,12 +160,33 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         }
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_read_all:
-                ArticleWebActivity.show(mContext, mArticle);
-                mPresenter.addClickCount();
+                if (OSCSharedPreference.getInstance().isFirstOpenUrl()) {
+                    View view = mInflater.inflate(R.layout.dialog_liability, null);
+                    final CheckBox checkBox = (CheckBox) view.findViewById(R.id.cb_url);
+                    DialogHelper.getConfirmDialog(mContext,
+                            "温馨提醒",
+                            view,
+                            "继续访问",
+                            "取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ArticleWebActivity.show(mContext, mArticle);
+                                    mPresenter.addClickCount();
+                                    if (checkBox.isChecked()) {
+                                        OSCSharedPreference.getInstance().putFirstOpenUrl();
+                                    }
+                                }
+                            }).show();
+                } else {
+                    ArticleWebActivity.show(mContext, mArticle);
+                    mPresenter.addClickCount();
+                }
                 break;
         }
     }
@@ -170,7 +195,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                WebActivity.show(mContext,TypeFormat.formatUrl(top));
+                WebActivity.show(mContext, TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }

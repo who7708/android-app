@@ -172,9 +172,19 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
 
     /**
      * 最后一次分享的url
+     *
      * @return 最后一次分享的url
      */
     public String getLastShareUrl() {
         return getString("osc_last_share_url", "");
+    }
+
+
+    public boolean isFirstOpenUrl() {
+        return getBoolean("osc_is_first_open_url", true);
+    }
+
+    public void putFirstOpenUrl() {
+        put("osc_is_first_open_url", false);
     }
 }

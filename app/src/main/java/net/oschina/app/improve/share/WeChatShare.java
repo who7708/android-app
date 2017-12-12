@@ -28,7 +28,7 @@ import java.io.File;
  */
 
 public class WeChatShare extends BaseShare implements IWXAPIEventHandler {
-    public static final String APP_ID = "wxa8213dc827399101";
+    private static final String APP_ID = "wxa8213dc827399101";
     public static final String APP_SECRET = "5c716417ce72ff69d8cf0c43572c9284";
     private IWXAPI wxAPI;
 
@@ -74,7 +74,11 @@ public class WeChatShare extends BaseShare implements IWXAPIEventHandler {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = mBuilder.url;
         final WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.setThumbImage(BitmapFactory.decodeResource(mBuilder.mActivity.getResources(), R.mipmap.ic_share_app_logo));
+        if(mBuilder.thumbBitmap!= null && !mBuilder.thumbBitmap.isRecycled()){
+            msg.setThumbImage(mBuilder.thumbBitmap);
+        }else {
+            msg.setThumbImage(BitmapFactory.decodeResource(mBuilder.mActivity.getResources(), R.mipmap.ic_share_app_logo));
+        }
         msg.title = mBuilder.title;
         msg.description = mBuilder.content;
 

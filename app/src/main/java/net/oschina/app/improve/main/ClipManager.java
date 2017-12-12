@@ -31,22 +31,28 @@ public final class ClipManager {
                 public void onPrimaryClipChanged() {
                     if (mManager == null)
                         return;
-                    if (mManager.hasPrimaryClip() && mManager.getPrimaryClip().getItemCount() > 0) {
-                        CharSequence addedText = mManager.getPrimaryClip().getItemAt(0).getText();
-                        if (addedText != null && mListener != null && checkUrl(addedText.toString())) {
-                            if (BaseActivity.IS_ACTIVE) {
-                                if (OSCSharedPreference.getInstance().isRelateClip() && !IS_SYSTEM_URL) {
-                                    OSCSharedPreference.getInstance().putLastShareUrl(mUrl);
-                                    mListener.onClipChange(addedText.toString());
-                                    mUrl = null;
+                    try {
+                        if (mManager.hasPrimaryClip() && mManager.getPrimaryClip().getItemCount() > 0) {
+                            CharSequence addedText = mManager.getPrimaryClip().getItemAt(0).getText();
+                            if (addedText != null && mListener != null && checkUrl(addedText.toString())) {
+                                if (BaseActivity.IS_ACTIVE) {
+                                    if (OSCSharedPreference.getInstance().isRelateClip() && !IS_SYSTEM_URL) {
+                                        OSCSharedPreference.getInstance().putLastShareUrl(mUrl);
+                                        mListener.onClipChange(addedText.toString());
+                                        mUrl = null;
+                                    }
+                                } else {
+                                    mUrl = addedText.toString();
                                 }
                             } else {
-                                mUrl = addedText.toString();
+                                mUrl = null;
                             }
-                        } else {
-                            mUrl = null;
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mUrl = null;
                     }
+
                 }
             };
         }
@@ -88,15 +94,23 @@ public final class ClipManager {
         if (TextUtils.isEmpty(url)) {
             return false;
         }
-        Pattern pattern = Pattern.compile("^https?://[^\\s<>\"]+");
+        Pattern pattern = Pattern.compile("^https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
         return pattern.matcher(url).find();
     }
 
     private static String getClipText() {
-        if (mManager != null && mManager.hasPrimaryClip() && mManager.getPrimaryClip().getItemCount() > 0) {
-            return mManager.getPrimaryClip().getItemAt(0).getText().toString();
+        try {
+            if (mManager != null && mManager.hasPrimaryClip() && mManager.getPrimaryClip().getItemCount() > 0) {
+                CharSequence addedText = mManager.getPrimaryClip().getItemAt(0).getText();
+                if (addedText != null) {
+                    return addedText.toString();
+                }
+            }
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     public static String getClipUrl() {

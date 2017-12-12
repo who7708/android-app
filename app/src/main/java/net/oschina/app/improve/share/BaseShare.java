@@ -34,6 +34,7 @@ public abstract class BaseShare {
         String url;
         String imageUrl;
         Bitmap bitmap;
+        Bitmap thumbBitmap;
         boolean isShareApp;
         boolean isShareImage;
         int itemIcon;//显示的分享项图标
@@ -84,6 +85,12 @@ public abstract class BaseShare {
             return this;
         }
 
+        public Builder thumbBitmap(Bitmap thumbBitmap) {
+            this.thumbBitmap = thumbBitmap;
+            return this;
+        }
+
+        @SuppressWarnings("all")
         public Builder isShareApp(boolean isShareApp) {
             this.isShareApp = isShareApp;
             return this;

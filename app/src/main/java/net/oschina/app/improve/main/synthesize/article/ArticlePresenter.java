@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.article;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
@@ -62,6 +63,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure", "  --  " + responseString);
                         try {
                             mView.showMoreMore();
                             mView.onComplete();
@@ -73,6 +75,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess", "  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
@@ -110,12 +113,14 @@ class ArticlePresenter implements ArticleContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure", "  --  " + responseString);
                         mView.showNetworkError(R.string.state_network_error);
                         mView.onComplete();
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess", "  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
@@ -192,7 +197,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
                     File sourceFile = future.get();
                     if (sourceFile == null || !sourceFile.exists())
                         return;
-                    String savePath = OSCApplication.getInstance().getCacheDir() + "/launcher" ;
+                    String savePath = OSCApplication.getInstance().getCacheDir() + "/launcher";
                     final File saveFile = new File(savePath);
                     StreamUtil.copyFile(sourceFile, saveFile);
                 } catch (Exception e) {

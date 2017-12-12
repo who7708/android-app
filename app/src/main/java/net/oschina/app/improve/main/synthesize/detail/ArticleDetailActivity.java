@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -16,6 +17,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
@@ -33,6 +37,7 @@ import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
@@ -207,6 +212,27 @@ public class ArticleDetailActivity extends BackActivity implements
         mShareDialog = new ShareDialog(this);
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
+        if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
+            getImageLoader().load(mArticle.getImgs()[0])
+                    .asBitmap()
+                    .centerCrop()
+                    .listener(new RequestListener<String, Bitmap>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            if (isDestroy())
+                                return false;
+                            mShareDialog.setThumbBitmap(resource);
+                            return false;
+                        }
+                    })
+                    .into(Util.dipTopx(this, 80),
+                            Util.dipTopx(this, 80));
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -350,7 +376,7 @@ public class ArticleDetailActivity extends BackActivity implements
                     return false;
                 }
                 if (mArticle != null) {
-                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE,mArticle.getKey()).show();
+                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE, mArticle.getKey()).show();
                 }
                 break;
         }

@@ -2,7 +2,7 @@ package net.oschina.app.api.remote;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
+
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -1742,7 +1742,6 @@ public class OSChinaApi {
         params.put("objId", objId);
         params.put("money", Float.valueOf(money).intValue());
         params.put("payType", payType);
-        Log.e("getPayDonate", "  --  " + authorId + "  --  " + objId + " --  " + money + "  -- " + payType);
         ApiHttpClient.get("action/apiv2/blog_donate_prepare", params, handler);
     }
 
