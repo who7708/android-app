@@ -25,6 +25,7 @@ import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.app.AppOperator;
+import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.comment.Comment;
@@ -151,12 +152,12 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                     if (resultBean.isSuccess()) {
 
                         List<Comment> comments = resultBean.getResult().getItems();
-                        setTitle(String.format("%s", getResources().getString(R.string.hot_comment_hint)));
+                        setTitle(String.format("%s", type == News.TYPE_QUESTION ? "热门回复" : "热门评论"));
                         mSeeMore.setVisibility(VISIBLE);
                         mSeeMore.setOnClickListener(CommentView.this);
                         Comment[] array = CollectionUtil.toArray(comments, Comment.class);
-                        initComment(array,imageLoader, onCommentClickListener);
-                    }else {
+                        initComment(array, imageLoader, onCommentClickListener);
+                    } else {
                         mLinearComment.setVisibility(View.GONE);
                         mLinearTip.setVisibility(View.VISIBLE);
                     }
@@ -221,6 +222,7 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
                 OtherUserHomeActivity.show(getContext(), comment.getAuthor().getId());
             }
         });
+        final ImageView ivComment = (ImageView) lay.findViewById(R.id.iv_best_answer);
         final TextView tvVoteCount = (TextView) lay.findViewById(R.id.tv_vote_count);
         tvVoteCount.setText(String.valueOf(comment.getVote()));
         final ImageView ivVoteStatus = (ImageView) lay.findViewById(R.id.btn_vote);
@@ -234,14 +236,12 @@ public class CommentView extends FrameLayout implements View.OnClickListener {
             tvVoteCount.setVisibility(View.GONE);
             ivVoteStatus.setVisibility(View.GONE);
             if (comment.isBest()) {
-//                ivComment.setEnabled(false);
-//                ivComment.setImageResource(R.mipmap.label_best_answer);
-            } else {
-//                ivComment.setEnabled(true);
-//                ivComment.setImageResource(R.mipmap.ic_comment_30);
+                ivComment.setEnabled(false);
+                ivComment.setImageResource(R.mipmap.label_best_answer);
+                ivComment.setVisibility(VISIBLE);
             }
         } else {
-            //ivComment.setEnabled(true);
+            ivComment.setEnabled(true);
             tvVoteCount.setText(String.valueOf(comment.getVote()));
             tvVoteCount.setVisibility(View.VISIBLE);
             ivVoteStatus.setVisibility(View.VISIBLE);

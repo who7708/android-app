@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
@@ -26,8 +25,7 @@ import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
-
-import butterknife.Bind;
+import net.oschina.app.util.TDevice;
 
 /**
  * 头条浏览器
@@ -35,8 +33,6 @@ import butterknife.Bind;
  */
 
 public class ArticleWebActivity extends WebActivity implements ArticleWebContract.View {
-    @Bind(R.id.ll_root)
-    LinearLayout mLinearRoot;
     private CommentBar mDelegation;
     protected boolean mInputDoubleEmpty = false;
     protected long mCommentId;
@@ -46,6 +42,8 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
     private ArticleWebPresenter mPresenter;
 
     public static void show(Context context, Article article) {
+        if (!TDevice.hasWebView(context))
+            return;
         if (article == null)
             return;
         Intent intent = new Intent(context, ArticleWebActivity.class);

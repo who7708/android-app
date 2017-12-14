@@ -247,7 +247,7 @@ public abstract class DetailFragment extends BaseFragment implements
         mCommentView.setTitle(String.format("%s (%d)", getResources().getString(R.string.answer_hint), bean.getStatistics().getComment()));
         mCommentView.init(bean.getId(),
                 bean.getType(),
-                getCommentOrder(),
+                2,
                 bean.getStatistics().getComment(),
                 getImgLoader(), (CommentView.OnCommentClickListener) mContext);
 
@@ -374,7 +374,7 @@ public abstract class DetailFragment extends BaseFragment implements
         mCommentView.setTitle(String.format("%s (%d)", getResources().getString(R.string.answer_hint), mBean.getStatistics().getComment()));
         mCommentView.init(mBean.getId(),
                 mBean.getType(),
-                getCommentOrder(),
+                2,
                 mBean.getStatistics().getComment(),
                 getImgLoader(), (CommentView.OnCommentClickListener) mContext);
     }

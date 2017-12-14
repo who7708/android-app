@@ -5,8 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -26,7 +27,7 @@ public class OSCWebView extends WebView {
     private OnVideoClickListener mVideoClickListener;
 
     public OSCWebView(Context context) {
-        super(context, null);
+        this(context, null);
     }
 
     public OSCWebView(Context context, AttributeSet attrs) {
@@ -125,12 +126,10 @@ public class OSCWebView extends WebView {
                         break;
                     case WebView.HitTestResult.SRC_ANCHOR_TYPE:
                         // 超链接
-                        Log.e("link", "超链接");
                         break;
                     case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE:
                     case WebView.HitTestResult.IMAGE_TYPE:
                         // 处理长按图片的菜单项
-                        Log.e("link", "处理图片的菜单项");
                         break;
                     default:
                         break;
@@ -139,6 +138,22 @@ public class OSCWebView extends WebView {
                 return false;
             }
         });
+    }
+
+    public void onDestroy() {
+        ViewParent parent = getParent();
+        if (parent != null) {
+            ((ViewGroup) parent).removeView(this);
+        }
+        stopLoading();
+        getSettings().setJavaScriptEnabled(false);
+        clearHistory();
+        clearView();
+        removeAllViews();
+        mOnFinishFinish = null;
+        mImageClickListener = null;
+        mVideoClickListener = null;
+        destroy();
     }
 
     private void addJavaScript() {

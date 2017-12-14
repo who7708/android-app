@@ -19,6 +19,7 @@ import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.interf.OnTabReselectListener;
+import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
 
     private HeaderView mHeaderView;
     private OSCApplication.ReadState mReadState;
+
     public static ArticleFragment newInstance() {
         return new ArticleFragment();
     }
@@ -59,9 +61,11 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
 
     @Override
     protected void onItemClick(Article top, int position) {
+        if (!TDevice.hasWebView(mContext))
+            return;
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                WebActivity.show(mContext,TypeFormat.formatUrl(top));
+                WebActivity.show(mContext, TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }
@@ -113,8 +117,8 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
 
     @Override
     public void onScrollToBottom() {
-        if(mPresenter!=null){
-            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING,true);
+        if (mPresenter != null) {
+            mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
             mPresenter.onLoadMore();
         }
     }
@@ -131,7 +135,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
     @Override
     public void onRefreshSuccess(List<Article> data) {
         super.onRefreshSuccess(data);
-        if(data.size()<8){
+        if (data.size() < 8) {
             mRefreshLayout.setOnLoading(true);
             onLoadMore();
         }

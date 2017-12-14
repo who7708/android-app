@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import net.oschina.app.R;
@@ -19,6 +20,7 @@ import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
+import net.oschina.app.util.TDevice;
 
 import butterknife.Bind;
 
@@ -28,17 +30,20 @@ import butterknife.Bind;
  */
 
 public class WebActivity extends BackActivity implements OSCWebView.OnFinishListener {
-    @Bind(R.id.webView)
-    OSCWebView mWebView;
+
+    protected OSCWebView mWebView;
     @Bind(R.id.progressBar)
     ProgressBar mProgressBar;
-
+    @Bind(R.id.ll_root)
+    LinearLayout mLinearRoot;
     private String mTitle;
     protected ShareDialog mShareDialog;
     private String mUrl;
     private boolean isShowAd;
 
     public static void show(Context context, String url) {
+        if (!TDevice.hasWebView(context))
+            return;
         if (TextUtils.isEmpty(url))
             return;
         Intent intent = new Intent(context, WebActivity.class);
@@ -65,6 +70,13 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     protected void initWidget() {
         super.initWidget();
 
+        mWebView = new OSCWebView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        params.weight = 1;
+        mWebView.setLayoutParams(params);
+        mLinearRoot.addView(mWebView);
+        mWebView.setOnFinishFinish(this);
+
         mUrl = getIntent().getStringExtra("url");
         isShowAd = getIntent().getBooleanExtra("isShowAd", false);
         setStatusBarDarkMode();
@@ -81,7 +93,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             DrawableCompat.setTint(mToolBar.getNavigationIcon(), Color.BLACK);
         }
         mShareDialog = new ShareDialog(this);
-        mWebView.setOnFinishFinish(this);
+
         if (!TextUtils.isEmpty(mUrl))
             mWebView.loadUrl(mUrl);
     }
@@ -150,6 +162,14 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             mWebView.goBack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mWebView != null) {
+            mWebView.onDestroy();
         }
     }
 }

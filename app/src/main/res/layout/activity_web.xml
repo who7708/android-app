@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
+    android:id="@+id/ll_root"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -26,11 +27,5 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp" />
-
-    <net.oschina.app.improve.widget.OSCWebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white" />
 
 </LinearLayout>

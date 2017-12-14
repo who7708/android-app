@@ -51,11 +51,15 @@ public class CheckUpdateManager {
         OSChinaApi.checkUpdate(new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (mIsShowDialog) {
-                    DialogHelper.getMessageDialog(mContext, "网络异常，无法获取新版本信息").show();
-                }
-                if (mWaitDialog != null) {
-                    mWaitDialog.dismiss();
+                try {
+                    if (mIsShowDialog) {
+                        DialogHelper.getMessageDialog(mContext, "网络异常，无法获取新版本信息").show();
+                    }
+                    if (mWaitDialog != null) {
+                        mWaitDialog.dismiss();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
 

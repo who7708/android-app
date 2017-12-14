@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.update;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 /**
  * 应用存储
@@ -167,6 +168,8 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
      * @param url 最后一次分享的url
      */
     public void putLastShareUrl(String url) {
+        if (TextUtils.isEmpty(url))
+            return;
         put("osc_last_share_url", url);
     }
 
