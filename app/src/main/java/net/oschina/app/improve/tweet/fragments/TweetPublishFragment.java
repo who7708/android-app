@@ -33,11 +33,9 @@ import net.oschina.app.improve.tweet.widget.TweetPicturesPreviewer;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.parser.TweetParser;
 import net.oschina.app.improve.widget.RichEditText;
-import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapter;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.UIHelper;
 import net.oschina.common.adapter.TextWatcherAdapter;
-
 
 import butterknife.Bind;
 import butterknife.OnClick;

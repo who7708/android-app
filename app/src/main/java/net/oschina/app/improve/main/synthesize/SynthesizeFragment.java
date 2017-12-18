@@ -15,7 +15,7 @@ import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
 import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
-import net.oschina.app.improve.main.subscription.SubFragment;
+import net.oschina.app.improve.main.sub.SubFragment;
 import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.notice.NoticeBean;

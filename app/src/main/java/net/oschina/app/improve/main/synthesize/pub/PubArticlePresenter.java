@@ -38,7 +38,7 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        mView.showPubFailure("发布失败");
+                        mView.showPubFailure("投递失败");
                     }
 
                     @Override
@@ -47,14 +47,14 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
                             Type type = new TypeToken<ResultBean>() {
                             }.getType();
                             ResultBean bean = new Gson().fromJson(responseString, type);
-                            if (bean != null && bean.getCode() == 1) {
+                            if (bean != null) {
                                 if (bean.getCode() == 1) {
                                     mView.showPubSuccess(R.string.pub_article_success);
                                 } else {
                                     mView.showPubFailure(bean.getMessage());
                                 }
                             } else {
-                                mView.showPubFailure("发布失败");
+                                mView.showPubFailure("投递失败");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
