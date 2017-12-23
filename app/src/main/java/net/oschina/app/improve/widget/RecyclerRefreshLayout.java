@@ -151,6 +151,10 @@ public class RecyclerRefreshLayout extends SwipeRefreshLayout implements SwipeRe
         }
     }
 
+    public boolean isLoding() {
+        return mIsOnLoading;
+    }
+
     @SuppressWarnings("all")
     public void setBottomCount(int mBottomCount) {
         this.mBottomCount = mBottomCount;

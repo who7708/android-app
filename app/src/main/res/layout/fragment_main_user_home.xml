@@ -367,7 +367,7 @@
                             android:layout_height="wrap_content"
                             android:contentDescription="@null"
                             android:layout_marginLeft="6dp"
-                            android:layout_marginRight="@dimen/lay_14"
+                            android:layout_marginRight="16dp"
                             android:src="@mipmap/ic_my_profile" />
 
                         <TextView

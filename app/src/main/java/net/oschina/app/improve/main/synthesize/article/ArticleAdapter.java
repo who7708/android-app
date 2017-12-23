@@ -35,6 +35,8 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
     private static final int VIEW_TYPE_NOT_IMG = 1;
     private static final int VIEW_TYPE_ONE_IMG = 2;
     private static final int VIEW_TYPE_THREE_IMG = 3;
+
+    private static final String FORMAT = "!/both/330x246/quality/100";
     private RequestManager mLoader;
     private OSCApplication.ReadState mReadState;
 
@@ -149,7 +151,6 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
 
     }
 
-    private static final String FORMAT = "!/both/330x246/quality/100";
 
     private void setTag(TextView textView, ImageView imageView, Article article) {
         if (article.getType() == News.TYPE_QUESTION) {

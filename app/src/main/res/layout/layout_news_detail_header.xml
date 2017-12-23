@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<net.oschina.app.improve.widget.AutoScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_nsv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -102,11 +102,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/lay_8"
                         android:layout_marginRight="@dimen/lay_8"
+                        android:text="2016-06-24"
                         android:textColor="#6a6a6a"
                         android:textSize="10sp"
-                        android:text="2016-06-24"
-                        tools:text="2016-06-24"
-                        tools:ignore="HardcodedText,SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp"
+                        tools:text="2016-06-24" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -123,21 +123,76 @@
 
             <net.oschina.app.improve.widget.OWebView
                 android:id="@+id/webView"
-                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
         </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_software_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View style="@style/h_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f5f5f5"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="相关软件"
+                android:textColor="#9d9d9d"
+                android:textSize="12sp"
+                android:visibility="visible"
+                tools:ignore="HardcodedText" />
+
+            <View style="@style/h_line" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_software"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lay_16"
+                android:layout_marginRight="@dimen/lay_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/lay_12"
+                android:paddingTop="@dimen/lay_12">
+
+                <TextView
+                    android:id="@+id/tv_software_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="CalendarView"
+                    android:textColor="@color/text_title_color"
+                    android:textSize="@dimen/font_16"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@string/soft_detail_any_name"
+                    android:src="@mipmap/ic_arrow_right" />
+            </LinearLayout>
+        </LinearLayout>
+
 
         <net.oschina.common.widget.FlowLayout
             android:id="@+id/flowLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:oscHorizontalSpace="8dp"
-            app:oscVerticalSpace="8dp"
+            android:layout_marginBottom="@dimen/lay_12"
             android:layout_marginLeft="@dimen/lay_16"
             android:layout_marginRight="@dimen/lay_16"
-            android:layout_marginBottom="@dimen/lay_12" />
+            android:visibility="gone"
+            app:oscHorizontalSpace="8dp"
+            app:oscVerticalSpace="8dp" />
 
         <View
             android:layout_width="match_parent"
@@ -176,4 +231,4 @@
             style="@style/h_line"
             android:visibility="gone" />
     </LinearLayout>
-</net.oschina.app.improve.widget.AutoScrollView>
+</android.support.v4.widget.NestedScrollView>

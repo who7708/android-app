@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import net.oschina.app.R;
 import net.oschina.app.bean.User;
 import net.oschina.app.improve.bean.simple.TweetComment;
+import net.oschina.app.improve.main.tweet.comment.TweetCommentFragment;
 import net.oschina.app.improve.tweet.contract.TweetDetailContract;
 
 /**
@@ -77,8 +78,8 @@ public class TweetDetailViewPagerFragment extends Fragment
             final ListTweetLikeUsersFragment mCmnFrag;
             mThumbupViewImp = mCmnFrag = ListTweetLikeUsersFragment.instantiate(mOperator, this);
 
-            final ListTweetCommentFragment mThumbupFrag;
-            mCmnViewImp = mThumbupFrag = ListTweetCommentFragment.instantiate(mOperator, this);
+            final TweetCommentFragment mThumbupFrag;
+            mCmnViewImp = mThumbupFrag = TweetCommentFragment.instantiate(mOperator, this);
 
             mViewPager.setAdapter(mAdapter = new FragmentStatePagerAdapter(getChildFragmentManager()) {
                 @Override

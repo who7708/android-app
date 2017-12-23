@@ -92,8 +92,8 @@ public class ApiHttpClient {
     private ApiHttpClient() {
     }
 
-    public static void setHeaderNewsId(){
-        if(CLIENT == null)
+    public static void setHeaderNewsId() {
+        if (CLIENT == null)
             return;
         CLIENT.removeHeader("newsId");
         CLIENT.addHeader("newsId", String.valueOf(OSCSharedPreference.getInstance().getLastNewsId()));
@@ -114,6 +114,14 @@ public class ApiHttpClient {
         ApiHttpClient.setHttpClient(client, context);
         // Set Cookie
         setCookieHeader(AccountHelper.getCookie());
+    }
+
+    public static void cancelALL() {
+        try {
+            CLIENT.cancelAllRequests(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static AsyncHttpClient getHttpClient() {

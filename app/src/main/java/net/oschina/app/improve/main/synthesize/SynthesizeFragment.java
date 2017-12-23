@@ -174,6 +174,9 @@ public class SynthesizeFragment extends BasePagerFragment implements
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
                 else if (fragment instanceof ArticleFragment)
                     ((ArticleFragment) fragment).onTabReselect();
+                else if(fragment instanceof SubFragment){
+                    ((SubFragment)fragment).onTabReselect();
+                }
             }
         }
     }

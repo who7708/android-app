@@ -50,6 +50,7 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
                         mNextToken = pageBean.getNextPageToken();
                         List<TweetComment> list = pageBean.getItems();
                         mView.onRefreshSuccess(list);
+                        mView.onRequestSuccess();
                         if (list.size() == 0) {
                             mView.showMoreMore();
                         } else {
@@ -84,6 +85,7 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
                         mNextToken = pageBean.getNextPageToken();
                         List<TweetComment> list = pageBean.getItems();
                         mView.onLoadMoreSuccess(list);
+                        mView.onRequestSuccess();
                         if (list.size() == 0) {
                             mView.showMoreMore();
                         } else {
@@ -96,6 +98,35 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
                     mView.showNetworkError(R.string.network_timeout_hint);
                     mView.onComplete();
                 }
+            }
+        });
+    }
+
+    @Override
+    public void deleteTweetComment(long id, TweetComment comment, final int position) {
+        OSChinaApi.deleteTweetComment(id, comment.getId(), new TextHttpResponseHandler() {
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showDeleteFailure();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    ResultBean result = new Gson().fromJson(
+                            responseString, new TypeToken<ResultBean>() {
+                            }.getType());
+                    if (result.isSuccess()) {
+                        mView.showDeleteSuccess(position);
+                    } else {
+                        mView.showDeleteFailure();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showDeleteFailure();
+                }
+
             }
         });
     }
