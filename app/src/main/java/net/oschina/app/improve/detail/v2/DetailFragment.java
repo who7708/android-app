@@ -206,7 +206,7 @@ public abstract class DetailFragment extends BaseFragment implements
         this.mBean = bean;
         if (mContext == null) return;
         //码云挂件替换
-        mBean.setBody(bean.getBody().replaceAll("(|<pre>)<code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s+</code>(|</pre>)",
+        mBean.setBody(bean.getBody().replaceAll("(|<pre>)<code>&lt;script src='(//gitee.com/[^>]+)'&gt;&lt;/script&gt;\\s*</code>(|</pre>)",
                 "<code><script src='https:$2'></script></code>"));
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
 

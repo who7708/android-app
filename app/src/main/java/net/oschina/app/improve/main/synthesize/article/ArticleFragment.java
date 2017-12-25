@@ -70,36 +70,30 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
                 ArticleDetailActivity.show(mContext, top);
             }
         } else {
-            try {
-                int type = top.getType();
-                long id = top.getOscId();
-                switch (type) {
-                    case News.TYPE_SOFTWARE:
-                        SoftwareDetailActivity.show(mContext, id);
-                        break;
-                    case News.TYPE_QUESTION:
-                        QuestionDetailActivity.show(mContext, id);
-                        break;
-                    case News.TYPE_BLOG:
-                        BlogDetailActivity.show(mContext, id);
-                        break;
-                    case News.TYPE_TRANSLATE:
-                        NewsDetailActivity.show(mContext, id);
-                        break;
-                    case News.TYPE_EVENT:
-                        EventDetailActivity.show(mContext, id);
-                        break;
-                    case News.TYPE_NEWS:
-                        NewsDetailActivity.show(mContext, id);
-                        break;
-                    default:
-                        UIHelper.showUrlRedirect(mContext, top.getUrl());
-                        break;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                ArticleDetailActivity.show(mContext, top);
+            int type = top.getType();
+            long id = top.getOscId();
+            switch (type) {
+                case News.TYPE_SOFTWARE:
+                    SoftwareDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_QUESTION:
+                    QuestionDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_BLOG:
+                    BlogDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_TRANSLATE:
+                    NewsDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_EVENT:
+                    EventDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_NEWS:
+                    NewsDetailActivity.show(mContext, id);
+                    break;
+                default:
+                    UIHelper.showUrlRedirect(mContext, top.getUrl());
+                    break;
             }
         }
         mReadState.put(top.getKey());
