@@ -46,6 +46,7 @@ class SubPresenter implements SubContract.Presenter {
         List<SubBean> items = CacheManager.readListJson(OSCApplication.getInstance(), CACHE_NAME, SubBean.class);
         if (items != null) {
             mView.onRefreshSuccess(items);
+            mView.updateKey();
             mView.onComplete();
         }
     }
@@ -70,6 +71,7 @@ class SubPresenter implements SubContract.Presenter {
                         List<SubBean> list = pageBean.getItems();
                         CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                         mView.onRefreshSuccess(list);
+                        mView.updateKey();
                         if (list.size() == 0) {
                             mView.showMoreMore();
                         }
@@ -114,6 +116,7 @@ class SubPresenter implements SubContract.Presenter {
                         List<SubBean> list = pageBean.getItems();
                         CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                         mView.onLoadMoreSuccess(list);
+                        mView.updateKey();
                         if (list.size() == 0) {
                             mView.showMoreMore();
                         }

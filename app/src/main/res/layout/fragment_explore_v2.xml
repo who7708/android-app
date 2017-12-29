@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:ignore="HardcodedText,RtlHardcoded">
 
+    <View
+        android:id="@+id/viewStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/white" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

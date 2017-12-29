@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import net.oschina.app.R;
+import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
 import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
@@ -16,12 +17,18 @@ import net.oschina.app.interf.OnTabReselectListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 /**
  * 新版动弹界面
  * Created by huanghaibin on 2017/10/23.
  */
 
 public class TweetPagerFragment extends BasePagerFragment implements OnTabReselectListener {
+
+
+    @Bind(R.id.viewStatusBar)
+    View mStatusBar;
 
     public static TweetPagerFragment newInstance() {
         return new TweetPagerFragment();
@@ -35,8 +42,10 @@ public class TweetPagerFragment extends BasePagerFragment implements OnTabResele
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        setStatusBarPadding();
-
+        //setStatusBarPadding();
+        if (BaseActivity.hasSetStatusBarColor) {
+            mStatusBar.setBackgroundColor(getResources().getColor(R.color.status_bar_color));
+        }
     }
 
     @Override

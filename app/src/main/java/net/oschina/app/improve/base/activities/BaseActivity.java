@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.umeng.analytics.MobclickAgent;
 
+import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.swipe.SwipeBackActivity;
 import net.oschina.app.improve.main.ClipManager;
 
@@ -36,6 +37,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     private boolean mIsDestroy;
     public static boolean IS_ACTIVE = true;
     private static boolean isMiUi = false;
+    public static boolean hasSetStatusBarColor;//是否需要单独设置状态栏颜色
     private final String mPackageNameUmeng = this.getClass().getName();
     private Fragment mFragment;
 
@@ -232,11 +234,21 @@ public abstract class BaseActivity extends SwipeBackActivity {
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 result = 3;
+            } else {
+                result = 4;
             }
         }
         return result;
     }
 
+    /**
+     * 是否设置状态栏颜色
+     *
+     * @return return
+     */
+    protected boolean isSetStatusBarColor() {
+        return true;
+    }
 
     @SuppressLint("InlinedApi")
     protected void setStatusBarDarkMode() {
@@ -247,6 +259,17 @@ public abstract class BaseActivity extends SwipeBackActivity {
             setMeizuDarkMode(getWindow());
         } else if (type == 3) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        } else if (type == 4) {
+            hasSetStatusBarColor = true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && isSetStatusBarColor()) {
+                Window window = getWindow();
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(getResources().getColor(R.color.status_bar_color));
+
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import net.oschina.app.Setting;
 import net.oschina.app.bean.SimpleBackPage;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
+import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.detail.SubActivity;
@@ -31,7 +32,8 @@ public class ExploreFragment extends BaseFragment implements View.OnClickListene
 
     @Bind(R.id.iv_has_location)
     ImageView mIvLocated;
-
+    @Bind(R.id.viewStatusBar)
+    View mStatusBar;
 
     @Override
     protected int getLayoutId() {
@@ -41,7 +43,10 @@ public class ExploreFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        setStatusBarPadding();
+        //setStatusBarPadding();
+        if (BaseActivity.hasSetStatusBarColor) {
+            mStatusBar.setBackgroundColor(getResources().getColor(R.color.status_bar_color));
+        }
     }
 
     @Override

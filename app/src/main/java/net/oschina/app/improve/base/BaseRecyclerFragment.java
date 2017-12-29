@@ -40,6 +40,7 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
         mRefreshLayout = (RecyclerRefreshLayout) mRoot.findViewById(R.id.refreshLayout);
         mRefreshLayout.setSuperRefreshLayoutListener(this);
         mRecyclerView = (RecyclerView) mRoot.findViewById(R.id.recyclerView);
+        initHeader();
         mAdapter = getAdapter();
         mRecyclerView.setLayoutManager(getLayoutManager());
         mRecyclerView.setAdapter(mAdapter);
@@ -47,6 +48,16 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
         mRefreshLayout.setColorSchemeResources(
                 R.color.swiperefresh_color1, R.color.swiperefresh_color2,
                 R.color.swiperefresh_color3, R.color.swiperefresh_color4);
+        hokeSetHeaderView();
+    }
+
+    protected void initHeader() {
+
+    }
+
+
+    protected void hokeSetHeaderView() {
+
     }
 
     @Override
@@ -56,7 +67,7 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
             @Override
             public void run() {
                 mRefreshLayout.setRefreshing(true);
-                if(mPresenter == null)
+                if (mPresenter == null)
                     return;
                 mPresenter.onRefreshing();
             }
@@ -72,7 +83,7 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
 
     @Override
     public void onRefreshing() {
-        if(mPresenter == null)
+        if (mPresenter == null)
             return;
         mAdapter.setState(BaseRecyclerAdapter.STATE_HIDE, true);
         mPresenter.onRefreshing();

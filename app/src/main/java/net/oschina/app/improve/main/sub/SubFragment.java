@@ -5,6 +5,7 @@ import android.view.View;
 
 import net.oschina.app.AppConfig;
 import net.oschina.app.OSCApplication;
+import net.oschina.app.api.ApiHttpClient;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.News;
@@ -17,6 +18,7 @@ import net.oschina.app.improve.main.subscription.BlogSubAdapter;
 import net.oschina.app.improve.main.subscription.EventSubAdapter;
 import net.oschina.app.improve.main.subscription.NewsSubAdapter;
 import net.oschina.app.improve.main.subscription.QuestionSubAdapter;
+import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -57,8 +59,7 @@ public class SubFragment extends BaseRecyclerFragment<SubContract.Presenter, Sub
     }
 
     @Override
-    public void initData() {
-        mReadState = OSCApplication.getReadState("sub_list");
+    protected void initHeader() {
         if (mTab.getBanner() != null) {
             if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS) {
                 mHeaderView = new net.oschina.app.improve.main.header.NewsHeaderView(mContext, mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
@@ -68,10 +69,10 @@ public class SubFragment extends BaseRecyclerFragment<SubContract.Presenter, Sub
                 mBlogHeaderView = new BlogHeaderView(mContext, mTab.getBanner().getHref(), mTab.getToken() + "banner" + mTab.getType());
             }
         }
-        if (mPresenter != null) {
-            mPresenter.loadCache();
-        }
-        super.initData();
+    }
+
+    @Override
+    protected void hokeSetHeaderView() {
         if (mTab.getBanner() != null) {
             if (mTab.getBanner().getCatalog() == SubTab.BANNER_CATEGORY_NEWS) {
                 mAdapter.setHeaderView(mHeaderView);
@@ -87,6 +88,16 @@ public class SubFragment extends BaseRecyclerFragment<SubContract.Presenter, Sub
             ((NewsSubAdapter) mAdapter).setTab(mTab);
         }
         mRefreshLayout.setBottomCount(2);
+        if (mPresenter != null) {
+            mPresenter.loadCache();
+        }
+    }
+
+    @Override
+    public void initData() {
+        mReadState = OSCApplication.getReadState("sub_list");
+        super.initData();
+
     }
 
     @Override
@@ -152,6 +163,22 @@ public class SubFragment extends BaseRecyclerFragment<SubContract.Presenter, Sub
             mHeaderView.requestBanner();
         if (mEventHeaderView != null) {
             mEventHeaderView.requestBanner();
+        }
+    }
+
+    @Override
+    public void updateKey() {
+        if( mTab!= null &&
+                mTab.getType() == 6 &&
+                mAdapter.getItems().size() != 0){
+            SubBean bean = mAdapter.getItem(0);
+            if(bean == null)
+                return;
+            OSCSharedPreference.getInstance().putTheNewsId(bean.getNewsId());
+            if(SAVE_ID){
+                OSCSharedPreference.getInstance().putLastNewsId(bean.getNewsId());
+                ApiHttpClient.setHeaderNewsId();
+            }
         }
     }
 

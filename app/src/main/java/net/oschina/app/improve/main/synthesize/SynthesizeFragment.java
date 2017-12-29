@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.api.ApiHttpClient;
+import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.base.fragments.BaseGeneralListFragment;
 import net.oschina.app.improve.base.fragments.BaseGeneralRecyclerFragment;
 import net.oschina.app.improve.base.fragments.BasePagerFragment;
@@ -26,6 +27,7 @@ import net.oschina.app.interf.OnTabReselectListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
@@ -41,6 +43,9 @@ public class SynthesizeFragment extends BasePagerFragment implements
     private int mCurrentItem;
     private TextView mTextCount;
 
+    @Bind(R.id.viewStatusBar)
+    View mStatusBar;
+
     public static SynthesizeFragment newInstance() {
         return new SynthesizeFragment();
     }
@@ -53,7 +58,10 @@ public class SynthesizeFragment extends BasePagerFragment implements
     @Override
     protected void initWidget(View root) {
         super.initWidget(root);
-        setStatusBarPadding();
+        //setStatusBarPadding();
+        if (BaseActivity.hasSetStatusBarColor) {
+            mStatusBar.setBackgroundColor(getResources().getColor(R.color.status_bar_color));
+        }
         NoticeManager.bindNotify(this);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -174,8 +182,8 @@ public class SynthesizeFragment extends BasePagerFragment implements
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
                 else if (fragment instanceof ArticleFragment)
                     ((ArticleFragment) fragment).onTabReselect();
-                else if(fragment instanceof SubFragment){
-                    ((SubFragment)fragment).onTabReselect();
+                else if (fragment instanceof SubFragment) {
+                    ((SubFragment) fragment).onTabReselect();
                 }
             }
         }

@@ -13,6 +13,8 @@ public interface SubContract {
 
     interface View extends BaseListView<Presenter, SubBean> {
         void onUpdateTime(String time);
+
+        void updateKey();
     }
 
     interface Presenter extends BaseListPresenter {
