@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
@@ -52,7 +53,7 @@ public class URLUtils {
     );
 
     public static final Pattern PATTERN_PATH_QUESTION = Pattern.compile(
-            "/question/(\\w+)"
+            "/question/[0-9]+_([0-9]+)]"
     );
 
     public static final Pattern PATTERN_PATH_USER_BLOG = Pattern.compile(
@@ -165,8 +166,8 @@ public class URLUtils {
                 }
                 matcher = PATTERN_PATH_QUESTION.matcher(path);
                 if (matcher.find()) {
-                    oid = StringUtils.toLong(matcher.group(1).split("_")[1]);
-                    net.oschina.app.improve.detail.general.QuestionDetailActivity.show(context, oid);
+                    oid = StringUtils.toLong(matcher.group(1));
+                    QuestionDetailActivity.show(context, oid);
                     break;
                 }
                 matcher = PATTERN_PATH_EVENT.matcher(path);

@@ -1688,8 +1688,8 @@ public class OSChinaApi {
         params.put("href", href);
         params.put("reason", reason);
         params.put("memo", memo);
-        if(!TextUtils.isEmpty(key)){
-            params.put("key",key);
+        if (!TextUtils.isEmpty(key)) {
+            params.put("key", key);
         }
         ApiHttpClient.post("action/apiv2/report", params, handler);
     }
@@ -2012,5 +2012,30 @@ public class OSChinaApi {
             params.put("pageToken", pageToken);
         }
         ApiHttpClient.get("action/apiv2/user_read_list", handler);
+    }
+
+    /**
+     * 搜索界面
+     *
+     * @param type      -1 | 不论搜索类型，默认为-1，全局搜索，authors控制数量，softwares也控制数量
+     *                  0  | 搜索article，只返回articles节点
+     *                  1  | 搜索软件，只返回softwares节点
+     *                  11 | 搜索用户，只返回authors节点
+     * @param order     0  | 按默认排序方式
+     *                  1  | 按热度排序（综合评论、阅读数）
+     *                  2  | 按最新时间排序
+     * @param keyword   关键字
+     * @param pageToken token
+     * @param handler   handler
+     */
+    public static void search(int type, int order, String keyword, String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        params.put("type", type);
+        params.put("order", order);
+        params.put("keyword", keyword);
+        ApiHttpClient.post("action/apiv2/", params, handler);
     }
 }

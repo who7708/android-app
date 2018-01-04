@@ -11,6 +11,11 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.SubTab;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.banner.EventHeaderView;
 import net.oschina.app.improve.main.header.BlogHeaderView;
 import net.oschina.app.improve.main.header.HeaderView;
@@ -107,28 +112,22 @@ public class SubFragment extends BaseRecyclerFragment<SubContract.Presenter, Sub
         }
         switch (sub.getType()) {
             case News.TYPE_SOFTWARE:
-                //SoftwareDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.SoftwareDetailActivity.show(mContext, sub);
+                SoftwareDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_QUESTION:
-                //QuestionDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.QuestionDetailActivity.show(mContext, sub);
+                QuestionDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_BLOG:
-                //BlogDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.BlogDetailActivity.show(mContext, sub);
+                BlogDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_TRANSLATE:
-                //TranslateDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, sub);
+                NewsDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_EVENT:
-                //EventDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.EventDetailActivity.show(mContext, sub);
+                EventDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_NEWS:
-                //NewsDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, sub);
+                NewsDetailActivity.show(mContext, sub);
                 break;
             default:
                 UIHelper.showUrlRedirect(mContext, sub.getHref());

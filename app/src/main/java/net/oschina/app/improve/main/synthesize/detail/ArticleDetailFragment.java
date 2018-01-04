@@ -123,7 +123,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
-        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\\s*", ""));
+        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\\s*|\t|\n", ""));
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSource());
         Author author = new Author();
@@ -214,7 +214,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                         BlogDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_TRANSLATE:
-                        NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id, News.TYPE_TRANSLATE);
                         break;
                     case News.TYPE_EVENT:
                         EventDetailActivity.show(mContext, id);

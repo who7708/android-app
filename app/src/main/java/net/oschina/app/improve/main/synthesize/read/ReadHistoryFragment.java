@@ -31,7 +31,7 @@ public class ReadHistoryFragment extends BaseRecyclerFragment<ReadHistoryContrac
     protected void onItemClick(Article top, int position) {
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                WebActivity.show(mContext,TypeFormat.formatUrl(top));
+                WebActivity.show(mContext, TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }
@@ -50,7 +50,7 @@ public class ReadHistoryFragment extends BaseRecyclerFragment<ReadHistoryContrac
                         BlogDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_TRANSLATE:
-                        NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id, News.TYPE_TRANSLATE);
                         break;
                     case News.TYPE_EVENT:
                         EventDetailActivity.show(mContext, id);

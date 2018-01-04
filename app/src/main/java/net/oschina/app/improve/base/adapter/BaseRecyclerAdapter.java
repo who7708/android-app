@@ -11,9 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import net.oschina.app.R;
-import net.oschina.app.improve.user.data.City;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,7 +46,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public static final int ONLY_FOOTER = 2;
     public static final int BOTH_HEADER_FOOTER = 3;
 
-    public static final int VIEW_TYPE_NORMAL = 0;
+    protected static final int VIEW_TYPE_NORMAL = 0;
     private static final int VIEW_TYPE_HEADER = -1;
     private static final int VIEW_TYPE_FOOTER = -2;
 
@@ -327,6 +327,19 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
             this.mItems.remove(getIndex(position));
             notifyItemRemoved(position);
         }
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mItems, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mItems, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     public final T getItem(int position) {

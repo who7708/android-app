@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
+import net.oschina.app.improve.media.Util;
 import net.oschina.app.util.TDevice;
 
 /**
@@ -36,6 +38,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
     private static final int VIEW_TYPE_ONE_IMG = 2;
     private static final int VIEW_TYPE_THREE_IMG = 3;
 
+    private static int WIDTH = 0;
     private static final String FORMAT = "!/both/330x246/quality/100";
     private RequestManager mLoader;
     private OSCApplication.ReadState mReadState;
@@ -45,6 +48,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         mReadState = OSCApplication.getReadState("sub_list");
         setOnLoadingHeaderCallBack(this);
         mLoader = Glide.with(mContext);
+        WIDTH = (Util.getScreenWidth(context) - Util.dipTopx(context, 48)) / 3;
     }
 
     @Override
@@ -87,7 +91,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
         String sourceName = item.getType() != 0 ? "开源中国" : item.getSource();
-        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().trim();
+        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().replaceAll("\\s*|\t|\n", "");
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
@@ -109,6 +113,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             case VIEW_TYPE_ONE_IMG:
                 OneImgHolder h1 = (OneImgHolder) holder;
                 setTag(h1.mTextTitle, h1.mImageTag, item);
+                h1.mFrameImage.getLayoutParams().width = WIDTH;
                 h1.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h1.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
                 h1.mTextOrigin.setText(TextUtils.isEmpty(item.getAuthorName()) ? sourceName : item.getAuthorName());
@@ -225,9 +230,11 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
                 mTextAuthor,
                 mTextCommentCount;
         ImageView mImageView, mImageTag;
+        FrameLayout mFrameImage;
 
         OneImgHolder(View itemView) {
             super(itemView);
+            mFrameImage = (FrameLayout) itemView.findViewById(R.id.fl_image);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mImageView = (ImageView) itemView.findViewById(R.id.iv_image);

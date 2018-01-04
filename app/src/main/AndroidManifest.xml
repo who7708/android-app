@@ -683,6 +683,14 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Main" />
+
+        <activity
+            android:name=".improve.search.v2.SearchActivity"
+            android:label="搜索"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Search"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity
             android:name=".improve.search.activities.SearchActivity"
             android:label="搜索"

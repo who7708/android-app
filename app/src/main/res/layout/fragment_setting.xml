@@ -93,7 +93,7 @@
                 style="@style/option_item_text_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="自动检测粘贴板中的URL"
+                android:text="自动检测剪切板中的URL"
                 android:textColor="?attr/textColor"
                 android:textSize="@dimen/text_size_16"
                 tools:ignore="HardcodedText" />

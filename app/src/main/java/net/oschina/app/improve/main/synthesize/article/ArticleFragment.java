@@ -83,7 +83,7 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
                     BlogDetailActivity.show(mContext, id);
                     break;
                 case News.TYPE_TRANSLATE:
-                    NewsDetailActivity.show(mContext, id);
+                    NewsDetailActivity.show(mContext, id, News.TYPE_TRANSLATE);
                     break;
                 case News.TYPE_EVENT:
                     EventDetailActivity.show(mContext, id);

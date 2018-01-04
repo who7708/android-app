@@ -15,6 +15,7 @@ import net.oschina.app.improve.detail.v2.DetailFragment;
  */
 
 public class NewsDetailActivity extends DetailActivity {
+
     public static void show(Context context, SubBean bean) {
         Intent intent = new Intent(context, NewsDetailActivity.class);
         Bundle bundle = new Bundle();
@@ -64,7 +65,6 @@ public class NewsDetailActivity extends DetailActivity {
         setStatusBarDarkMode();
         setDarkToolBar();
     }
-
 
     @Override
     protected DetailFragment getDetailFragment() {

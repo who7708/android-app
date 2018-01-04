@@ -153,7 +153,7 @@ public abstract class DetailFragment extends BaseFragment implements
             return;
         if (top.getType() == 0) {
             if (TypeFormat.isGit(top)) {
-                WebActivity.show(mContext,TypeFormat.formatUrl(top));
+                WebActivity.show(mContext, TypeFormat.formatUrl(top));
             } else {
                 ArticleDetailActivity.show(mContext, top);
             }
@@ -172,7 +172,7 @@ public abstract class DetailFragment extends BaseFragment implements
                         BlogDetailActivity.show(mContext, id);
                         break;
                     case News.TYPE_TRANSLATE:
-                        NewsDetailActivity.show(mContext, id);
+                        NewsDetailActivity.show(mContext, id, News.TYPE_TRANSLATE);
                         break;
                     case News.TYPE_EVENT:
                         EventDetailActivity.show(mContext, id);
@@ -211,22 +211,22 @@ public abstract class DetailFragment extends BaseFragment implements
         mWebView.loadDetailDataAsync(bean.getBody(), (Runnable) mContext);
 
 
-        if(mFlowLayout != null ){
+        if (mFlowLayout != null) {
             mFlowLayout.removeAllViews();
             if (bean.getiTags() == null || bean.getiTags().length == 0) {
                 mFlowLayout.setVisibility(View.GONE);
-            }else {
+            } else {
                 mFlowLayout.setVisibility(View.VISIBLE);
                 for (final Tag tag : bean.getiTags()) {
                     TextView tvTag = (TextView) getActivity().getLayoutInflater().inflate(R.layout.flowlayout_item, mFlowLayout, false);
                     if (!TextUtils.isEmpty(tag.getName()))
                         tvTag.setText(tag.getName());
                     mFlowLayout.addView(tvTag);
-                    if(tag.getOscId() != 0){
+                    if (tag.getOscId() != 0) {
                         tvTag.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                SoftwareDetailActivity.show(mContext,tag.getOscId());
+                                SoftwareDetailActivity.show(mContext, tag.getOscId());
                             }
                         });
                     }
@@ -398,6 +398,7 @@ public abstract class DetailFragment extends BaseFragment implements
         return object == null ? "" : object.toString();
     }
 
+    @SuppressWarnings("unused")
     protected abstract int getCommentOrder();
 
     @Override
