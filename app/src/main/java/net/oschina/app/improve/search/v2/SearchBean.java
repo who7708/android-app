@@ -10,11 +10,13 @@ import java.util.List;
  * 搜索界面
  * Created by huanghaibin on 2018/1/4.
  */
-
-public class SearchBean implements Serializable{
+@SuppressWarnings("unused")
+public class SearchBean implements Serializable {
     private int authorsCount;
     private int softwareCount;
     private int articlesCount;
+    private String nextPageToken;
+    private String prevPageToken;
     private List<Author> authors;
     private List<Article> softwares;
     private List<Article> articles;
@@ -65,5 +67,21 @@ public class SearchBean implements Serializable{
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    public String getNextPageToken() {
+        return nextPageToken;
+    }
+
+    public void setNextPageToken(String nextPageToken) {
+        this.nextPageToken = nextPageToken;
+    }
+
+    public String getPrevPageToken() {
+        return prevPageToken;
+    }
+
+    public void setPrevPageToken(String prevPageToken) {
+        this.prevPageToken = prevPageToken;
     }
 }

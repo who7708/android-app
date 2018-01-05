@@ -346,6 +346,7 @@
     <string name="title_updating_user_avatar">正在上传头像…</string>
     <string name="search_man">找人</string>
 
+    <string name="search_error">搜索失败</string>
     <string name="search_keyword_empty_error">搜索关键字不能为空</string>
 
     <!--@联系人／好友-->

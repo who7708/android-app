@@ -21,6 +21,7 @@ public class Article implements Serializable {
     private String url;
     private String pubDate;
     private String source;
+    private String softwareLogo;
     private String[] imgs;
     private Tag[] iTags;
     private int commentCount;
@@ -151,5 +152,13 @@ public class Article implements Serializable {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public String getSoftwareLogo() {
+        return softwareLogo;
+    }
+
+    public void setSoftwareLogo(String softwareLogo) {
+        this.softwareLogo = softwareLogo;
     }
 }

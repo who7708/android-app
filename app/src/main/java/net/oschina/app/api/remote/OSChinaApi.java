@@ -2036,6 +2036,6 @@ public class OSChinaApi {
         params.put("type", type);
         params.put("order", order);
         params.put("keyword", keyword);
-        ApiHttpClient.post("action/apiv2/", params, handler);
+        ApiHttpClient.post("action/apiv2/search_articles", params, handler);
     }
 }

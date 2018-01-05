@@ -2,6 +2,9 @@ package net.oschina.app.improve.search.v2;
 
 import net.oschina.app.improve.base.BasePresenter;
 import net.oschina.app.improve.base.BaseView;
+import net.oschina.app.improve.bean.Article;
+
+import java.util.List;
 
 /**
  * 新版搜索界面
@@ -12,10 +15,20 @@ interface SearchContract {
     interface View extends BaseView<Presenter> {
         void showSearchSuccess(SearchBean searchBean);
 
+        void showNotMore();
+
+        void showLoadMoreSuccess(List<Article> articles);
+
+
         void showSearchFailure(int strId);
+
+        void showSearchFailure(String str);
     }
 
     interface Presenter extends BasePresenter {
-        void search(int type, int order, String keyword, String token);
+        void search(int type, int order, String keyword);
+
+
+        void searchMore(int type, int order, String keyword);
     }
 }
