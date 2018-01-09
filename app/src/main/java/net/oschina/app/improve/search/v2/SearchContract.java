@@ -19,6 +19,7 @@ interface SearchContract {
 
         void showLoadMoreSuccess(List<Article> articles);
 
+        void onComplete();
 
         void showSearchFailure(int strId);
 

@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -62,7 +61,6 @@ public class NewsSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, SubBean item, int position) {
         NewsViewHolder vh = (NewsViewHolder) holder;
 
-        Log.e("onBindDefaultViewHolder","   --   " + item.getTitle());
         Resources resources = mContext.getResources();
 
         if (mReadState.already(item.getKey())) {

@@ -4,16 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.News;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
+import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.search.software.SearchSoftwareActivity;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
 import net.oschina.app.improve.widget.SimplexToast;
+import net.oschina.app.util.TDevice;
+import net.oschina.app.util.UIHelper;
 
 import java.util.List;
 
@@ -26,10 +40,13 @@ import butterknife.Bind;
 
 public class SearchActivity extends BackActivity implements
         SearchContract.View, View.OnClickListener,
-
         BaseRecyclerAdapter.OnItemClickListener {
 
     private SearchPresenter mPresenter;
+    @Bind(R.id.view_searcher)
+    SearchView mViewSearch;
+    @Bind(R.id.search_src_text)
+    EditText mViewSearchEditor;
     @Bind(R.id.refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerView)
@@ -54,17 +71,19 @@ public class SearchActivity extends BackActivity implements
         mHeaderView = new SearchHeaderView(this);
         mAdapter = new SearchAdapter(this);
         mAdapter.setHeaderView(mHeaderView);
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
             @Override
             public void onRefreshing() {
-
+                mPresenter.search(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, mViewSearch.getQuery().toString());
             }
 
             @Override
             public void onLoadMore() {
-
+                mPresenter.searchMore(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, mViewSearch.getQuery().toString());
+                mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
             }
 
             @Override
@@ -92,6 +111,28 @@ public class SearchActivity extends BackActivity implements
                 SearchSoftwareActivity.show(SearchActivity.this, "");
             }
         });
+        mViewSearch.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                // 阻止点击关闭按钮 collapse icon
+                return true;
+            }
+        });
+        mViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mViewSearch.clearFocus();
+                mPresenter.search(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        mViewSearchEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
     }
 
     @Override
@@ -107,7 +148,45 @@ public class SearchActivity extends BackActivity implements
 
     @Override
     public void onItemClick(int position, long itemId) {
-
+        Article top = mAdapter.getItem(position);
+        if (top == null) {
+            return;
+        }
+        if (!TDevice.hasWebView(this))
+            return;
+        if (top.getType() == 0) {
+            if (TypeFormat.isGit(top)) {
+                WebActivity.show(this, TypeFormat.formatUrl(top));
+            } else {
+                ArticleDetailActivity.show(this, top);
+            }
+        } else {
+            int type = top.getType();
+            long id = top.getOscId();
+            switch (type) {
+                case News.TYPE_SOFTWARE:
+                    SoftwareDetailActivity.show(this, id);
+                    break;
+                case News.TYPE_QUESTION:
+                    QuestionDetailActivity.show(this, id);
+                    break;
+                case News.TYPE_BLOG:
+                    BlogDetailActivity.show(this, id);
+                    break;
+                case News.TYPE_TRANSLATE:
+                    NewsDetailActivity.show(this, id, News.TYPE_TRANSLATE);
+                    break;
+                case News.TYPE_EVENT:
+                    EventDetailActivity.show(this, id);
+                    break;
+                case News.TYPE_NEWS:
+                    NewsDetailActivity.show(this, id);
+                    break;
+                default:
+                    UIHelper.showUrlRedirect(this, top.getUrl());
+                    break;
+            }
+        }
     }
 
     @Override
@@ -122,7 +201,7 @@ public class SearchActivity extends BackActivity implements
     public void showSearchSuccess(SearchBean searchBean) {
         if (isDestroyed())
             return;
-        mHeaderView.setData(searchBean.getSoftwares());
+        mHeaderView.setData(searchBean);
         mAdapter.resetItem(searchBean.getArticles());
     }
 
@@ -140,6 +219,14 @@ public class SearchActivity extends BackActivity implements
             return;
         }
         mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
+    }
+
+    @Override
+    public void onComplete() {
+        if (isDestroyed()) {
+            return;
+        }
+        mRefreshLayout.onComplete();
     }
 
     @Override

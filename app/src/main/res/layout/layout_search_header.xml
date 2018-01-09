@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,9 +16,8 @@
         android:paddingTop="@dimen/lay_8">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/lay_16"
             android:paddingRight="@dimen/lay_16"
@@ -29,15 +28,16 @@
 
         <TextView
             android:id="@+id/tv_software_count"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|right"
             android:paddingLeft="@dimen/lay_16"
             android:paddingRight="@dimen/lay_16"
             android:text="查看剩余28款软件"
             android:textColor="@color/main_green"
             android:textSize="@dimen/font_16"
-            tools:ignore="HardcodedText" />
+            android:visibility="visible"
+            tools:ignore="HardcodedText,RtlHardcoded" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -47,11 +47,14 @@
         android:background="@color/white" />
 
     <LinearLayout
+        android:id="@+id/ll_article"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:background="#F6F6F6"
+        android:minHeight="46dp"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/lay_8">
+        android:paddingTop="@dimen/lay_8"
+        android:visibility="visible">
 
         <TextView
             android:layout_width="0dp"
@@ -79,7 +82,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
-                android:text="按相关度" />
+                android:text="按相关度"
+                android:checked="true"
+                android:textColor="@color/search_order_text_color" />
 
             <View
                 android:layout_width="1px"
@@ -95,7 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
-                android:text="按热度" />
+                android:text="按热度"
+                android:textColor="@color/search_order_text_color" />
 
             <View
                 android:layout_width="1px"
@@ -111,7 +117,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
-                android:text="按时间" />
+                android:text="按时间"
+                android:textColor="@color/search_order_text_color" />
         </RadioGroup>
     </LinearLayout>
-</merge>
+</LinearLayout>

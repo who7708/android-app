@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/software_about_hint"
             android:src="@mipmap/ic_discover_softwares" />

@@ -23,4 +23,11 @@ public class SearchSoftwareActivity extends BackActivity {
     protected int getContentView() {
         return R.layout.activity_search_software;
     }
+
+    @Override
+    protected void initWidget() {
+        super.initWidget();
+        setStatusBarDarkMode();
+        setDarkToolBar();
+    }
 }
