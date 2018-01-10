@@ -2021,9 +2021,10 @@ public class OSChinaApi {
      *                  0  | 搜索article，只返回articles节点
      *                  1  | 搜索软件，只返回softwares节点
      *                  11 | 搜索用户，只返回authors节点
-     * @param order     0  | 按默认排序方式
-     *                  1  | 按热度排序（综合评论、阅读数）
-     *                  2  | 按最新时间排序
+     * @param order     0  | 按默认排序方式相关度
+     *                  1  | 相关度
+     *                  2  | 按热度排序（综合评论、阅读数）
+     *                  3  | 按最新时间排序
      * @param keyword   关键字
      * @param pageToken token
      * @param handler   handler

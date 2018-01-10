@@ -70,7 +70,7 @@ public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapte
     }
 
     void setData(SearchBean bean) {
-        if (bean.getArticlesCount() == 0) {
+        if (bean.getArticleCount() == 0) {
             mLinearArticles.setVisibility(GONE);
         } else {
             setVisibility(VISIBLE);
@@ -79,7 +79,6 @@ public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapte
         if (bean.getSoftwares() == null)
             return;
         if (bean.getSoftwares().size() == 0) {
-            setVisibility(GONE);
             mLinearSoftware.setVisibility(GONE);
             mRecyclerView.setVisibility(GONE);
         } else {

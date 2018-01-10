@@ -14,7 +14,7 @@ import java.util.List;
 public class SearchBean implements Serializable {
     private int authorsCount;
     private int softwareCount;
-    private int articlesCount;
+    private int articleCount;
     private String nextPageToken;
     private String prevPageToken;
     private List<Author> authors;
@@ -37,12 +37,12 @@ public class SearchBean implements Serializable {
         this.softwareCount = softwareCount;
     }
 
-    public int getArticlesCount() {
-        return articlesCount;
+    public int getArticleCount() {
+        return articleCount;
     }
 
-    public void setArticlesCount(int articlesCount) {
-        this.articlesCount = articlesCount;
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
     }
 
     public List<Author> getAuthors() {

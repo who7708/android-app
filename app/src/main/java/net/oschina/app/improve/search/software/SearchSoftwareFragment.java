@@ -3,6 +3,17 @@ package net.oschina.app.improve.search.software;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.News;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
+import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
+import net.oschina.app.util.TDevice;
+import net.oschina.app.util.UIHelper;
 
 /**
  * 软件搜索
@@ -17,8 +28,42 @@ public class SearchSoftwareFragment extends BaseRecyclerFragment<SearchSoftwareC
     }
 
     @Override
-    protected void onItemClick(Article article, int position) {
-
+    protected void onItemClick(Article top, int position) {
+        if (!TDevice.hasWebView(getContext()))
+            return;
+        if (top.getType() == 0) {
+            if (TypeFormat.isGit(top)) {
+                WebActivity.show(getContext(), TypeFormat.formatUrl(top));
+            } else {
+                ArticleDetailActivity.show(getContext(), top);
+            }
+        } else {
+            int type = top.getType();
+            long id = top.getOscId();
+            switch (type) {
+                case News.TYPE_SOFTWARE:
+                    SoftwareDetailActivity.show(getContext(), id);
+                    break;
+                case News.TYPE_QUESTION:
+                    QuestionDetailActivity.show(getContext(), id);
+                    break;
+                case News.TYPE_BLOG:
+                    BlogDetailActivity.show(getContext(), id);
+                    break;
+                case News.TYPE_TRANSLATE:
+                    NewsDetailActivity.show(getContext(), id, News.TYPE_TRANSLATE);
+                    break;
+                case News.TYPE_EVENT:
+                    EventDetailActivity.show(getContext(), id);
+                    break;
+                case News.TYPE_NEWS:
+                    NewsDetailActivity.show(getContext(), id);
+                    break;
+                default:
+                    UIHelper.showUrlRedirect(getContext(), top.getUrl());
+                    break;
+            }
+        }
     }
 
     @Override

@@ -23,28 +23,28 @@ import cz.msebera.android.httpclient.Header;
 class SearchPresenter implements SearchContract.Presenter {
     static final int TYPE_DEFAULT = -1;
     static final int ORDER_DEFAULT = 1;
+    static final int ORDER_HOT = 2;
+    static final int ORDER_TIME = 3;
     private final SearchContract.View mView;
     private String mToken;
-    private int mOrder;
-    private int mType;
-    private String mKeyword;
+    int mOrder;
+    String mKeyword;
 
     SearchPresenter(SearchContract.View mView) {
         this.mView = mView;
         this.mView.setPresenter(this);
         mOrder = ORDER_DEFAULT;
-        mType = TYPE_DEFAULT;
     }
 
     @Override
-    public void search(int type, int order, String keyword) {
+    public void search(int type, String keyword) {
         if (TextUtils.isEmpty(keyword)) {
             mView.showSearchFailure(R.string.search_keyword_empty_error);
             mView.onComplete();
             return;
         }
         mKeyword = keyword;
-        OSChinaApi.search(type, order, keyword, null,
+        OSChinaApi.search(type, mOrder, keyword, null,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -85,12 +85,12 @@ class SearchPresenter implements SearchContract.Presenter {
 
 
     @Override
-    public void searchMore(int type, int order, String keyword) {
+    public void searchMore(int type, String keyword) {
         if (TextUtils.isEmpty(mKeyword)) {
             mView.showSearchFailure(R.string.search_keyword_empty_error);
             return;
         }
-        OSChinaApi.search(type, order, mKeyword, mToken,
+        OSChinaApi.search(type, mOrder, mKeyword, mToken,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

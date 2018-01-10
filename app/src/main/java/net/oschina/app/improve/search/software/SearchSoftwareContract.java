@@ -2,6 +2,7 @@ package net.oschina.app.improve.search.software;
 
 import net.oschina.app.improve.base.BaseListPresenter;
 import net.oschina.app.improve.base.BaseListView;
+import net.oschina.app.improve.base.BaseView;
 import net.oschina.app.improve.bean.Article;
 
 /**
@@ -10,6 +11,12 @@ import net.oschina.app.improve.bean.Article;
  */
 
 interface SearchSoftwareContract {
+
+    interface ActionView {
+        void showSearchFailure(int strId);
+
+        void showSearchFailure(String str);
+    }
 
     interface View extends BaseListView<Presenter, Article> {
 

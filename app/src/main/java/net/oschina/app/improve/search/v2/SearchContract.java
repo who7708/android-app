@@ -27,9 +27,9 @@ interface SearchContract {
     }
 
     interface Presenter extends BasePresenter {
-        void search(int type, int order, String keyword);
+        void search(int type, String keyword);
 
 
-        void searchMore(int type, int order, String keyword);
+        void searchMore(int type,String keyword);
     }
 }

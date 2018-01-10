@@ -32,6 +32,7 @@ import net.oschina.app.util.UIHelper;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 新版搜索界面
@@ -77,12 +78,12 @@ public class SearchActivity extends BackActivity implements
         mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
             @Override
             public void onRefreshing() {
-                mPresenter.search(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, mViewSearch.getQuery().toString());
+                mPresenter.search(SearchPresenter.TYPE_DEFAULT, mViewSearch.getQuery().toString());
             }
 
             @Override
             public void onLoadMore() {
-                mPresenter.searchMore(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, mViewSearch.getQuery().toString());
+                mPresenter.searchMore(SearchPresenter.TYPE_DEFAULT, mViewSearch.getQuery().toString());
                 mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
             }
 
@@ -97,18 +98,23 @@ public class SearchActivity extends BackActivity implements
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.rb_relate_order:
+                        mPresenter.mOrder = SearchPresenter.ORDER_DEFAULT;
                         break;
                     case R.id.rb_hot_order:
+                        mPresenter.mOrder = SearchPresenter.ORDER_HOT;
                         break;
                     case R.id.rb_time_order:
+                        mPresenter.mOrder = SearchPresenter.ORDER_TIME;
                         break;
                 }
+                mRefreshLayout.setRefreshing(true);
+                mPresenter.search(SearchPresenter.TYPE_DEFAULT, mViewSearchEditor.getText().toString());
             }
         });
         mHeaderView.setSearchSoftwareListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SearchSoftwareActivity.show(SearchActivity.this, "");
+                SearchSoftwareActivity.show(SearchActivity.this, mPresenter.mKeyword);
             }
         });
         mViewSearch.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -122,7 +128,7 @@ public class SearchActivity extends BackActivity implements
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mViewSearch.clearFocus();
-                mPresenter.search(SearchPresenter.TYPE_DEFAULT, SearchPresenter.ORDER_DEFAULT, query);
+                mPresenter.search(SearchPresenter.TYPE_DEFAULT, query);
                 return true;
             }
 
@@ -141,9 +147,12 @@ public class SearchActivity extends BackActivity implements
         mPresenter = new SearchPresenter(this);
     }
 
+    @OnClick({R.id.tv_search})
     @Override
     public void onClick(View view) {
-
+        if (mPresenter == null)
+            return;
+        mPresenter.search(SearchPresenter.TYPE_DEFAULT, mViewSearchEditor.getText().toString().trim());
     }
 
     @Override
