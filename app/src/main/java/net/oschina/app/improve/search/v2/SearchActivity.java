@@ -210,6 +210,8 @@ public class SearchActivity extends BackActivity implements
     public void showSearchSuccess(SearchBean searchBean) {
         if (isDestroyed())
             return;
+        mAdapter.mKeyword = mPresenter.mKeyword;
+        mHeaderView.mKeyword = mPresenter.mKeyword;
         mHeaderView.setData(searchBean);
         mAdapter.resetItem(searchBean.getArticles());
     }

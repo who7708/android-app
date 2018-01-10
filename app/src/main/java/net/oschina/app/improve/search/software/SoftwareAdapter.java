@@ -13,6 +13,7 @@ import com.bumptech.glide.RequestManager;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.utils.parser.SearchParser;
 
 /**
  * 只搜索软件
@@ -20,8 +21,10 @@ import net.oschina.app.improve.bean.Article;
  */
 
 class SoftwareAdapter extends BaseRecyclerAdapter<Article> {
+    String mKeyword;
     private RequestManager mLoader;
-     SoftwareAdapter(Context context) {
+
+    SoftwareAdapter(Context context) {
         super(context, ONLY_FOOTER);
         mLoader = Glide.with(context);
     }
@@ -37,8 +40,8 @@ class SoftwareAdapter extends BaseRecyclerAdapter<Article> {
         mLoader.load(item.getSoftwareLogo())
                 .fitCenter()
                 .into(h.mImageLogo);
-        h.mTextTitle.setText(item.getTitle());
-        h.mTextDesc.setText(item.getDesc());
+        h.mTextTitle.setText(SearchParser.getInstance().parse(item.getTitle(), mKeyword));
+        h.mTextDesc.setText(SearchParser.getInstance().parse(item.getDesc(), mKeyword));
     }
 
     private static class SoftwareHolder extends RecyclerView.ViewHolder {

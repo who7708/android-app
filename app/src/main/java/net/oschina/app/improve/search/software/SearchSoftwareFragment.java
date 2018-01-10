@@ -15,6 +15,8 @@ import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
+import java.util.List;
+
 /**
  * 软件搜索
  * Created by huanghaibin on 2018/1/5.
@@ -64,6 +66,14 @@ public class SearchSoftwareFragment extends BaseRecyclerFragment<SearchSoftwareC
                     break;
             }
         }
+    }
+
+    @Override
+    public void onRefreshSuccess(List<Article> data) {
+        if (mAdapter == null || mPresenter == null)
+            return;
+        ((SoftwareAdapter) mAdapter).mKeyword = ((SearchSoftwarePresenter) mPresenter).mKeyword;
+        super.onRefreshSuccess(data);
     }
 
     @Override

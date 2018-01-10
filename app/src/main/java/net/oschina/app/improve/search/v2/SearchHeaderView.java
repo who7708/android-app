@@ -29,6 +29,7 @@ import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.media.Util;
+import net.oschina.app.improve.utils.parser.SearchParser;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
@@ -39,6 +40,7 @@ import net.oschina.app.util.UIHelper;
 
 public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapter.OnItemClickListener{
 
+    String mKeyword;
     private Adapter mAdapter;
     private RadioGroup mRadioGroup;
     private TextView mTextSoftwareCount;
@@ -87,6 +89,7 @@ public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapte
             mRecyclerView.setVisibility(VISIBLE);
             mLinearArticles.setVisibility(VISIBLE);
         }
+        mAdapter.mKeyword = mKeyword;
         mAdapter.resetItem(bean.getSoftwares());
         mTextSoftwareCount.setText(String.format("查看其余%s款软件",bean.getSoftwareCount()));
     }
@@ -146,6 +149,7 @@ public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapte
 
     private static class Adapter extends BaseRecyclerAdapter<Article> {
         private RequestManager mLoader;
+        private String mKeyword;
 
         public Adapter(Context context) {
             super(context, NEITHER);
@@ -163,8 +167,8 @@ public class SearchHeaderView extends LinearLayout implements BaseRecyclerAdapte
             mLoader.load(item.getSoftwareLogo())
                     .fitCenter()
                     .into(h.mImageLogo);
-            h.mTextTitle.setText(item.getTitle());
-            h.mTextDesc.setText(item.getDesc());
+            h.mTextTitle.setText(SearchParser.getInstance().parse(item.getTitle(),mKeyword));
+            h.mTextDesc.setText(SearchParser.getInstance().parse(item.getDesc(),mKeyword));
         }
 
         private static class SoftwareHolder extends RecyclerView.ViewHolder {

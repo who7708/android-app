@@ -24,8 +24,8 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
-import net.oschina.app.improve.main.synthesize.article.ArticleAdapter;
 import net.oschina.app.improve.media.Util;
+import net.oschina.app.improve.utils.parser.SearchParser;
 import net.oschina.app.util.TDevice;
 
 /**
@@ -37,11 +37,13 @@ class SearchAdapter extends BaseRecyclerAdapter<Article> implements BaseRecycler
     private static final int VIEW_TYPE_NOT_IMG = 1;
     private static final int VIEW_TYPE_ONE_IMG = 2;
     private static final int VIEW_TYPE_THREE_IMG = 3;
+    String mKeyword;
 
     private static int WIDTH = 0;
     private static final String FORMAT = "!/both/330x246/quality/100";
     private RequestManager mLoader;
     private OSCApplication.ReadState mReadState;
+
 
     SearchAdapter(Context context) {
         super(context, BOTH_HEADER_FOOTER);
@@ -96,7 +98,7 @@ class SearchAdapter extends BaseRecyclerAdapter<Article> implements BaseRecycler
             case VIEW_TYPE_NOT_IMG:
                 SearchAdapter.TextHolder h = (SearchAdapter.TextHolder) holder;
                 setTag(h.mTextTitle, h.mImageTag, item);
-                h.mTextDesc.setText(desc);
+                h.mTextDesc.setText(SearchParser.getInstance().parse(desc, mKeyword));
                 h.mTextDesc.setVisibility(TextUtils.isEmpty(desc) ? View.GONE : View.VISIBLE);
                 h.mTextTime.setText(DataFormat.parsePubDate(item.getPubDate()));
                 h.mTextAuthor.setText(TextUtils.isEmpty(item.getAuthorName()) ? "匿名" : item.getAuthorName());
@@ -183,7 +185,7 @@ class SearchAdapter extends BaseRecyclerAdapter<Article> implements BaseRecycler
             imageView.setImageResource(R.mipmap.tag_translate);
             imageView.setVisibility(View.VISIBLE);
         } else {
-            textView.setText(article.getTitle());
+            textView.setText(SearchParser.getInstance().parse(article.getTitle(), mKeyword));
             imageView.setVisibility(View.GONE);
         }
     }
@@ -191,13 +193,14 @@ class SearchAdapter extends BaseRecyclerAdapter<Article> implements BaseRecycler
     private void setEmptyTag(TextView textView, Article article) {
         SpannableStringBuilder spannable = new SpannableStringBuilder();
         spannable.append("[icon] ");
-        spannable.append(article.getTitle());
+        spannable.append(SearchParser.getInstance().parse(article.getTitle(), mKeyword));
         Drawable img = mContext.getResources().getDrawable(R.mipmap.tag_empty);
         if (img != null) {
             img.setBounds(0, 0, img.getIntrinsicWidth(), img.getIntrinsicHeight());
         }
         ImageSpan imageSpan = new ImageSpan(img, ImageSpan.ALIGN_BOTTOM);
         spannable.setSpan(imageSpan, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
         textView.setText(spannable);
     }
 

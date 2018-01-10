@@ -8,9 +8,10 @@ import java.io.Serializable;
  * 头条
  * Created by huanghaibin on 2017/10/23.
  */
-
+@SuppressWarnings("unused")
 public class Article implements Serializable {
     public static final int TYPE_AD = 9999;//广告类型
+    public static final int TYPE_ENGLISH = 8000;//英文类型
 
     private int type;
     private String authorName;
@@ -18,6 +19,7 @@ public class Article implements Serializable {
     private String key;
     private String title;
     private String desc;
+    private String content;//详情
     private String url;
     private String pubDate;
     private String source;
@@ -160,5 +162,13 @@ public class Article implements Serializable {
 
     public void setSoftwareLogo(String softwareLogo) {
         this.softwareLogo = softwareLogo;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

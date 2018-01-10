@@ -1,7 +1,6 @@
 package net.oschina.app.improve.search.software;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,7 +22,7 @@ import cz.msebera.android.httpclient.Header;
 
 class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
     private static final int TYPE_SOFTWARE = 1;
-    private static final int ORDER_DEFAULT = 1;
+    private static final int ORDER_HOT = 2;
     private final SearchSoftwareContract.View mView;
     private final SearchSoftwareContract.ActionView mActionView;
     String mKeyword;
@@ -42,11 +41,10 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
             mView.onComplete();
             return;
         }
-        OSChinaApi.search(TYPE_SOFTWARE, ORDER_DEFAULT, mKeyword, null,
+        OSChinaApi.search(TYPE_SOFTWARE, ORDER_HOT, mKeyword, null,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure", "" + responseString);
                         mActionView.showSearchFailure(R.string.network_timeout_hint);
                         mView.showNetworkError(R.string.network_timeout_hint);
                         mView.onComplete();
@@ -54,7 +52,6 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess", "" + responseString);
                         try {
                             ResultBean<SearchBean> bean = new Gson().fromJson(responseString, getType());
                             if (bean != null) {
@@ -88,11 +85,10 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
             mView.onComplete();
             return;
         }
-        OSChinaApi.search(TYPE_SOFTWARE, ORDER_DEFAULT, mKeyword, mToken,
+        OSChinaApi.search(TYPE_SOFTWARE, ORDER_HOT, mKeyword, mToken,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure", "" + responseString);
                         mActionView.showSearchFailure(R.string.network_timeout_hint);
                         mView.showNetworkError(R.string.network_timeout_hint);
                         mView.onComplete();
@@ -100,7 +96,6 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess", "" + responseString);
                         try {
                             ResultBean<SearchBean> bean = new Gson().fromJson(responseString, getType());
                             if (bean != null) {
