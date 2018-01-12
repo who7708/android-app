@@ -3,7 +3,6 @@ package net.oschina.app.api.remote;
 import android.content.Context;
 import android.text.TextUtils;
 
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -2036,6 +2035,16 @@ public class OSChinaApi {
         }
         params.put("type", type);
         params.put("order", order);
+        params.put("keyword", keyword);
+        ApiHttpClient.post("action/apiv2/search_articles", params, handler);
+    }
+
+    public static void searchSoftware(int type, String keyword, String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        params.put("type", type);
         params.put("keyword", keyword);
         ApiHttpClient.post("action/apiv2/search_articles", params, handler);
     }

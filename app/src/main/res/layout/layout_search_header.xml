@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:background="#F6F6F6"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/lay_8">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +52,6 @@
         android:background="#F6F6F6"
         android:minHeight="46dp"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/lay_8"
         android:visibility="visible">
 
         <TextView
@@ -80,7 +78,7 @@
             <RadioButton
                 android:id="@+id/rb_relate_order"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:button="@null"
                 android:text="按相关度"
                 android:checked="true"
@@ -93,13 +91,15 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@color/list_divider_color" />
 
             <RadioButton
                 android:id="@+id/rb_hot_order"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:button="@null"
+                android:visibility="gone"
                 android:text="按热度"
                 android:textColor="@color/search_order_text_color" />
 
@@ -115,7 +115,7 @@
             <RadioButton
                 android:id="@+id/rb_time_order"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:button="@null"
                 android:text="按时间"
                 android:textColor="@color/search_order_text_color" />

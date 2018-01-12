@@ -399,6 +399,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
                                                                boolean isFirstResource) {
                                     loading.stop();
                                     loading.setVisibility(View.GONE);
+                                    previewView.setImageDrawable(resource);
                                     updateDownloadStatus(pos, true);
                                     return false;
                                 }

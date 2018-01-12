@@ -45,7 +45,8 @@
                     android:maxLines="2"
                     android:text="          Java JNI实现原理初探Java JNI实现原理初探"
                     android:textColor="@color/text_title_color"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
                     tools:ignore="HardcodedText" />
             </FrameLayout>
 

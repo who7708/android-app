@@ -1,10 +1,12 @@
 package net.oschina.app.improve.search.v2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -23,7 +25,10 @@ import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
+import net.oschina.app.improve.search.adapters.SearchHistoryAdapter;
 import net.oschina.app.improve.search.software.SearchSoftwareActivity;
+import net.oschina.app.improve.utils.CacheManager;
+import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.TDevice;
@@ -54,6 +59,11 @@ public class SearchActivity extends BackActivity implements
     RecyclerView mRecyclerView;
     private SearchAdapter mAdapter;
     private SearchHeaderView mHeaderView;
+    @Bind(R.id.recyclerViewHistory)
+    RecyclerView mRecyclerViewHistory;
+
+    private SearchHistoryAdapter mSearchAdapter;
+    private static final String CACHE_NAME = "search_history";
 
     public static void show(Context context) {
         context.startActivity(new Intent(context, SearchActivity.class));
@@ -127,18 +137,53 @@ public class SearchActivity extends BackActivity implements
         mViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mViewSearch.clearFocus();
+                //mViewSearch.clearFocus();
+                TDevice.closeKeyboard(mViewSearchEditor);
                 mPresenter.search(SearchPresenter.TYPE_DEFAULT, query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    mRecyclerViewHistory.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
         });
 
         mViewSearchEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+
+        mSearchAdapter = new SearchHistoryAdapter(this);
+        mRecyclerViewHistory.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerViewHistory.setAnimation(null);
+        mRecyclerViewHistory.setAdapter(mSearchAdapter);
+        List<SearchHistoryAdapter.SearchItem> items = CacheManager.readListJson(this, CACHE_NAME, SearchHistoryAdapter.SearchItem.class);
+        mSearchAdapter.addAll(items);
+        if (mSearchAdapter.getItems().size() != 0) {
+            mSearchAdapter.addItem(new SearchHistoryAdapter.SearchItem("清空搜索历史", 1));
+        }
+        mSearchAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, long itemId) {
+                SearchHistoryAdapter.SearchItem item = mSearchAdapter.getItem(position);
+                if (item != null && item.getType() == 0) {
+                    String query = item.getSearchText();
+                    mViewSearchEditor.setText(query);
+                    mViewSearchEditor.setSelection(query.length());
+                    mPresenter.search(SearchPresenter.TYPE_DEFAULT, query);
+                    TDevice.closeKeyboard(mViewSearchEditor);
+                } else {
+                    DialogHelper.getConfirmDialog(SearchActivity.this, "提示", "确认清空搜索历史记录吗？", "确认", "取消", true, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSearchAdapter.clear();
+                        }
+                    }).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -152,6 +197,7 @@ public class SearchActivity extends BackActivity implements
     public void onClick(View view) {
         if (mPresenter == null)
             return;
+        TDevice.closeKeyboard(mViewSearchEditor);
         mPresenter.search(SearchPresenter.TYPE_DEFAULT, mViewSearchEditor.getText().toString().trim());
     }
 
@@ -195,6 +241,29 @@ public class SearchActivity extends BackActivity implements
                     UIHelper.showUrlRedirect(this, top.getUrl());
                     break;
             }
+        }
+    }
+
+    @Override
+    public void showViewStatus(int status) {
+        if (isDestroyed())
+            return;
+        mRecyclerViewHistory.setVisibility(status);
+    }
+
+    @Override
+    public void showAddHistory(String keyword) {
+        if (isDestroyed())
+            return;
+        SearchHistoryAdapter.SearchItem item = new SearchHistoryAdapter.SearchItem(keyword);
+        if (mSearchAdapter.getItems().contains(item)) {
+            mSearchAdapter.removeItem(item);
+        }
+        mSearchAdapter.addItem(0, item);
+        mRecyclerViewHistory.scrollToPosition(0);
+        SearchHistoryAdapter.SearchItem last = mSearchAdapter.getItem(mSearchAdapter.getItems().size() - 1);
+        if (last != null && last.getType() == 0) {
+            mSearchAdapter.addItem(new SearchHistoryAdapter.SearchItem("清空搜索历史", 1));
         }
     }
 
@@ -261,4 +330,13 @@ public class SearchActivity extends BackActivity implements
         // TODO: 2018/1/4
     }
 
+    @Override
+    protected void onDestroy() {
+        SearchHistoryAdapter.SearchItem last = mSearchAdapter.getItem(mSearchAdapter.getItems().size() - 1);
+        if (last != null && last.getType() != 0) {
+            mSearchAdapter.removeItem(last);
+        }
+        CacheManager.saveToJson(this, CACHE_NAME, mSearchAdapter.getItems());
+        super.onDestroy();
+    }
 }

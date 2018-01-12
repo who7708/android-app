@@ -10,6 +10,7 @@ import android.widget.EditText;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.widget.SimplexToast;
+import net.oschina.app.util.TDevice;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,7 +55,7 @@ public class SearchSoftwareActivity extends BackActivity implements
         mViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                mViewSearch.clearFocus();
+                TDevice.closeKeyboard(mViewSearchEditor);
                 mPresenter.mKeyword = query;
                 mPresenter.onRefreshing();
                 return true;
@@ -82,6 +83,7 @@ public class SearchSoftwareActivity extends BackActivity implements
     public void onClick(View view) {
         if (mPresenter == null)
             return;
+        TDevice.closeKeyboard(mViewSearchEditor);
         mPresenter.mKeyword = mViewSearchEditor.getText().toString().trim();
         mPresenter.onRefreshing();
     }

@@ -24,6 +24,10 @@ interface SearchContract {
         void showSearchFailure(int strId);
 
         void showSearchFailure(String str);
+
+        void showViewStatus(int status);
+
+        void showAddHistory(String keyword);
     }
 
     interface Presenter extends BasePresenter {

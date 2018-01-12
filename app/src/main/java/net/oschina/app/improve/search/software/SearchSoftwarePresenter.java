@@ -22,7 +22,6 @@ import cz.msebera.android.httpclient.Header;
 
 class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
     private static final int TYPE_SOFTWARE = 1;
-    private static final int ORDER_HOT = 2;
     private final SearchSoftwareContract.View mView;
     private final SearchSoftwareContract.ActionView mActionView;
     String mKeyword;
@@ -41,7 +40,7 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
             mView.onComplete();
             return;
         }
-        OSChinaApi.search(TYPE_SOFTWARE, ORDER_HOT, mKeyword, null,
+        OSChinaApi.searchSoftware(TYPE_SOFTWARE, mKeyword, null,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -85,7 +84,7 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
             mView.onComplete();
             return;
         }
-        OSChinaApi.search(TYPE_SOFTWARE, ORDER_HOT, mKeyword, mToken,
+        OSChinaApi.searchSoftware(TYPE_SOFTWARE, mKeyword, mToken,
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {

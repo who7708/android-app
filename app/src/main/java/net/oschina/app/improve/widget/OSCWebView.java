@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -23,6 +24,7 @@ import android.webkit.WebViewClient;
 public class OSCWebView extends WebView {
 
     private OnFinishListener mOnFinishFinish;
+    private OnLoadedHtmlListener mHTMLListener;
     private OnImageClickListener mImageClickListener;
     private OnVideoClickListener mVideoClickListener;
 
@@ -41,6 +43,7 @@ public class OSCWebView extends WebView {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
+                hideAD();
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onReceivedTitle(title);
                 }
@@ -49,7 +52,7 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if(mOnFinishFinish!= null){
+                if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
             }
@@ -70,6 +73,7 @@ public class OSCWebView extends WebView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                hideAD();
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onFinish();
                 }
@@ -104,6 +108,7 @@ public class OSCWebView extends WebView {
                     return false;
 
                 int type = result.getType();
+                Log.e("osc", "  --  " + result.toString() + "   " + result.getExtra() + "  " + type);
                 if (type == WebView.HitTestResult.UNKNOWN_TYPE)
                     return false;
 
@@ -140,6 +145,7 @@ public class OSCWebView extends WebView {
         });
     }
 
+    @SuppressWarnings("deprecation")
     public void onDestroy() {
         ViewParent parent = getParent();
         if (parent != null) {
@@ -154,6 +160,22 @@ public class OSCWebView extends WebView {
         mImageClickListener = null;
         mVideoClickListener = null;
         destroy();
+    }
+
+
+    private void hideAD() {
+
+        loadUrl("javascript: document.getElementsByClassName('slider-wrap js-slider')[0].children[0].remove();");
+        loadUrl("javascript: document.getElementsByClassName('g-top-slider js-top-slider loaded')[0].remove();");
+        loadUrl("javascript: document.getElementsByClassName('OpenInAppButton OpenInApp is-shown')[0].remove();");
+        loadUrl("javascript: document.getElementsByClassName('AppHeader-inner')[0].remove();");
+        loadUrl("javascript: document.getElementsByClassName('comment-box clearfix')[0].remove();");
+    }
+
+
+    public void getHtml(OnLoadedHtmlListener listener) {
+        this.mHTMLListener = listener;
+        loadUrl("javascript:window.mark.showHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
     }
 
     private void addJavaScript() {
@@ -206,6 +228,15 @@ public class OSCWebView extends WebView {
                 mVideoClickListener.onClick(img);
         }
 
+        @android.webkit.JavascriptInterface
+        public void showHtml(String html) {
+            if (mHTMLListener != null)
+                mHTMLListener.showHtml(html);
+        }
+    }
+
+    public interface OnLoadedHtmlListener {
+        void showHtml(String html);
     }
 
 

@@ -21,7 +21,7 @@ import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
-import net.oschina.app.improve.search.activities.SearchActivity;
+import net.oschina.app.improve.search.v2.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 
 import java.util.ArrayList;
@@ -165,7 +165,8 @@ public class SynthesizeFragment extends BasePagerFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_search:
-                SearchActivity.show(mContext);
+                //SearchActivity.show(mContext);
+                SearchActivity.show(getContext());
                 break;
         }
     }

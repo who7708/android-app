@@ -689,7 +689,7 @@
             android:label="搜索"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Search"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustNothing|stateVisible" />
 
         <activity
             android:name=".improve.search.software.SearchSoftwareActivity"

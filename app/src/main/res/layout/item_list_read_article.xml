@@ -45,7 +45,8 @@
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:textColor="#111111"
-                android:textSize="@dimen/font_16"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 tools:text="阿里云疼腾讯阿里云疼腾讯阿里云疼腾讯阿里云疼腾讯" />
         </LinearLayout>
 

@@ -6,7 +6,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,8 +27,12 @@ public class SearchParser extends RichTextParser {
         return null;
     }
 
+    @SuppressWarnings("all")
     public Spannable parse(String content, String keyword) {
         SpannableStringBuilder builder = new SpannableStringBuilder(content);
+        if (true) {//去掉高亮
+            return builder;
+        }
         if (TextUtils.isEmpty(keyword)) {
             return builder;
         }
@@ -38,7 +41,6 @@ public class SearchParser extends RichTextParser {
         matcher = pattern.matcher(builder.toString());
         while (matcher.find()) {
             CharSequence s = builder.subSequence(matcher.start(), matcher.end());
-            Log.e("s", "s  --   " + s + "  --   " + keyword);
             builder.replace(matcher.start(), matcher.end(), s);
             ForegroundColorSpan span = new ForegroundColorSpan(0xffED5B5B);
             builder.setSpan(span, matcher.start(), matcher.start() + s.length(),

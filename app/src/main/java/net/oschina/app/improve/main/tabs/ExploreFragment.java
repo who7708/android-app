@@ -15,7 +15,7 @@ import net.oschina.app.improve.git.feature.FeatureActivity;
 import net.oschina.app.improve.git.gist.GistActivity;
 import net.oschina.app.improve.main.discover.ShakePresentActivity;
 import net.oschina.app.improve.search.activities.NearbyActivity;
-import net.oschina.app.improve.search.activities.SearchActivity;
+import net.oschina.app.improve.search.v2.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
@@ -48,6 +48,7 @@ public class ExploreFragment extends BaseTitleFragment implements View.OnClickLi
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //SearchActivity.show(getContext());
                 SearchActivity.show(getContext());
             }
         };

@@ -22,6 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/shape_search_view"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:iconifiedByDefault="false"
             app:queryBackground="@color/transparent"
             app:queryHint="搜索" />
@@ -40,15 +42,28 @@
 
     <View style="@style/h_line" />
 
-    <net.oschina.app.improve.widget.RecyclerRefreshLayout
-        android:id="@+id/refreshLayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
+
+        <net.oschina.app.improve.widget.RecyclerRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </net.oschina.app.improve.widget.RecyclerRefreshLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewHistory"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </net.oschina.app.improve.widget.RecyclerRefreshLayout>
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </FrameLayout>
+
+
 </LinearLayout>
