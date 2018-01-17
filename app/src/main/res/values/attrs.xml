@@ -101,7 +101,7 @@
     </declare-styleable>
 
     <declare-styleable name="RatioLayout">
-        <attr name="layout_ratio" format="float" />
+        <attr name="layout_ratio" format="float"/>
         <attr name="ratio_flag">
             <enum name="width" value="1" />
             <enum name="height" value="2" />

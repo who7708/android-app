@@ -144,7 +144,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     public void onFinish() {
         if (isDestroyed())
             return;
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
 

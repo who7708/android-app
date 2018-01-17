@@ -13,6 +13,7 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -27,6 +28,7 @@ public class OSCWebView extends WebView {
     private OnLoadedHtmlListener mHTMLListener;
     private OnImageClickListener mImageClickListener;
     private OnVideoClickListener mVideoClickListener;
+    private boolean isFinish;
 
     public OSCWebView(Context context) {
         this(context, null);
@@ -43,7 +45,7 @@ public class OSCWebView extends WebView {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                hideAD();
+                //hideAD();
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onReceivedTitle(title);
                 }
@@ -73,11 +75,11 @@ public class OSCWebView extends WebView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                hideAD();
+                loadUrl("javascript: document.getElementsByClassName('more-article js-more-article')[0].click();");
+                isFinish = true;
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onFinish();
                 }
-                //addJavaScript();
             }
 
             @Override
@@ -91,6 +93,11 @@ public class OSCWebView extends WebView {
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onError();
                 }
+            }
+
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return super.shouldInterceptRequest(view, request);
             }
         });
 
@@ -108,7 +115,6 @@ public class OSCWebView extends WebView {
                     return false;
 
                 int type = result.getType();
-                Log.e("osc", "  --  " + result.toString() + "   " + result.getExtra() + "  " + type);
                 if (type == WebView.HitTestResult.UNKNOWN_TYPE)
                     return false;
 
@@ -145,8 +151,29 @@ public class OSCWebView extends WebView {
         });
     }
 
+    public void hideAD(String[] rules) {
+        if (rules == null || rules.length == 0)
+            return;
+        for (String rule : rules) {
+            loadUrl(rule);
+        }
+    }
+
+    public void start(){
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideAD();
+                if (!isFinish) {
+                    postDelayed(this, 10);
+                }
+            }
+        }, 10);
+    }
+
     @SuppressWarnings("deprecation")
     public void onDestroy() {
+        isFinish = true;
         ViewParent parent = getParent();
         if (parent != null) {
             ((ViewGroup) parent).removeView(this);
@@ -164,10 +191,12 @@ public class OSCWebView extends WebView {
 
 
     private void hideAD() {
-
+        Log.e("hideAD", "hideAD");
+        loadUrl("javascript: document.body.setAttribute(\"style\",\"padding-top:0px\");");
         loadUrl("javascript: document.getElementsByClassName('slider-wrap js-slider')[0].children[0].remove();");
         loadUrl("javascript: document.getElementsByClassName('g-top-slider js-top-slider loaded')[0].remove();");
         loadUrl("javascript: document.getElementsByClassName('OpenInAppButton OpenInApp is-shown')[0].remove();");
+
         loadUrl("javascript: document.getElementsByClassName('AppHeader-inner')[0].remove();");
         loadUrl("javascript: document.getElementsByClassName('comment-box clearfix')[0].remove();");
     }

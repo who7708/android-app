@@ -10,6 +10,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -157,6 +158,7 @@ public class UserTweetAdapter extends BaseGeneralRecyclerAdapter<Tweet> implemen
         holder.mViewPlatform.setVisibility(TextUtils.isEmpty(Platform.getPlatform(item.getAppClient())) ? View.GONE : View.VISIBLE);
         if (!TextUtils.isEmpty(item.getContent())) {
             String content = item.getContent().replaceAll("[\n\\s]+", " ");
+            Log.e("contentt","" + content);
             //holder.mViewContent.setText(AssimilateUtils.assimilate(mContext, content));
             holder.mViewContent.setText(TweetParser.getInstance().parse(mContext, content));
             holder.mViewContent.setMovementMethod(LinkMovementMethod.getInstance());

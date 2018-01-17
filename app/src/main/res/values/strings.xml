@@ -408,6 +408,7 @@
     <string name="pub_blog_success">发布成功</string>
 
     <string-array name="synthesize_titles">
+        <item>英文</item>
         <item>推荐</item>
         <item>资讯</item>
         <item>问答</item>

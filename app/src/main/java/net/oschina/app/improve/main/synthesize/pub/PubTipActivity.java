@@ -2,6 +2,7 @@ package net.oschina.app.improve.main.synthesize.pub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -29,6 +30,12 @@ public class PubTipActivity extends BaseActivity implements View.OnClickListener
 
     public static void show(Context context, String url) {
         if (IS_SHOW || !OSCSharedPreference.getInstance().isRelateClip()) {
+            return;
+        }
+        if (TextUtils.isEmpty(url) ||
+                url.startsWith("http://") ||
+                url.startsWith("https://www.oschina.net") ||
+                url.startsWith("https://my.oschina.net")) {
             return;
         }
         IS_SHOW = true;

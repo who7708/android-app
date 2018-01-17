@@ -18,6 +18,7 @@ import net.oschina.app.improve.base.fragments.BasePagerFragment;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.main.sub.SubFragment;
 import net.oschina.app.improve.main.synthesize.article.ArticleFragment;
+import net.oschina.app.improve.main.synthesize.english.EnglishArticleFragment;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.notice.NoticeBean;
 import net.oschina.app.improve.notice.NoticeManager;
@@ -74,7 +75,7 @@ public class SynthesizeFragment extends BasePagerFragment implements
                 setTitleText(false, mCurrentItem);
                 setTitleText(true, position);
                 mCurrentItem = position;
-                SubFragment.SAVE_ID = position == 1;
+                SubFragment.SAVE_ID = position == 2;
                 if (SubFragment.SAVE_ID) {
                     OSCSharedPreference.getInstance().putLastNewsId(OSCSharedPreference.getInstance().getTheNewsId());
                     if (mRoot != null && mAdapter != null && hasCount()) {
@@ -97,6 +98,7 @@ public class SynthesizeFragment extends BasePagerFragment implements
 
             }
         });
+        mViewPager.setCurrentItem(1);
     }
 
     private boolean hasCount() {
@@ -153,7 +155,7 @@ public class SynthesizeFragment extends BasePagerFragment implements
         if (i == 0) {
             tv_title.setTextColor(0xff24cf5f);
         }
-        if (i == 1) {
+        if (i == 2) {
             mTextCount = tv_count;
         }
         tv_title.setText(mAdapter.getPageTitle(i));
@@ -183,6 +185,8 @@ public class SynthesizeFragment extends BasePagerFragment implements
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
                 else if (fragment instanceof ArticleFragment)
                     ((ArticleFragment) fragment).onTabReselect();
+                else if (fragment instanceof EnglishArticleFragment)
+                    ((EnglishArticleFragment) fragment).onTabReselect();
                 else if (fragment instanceof SubFragment) {
                     ((SubFragment) fragment).onTabReselect();
                 }
@@ -193,6 +197,7 @@ public class SynthesizeFragment extends BasePagerFragment implements
     @Override
     protected List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
+        fragments.add(EnglishArticleFragment.newInstance());
         fragments.add(ArticleFragment.newInstance());
         fragments.add(getSubFragment(6,
                 "开源资讯",

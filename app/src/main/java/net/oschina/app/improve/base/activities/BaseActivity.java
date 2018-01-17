@@ -182,7 +182,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             @SuppressLint("PrivateApi") Class<?> sysClass = Class.forName("android.os.SystemProperties");
             Method getStringMethod = sysClass.getDeclaredMethod("get", String.class);
             String version = (String) getStringMethod.invoke(sysClass, "ro.miui.ui.version.name");
-            isMiUi = version.compareTo("V6") >= 0 && Build.VERSION.SDK_INT < 24;
+            isMiUi = version.compareTo("V6") >= 0 && Build.VERSION.SDK_INT < 24 && Build.VERSION.SDK_INT != 23;
         } catch (Exception e) {
             e.printStackTrace();
         }

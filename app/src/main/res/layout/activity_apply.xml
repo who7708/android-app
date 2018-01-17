@@ -57,7 +57,8 @@
                 android:layout_marginStart="8dp"
                 android:text="取消"
                 android:textColor="@color/day_colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText,RtlHardcoded" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,14 +74,16 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@mipmap/btn_search_normal"
-                android:tint="#cfcfcf" />
+                android:tint="#cfcfcf"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/lay_8"
                 android:paddingRight="@dimen/lay_8"
-                android:text="搜索" />
+                android:text="搜索"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>
 

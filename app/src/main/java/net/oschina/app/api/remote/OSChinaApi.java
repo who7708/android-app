@@ -1859,6 +1859,23 @@ public class OSChinaApi {
     /**
      * 获取头条
      *
+     * @param ident     手机唯一标示
+     * @param pageToken pageToken
+     * @param handler   handler
+     */
+    public static void getArticles(String ident, int type, String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("ident", ident);
+        params.put("type", type);
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        ApiHttpClient.get("action/apiv2/get_articles", params, handler);
+    }
+
+    /**
+     * 获取头条
+     *
      * @param key     key
      * @param ident   手机唯一标示
      * @param handler handler
@@ -1871,7 +1888,23 @@ public class OSChinaApi {
     }
 
     /**
+     * 获取头条
+     *
+     * @param key     key
+     * @param ident   手机唯一标示
+     * @param handler handler
+     */
+    public static void getArticleDetail(String key, String ident, int type, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("ident", ident);
+        params.put("key", key);
+        params.put("type", type);
+        ApiHttpClient.get("action/apiv2/get_article_detail", params, handler);
+    }
+
+    /**
      * 获取头条相关推荐
+     * recommend_article_es   get_article_recommends
      *
      * @param ident     手机唯一标示
      * @param pageToken pageToken
@@ -1881,6 +1914,26 @@ public class OSChinaApi {
         RequestParams params = new RequestParams();
         params.put("key", key);
         params.put("ident", ident);
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+        }
+        ApiHttpClient.get("action/apiv2/get_article_recommends", params, handler);
+    }
+
+    /**
+     * 获取头条相关推荐
+     * recommend_article_es   get_article_recommends
+     *
+     * @param ident     手机唯一标示
+     * @param pageToken pageToken
+     * @param handler   handler
+     */
+    public static void getArticleRecommends(String key, String ident, int type,
+                                            String pageToken, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+        params.put("ident", ident);
+        params.put("type", type);
         if (!TextUtils.isEmpty(pageToken)) {
             params.put("pageToken", pageToken);
         }
@@ -1933,6 +1986,27 @@ public class OSChinaApi {
         RequestParams params = new RequestParams();
         params.put("key", key);
 
+        params.put("content", content);
+        if (referId > 0)
+            params.put("referId", referId);
+        if (reAuthorId > 0)
+            params.put("reAuthorId", reAuthorId);
+        post("action/apiv2/pub_article_comment", params, handler);
+    }
+
+
+    /**
+     * 发布评论
+     */
+    public static void pubArticleComment(String key,
+                                         String content,
+                                         int type,
+                                         long referId,
+                                         long reAuthorId,
+                                         TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("key", key);
+        params.put("type", type);
         params.put("content", content);
         if (referId > 0)
             params.put("referId", referId);

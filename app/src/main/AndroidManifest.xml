@@ -243,6 +243,13 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".improve.main.synthesize.english.detail.EnglishArticleDetailActivity"
+            android:label="返回"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".improve.main.synthesize.pub.PubTipActivity"
             android:label="分享文章"
             android:screenOrientation="portrait"

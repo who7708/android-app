@@ -124,6 +124,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
         mWebView.loadUrl(TypeFormat.formatUrl(mArticle));
+        mWebView.start();
     }
 
     @Override
