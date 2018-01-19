@@ -1,7 +1,6 @@
 package net.oschina.app.improve.detail.v2;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -67,8 +66,6 @@ public class DetailPresenter implements DetailContract.Presenter {
         OSChinaApi.getDetail(mBean.getType(), mIdent, mBean.getId(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.e("onFailure", "" + responseString);
-                //mView.showNetworkError(R.string.tip_network_error);
                 if (mCacheBean != null)
                     return;
                 mEmptyView.showErrorLayout(EmptyLayout.NETWORK_ERROR);
@@ -76,7 +73,6 @@ public class DetailPresenter implements DetailContract.Presenter {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("onSuccess", "" + responseString);
                 try {
                     Type type = new TypeToken<ResultBean<SubBean>>() {
                     }.getType();
@@ -249,7 +245,6 @@ public class DetailPresenter implements DetailContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure","  --  " + responseString);
                         try {
                             mView.showMoreMore();
                             mView.onComplete();
@@ -260,7 +255,6 @@ public class DetailPresenter implements DetailContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess","  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
@@ -298,7 +292,6 @@ public class DetailPresenter implements DetailContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure","  --  " + responseString);
                         try {
                             mView.showMoreMore();
                             mView.onComplete();
@@ -309,7 +302,6 @@ public class DetailPresenter implements DetailContract.Presenter {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess","  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();

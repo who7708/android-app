@@ -78,9 +78,13 @@ public class OSCWebView extends WebView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //loadUrl("javascript: document.getElementsByClassName('more-article js-more-article')[0].click();");
                 exeExpandRule();
-                isFinish = true;
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isFinish = true;
+                    }
+                }, 2000);
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onFinish();
                 }
@@ -184,11 +188,12 @@ public class OSCWebView extends WebView {
     }
 
     private int delay = 10;
+
     public void startLoadRule(Rule rule) {
         this.mRule = rule;
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
-        }else {
+        } else {
             delay = 10;
         }
 
@@ -199,6 +204,8 @@ public class OSCWebView extends WebView {
         postDelayed(new Runnable() {
             @Override
             public void run() {
+                if (isFinish)
+                    return;
                 exeRemoveRule();
                 if (!isFinish) {
                     postDelayed(this, delay);

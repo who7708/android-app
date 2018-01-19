@@ -280,7 +280,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
-        mLinearCount.setVisibility(mArticle.getWordCount() != 0 ? View.VISIBLE : View.GONE);
+        mLinearCount.setVisibility(article.getWordCount() != 0 ? View.VISIBLE : View.GONE);
         mTextCount.setText(mPresenter.formatTextCount(article.getWordCount()));
         mTextTime.setText(mPresenter.formatTime(article.getReadTime()));
         mTextTimeUnit.setText(mPresenter.formatTimeUnit(article.getReadTime()));
