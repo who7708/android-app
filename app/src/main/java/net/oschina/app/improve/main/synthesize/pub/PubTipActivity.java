@@ -33,7 +33,6 @@ public class PubTipActivity extends BaseActivity implements View.OnClickListener
             return;
         }
         if (TextUtils.isEmpty(url) ||
-                url.startsWith("http://") ||
                 url.startsWith("https://www.oschina.net") ||
                 url.startsWith("https://my.oschina.net")) {
             return;

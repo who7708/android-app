@@ -20,6 +20,7 @@ import net.oschina.app.improve.detail.db.API;
 import net.oschina.app.improve.detail.db.Behavior;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
+import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.common.utils.CollectionUtil;
 
 import java.lang.reflect.Type;
@@ -54,7 +55,7 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+                        mEmptyView.showErrorLayout(EmptyLayout.NETWORK_ERROR);
                     }
 
                     @Override
@@ -67,9 +68,12 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                                 mArticle = bean.getResult();
                                 mView.showGetDetailSuccess(mArticle);
                                 mEmptyView.showGetDetailSuccess(mArticle);
+                            } else {
+                                mEmptyView.showErrorLayout(EmptyLayout.NODATA);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
+                            mEmptyView.showErrorLayout(EmptyLayout.NODATA);
                         }
                     }
                 });
@@ -299,5 +303,35 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
             }
         }
         return CollectionUtil.toArray(list, String.class);
+    }
+
+    @Override
+    public String formatTextCount(int count) {
+        if (count < 1000)
+            return String.valueOf(count);
+        if (count > 1000 && count < 100000)
+            return String.format(" %s,%s ", count / 1000, count % 1000);
+        return String.format(" %s,%s,%s ", count / 1000000, count % 1000000, count % 1000);
+    }
+
+    @Override
+    public String formatTime(long time) {
+        if (time < 60) {
+            return String.format(" %s ", time);
+        }
+        if (time >= 3600) {
+            return " 1 ";
+        }
+        return String.format(" %s ", time / 60);
+    }
+
+    @Override
+    public String formatTimeUnit(long time) {
+        if (time >= 3600) {
+            return "小时";
+        } else if (time >= 60) {
+            return "分钟";
+        } else
+            return "秒";
     }
 }

@@ -11,65 +11,159 @@
 
     <TextView
         android:id="@+id/tv_recommend"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/bg_article_introduce"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginLeft="86dp"
+        android:layout_marginTop="22dp"
+        android:background="@mipmap/tip_circle"
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="推荐"
         android:textColor="@color/main_green"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:ignore="RtlHardcoded" />
+
+    <View
+        android:id="@+id/arrow_up"
+        android:layout_width="22dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="106dp"
+        android:layout_marginTop="76dp"
+        android:background="@mipmap/tip_arrow_up"
+        tools:ignore="RtlHardcoded" />
 
     <LinearLayout
+        android:id="@+id/ll_pop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_toRightOf="@+id/tv_recommend"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="122dp"
+        android:background="@mipmap/tip_pop"
         android:orientation="vertical"
         android:paddingBottom="12dp"
         android:paddingLeft="28dp"
         android:paddingRight="22dp"
-        android:background="@mipmap/bg_tip"
         android:paddingTop="16dp"
         tools:ignore="RtlHardcoded">
 
         <TextView
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="新功能"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_14" />
 
         <TextView
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1．涵盖 OSC 以及其它网站精彩\n       技术文章"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:text="1．涵盖 OSC 以及其它网站精彩技术文章"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_14" />
 
         <TextView
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2．根据阅读习惯智能推荐"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_14" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignRight="@+id/ll_pop"
+        android:layout_below="@+id/ll_pop"
+        android:background="@mipmap/tip_button"
+        android:gravity="center"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="下一个"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_14"
+        tools:ignore="RtlHardcoded" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_tweet_tip"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_tweet_arrow"
+        android:layout_marginBottom="@dimen/lay_12"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="110dp"
+        android:background="@mipmap/tip_pop"
+        android:orientation="vertical"
+        android:paddingLeft="28dp"
+        android:paddingRight="22dp"
+        android:paddingTop="20dp"
+        tools:ignore="RtlHardcoded">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新功能"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_14" />
 
         <TextView
-            android:id="@+id/tv_sure"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:background="@drawable/bg_article_tip"
-            android:layout_height="30dp"
-            android:text="朕知道了"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:lineSpacingExtra="6dp"
+            android:layout_marginTop="8dp"
+            android:text="看到好的技术文章，可以复制链接到这里来分享了，还可以发动弹，发博客"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_14" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="30dp"
+        android:layout_alignRight="@+id/ll_tweet_tip"
+        android:layout_below="@+id/ll_tweet_tip"
+        android:background="@mipmap/tip_button"
+        android:gravity="center"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="朕知道了"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_14"
+        tools:ignore="RtlHardcoded" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_tweet_arrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_tip_tweet"
+        android:layout_marginBottom="@dimen/lay_12"
+        android:gravity="center">
+
+        <View
+            android:layout_width="22dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="-18dp"
+            android:background="@mipmap/tip_arrow_down"
+            tools:ignore="RtlHardcoded" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_tip_tweet"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@mipmap/tip_circle"
+        android:textColor="@color/main_green"
+        android:textSize="16sp"
+        tools:ignore="RtlHardcoded" />
 </RelativeLayout>

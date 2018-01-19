@@ -6,10 +6,20 @@ import net.oschina.app.OSCApplication;
 import net.oschina.app.improve.base.BaseRecyclerFragment;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
+import net.oschina.app.improve.bean.News;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.introduce.ArticleIntroduceActivity;
+import net.oschina.app.improve.main.synthesize.TypeFormat;
+import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.TDevice;
+import net.oschina.app.util.UIHelper;
 
 import java.util.List;
 
@@ -34,7 +44,6 @@ public class EnglishArticleFragment extends BaseRecyclerFragment<EnglishArticleC
 
     @Override
     protected void initData() {
-        ArticleIntroduceActivity.show(mContext);
         mReadState = OSCApplication.getReadState("sub_list");
         if (mPresenter != null) {
             mPresenter.loadCache();
@@ -47,7 +56,42 @@ public class EnglishArticleFragment extends BaseRecyclerFragment<EnglishArticleC
     protected void onItemClick(Article top, int position) {
         if (!TDevice.hasWebView(mContext))
             return;
-        EnglishArticleDetailActivity.show(mContext, top);
+        if (top.getType() == 0) {
+            if (TypeFormat.isGit(top)) {
+                WebActivity.show(mContext, TypeFormat.formatUrl(top));
+            } else {
+                ArticleDetailActivity.show(mContext, top);
+            }
+        } else {
+            int type = top.getType();
+            long id = top.getOscId();
+            switch (type) {
+                case News.TYPE_SOFTWARE:
+                    SoftwareDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_QUESTION:
+                    QuestionDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_BLOG:
+                    BlogDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_TRANSLATE:
+                    NewsDetailActivity.show(mContext, id, News.TYPE_TRANSLATE);
+                    break;
+                case News.TYPE_EVENT:
+                    EventDetailActivity.show(mContext, id);
+                    break;
+                case News.TYPE_NEWS:
+                    NewsDetailActivity.show(mContext, id);
+                    break;
+                case Article.TYPE_ENGLISH:
+                    EnglishArticleDetailActivity.show(mContext, top);
+                    break;
+                default:
+                    UIHelper.showUrlRedirect(mContext, top.getUrl());
+                    break;
+            }
+        }
         mReadState.put(top.getKey());
         mAdapter.updateItem(position);
     }

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    android:id="@+id/ll_root"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -21,11 +20,23 @@
 
     <View style="@style/h_line" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:max="100"
-        style="?android:attr/progressBarStyleHorizontal"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="2dp" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:max="100" />
+    </FrameLayout>
 
 </LinearLayout>

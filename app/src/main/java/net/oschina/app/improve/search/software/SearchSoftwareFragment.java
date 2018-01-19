@@ -11,6 +11,7 @@ import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -60,6 +61,9 @@ public class SearchSoftwareFragment extends BaseRecyclerFragment<SearchSoftwareC
                     break;
                 case News.TYPE_NEWS:
                     NewsDetailActivity.show(getContext(), id);
+                    break;
+                case Article.TYPE_ENGLISH:
+                    EnglishArticleDetailActivity.show(mContext, top);
                     break;
                 default:
                     UIHelper.showUrlRedirect(getContext(), top.getUrl());

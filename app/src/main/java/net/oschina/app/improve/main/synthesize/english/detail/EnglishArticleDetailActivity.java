@@ -34,7 +34,6 @@ import net.oschina.app.improve.detail.v2.ReportDialog;
 import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.main.OnDoubleTouchListener;
 import net.oschina.app.improve.main.synthesize.comment.ArticleCommentActivity;
-import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.detail.CommentView;
 import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.share.ShareDialog;
@@ -60,7 +59,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class EnglishArticleDetailActivity extends BackActivity implements
         CommentView.OnCommentClickListener,
         EnglishArticleDetailContract.EmptyView,
-        EasyPermissions.PermissionCallbacks {
+        EasyPermissions.PermissionCallbacks,
+        Runnable {
 
     private CommentBar mDelegation;
     private String mCommentHint;
@@ -70,7 +70,6 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     private CommentShareView mShareView;
     private AlertDialog mShareCommentDialog;
     private ShareDialog mShareDialog;
-    private EnglishArticleDetailFragment mFragment;
     private EmptyLayout mEmptyLayout;
     private EnglishArticleDetailPresenter mPresenter;
     protected Comment mComment;
@@ -100,7 +99,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         setStatusBarDarkMode();
         setDarkToolBar();
         mArticle = (Article) getIntent().getSerializableExtra("article");
-        mFragment = EnglishArticleDetailFragment.newInstance(mArticle);
+        EnglishArticleDetailFragment mFragment = EnglishArticleDetailFragment.newInstance(mArticle);
         mPresenter = new EnglishArticleDetailPresenter(mFragment, this, mArticle);
         addFragment(R.id.fl_content, mFragment);
 
@@ -123,7 +122,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
             }
         });
 
-        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+        mEmptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
         mDelegation.setFavListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,6 +282,11 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     }
 
     @Override
+    public void run() {
+        hideEmptyLayout();
+    }
+
+    @Override
     public void onShowComment(View view) {
         if (mDelegation != null) {
             mDelegation.getBottomSheet().show(mCommentHint);
@@ -294,6 +298,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         if (isDestroy()) {
             return;
         }
+        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mEmptyLayout.setVisibility(View.GONE);
     }
 
@@ -348,7 +353,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showGetDetailSuccess(Article article) {
-        if(isDestroy()){
+        if (isDestroy()) {
             return;
         }
         mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);

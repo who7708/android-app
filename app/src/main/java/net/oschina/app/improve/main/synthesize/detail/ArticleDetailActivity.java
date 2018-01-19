@@ -124,7 +124,6 @@ public class ArticleDetailActivity extends BackActivity implements
             }
         });
 
-        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mDelegation.setFavListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -350,8 +349,17 @@ public class ArticleDetailActivity extends BackActivity implements
     public void showGetDetailSuccess(Article article) {
         if (isDestroy())
             return;
+        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
         mDelegation.setCommentCount(article.getCommentCount());
+    }
+
+    @Override
+    public void showErrorLayout(int errorType) {
+        if (isDestroy()) {
+            return;
+        }
+        mEmptyLayout.setErrorType(errorType);
     }
 
     @SuppressLint("SetTextI18n")

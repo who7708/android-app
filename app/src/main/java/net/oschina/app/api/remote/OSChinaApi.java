@@ -2113,6 +2113,13 @@ public class OSChinaApi {
         ApiHttpClient.post("action/apiv2/search_articles", params, handler);
     }
 
+    /**
+     * 搜索软件
+     * @param type type
+     * @param keyword keyword
+     * @param pageToken pageToken
+     * @param handler handler
+     */
     public static void searchSoftware(int type, String keyword, String pageToken, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         if (!TextUtils.isEmpty(pageToken)) {
@@ -2121,5 +2128,18 @@ public class OSChinaApi {
         params.put("type", type);
         params.put("keyword", keyword);
         ApiHttpClient.post("action/apiv2/search_articles", params, handler);
+    }
+
+    /**
+     * 去广告规则
+     * @param url url
+     * @param handler handler
+     */
+    public static void getWebRule(String url,TextHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(url)) {
+            params.put("url", url);
+        }
+        ApiHttpClient.get("action/apiv2/get_article_rules", params, handler);
     }
 }

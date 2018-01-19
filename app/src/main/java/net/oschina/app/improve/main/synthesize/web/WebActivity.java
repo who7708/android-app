@@ -15,14 +15,23 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.TextHttpResponseHandler;
+
 import net.oschina.app.R;
+import net.oschina.app.api.remote.OSChinaApi;
 import net.oschina.app.improve.base.activities.BackActivity;
+import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.share.ShareDialog;
 import net.oschina.app.improve.widget.OSCWebView;
 import net.oschina.app.util.TDevice;
 
+import java.lang.reflect.Type;
+
 import butterknife.Bind;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * WebView
@@ -95,8 +104,41 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mShareDialog = new ShareDialog(this);
 
         if (!TextUtils.isEmpty(mUrl))
-            mWebView.loadUrl(mUrl);
+            getRule(mUrl);
     }
+
+    protected void getRule(final String url) {
+        OSChinaApi.getWebRule(url,
+                new TextHttpResponseHandler() {
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        if (isDestroyed())
+                            return;
+                        mWebView.loadUrl(url);
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        if (isDestroyed())
+                            return;
+                        try {
+                            Type type = new TypeToken<ResultBean<Rule>>() {
+                            }.getType();
+                            ResultBean<Rule> bean = new Gson().fromJson(responseString, type);
+                            if (bean != null && bean.isSuccess()) {
+                                mWebView.loadUrl(mUrl);
+                                mWebView.startLoadRule(bean.getResult());
+                            } else {
+                                mWebView.loadUrl(url);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            mWebView.loadUrl(url);
+                        }
+                    }
+                });
+    }
+
 
     @SuppressLint("SetTextI18n")
     @Override

@@ -24,6 +24,7 @@ import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.search.adapters.SearchHistoryAdapter;
 import net.oschina.app.improve.search.software.SearchSoftwareActivity;
@@ -236,6 +237,9 @@ public class SearchActivity extends BackActivity implements
                     break;
                 case News.TYPE_NEWS:
                     NewsDetailActivity.show(this, id);
+                    break;
+                case Article.TYPE_ENGLISH:
+                    EnglishArticleDetailActivity.show(this, top);
                     break;
                 default:
                     UIHelper.showUrlRedirect(this, top.getUrl());

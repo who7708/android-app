@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -60,6 +61,10 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     private View mHeaderView;
     private ProgressBar mLoadingBar;
     private TagFlowLayout mFlowLayout;
+    private TextView mTextCount;
+    private TextView mTextTime;
+    private TextView mTextTimeUnit;
+    private LinearLayout mLinearCount;
 
     public static ArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -115,7 +120,11 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                 }
             });
         }
+        mLinearCount = (LinearLayout) mHeaderView.findViewById(R.id.ll_count);
         mFlowLayout = (TagFlowLayout) mHeaderView.findViewById(R.id.flowLayout);
+        mTextCount = (TextView) mHeaderView.findViewById(R.id.tv_text_count);
+        mTextTime = (TextView) mHeaderView.findViewById(R.id.tv_text_time);
+        mTextTimeUnit = (TextView) mHeaderView.findViewById(R.id.tv_text_time_unit);
         TextView tv_title = (TextView) mHeaderView.findViewById(R.id.tv_title);
         TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
@@ -224,7 +233,7 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
                         NewsDetailActivity.show(mContext, id);
                         break;
                     case Article.TYPE_ENGLISH:
-                        EnglishArticleDetailActivity.show(mContext,top);
+                        EnglishArticleDetailActivity.show(mContext, top);
                         break;
                     default:
                         UIHelper.showUrlRedirect(mContext, top.getUrl());
@@ -266,10 +275,15 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         }
     }
 
+    @SuppressWarnings("all")
     @Override
     public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
+        mLinearCount.setVisibility(mArticle.getWordCount() != 0 ? View.VISIBLE : View.GONE);
+        mTextCount.setText(mPresenter.formatTextCount(article.getWordCount()));
+        mTextTime.setText(mPresenter.formatTime(article.getReadTime()));
+        mTextTimeUnit.setText(mPresenter.formatTimeUnit(article.getReadTime()));
         mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
         mCommentView.setCommentCount(article);
         mFlowLayout.removeAllViews();

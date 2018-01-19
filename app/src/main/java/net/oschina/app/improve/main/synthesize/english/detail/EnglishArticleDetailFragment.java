@@ -80,11 +80,9 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
         TextView tv_name = (TextView) mHeaderView.findViewById(R.id.tv_name);
         TextView tv_pub_date = (TextView) mHeaderView.findViewById(R.id.tv_pub_date);
         TextView tv_origin = (TextView) mHeaderView.findViewById(R.id.tv_origin);
-        TextView tv_detail_abstract = (TextView) mHeaderView.findViewById(R.id.tv_detail_abstract);
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
-        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc());
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSource());
         Author author = new Author();
@@ -142,7 +140,7 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
                         NewsDetailActivity.show(mContext, id);
                         break;
                     case Article.TYPE_ENGLISH:
-                        EnglishArticleDetailActivity.show(mContext,top);
+                        EnglishArticleDetailActivity.show(mContext, top);
                         break;
                     default:
                         UIHelper.showUrlRedirect(mContext, top.getUrl());
@@ -231,12 +229,7 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
     public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
-        mWebView.loadDetailDataAsync(article.getContent(), new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+        mWebView.loadDetailDataAsync(article.getContent(), (Runnable) mContext);
         mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
         mCommentView.setCommentCount(article);
         mFlowLayout.removeAllViews();

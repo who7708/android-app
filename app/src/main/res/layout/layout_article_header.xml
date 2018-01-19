@@ -117,10 +117,10 @@
             android:id="@+id/fl_img"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="@dimen/lay_16"
             android:layout_marginRight="@dimen/lay_16"
             android:layout_marginTop="@dimen/lay_8"
-            android:layout_marginBottom="16dp"
             android:background="@drawable/bg_image"
             android:padding="1px"
             android:visibility="gone">
@@ -169,27 +169,102 @@
             android:id="@+id/flowLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/lay_8"
             android:layout_marginRight="@dimen/lay_8"
+            android:layout_marginTop="8dp"
             android:visibility="gone"
             app:max_select="-1" />
 
-        <Button
-            android:id="@+id/btn_read_all"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginLeft="@dimen/lay_16"
             android:layout_marginRight="@dimen/lay_16"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_article_detail"
-            android:elevation="0dp"
-            android:outlineProvider="none"
-            android:text="阅读全文"
-            android:textColor="@color/main_green"
-            tools:ignore="HardcodedText"
-            tools:targetApi="lollipop" />
+            android:background="@drawable/bg_article_read_all"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                style="@style/h_line"
+                android:background="@color/main_green" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/lay_12"
+                android:layout_marginTop="@dimen/lay_12"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/lay_12"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全文"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_text_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  1,000  "
+                        android:textColor="@color/text_title_color"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="字，预计阅读时间"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_text_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 10 "
+                        android:textColor="@color/text_title_color"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_text_time_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分钟"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_read_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+
+                    android:background="@drawable/bg_article_detail"
+                    android:elevation="0dp"
+                    android:outlineProvider="none"
+                    android:paddingLeft="80dp"
+                    android:paddingRight="80dp"
+                    android:text="阅读全文"
+                    android:textColor="@color/white"
+                    tools:ignore="HardcodedText"
+                    tools:targetApi="lollipop" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/h_line"
+                android:background="@color/main_green" />
+        </LinearLayout>
 
         <net.oschina.app.improve.main.synthesize.detail.CommentView
             android:id="@+id/commentView"

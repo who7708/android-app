@@ -25,6 +25,8 @@ interface ArticleDetailContract {
 
         void showFavError();
 
+        void showErrorLayout(int errorType);
+
         void showGetDetailSuccess(Article article);
     }
 
@@ -51,5 +53,11 @@ interface ArticleDetailContract {
         void fav();
 
         void scrollToTop();
+
+        String formatTextCount(int count);
+
+        String formatTime(long time);
+
+        String formatTimeUnit(long time);
     }
 }

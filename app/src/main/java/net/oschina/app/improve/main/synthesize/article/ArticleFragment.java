@@ -17,6 +17,7 @@ import net.oschina.app.improve.main.banner.NewsHeaderView;
 import net.oschina.app.improve.main.introduce.ArticleIntroduceActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
+import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.TDevice;
@@ -90,6 +91,9 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
                     break;
                 case News.TYPE_NEWS:
                     NewsDetailActivity.show(mContext, id);
+                    break;
+                case Article.TYPE_ENGLISH:
+                    EnglishArticleDetailActivity.show(mContext, top);
                     break;
                 default:
                     UIHelper.showUrlRedirect(mContext, top.getUrl());

@@ -28,6 +28,8 @@ public class Article implements Serializable {
     private Tag[] iTags;
     private int commentCount;
     private boolean favorite;
+    private int wordCount;
+    private long readTime;
 
     @SerializedName("osc_id")
     private long oscId;
@@ -170,5 +172,21 @@ public class Article implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public void setWordCount(int wordCount) {
+        this.wordCount = wordCount;
+    }
+
+    public long getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(long readTime) {
+        this.readTime = readTime;
     }
 }

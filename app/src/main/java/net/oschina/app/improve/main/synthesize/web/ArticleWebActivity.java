@@ -123,8 +123,8 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
         mToolBar.setTitle("返回");
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
-        mWebView.loadUrl(TypeFormat.formatUrl(mArticle));
-        mWebView.start();
+        //mWebView.loadUrl(TypeFormat.formatUrl(mArticle));
+        getRule(TypeFormat.formatUrl(mArticle));
     }
 
     @Override
@@ -196,7 +196,7 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
                     return false;
                 }
                 if (mArticle != null) {
-                    ReportDialog.create(this, 0, TypeFormat.formatUrl(mArticle), Report.TYPE_ARTICLE,mArticle.getKey()).show();
+                    ReportDialog.create(this, 0, TypeFormat.formatUrl(mArticle), Report.TYPE_ARTICLE, mArticle.getKey()).show();
                 }
                 break;
         }

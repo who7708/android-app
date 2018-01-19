@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -16,6 +16,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import net.oschina.app.improve.main.synthesize.web.Rule;
 
 /**
  * 浏览器,视频、图片都支持
@@ -29,6 +31,7 @@ public class OSCWebView extends WebView {
     private OnImageClickListener mImageClickListener;
     private OnVideoClickListener mVideoClickListener;
     private boolean isFinish;
+    private Rule mRule;
 
     public OSCWebView(Context context) {
         this(context, null);
@@ -75,7 +78,8 @@ public class OSCWebView extends WebView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                loadUrl("javascript: document.getElementsByClassName('more-article js-more-article')[0].click();");
+                //loadUrl("javascript: document.getElementsByClassName('more-article js-more-article')[0].click();");
+                exeExpandRule();
                 isFinish = true;
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onFinish();
@@ -151,7 +155,13 @@ public class OSCWebView extends WebView {
         });
     }
 
-    public void hideAD(String[] rules) {
+    /**
+     * 去除广告规则
+     */
+    private void exeRemoveRule() {
+        if (mRule == null)
+            return;
+        String[] rules = mRule.getRemoveRules();
         if (rules == null || rules.length == 0)
             return;
         for (String rule : rules) {
@@ -159,17 +169,44 @@ public class OSCWebView extends WebView {
         }
     }
 
-    public void start(){
+    /**
+     * 展开全文规则
+     */
+    private void exeExpandRule() {
+        if (mRule == null)
+            return;
+        String[] rules = mRule.getExpandRules();
+        if (rules == null || rules.length == 0)
+            return;
+        for (String rule : rules) {
+            loadUrl(rule);
+        }
+    }
+
+    private int delay = 10;
+    public void startLoadRule(Rule rule) {
+        this.mRule = rule;
+        if (Build.VERSION.SDK_INT <= 22) {
+            delay = 50;
+        }else {
+            delay = 10;
+        }
+
+        if (mRule == null ||
+                mRule.getRemoveRules() == null ||
+                mRule.getRemoveRules().length == 0)
+            return;
         postDelayed(new Runnable() {
             @Override
             public void run() {
-                hideAD();
+                exeRemoveRule();
                 if (!isFinish) {
-                    postDelayed(this, 10);
+                    postDelayed(this, delay);
                 }
             }
-        }, 10);
+        }, delay);
     }
+
 
     @SuppressWarnings("deprecation")
     public void onDestroy() {
@@ -188,19 +225,6 @@ public class OSCWebView extends WebView {
         mVideoClickListener = null;
         destroy();
     }
-
-
-    private void hideAD() {
-        Log.e("hideAD", "hideAD");
-        loadUrl("javascript: document.body.setAttribute(\"style\",\"padding-top:0px\");");
-        loadUrl("javascript: document.getElementsByClassName('slider-wrap js-slider')[0].children[0].remove();");
-        loadUrl("javascript: document.getElementsByClassName('g-top-slider js-top-slider loaded')[0].remove();");
-        loadUrl("javascript: document.getElementsByClassName('OpenInAppButton OpenInApp is-shown')[0].remove();");
-
-        loadUrl("javascript: document.getElementsByClassName('AppHeader-inner')[0].remove();");
-        loadUrl("javascript: document.getElementsByClassName('comment-box clearfix')[0].remove();");
-    }
-
 
     public void getHtml(OnLoadedHtmlListener listener) {
         this.mHTMLListener = listener;
