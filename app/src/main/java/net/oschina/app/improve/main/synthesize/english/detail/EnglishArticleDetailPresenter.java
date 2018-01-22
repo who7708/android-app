@@ -163,6 +163,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                                 mArticle = bean.getResult();
                                 mView.showGetDetailSuccess(mArticle);
                                 mEmptyView.showGetDetailSuccess(mArticle);
+                                mEmptyView.hideEmptyLayout();
                             } else {
                                 mEmptyView.showErrorLayout(EmptyLayout.NODATA);
                             }

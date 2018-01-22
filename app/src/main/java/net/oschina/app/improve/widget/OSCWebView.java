@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -58,10 +59,6 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if(!isRemove){
-                    isRemove =true;
-                    startLoadRule();
-                }
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
@@ -175,6 +172,7 @@ public class OSCWebView extends WebView {
         if (rules == null || rules.length == 0)
             return;
         for (String rule : rules) {
+            Log.e("rule", "" + rule);
             loadUrl(rule);
         }
     }
@@ -199,11 +197,11 @@ public class OSCWebView extends WebView {
         this.mRule = mRule;
     }
 
-    private void startLoadRule() {
+    public void startLoadRule() {
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
         } else {
-            delay = 1;
+            delay = 0;
         }
 
         if (mRule == null ||

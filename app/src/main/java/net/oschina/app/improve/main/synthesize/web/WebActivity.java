@@ -82,6 +82,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         mWebView = new OSCWebView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 1;
+        mWebView.setVisibility(View.INVISIBLE);
         mWebView.setLayoutParams(params);
         mLinearRoot.addView(mWebView);
         mWebView.setOnFinishFinish(this);
@@ -127,6 +128,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
                             ResultBean<Rule> bean = new Gson().fromJson(responseString, type);
                             if (bean != null && bean.isSuccess()) {
                                 mWebView.setRule(bean.getResult());
+                                mWebView.startLoadRule();
                                 mWebView.loadUrl(url);
                             } else {
                                 mWebView.loadUrl(url);
@@ -174,6 +176,9 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     public void onProgressChange(int progress) {
         if (isDestroyed())
             return;
+        if(progress >= 60){
+            mWebView.setVisibility(View.VISIBLE);
+        }
         mProgressBar.setProgress(progress);
     }
 

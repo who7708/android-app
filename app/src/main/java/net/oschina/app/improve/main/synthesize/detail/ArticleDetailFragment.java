@@ -136,6 +136,9 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\\s*|\t|\n", ""));
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSource());
+        if (TextUtils.isEmpty(mArticle.getSource())) {
+            tv_origin.setVisibility(View.GONE);
+        }
         Author author = new Author();
         author.setName(mArticle.getAuthorName());
         portraitView.setup(author);

@@ -298,8 +298,15 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         if (isDestroy()) {
             return;
         }
-        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
-        mEmptyLayout.setVisibility(View.GONE);
+        mEmptyLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isDestroy())
+                    return;
+                mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+                mEmptyLayout.setVisibility(View.GONE);
+            }
+        }, 1000);
     }
 
     @Override

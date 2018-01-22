@@ -99,14 +99,14 @@ public final class OSCSharedPreference extends SharedPreferenceUtil {
      * 第一次使用
      */
     public void putFirstUsing() {
-        put("osc_first_using_v2", false);
+        put("osc_first_using_v3", false);
     }
 
     /**
      * 第一次使用
      */
     public boolean isFirstUsing() {
-        return getBoolean("osc_first_using_v2", true);
+        return getBoolean("osc_first_using_v3", true);
     }
 
 

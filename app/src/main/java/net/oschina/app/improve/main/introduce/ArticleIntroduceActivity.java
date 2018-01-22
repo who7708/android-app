@@ -21,6 +21,15 @@ import butterknife.OnClick;
 
 public class ArticleIntroduceActivity extends BaseActivity implements View.OnClickListener {
 
+    @Bind(R.id.tv_english)
+    TextView mTextEnglish;
+    @Bind(R.id.tv_next_english)
+    TextView mTextNextEnglish;
+    @Bind(R.id.arrow_up_english)
+    View mViewUpEnglish;
+    @Bind(R.id.ll_pop_english)
+    LinearLayout mLinearPopEnglish;
+
     @Bind(R.id.tv_recommend)
     TextView mTextRecommend;
 
@@ -64,10 +73,21 @@ public class ArticleIntroduceActivity extends BaseActivity implements View.OnCli
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
 
-    @OnClick({R.id.tv_sure, R.id.tv_next})
+    @OnClick({R.id.tv_sure, R.id.tv_next,R.id.tv_next_english})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_next_english:
+                mTextNextEnglish.setVisibility(View.GONE);
+                mTextEnglish.setVisibility(View.GONE);
+                mLinearPopEnglish.setVisibility(View.GONE);
+                mViewUpEnglish.setVisibility(View.GONE);
+
+                mTextNext.setVisibility(View.VISIBLE);
+                mTextRecommend.setVisibility(View.VISIBLE);
+                mLinearPop.setVisibility(View.VISIBLE);
+                mViewUp.setVisibility(View.VISIBLE);
+                break;
             case R.id.tv_sure:
                 OSCSharedPreference.getInstance().putFirstUsing();
                 finish();
