@@ -92,16 +92,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#6a6a6a"
+                        android:layout_marginRight="@dimen/lay_8"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp"
+                        tools:ignore="RtlHardcoded,SmallSp"
                         tools:text="CSDN" />
 
                     <TextView
                         android:id="@+id/tv_pub_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/lay_8"
-                        android:layout_marginRight="@dimen/lay_8"
                         android:text="2016-06-24"
                         android:textColor="#6a6a6a"
                         android:textSize="10sp"

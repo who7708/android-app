@@ -32,6 +32,7 @@ public class OSCWebView extends WebView {
     private OnVideoClickListener mVideoClickListener;
     private boolean isFinish;
     private Rule mRule;
+    private boolean isRemove;
 
     public OSCWebView(Context context) {
         this(context, null);
@@ -57,10 +58,15 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if(!isRemove){
+                    isRemove =true;
+                    startLoadRule();
+                }
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
             }
+
         });
 
         setWebViewClient(new WebViewClient() {
@@ -187,14 +193,17 @@ public class OSCWebView extends WebView {
         }
     }
 
-    private int delay = 10;
+    private int delay = 1;
 
-    public void startLoadRule(Rule rule) {
-        this.mRule = rule;
+    public void setRule(Rule mRule) {
+        this.mRule = mRule;
+    }
+
+    private void startLoadRule() {
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
         } else {
-            delay = 10;
+            delay = 1;
         }
 
         if (mRule == null ||
@@ -211,7 +220,7 @@ public class OSCWebView extends WebView {
                     postDelayed(this, delay);
                 }
             }
-        }, delay);
+        }, 0);
     }
 
 

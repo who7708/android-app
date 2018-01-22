@@ -126,8 +126,8 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
                             }.getType();
                             ResultBean<Rule> bean = new Gson().fromJson(responseString, type);
                             if (bean != null && bean.isSuccess()) {
-                                mWebView.loadUrl(mUrl);
-                                mWebView.startLoadRule(bean.getResult());
+                                mWebView.setRule(bean.getResult());
+                                mWebView.loadUrl(url);
                             } else {
                                 mWebView.loadUrl(url);
                             }
