@@ -58,6 +58,10 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if (!isRemove) {
+                    isRemove = true;
+                    startLoadRule();
+                }
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
@@ -171,7 +175,7 @@ public class OSCWebView extends WebView {
         if (rules == null || rules.length == 0)
             return;
         for (String rule : rules) {
-            loadUrl(rule);
+            evaluateJavascript(rule, null);
         }
     }
 
@@ -185,7 +189,7 @@ public class OSCWebView extends WebView {
         if (rules == null || rules.length == 0)
             return;
         for (String rule : rules) {
-            loadUrl(rule);
+            evaluateJavascript(rule, null);
         }
     }
 
@@ -195,7 +199,7 @@ public class OSCWebView extends WebView {
         this.mRule = mRule;
     }
 
-    public void startLoadRule() {
+    private void startLoadRule() {
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
         } else {

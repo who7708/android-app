@@ -183,7 +183,6 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         }
         if (progress >= 60 && !isWebViewFinish) {
             isWebViewFinish = true;
-            mWebView.startLoadRule();
             mWebView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
