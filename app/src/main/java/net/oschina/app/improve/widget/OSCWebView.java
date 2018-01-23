@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -172,7 +171,6 @@ public class OSCWebView extends WebView {
         if (rules == null || rules.length == 0)
             return;
         for (String rule : rules) {
-            Log.e("rule", "" + rule);
             loadUrl(rule);
         }
     }

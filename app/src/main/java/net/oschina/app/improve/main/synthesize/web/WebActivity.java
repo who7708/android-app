@@ -49,6 +49,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     protected ShareDialog mShareDialog;
     private String mUrl;
     private boolean isShowAd;
+    private boolean isWebViewFinish;
 
     public static void show(Context context, String url) {
         if (!TDevice.hasWebView(context))
@@ -176,8 +177,16 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     public void onProgressChange(int progress) {
         if (isDestroyed())
             return;
-        if(progress >= 60){
-            mWebView.setVisibility(View.VISIBLE);
+        if (progress >= 60 && !isWebViewFinish) {
+            isWebViewFinish = true;
+            mWebView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isDestroyed())
+                        return;
+                    mWebView.setVisibility(View.VISIBLE);
+                }
+            }, 1200);
         }
         mProgressBar.setProgress(progress);
     }
