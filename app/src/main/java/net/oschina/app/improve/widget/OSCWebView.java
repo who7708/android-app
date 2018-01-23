@@ -58,10 +58,6 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                if (!isRemove && newProgress >= 50) {
-                    isRemove = true;
-                    startLoadRule();
-                }
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
@@ -199,11 +195,11 @@ public class OSCWebView extends WebView {
         this.mRule = mRule;
     }
 
-    private void startLoadRule() {
+    public void startLoadRule() {
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
         } else {
-            delay = 0;
+            delay = 20;
         }
 
         if (mRule == null ||

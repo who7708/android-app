@@ -15,6 +15,7 @@
         android:layout_height="46dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="22dp"
+        android:visibility="gone"
         android:background="@mipmap/tip_circle"
         android:gravity="center"
         android:paddingLeft="20dp"
@@ -27,6 +28,7 @@
         android:id="@+id/arrow_up_english"
         android:layout_width="22dp"
         android:layout_height="40dp"
+        android:visibility="gone"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="76dp"
         android:background="@mipmap/tip_arrow_up"
@@ -40,6 +42,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="122dp"
         android:background="@mipmap/tip_pop"
+        android:visibility="gone"
         android:orientation="vertical"
         android:paddingBottom="12dp"
         android:paddingLeft="28dp"
@@ -68,6 +71,7 @@
         android:id="@+id/tv_next_english"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:visibility="gone"
         android:layout_alignRight="@+id/ll_pop_english"
         android:layout_below="@+id/ll_pop_english"
         android:background="@mipmap/tip_button"
@@ -85,7 +89,6 @@
         android:layout_height="46dp"
         android:layout_marginLeft="86dp"
         android:layout_marginTop="22dp"
-        android:visibility="gone"
         android:background="@mipmap/tip_circle"
         android:gravity="center"
         android:paddingLeft="20dp"
@@ -98,7 +101,6 @@
         android:id="@+id/arrow_up"
         android:layout_width="22dp"
         android:layout_height="40dp"
-        android:visibility="gone"
         android:layout_marginLeft="106dp"
         android:layout_marginTop="76dp"
         android:background="@mipmap/tip_arrow_up"
@@ -106,7 +108,6 @@
 
     <LinearLayout
         android:id="@+id/ll_pop"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
@@ -146,7 +147,8 @@
 
     <TextView
         android:id="@+id/tv_next"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:text="下一步"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_alignRight="@+id/ll_pop"
@@ -155,7 +157,6 @@
         android:gravity="center"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:text="下一个"
         android:textColor="@color/white"
         android:textSize="@dimen/font_14"
         tools:ignore="RtlHardcoded" />

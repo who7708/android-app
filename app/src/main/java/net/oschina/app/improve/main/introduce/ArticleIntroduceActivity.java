@@ -83,10 +83,10 @@ public class ArticleIntroduceActivity extends BaseActivity implements View.OnCli
                 mLinearPopEnglish.setVisibility(View.GONE);
                 mViewUpEnglish.setVisibility(View.GONE);
 
-                mTextNext.setVisibility(View.VISIBLE);
-                mTextRecommend.setVisibility(View.VISIBLE);
-                mLinearPop.setVisibility(View.VISIBLE);
-                mViewUp.setVisibility(View.VISIBLE);
+                mTextSure.setVisibility(View.VISIBLE);
+                mLinearTweetTip.setVisibility(View.VISIBLE);
+                mTextTweetTip.setVisibility(View.VISIBLE);
+                mLinearTweetArrow.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_sure:
                 OSCSharedPreference.getInstance().putFirstUsing();
@@ -98,10 +98,10 @@ public class ArticleIntroduceActivity extends BaseActivity implements View.OnCli
                 mLinearPop.setVisibility(View.GONE);
                 mViewUp.setVisibility(View.GONE);
 
-                mTextSure.setVisibility(View.VISIBLE);
-                mLinearTweetTip.setVisibility(View.VISIBLE);
-                mTextTweetTip.setVisibility(View.VISIBLE);
-                mLinearTweetArrow.setVisibility(View.VISIBLE);
+                mTextNextEnglish.setVisibility(View.VISIBLE);
+                mTextEnglish.setVisibility(View.VISIBLE);
+                mLinearPopEnglish.setVisibility(View.VISIBLE);
+                mViewUpEnglish.setVisibility(View.VISIBLE);
                 break;
         }
     }
