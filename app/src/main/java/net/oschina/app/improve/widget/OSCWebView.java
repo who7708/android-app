@@ -58,6 +58,10 @@ public class OSCWebView extends WebView {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if (!isRemove && newProgress >= 50) {
+                    isRemove = true;
+                    startLoadRule();
+                }
                 if (mOnFinishFinish != null) {
                     mOnFinishFinish.onProgressChange(newProgress);
                 }
@@ -195,7 +199,7 @@ public class OSCWebView extends WebView {
         this.mRule = mRule;
     }
 
-    public void startLoadRule() {
+    private void startLoadRule() {
         if (Build.VERSION.SDK_INT <= 22) {
             delay = 50;
         } else {
@@ -236,6 +240,10 @@ public class OSCWebView extends WebView {
         mImageClickListener = null;
         mVideoClickListener = null;
         destroy();
+    }
+
+    public boolean hasRule() {
+        return mRule != null;
     }
 
     public void getHtml(OnLoadedHtmlListener listener) {
