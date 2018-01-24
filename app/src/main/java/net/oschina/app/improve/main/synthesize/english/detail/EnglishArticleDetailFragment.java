@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhy.view.flowlayout.FlowLayout;
@@ -28,6 +29,7 @@ import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.detail.CommentView;
 import net.oschina.app.improve.main.synthesize.english.EnglishArticleAdapter;
+import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.widget.OWebView;
 import net.oschina.app.improve.widget.PortraitView;
@@ -49,6 +51,11 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
     private Article mArticle;
     private View mHeaderView;
     private TagFlowLayout mFlowLayout;
+
+    private TextView mTextCount;
+    private TextView mTextTime;
+    private TextView mTextTimeUnit;
+    private LinearLayout mLinearCount;
 
     static EnglishArticleDetailFragment newInstance(Article article) {
         Bundle bundle = new Bundle();
@@ -99,6 +106,18 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
                     return;
                 mPresenter.getArticleDetail();
                 mPresenter.onRefreshing();
+            }
+        });
+
+        mLinearCount = (LinearLayout) mHeaderView.findViewById(R.id.ll_count);
+        mFlowLayout = (TagFlowLayout) mHeaderView.findViewById(R.id.flowLayout);
+        mTextCount = (TextView) mHeaderView.findViewById(R.id.tv_text_count);
+        mTextTime = (TextView) mHeaderView.findViewById(R.id.tv_text_time);
+        mTextTimeUnit = (TextView) mHeaderView.findViewById(R.id.tv_text_time_unit);
+        mHeaderView.findViewById(R.id.ll_read).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArticleWebActivity.show(mContext, mArticle);
             }
         });
     }
@@ -229,6 +248,11 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
     public void showGetDetailSuccess(final Article article) {
         if (mContext == null)
             return;
+        mArticle = article;
+        mLinearCount.setVisibility(article.getWordCount() != 0 ? View.VISIBLE : View.GONE);
+        mTextCount.setText(mPresenter.formatTextCount(article.getWordCount()));
+        mTextTime.setText(mPresenter.formatTime(article.getReadTime()));
+        mTextTimeUnit.setText(mPresenter.formatTimeUnit(article.getReadTime()));
         mWebView.loadDetailDataAsync(article.getContent(), (Runnable) mContext);
         mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
         mCommentView.setCommentCount(article);

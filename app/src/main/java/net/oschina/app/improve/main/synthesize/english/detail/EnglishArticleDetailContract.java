@@ -49,5 +49,11 @@ interface EnglishArticleDetailContract {
         void fav();
 
         void scrollToTop();
+
+        String formatTextCount(int count);
+
+        String formatTime(long time);
+
+        String formatTimeUnit(long time);
     }
 }
