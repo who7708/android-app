@@ -28,6 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:letterSpacing="0.04"
+            android:lineSpacingExtra="4dp"
             android:maxLines="2"
             android:text="          Java JNI实现原理初探Java JNI实现原理初探"
             android:textColor="@color/text_title_color"

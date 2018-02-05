@@ -42,10 +42,13 @@
                 android:layout_marginRight="16dp"
                 android:gravity="top"
                 android:maxLines="2"
+                android:letterSpacing="0.04"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@color/text_title_color"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                tools:text="Large Text" />
+                tools:text="Large Text"
+                tools:ignore="UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"

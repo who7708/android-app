@@ -18,6 +18,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:letterSpacing="0.04"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_material"
             android:gravity="center|left"
@@ -29,7 +30,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="HDFS用于存储，请问它与FTP或者市面流行的存储系统的优缺点？"
-            tools:ignore="RtlHardcoded" />
+            tools:ignore="RtlHardcoded,UnusedAttribute" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -28,11 +28,13 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
+            android:letterSpacing="0.04"
+            android:lineSpacingExtra="4dp"
             android:text="          Java JNI实现原理初探Java JNI实现原理初探"
             android:textColor="@color/text_title_color"
             android:textSize="15sp"
             android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText,UnusedAttribute" />
     </FrameLayout>
 
 

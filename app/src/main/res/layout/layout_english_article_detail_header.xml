@@ -26,7 +26,10 @@
             android:textColor="#111111"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:text="Webpack从零开始" />
+            android:letterSpacing="0.04"
+            android:lineSpacingExtra="4dp"
+            tools:text="Webpack从零开始"
+            tools:ignore="UnusedAttribute" />
 
 
         <LinearLayout

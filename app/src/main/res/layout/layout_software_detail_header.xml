@@ -48,11 +48,13 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/lay_12"
                 android:gravity="center_vertical"
-                android:lineSpacingExtra="2dp"
                 android:textColor="#111111"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="在Google IO大会中不仅仅带来了间的" />
+                android:letterSpacing="0.04"
+                android:lineSpacingExtra="4dp"
+                tools:text="在Google IO大会中不仅仅带来了间的"
+                tools:ignore="UnusedAttribute" />
         </LinearLayout>
 
         <View style="@style/h_line" />
