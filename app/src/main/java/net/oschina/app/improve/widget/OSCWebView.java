@@ -165,6 +165,10 @@ public class OSCWebView extends WebView {
         });
     }
 
+    public void setUserAgent(String ua){
+        getSettings().setUserAgentString(ua);
+    }
+
     /**
      * 去除广告规则
      */
