@@ -7,11 +7,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.main.ClipManager;
+import net.oschina.app.improve.widget.OSCWebView;
 import net.oschina.app.improve.widget.SimplexToast;
 
 import butterknife.Bind;
@@ -23,6 +25,7 @@ import butterknife.OnClick;
  */
 
 public class PubArticleActivity extends BackActivity implements PubArticleContract.View,
+        OSCWebView.OnFinishListener,
         View.OnClickListener {
 
     @Bind(R.id.et_url)
@@ -31,6 +34,10 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
     @Bind(R.id.tv_title)
     TextView mTextTitle;
 
+    @Bind(R.id.fl_web)
+    FrameLayout mFrameWebView;
+
+    OSCWebView mWebView;
 
     private PubArticlePresenter mPresenter;
 
@@ -50,6 +57,12 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
         super.initWidget();
         setDarkToolBar();
         setStatusBarDarkMode();
+        mWebView = new OSCWebView(this);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
+        mWebView.setVisibility(View.INVISIBLE);
+        mWebView.setLayoutParams(params);
+        mWebView.setOnFinishFinish(this);
+        mFrameWebView.addView(mWebView);
     }
 
     @Override
@@ -64,7 +77,7 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
         if (Intent.ACTION_SEND.equals(action) && type != null && "text/plain".equals(type)) {
             try {
                 String text = intent.getStringExtra(Intent.EXTRA_TEXT);
-                if(!TextUtils.isEmpty(text)){
+                if (!TextUtils.isEmpty(text)) {
                     mUrl = PubArticlePresenter.findUrl(text);
                 }
             } catch (Exception e) {
@@ -89,8 +102,8 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (mPresenter != null) {
-                    mPresenter.getTitle(s.toString());
+                if (PubArticlePresenter.checkUrl(s.toString()) && mWebView != null) {
+                    mWebView.loadUrl(s.toString());
                 }
             }
 
@@ -99,8 +112,7 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
 
             }
         });
-        mPresenter.getTitle(mUrl);
-
+        mWebView.loadUrl(mUrl);
 
     }
 
@@ -110,22 +122,28 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
         mPresenter.putArticle(mTextUrl.getText().toString().trim(), "");
     }
 
+
     @Override
-    public void onGetTitleSuccess(String title) {
-        if (isDestroyed()) {
+    public void onReceivedTitle(String title) {
+        if (isDestroy())
             return;
-        }
         mTextTitle.setText(title);
     }
 
     @Override
-    public void getTitleError() {
-        if (isDestroyed()) {
-            return;
-        }
-        mTextTitle.setText("获取标题失败");
+    public void onProgressChange(int progress) {
+
     }
 
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
 
     @Override
     public void showPubSuccess(int strId) {
@@ -153,5 +171,13 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
     @Override
     public void showNetworkError(int strId) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mWebView != null) {
+            mWebView.onDestroy();
+        }
     }
 }
