@@ -23,11 +23,12 @@
             android:paddingRight="16dp"
             android:paddingTop="12dp"
             android:textColor="#111111"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:letterSpacing="0.04"
             android:lineSpacingExtra="4dp"
             android:textStyle="bold"
-            tools:text="Webpack从零开始" />
+            tools:text="Webpack从零开始"
+            tools:ignore="UnusedAttribute" />
 
         <LinearLayout
             android:layout_width="match_parent"

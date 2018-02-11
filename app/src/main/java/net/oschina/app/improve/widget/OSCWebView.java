@@ -165,7 +165,8 @@ public class OSCWebView extends WebView {
         });
     }
 
-    public void setUserAgent(String ua){
+    @SuppressWarnings("all")
+    public void setUserAgent(String ua) {
         getSettings().setUserAgentString(ua);
     }
 

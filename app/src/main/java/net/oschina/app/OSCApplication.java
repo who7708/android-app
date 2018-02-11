@@ -5,6 +5,7 @@ import android.provider.Settings;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
+
 import com.baidu.mapapi.SDKInitializer;
 
 import net.oschina.app.api.ApiHttpClient;

@@ -27,7 +27,7 @@
             android:paddingRight="16dp"
             android:paddingTop="12dp"
             android:textColor="@color/text_title_color"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             tools:text="HDFS用于存储，请问它与FTP或者市面流行的存储系统的优缺点？"
             tools:ignore="RtlHardcoded,UnusedAttribute" />

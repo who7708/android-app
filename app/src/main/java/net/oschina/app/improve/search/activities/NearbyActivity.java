@@ -270,6 +270,7 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
 
     @Override
     public void onLoadMore() {
+        mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
         requestData(mNextPageIndex);
     }
 
@@ -347,7 +348,7 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
             //pageNum==0，表示初始化数据，有可能是刷新，也有可能是第一次加载
             List<RadarNearbyInfo> infoList = result.infoList;
             int pageIndex = result.pageIndex;
-            if (infoList != null) {
+            if (infoList != null && infoList.size() != 0) {
                 List<NearbyResult> items = mAdapter.getItems();
 
                 int tempSize = items.size();
@@ -586,25 +587,6 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
 
                 User user = AccountHelper.getUser();
                 try {
-                    /*
-                    String company = "";
-                    if (user.getMore() != null) {
-                        company = user.getMore().getCompany();
-                    }
-                    company = TextUtils.isEmpty(company) ? "" : company;
-                    String comments = String.format(
-                            "{" +
-                                    "\"id\":\"%s\"," +
-                                    "\"name\":\"%s\"," +
-                                    "\"portrait\":\"%s\"," +
-                                    "\"gender\":\"%s\"," +
-                                    "\"more\":{" +
-                                    "\"company\":\"%s\"}" +
-                                    "}"
-                            , user.getId(), user.getName(), user.getPortrait(), user.getGender(), company);
-                    comments = comments.replaceAll("[\\s\n]+", "");
-                    comments = URLEncoder.encode(comments, CHARSET);
-                    */
                     SampleAuthor author = new SampleAuthor(user);
                     String authorJson = AppOperator.getGson().toJson(author);
                     info.comments = URLEncoder.encode(authorJson, CHARSET);
@@ -701,7 +683,7 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
             initLbs();
         }
         //进行定位
-        mLocationClient.start();
+        mLocationClient.restart();
     }
 
     /**
