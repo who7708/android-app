@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.english.detail;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -55,6 +56,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure","  --  " + responseString);
                         try {
                             mView.showMoreMore();
                             mView.onComplete();
@@ -65,6 +67,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess","  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
@@ -150,11 +153,13 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure","  --  " + responseString);
                         mEmptyView.showErrorLayout(EmptyLayout.NETWORK_ERROR);
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                        Log.e("onSuccess","  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Article>>() {
                             }.getType();

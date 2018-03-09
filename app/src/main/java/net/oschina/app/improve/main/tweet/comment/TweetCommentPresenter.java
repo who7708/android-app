@@ -34,6 +34,8 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
 
     @Override
     public void onRefreshing() {
+        if (mTweet == null)
+            return;
         OSChinaApi.getTweetCommentList(mTweet.getId(), "", new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -69,6 +71,8 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
 
     @Override
     public void onLoadMore() {
+        if (mTweet == null)
+            return;
         OSChinaApi.getTweetCommentList(mTweet.getId(), mNextToken, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
