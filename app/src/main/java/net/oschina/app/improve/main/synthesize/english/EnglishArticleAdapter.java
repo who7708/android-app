@@ -90,7 +90,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Article item, int position) {
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
-        String sourceName = item.getType() != 0 ? "开源中国" : item.getSource();
+        String sourceName = item.getSource();
         String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:

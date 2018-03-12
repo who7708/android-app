@@ -1,7 +1,6 @@
 package net.oschina.app.improve.main.synthesize.detail;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,13 +55,11 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure","  --  " + responseString);
                         mEmptyView.showErrorLayout(EmptyLayout.NETWORK_ERROR);
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess","  --  " + responseString);
                         try {
                             Type type = new TypeToken<ResultBean<Article>>() {
                             }.getType();
