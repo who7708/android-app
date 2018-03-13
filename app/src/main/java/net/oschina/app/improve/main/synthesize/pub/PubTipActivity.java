@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import net.oschina.app.R;
+import net.oschina.app.improve.account.AccountHelper;
+import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 
@@ -29,6 +31,10 @@ public class PubTipActivity extends BaseActivity implements View.OnClickListener
     private String mUrl;
 
     public static void show(Context context, String url) {
+        if(!AccountHelper.isLogin()){
+            LoginActivity.show(context);
+            return;
+        }
         if (IS_SHOW || !OSCSharedPreference.getInstance().isRelateClip()) {
             return;
         }

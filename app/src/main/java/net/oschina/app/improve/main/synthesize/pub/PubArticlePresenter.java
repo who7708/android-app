@@ -2,7 +2,6 @@ package net.oschina.app.improve.main.synthesize.pub;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.R;
@@ -62,42 +61,6 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
                     }
                 });
     }
-
-    private static final AsyncHttpClient mClient = new AsyncHttpClient();
-
-//    @Override
-//    public void getTitle(String url) {
-//        if (!checkUrl(url)) {
-//            return;
-//        }
-//        try {
-//            mClient.get(url, new TextHttpResponseHandler() {
-//                @Override
-//                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                    mView.getTitleError();
-//                }
-//
-//                @Override
-//                public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//                    try {
-//                        Pattern pattern = Pattern.compile("<title[^>]*>([^<>]+)</title>");
-//                        Matcher matcher = pattern.matcher(responseString);
-//                        if (matcher.find()) {
-//                            mView.onGetTitleSuccess(matcher.group(1));
-//                        } else {
-//                            mView.getTitleError();
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        mView.getTitleError();
-//                    }
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            mView.showPubFailure("发布失败");
-//        }
-//    }
 
     static boolean checkUrl(String email) {
         Pattern pattern = Pattern.compile("^https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
