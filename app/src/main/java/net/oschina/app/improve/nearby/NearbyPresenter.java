@@ -255,6 +255,12 @@ class NearbyPresenter implements NearbyContract.Presenter {
         }
     }
 
+    @Override
+    public void onRelease() {
+        mRadarManager.release();
+        mLocationManager.release();
+    }
+
     /**
      * 定位信息是否有效
      *

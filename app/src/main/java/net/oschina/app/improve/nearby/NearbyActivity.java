@@ -2,6 +2,7 @@ package net.oschina.app.improve.nearby;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,7 +10,11 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -18,12 +23,15 @@ import com.baidu.mapapi.radar.RadarSearchError;
 import com.baidu.mapapi.radar.RadarSearchListener;
 
 import net.oschina.app.R;
+import net.oschina.app.Setting;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.NearbyResult;
+import net.oschina.app.improve.user.activities.OtherUserHomeActivity;
 import net.oschina.app.improve.utils.DialogHelper;
+import net.oschina.app.improve.widget.BottomDialog;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
 import net.oschina.app.improve.widget.SimplexToast;
 
@@ -53,6 +61,8 @@ public class NearbyActivity extends BackActivity implements
     RecyclerView mRecyclerView;
     @Bind(R.id.refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
+
+    private BottomDialog mSelectorDialog;
 
     private NearbyAdapter mAdapter;
 
@@ -101,12 +111,24 @@ public class NearbyActivity extends BackActivity implements
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.tv_clear_opt:
+                mPresenter.mRadarManager.clear();
+                if (mSelectorDialog.isShowing())
+                    mSelectorDialog.cancel();
+                break;
+            case R.id.tv_cancel_opt:
+                if (mSelectorDialog.isShowing())
+                    mSelectorDialog.cancel();
+                break;
+        }
     }
 
     @Override
     public void onItemClick(int position, long itemId) {
-
+        NearbyResult result = mAdapter.getItem(position);
+        if (result == null) return;
+        OtherUserHomeActivity.show(this, result.getUser());
     }
 
     @Override
@@ -187,7 +209,51 @@ public class NearbyActivity extends BackActivity implements
      */
     @Override
     public void onGetClearInfoState(RadarSearchError radarSearchError) {
+        if (isDestroy())
+            return;
+        switch (radarSearchError) {
+            case RADAR_NO_RESULT://未上传有雷达信息
+                Setting.updateLocationInfo(getApplicationContext(), false);
+                break;
+            case RADAR_NO_ERROR://清除雷达信息成功
+                Setting.updateLocationInfo(getApplicationContext(), false);
+                supportFinishAfterTransition();
+                break;
+            default:
+                SimplexToast.show(this, getString(R.string.clear_bodies_failed_hint));
+                break;
+        }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_nearby_more, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_more:
+                getSelectorDialog().show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private Dialog getSelectorDialog() {
+        if (mSelectorDialog == null) {
+            mSelectorDialog = new BottomDialog(this, true);
+            @SuppressLint("InflateParams") View view = LayoutInflater.from(this).inflate(R.layout.view_nearby_operator, null, false);
+            view.findViewById(R.id.tv_clear_opt).setOnClickListener(this);
+            view.findViewById(R.id.tv_cancel_opt).setOnClickListener(this);
+            mSelectorDialog.setContentView(view);
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null) {
+                parent.setBackgroundResource(R.color.transparent);
+            }
+        }
+        return mSelectorDialog;
     }
 
     @Override
@@ -264,6 +330,12 @@ public class NearbyActivity extends BackActivity implements
     @Override
     public void setPresenter(NearbyContract.Presenter presenter) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.onRelease();
     }
 
 }

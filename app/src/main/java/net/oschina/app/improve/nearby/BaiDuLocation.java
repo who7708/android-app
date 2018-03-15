@@ -40,6 +40,10 @@ final class BaiDuLocation {
             mLocationClient.stop();
     }
 
+    void release() {
+        mLocationClient.stop();
+    }
+
     private void initConfig() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(tempMode);//设置定位模式

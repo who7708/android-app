@@ -29,5 +29,7 @@ interface NearbyContract {
         void updateNearbyInfoList(RadarNearbyResult result);
 
         void onGetUploadState(RadarSearchError error);
+
+        void onRelease();
     }
 }

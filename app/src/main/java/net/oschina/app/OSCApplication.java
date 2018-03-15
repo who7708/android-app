@@ -49,7 +49,7 @@ public class OSCApplication extends AppContext {
             OSCSharedPreference.getInstance().putDeviceUUID(MD5.get32MD5Str(androidId));
         }
         // 初始化异常捕获类
-        AppCrashHandler.getInstance().init(this);
+        //AppCrashHandler.getInstance().init(this);
         // 初始化账户基础信息
         AccountHelper.init(this);
         // 初始化网络请求
