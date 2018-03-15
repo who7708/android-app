@@ -758,6 +758,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main" />
 
+
+        <activity
+            android:name=".improve.nearby.NearbyActivity"
+            android:label="@string/near_bodies_hint"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main" />
+
         <activity
             android:name=".improve.tweet.activities.TweetTopicActivity"
             android:label="话题"

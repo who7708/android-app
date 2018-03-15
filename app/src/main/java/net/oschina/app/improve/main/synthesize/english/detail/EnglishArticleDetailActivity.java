@@ -243,6 +243,17 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         });
     }
 
+    @Override
+    public void showReport() {
+        if (!AccountHelper.isLogin()) {
+            LoginActivity.show(this);
+            return;
+        }
+        if (mArticle != null) {
+            ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE, mArticle.getKey()).show();
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -259,14 +270,8 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                     mShareDialog.show();
                 }
                 break;
-            case R.id.menu_report:
-                if (!AccountHelper.isLogin()) {
-                    LoginActivity.show(this);
-                    return false;
-                }
-                if (mArticle != null) {
-                    ReportDialog.create(this, 0, mArticle.getUrl(), Report.TYPE_ARTICLE, mArticle.getKey()).show();
-                }
+            case R.id.menu_translate:
+                mPresenter.translate();
                 break;
         }
         return false;

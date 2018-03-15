@@ -18,6 +18,7 @@ import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.common.utils.CollectionUtil;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -264,8 +265,69 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     }
 
     @Override
-    public void translate() {
+    public void report() {
+        mEmptyView.showReport();
+    }
 
+    @Override
+    public void translate() {
+        if (mTranslateArticle != null) {
+            try {
+                parseTranslate();
+            } catch (Exception e) {
+                mView.showTranslateFailure("网络错误");
+                e.printStackTrace();
+            }
+            return;
+        }
+        OSChinaApi.translate(mArticle.getKey(), Article.TYPE_ENGLISH, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showTranslateFailure("网络错误");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    Type type = new TypeToken<ResultBean<Article>>() {
+                    }.getType();
+                    ResultBean<Article> bean = new Gson().fromJson(responseString, type);
+                    if (bean != null) {
+                        if (bean.isSuccess()) {
+                            mTranslateArticle = bean.getResult();
+                            parseTranslate();
+                        } else {
+                            mView.showTranslateFailure(bean.getMessage());
+                        }
+                    } else {
+                        mView.showTranslateFailure("翻译错误");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showTranslateFailure("翻译错误");
+                }
+            }
+        });
+    }
+
+    /**
+     * 解析翻译结果
+     */
+    private void parseTranslate() {
+        Type type = new TypeToken<List<Translate>>() {
+        }.getType();
+        List<Translate> result = new Gson().fromJson(mTranslateArticle.getContent(), type);
+        if (result == null || result.size() == 0) {
+            mView.showTranslateFailure("网络错误");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Translate translate : result) {
+            sb.append(translate.src);
+            sb.append("\n");
+            sb.append(translate.desc);
+        }
+        mView.showTranslateSuccess(sb.toString());
     }
 
     @Override
@@ -322,5 +384,35 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             return "分钟";
         } else
             return "秒";
+    }
+
+    private static class Translate implements Serializable {
+        private int index;
+        private String src;
+        private String desc;
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+
+        public String getSrc() {
+            return src;
+        }
+
+        public void setSrc(String src) {
+            this.src = src;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
     }
 }

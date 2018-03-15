@@ -1590,6 +1590,21 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/detail", params, handler);
     }
 
+
+    /**
+     * 英文翻译
+     *
+     * @param key     key
+     * @param type    type
+     * @param handler handler
+     */
+    public static void translate(String key, int type, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("type", type);
+        params.put("key", key);
+        ApiHttpClient.get("action/apiv2/article_translate", params, handler);
+    }
+
     /**
      * event signin
      *
@@ -2115,10 +2130,11 @@ public class OSChinaApi {
 
     /**
      * 搜索软件
-     * @param type type
-     * @param keyword keyword
+     *
+     * @param type      type
+     * @param keyword   keyword
      * @param pageToken pageToken
-     * @param handler handler
+     * @param handler   handler
      */
     public static void searchSoftware(int type, String keyword, String pageToken, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
@@ -2132,10 +2148,11 @@ public class OSChinaApi {
 
     /**
      * 去广告规则
-     * @param url url
+     *
+     * @param url     url
      * @param handler handler
      */
-    public static void getWebRule(String url,TextHttpResponseHandler handler){
+    public static void getWebRule(String url, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         if (!TextUtils.isEmpty(url)) {
             params.put("url", url);

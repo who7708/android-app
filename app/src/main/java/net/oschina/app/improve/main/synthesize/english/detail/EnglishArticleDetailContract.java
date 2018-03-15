@@ -27,6 +27,8 @@ interface EnglishArticleDetailContract {
         void hideEmptyLayout();
 
         void showErrorLayout(int errorType);
+
+        void showReport();
     }
 
     interface View extends BaseListView<Presenter, Article> {
@@ -61,5 +63,7 @@ interface EnglishArticleDetailContract {
         String formatTimeUnit(long time);
 
         void translate();
+
+        void report();
     }
 }

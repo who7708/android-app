@@ -121,6 +121,12 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
                 ArticleWebActivity.show(mContext, mArticle);
             }
         });
+        mHeaderView.findViewById(R.id.ll_report).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.report();
+            }
+        });
     }
 
     @Override
