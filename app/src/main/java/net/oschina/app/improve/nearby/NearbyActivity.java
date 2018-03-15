@@ -199,7 +199,7 @@ public class NearbyActivity extends BackActivity implements
      */
     @Override
     public void onGetUploadState(RadarSearchError radarSearchError) {
-
+        mPresenter.onGetUploadState(radarSearchError);
     }
 
     /**
