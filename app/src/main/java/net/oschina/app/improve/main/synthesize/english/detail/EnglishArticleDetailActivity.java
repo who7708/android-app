@@ -246,7 +246,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     @SuppressLint("SetTextI18n")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_blog_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_english_detail, menu);
         return true;
     }
 

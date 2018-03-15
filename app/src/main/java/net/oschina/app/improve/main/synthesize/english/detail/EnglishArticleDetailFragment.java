@@ -33,6 +33,7 @@ import net.oschina.app.improve.main.synthesize.web.ArticleWebActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.widget.OWebView;
 import net.oschina.app.improve.widget.PortraitView;
+import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.UIHelper;
 
 import java.util.List;
@@ -242,6 +243,19 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
         }
     }
 
+    @Override
+    public void showTranslateSuccess(String content) {
+        if (mContext == null)
+            return;
+        mWebView.loadDetailDataAsync(content, (Runnable) mContext);
+    }
+
+    @Override
+    public void showTranslateFailure(String message) {
+        if (mContext == null)
+            return;
+        SimplexToast.show(mContext, message);
+    }
 
     @SuppressWarnings("all")
     @Override

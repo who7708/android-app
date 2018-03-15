@@ -12,7 +12,6 @@ import net.oschina.app.improve.detail.general.EventDetailActivity;
 import net.oschina.app.improve.detail.general.NewsDetailActivity;
 import net.oschina.app.improve.detail.general.QuestionDetailActivity;
 import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
-import net.oschina.app.improve.main.introduce.ArticleIntroduceActivity;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;

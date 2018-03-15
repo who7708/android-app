@@ -37,6 +37,10 @@ interface EnglishArticleDetailContract {
         void showCommentError(String message);
 
         void showGetDetailSuccess(Article article);
+
+        void showTranslateSuccess(String content);
+
+        void showTranslateFailure(String message);
     }
 
     interface Presenter extends BaseListPresenter {
@@ -55,5 +59,7 @@ interface EnglishArticleDetailContract {
         String formatTime(long time);
 
         String formatTimeUnit(long time);
+
+        void translate();
     }
 }

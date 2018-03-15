@@ -35,6 +35,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     private static final int TYPE_ENGLISH = 8000;//获取英文
     private Article mArticle;
     private String mNextToken;
+    private Article mTranslateArticle;
 
     EnglishArticleDetailPresenter(EnglishArticleDetailContract.View mView,
                                   EnglishArticleDetailContract.EmptyView emptyView,
@@ -260,6 +261,11 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                         }
                     }
                 });
+    }
+
+    @Override
+    public void translate() {
+
     }
 
     @Override
