@@ -274,14 +274,19 @@ public class NearbyActivity extends BackActivity implements
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         DialogHelper.getConfirmDialog(this,
                 "去设置权限",
-                "使用地理位置需要获取权限, 你需要去[设置-应用-开源中国]中设置权限.否则则无法使用附近程序员功能",
+                "使用地理位置需要获取权限, 你需要去[设置-应用-开源中国]中设置权限.否则无法使用附近程序员功能",
                 "去设置", "取消", false,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
                     }
-                }).show();
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
     }
 
     @Override

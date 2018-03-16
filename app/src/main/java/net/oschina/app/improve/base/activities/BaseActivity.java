@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.baidu.mobstat.StatService;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.umeng.analytics.MobclickAgent;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.swipe.SwipeBackActivity;
@@ -57,10 +57,11 @@ public abstract class BaseActivity extends SwipeBackActivity {
             finish();
         }
 
+        StatService.setDebugOn(false);
         //umeng analytics
-        MobclickAgent.setDebugMode(false);
-        MobclickAgent.openActivityDurationTrack(false);
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        MobclickAgent.setDebugMode(false);
+//        MobclickAgent.openActivityDurationTrack(false);
+//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
     protected void addFragment(int frameLayoutId, Fragment fragment) {
@@ -97,15 +98,17 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onResume() {
         super.onResume();
         ClipManager.onResume();
-        MobclickAgent.onPageStart(this.mPackageNameUmeng);
-        MobclickAgent.onResume(this);
+        StatService.onResume(this);
+//        MobclickAgent.onPageStart(this.mPackageNameUmeng);
+//        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd(this.mPackageNameUmeng);
-        MobclickAgent.onPause(this);
+        StatService.onPause(this);
+//        MobclickAgent.onPageEnd(this.mPackageNameUmeng);
+//        MobclickAgent.onPause(this);
     }
 
     @Override

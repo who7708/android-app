@@ -325,7 +325,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
         for (Translate translate : result) {
             sb.append(translate.src);
             sb.append("\n");
-            sb.append(translate.desc);
+            sb.append(translate.dest);
         }
         mView.showTranslateSuccess(sb.toString());
     }
@@ -386,10 +386,11 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             return "秒";
     }
 
+    @SuppressWarnings("unused")
     private static class Translate implements Serializable {
         private int index;
         private String src;
-        private String desc;
+        private String dest;
 
         public int getIndex() {
             return index;
@@ -407,12 +408,13 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             this.src = src;
         }
 
-        public String getDesc() {
-            return desc;
+
+        public String getDest() {
+            return dest;
         }
 
-        public void setDesc(String desc) {
-            this.desc = desc;
+        public void setDest(String dest) {
+            this.dest = dest;
         }
     }
 }

@@ -6,6 +6,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.baidu.mobstat.SendStrategyEnum;
+import com.baidu.mobstat.StatService;
+
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.Setting;
@@ -58,6 +61,8 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        StatService.setSendLogStrategy(this, SendStrategyEnum.APP_START, 1, false);
+        StatService.start(this);
         Launcher launcher = CacheManager.readJson(OSCApplication.getInstance(), "Launcher", Launcher.class);
         String savePath = OSCApplication.getInstance().getCacheDir() + "/launcher";
         File file = new File(savePath);

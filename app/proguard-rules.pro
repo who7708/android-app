@@ -136,3 +136,7 @@
 -keep class android.net.SSLCertificateSocketFactory{*;}
 -dontwarn com.alipay.sdk.sys.**
 -keep class com.ta.utdid2.device.UTDevice{*;}
+
+-keep class com.baidu.bottom.** { *; }
+-keep class com.baidu.kirin.** { *; }
+-keep class com.baidu.mobstat.** { *; }

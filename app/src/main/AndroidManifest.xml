@@ -65,6 +65,9 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -843,6 +846,29 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
+
+        <!-- 百度统计 -->
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="aca33e2f15" />
+        <meta-data
+            android:name="BaiduMobAd_CHANNEL"
+            android:value="Baidu Market" />
+        <meta-data
+            android:name="BaiduMobAd_EXCEPTION_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_SEND_STRATEGY"
+            android:value="APP_START" />
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="true" />
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="true" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
