@@ -29,6 +29,8 @@ interface EnglishArticleDetailContract {
         void showErrorLayout(int errorType);
 
         void showReport();
+
+        void showTranslateChange(boolean isEnglish);
     }
 
     interface View extends BaseListView<Presenter, Article> {

@@ -269,8 +269,17 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
         mEmptyView.showReport();
     }
 
+
+    private boolean isEnglish;
+
     @Override
     public void translate() {
+        if (isEnglish) {
+            isEnglish = false;
+            mView.showGetDetailSuccess(mArticle);
+            mEmptyView.showTranslateChange(false);
+            return;
+        }
         if (mTranslateArticle != null) {
             try {
                 parseTranslate();
@@ -328,6 +337,8 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             sb.append(translate.dest);
         }
         mView.showTranslateSuccess(sb.toString());
+        isEnglish = true;
+        mEmptyView.showTranslateChange(true);
     }
 
     @Override

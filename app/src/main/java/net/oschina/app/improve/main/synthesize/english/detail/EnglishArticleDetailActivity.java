@@ -62,6 +62,8 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         EasyPermissions.PermissionCallbacks,
         Runnable {
 
+
+    private MenuItem mMenuTra;
     private CommentBar mDelegation;
     private String mCommentHint;
     private Article mArticle;
@@ -244,6 +246,13 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     }
 
     @Override
+    public void showTranslateChange(boolean isEnglish) {
+        if(mMenuTra == null)
+            return;
+        mMenuTra.setIcon(isEnglish ? R.mipmap.ic_translate_en : R.mipmap.ic_translate);
+    }
+
+    @Override
     public void showReport() {
         if (!AccountHelper.isLogin()) {
             LoginActivity.show(this);
@@ -258,6 +267,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_english_detail, menu);
+        mMenuTra = menu.getItem(0);
         return true;
     }
 
