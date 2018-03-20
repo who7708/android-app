@@ -336,10 +336,14 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             sb.append("\n");
             sb.append(translate.dest);
         }
+        this.sb.reverse();
+        this.sb.append(sb.toString());
         mView.showTranslateSuccess(sb.toString());
         isEnglish = true;
         mEmptyView.showTranslateChange(true);
     }
+
+    private StringBuilder sb = new StringBuilder();
 
     @Override
     public void scrollToTop() {
