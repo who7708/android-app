@@ -270,17 +270,17 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     }
 
 
-    private boolean isEnglish;
+    private boolean isEnglish = true;
 
     @Override
     public void translate() {
-        if (isEnglish) {
-            isEnglish = false;
-            mView.showGetDetailSuccess(mArticle);
-            mEmptyView.showTranslateChange(false);
-            return;
-        }
         if (mTranslateArticle != null) {
+            if (isEnglish) {
+                isEnglish = false;
+                mView.showGetDetailSuccess(mArticle);
+                mEmptyView.showTranslateChange(true);
+                return;
+            }
             try {
                 parseTranslate();
             } catch (Exception e) {
@@ -336,14 +336,11 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             sb.append("\n");
             sb.append(translate.dest);
         }
-        this.sb.reverse();
-        this.sb.append(sb.toString());
         mView.showTranslateSuccess(sb.toString());
         isEnglish = true;
-        mEmptyView.showTranslateChange(true);
+        mEmptyView.showTranslateChange(false);
     }
 
-    private StringBuilder sb = new StringBuilder();
 
     @Override
     public void scrollToTop() {

@@ -6,7 +6,7 @@
     <item
         android:id="@+id/menu_translate"
         android:title="翻译"
-        android:icon="@mipmap/ic_translate"
+        android:icon="@mipmap/ic_translate_en"
         app:showAsAction="always"
         tools:ignore="HardcodedText" />
 
