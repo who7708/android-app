@@ -30,6 +30,7 @@ import net.oschina.app.improve.search.adapters.SearchHistoryAdapter;
 import net.oschina.app.improve.search.software.SearchSoftwareActivity;
 import net.oschina.app.improve.utils.CacheManager;
 import net.oschina.app.improve.utils.DialogHelper;
+import net.oschina.app.improve.widget.Keyboard;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.TDevice;
@@ -185,6 +186,14 @@ public class SearchActivity extends BackActivity implements
                 }
             }
         });
+        mViewSearch.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isDestroyed() || mViewSearchEditor == null)
+                    return;
+                Keyboard.openKeyboard(mViewSearchEditor);
+            }
+        }, 200);
     }
 
     @Override

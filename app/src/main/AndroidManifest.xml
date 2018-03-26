@@ -326,7 +326,9 @@
             android:name=".improve.detail.apply.ApplyActivity"
             android:label="活动出席人"
             android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".improve.user.sign.InvitationActivity"
             android:label="活动报名"
@@ -699,7 +701,7 @@
             android:label="搜索"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Search"
-            android:windowSoftInputMode="adjustNothing|stateVisible" />
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
 
         <activity
             android:name=".improve.search.software.SearchSoftwareActivity"

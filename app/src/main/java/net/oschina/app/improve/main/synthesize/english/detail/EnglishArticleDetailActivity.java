@@ -321,7 +321,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                 mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
                 mEmptyLayout.setVisibility(View.GONE);
             }
-        }, 1000);
+        }, 600);
     }
 
     @Override

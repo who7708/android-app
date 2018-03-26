@@ -114,6 +114,8 @@ public class ApplyActivity extends BackActivity implements
 
     @Override
     public void showGetApplyUserSuccess() {
+        if (isDestroy())
+            return;
         mFrameTool.setVisibility(View.VISIBLE);
         mEmptyLayout.setVisibility(View.GONE);
     }
