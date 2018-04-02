@@ -43,7 +43,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
     private RequestManager mLoader;
     private OSCApplication.ReadState mReadState;
 
-   public EnglishArticleAdapter(Context context, int mode) {
+    public EnglishArticleAdapter(Context context, int mode) {
         super(context, mode);
         mReadState = OSCApplication.getReadState("sub_list");
         setOnLoadingHeaderCallBack(this);
@@ -78,11 +78,11 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
         if (type == VIEW_TYPE_NOT_IMG) {
-            return new TextHolder(mInflater.inflate(R.layout.item_list_article_not_img, parent, false));
+            return new TextHolder(mInflater.inflate(R.layout.item_list_article_english_not_img, parent, false));
         } else if (type == VIEW_TYPE_ONE_IMG) {
-            return new OneImgHolder(mInflater.inflate(R.layout.item_list_article_one_img, parent, false));
+            return new OneImgHolder(mInflater.inflate(R.layout.item_list_article_english_one_img, parent, false));
         } else {
-            return new ThreeImgHolder(mInflater.inflate(R.layout.item_list_article_three_img, parent, false));
+            return new ThreeImgHolder(mInflater.inflate(R.layout.item_list_article_english_three_img, parent, false));
         }
     }
 
@@ -91,7 +91,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
         String sourceName = item.getSource();
-        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc();
+        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().trim();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;
@@ -108,6 +108,14 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
                 } else {
                     h.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
                     h.mTextDesc.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
+                }
+                if (TextUtils.isEmpty(item.getTitleTranslated())) {
+                    h.mTextTitleCN.setVisibility(View.GONE);
+                    h.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
+                } else {
+                    h.mTextTitleCN.setVisibility(View.VISIBLE);
+                    h.mTextTitleCN.setText(item.getTitleTranslated());
+                    h.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
                 }
                 break;
             case VIEW_TYPE_ONE_IMG:
@@ -126,6 +134,14 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
                     h1.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
                 } else {
                     h1.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
+                }
+                if (TextUtils.isEmpty(item.getTitleTranslated())) {
+                    h1.mTextTitleCN.setVisibility(View.GONE);
+                    h1.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
+                } else {
+                    h1.mTextTitleCN.setVisibility(View.VISIBLE);
+                    h1.mTextTitleCN.setText(item.getTitleTranslated());
+                    h1.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
                 }
                 break;
             case VIEW_TYPE_THREE_IMG:
@@ -150,6 +166,14 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
                     h2.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
                 } else {
                     h2.mTextTitle.setTextColor(TDevice.getColor(resources, R.color.text_title_color));
+                }
+                if (TextUtils.isEmpty(item.getTitleTranslated())) {
+                    h2.mTextTitleCN.setVisibility(View.GONE);
+                    h2.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
+                } else {
+                    h2.mTextTitleCN.setVisibility(View.VISIBLE);
+                    h2.mTextTitleCN.setText(item.getTitleTranslated());
+                    h2.mTextTitleCN.setTextColor(TDevice.getColor(resources, R.color.text_secondary_color));
                 }
                 break;
         }
@@ -204,6 +228,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
 
     private static final class TextHolder extends RecyclerView.ViewHolder {
         TextView mTextTitle,
+                mTextTitleCN,
                 mTextDesc,
                 mTextTime,
                 mTextOrigin,
@@ -215,6 +240,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
             super(itemView);
             mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            mTextTitleCN = (TextView) itemView.findViewById(R.id.tv_title_cn);
             mTextDesc = (TextView) itemView.findViewById(R.id.tv_desc);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
@@ -225,6 +251,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
 
     private static final class OneImgHolder extends RecyclerView.ViewHolder {
         TextView mTextTitle,
+                mTextTitleCN,
                 mTextTime,
                 mTextOrigin,
                 mTextAuthor,
@@ -236,6 +263,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
             super(itemView);
             mFrameImage = (FrameLayout) itemView.findViewById(R.id.fl_image);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            mTextTitleCN = (TextView) itemView.findViewById(R.id.tv_title_cn);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mImageView = (ImageView) itemView.findViewById(R.id.iv_image);
             mTextOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
@@ -247,6 +275,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
 
     private static final class ThreeImgHolder extends RecyclerView.ViewHolder {
         TextView mTextTitle,
+                mTextTitleCN,
                 mTextTime,
                 mTextOrigin,
                 mTextAuthor,
@@ -257,6 +286,7 @@ public class EnglishArticleAdapter extends BaseRecyclerAdapter<Article> implemen
             super(itemView);
             mImageTag = (ImageView) itemView.findViewById(R.id.iv_tag);
             mTextTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            mTextTitleCN = (TextView) itemView.findViewById(R.id.tv_title_cn);
             mTextTime = (TextView) itemView.findViewById(R.id.tv_time);
             mImageOne = (ImageView) itemView.findViewById(R.id.iv_img_1);
             mImageTwo = (ImageView) itemView.findViewById(R.id.iv_img_2);

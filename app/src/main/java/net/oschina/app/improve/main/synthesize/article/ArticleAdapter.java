@@ -91,7 +91,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
         int type = getItemViewType(position);
         Resources resources = mContext.getResources();
         String sourceName = item.getType() != 0 && item.getType()!= Article.TYPE_ENGLISH ? "开源中国" : item.getSource();
-        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().replaceAll("\\s*|\t|\n", "");
+        String desc = TextUtils.isEmpty(item.getDesc()) ? "" : item.getDesc().trim();
         switch (type) {
             case VIEW_TYPE_NOT_IMG:
                 TextHolder h = (TextHolder) holder;

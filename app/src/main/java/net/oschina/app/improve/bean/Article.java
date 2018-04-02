@@ -30,6 +30,7 @@ public class Article implements Serializable {
     private boolean favorite;
     private int wordCount;
     private long readTime;
+    private String titleTranslated;//中文翻译标题
 
     @SerializedName("osc_id")
     private long oscId;
@@ -188,5 +189,13 @@ public class Article implements Serializable {
 
     public void setReadTime(long readTime) {
         this.readTime = readTime;
+    }
+
+    public String getTitleTranslated() {
+        return titleTranslated;
+    }
+
+    public void setTitleTranslated(String titleTranslated) {
+        this.titleTranslated = titleTranslated;
     }
 }
