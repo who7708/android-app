@@ -370,7 +370,10 @@ public class EnglishArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showFavError() {
-
+        if (isDestroy()) {
+            return;
+        }
+        SimplexToast.show(this, "收藏失败");
     }
 
     @Override

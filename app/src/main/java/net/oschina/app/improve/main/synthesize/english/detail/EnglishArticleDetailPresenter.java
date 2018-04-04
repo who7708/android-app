@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.english.detail;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +36,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     private final EnglishArticleDetailContract.EmptyView mEmptyView;
     private static final int TYPE_ENGLISH = 8000;//获取英文
     private Article mArticle;
+    private Article mSource;
     private String mNextToken;
     private Article mTranslateArticle;
 
@@ -43,6 +45,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                                   Article mArticle) {
         this.mView = mView;
         this.mEmptyView = emptyView;
+        this.mSource = mArticle;
         this.mArticle = mArticle;
         this.mView.setPresenter(this);
     }
@@ -236,10 +239,12 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
 
     @Override
     public void fav() {
-        OSChinaApi.articleFav(new Gson().toJson(mArticle),
+
+        OSChinaApi.articleFav(new Gson().toJson(mSource),
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.e("onFailure", "  --  " + statusCode + "  --  " + responseString);
                         mEmptyView.showFavError();
                     }
 
