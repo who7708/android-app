@@ -128,7 +128,11 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         mDelegation.setFavListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.fav();
+                if ((AccountHelper.isLogin())) {
+                    mPresenter.fav();
+                } else {
+                    LoginActivity.show(EnglishArticleDetailActivity.this, 1);
+                }
             }
         });
 
