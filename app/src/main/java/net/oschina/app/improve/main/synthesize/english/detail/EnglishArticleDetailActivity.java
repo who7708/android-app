@@ -272,6 +272,9 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_english_detail, menu);
         mMenuTra = menu.getItem(0);
+        if(mArticle == null || TextUtils.isEmpty( mArticle.getTitleTranslated())){
+            mMenuTra.setVisible(false);
+        }
         return true;
     }
 
