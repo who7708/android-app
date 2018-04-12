@@ -30,6 +30,7 @@ import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.UIHelper;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -262,5 +263,10 @@ public class ListTweetCommentFragment extends BaseRecyclerViewFragment<TweetComm
                             ? EmptyLayout.NODATA
                             : EmptyLayout.HIDE_LAYOUT);
         }
+    }
+
+    @Override
+    public List<TweetComment> getComments() {
+        return mAdapter.getItems();
     }
 }

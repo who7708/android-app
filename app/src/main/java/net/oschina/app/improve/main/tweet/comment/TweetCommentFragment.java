@@ -17,6 +17,8 @@ import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.QuickOptionDialogHelper;
 import net.oschina.app.util.HTMLUtil;
 
+import java.util.List;
+
 /**
  * 动弹评论列表
  * Created by huanghaibin on 2017/12/18.
@@ -122,6 +124,11 @@ public class TweetCommentFragment extends BaseRecyclerFragment<TweetCommentContr
     public void onRequestSuccess() {
         if (mAdapter.getCount() < 20 && mAgencyView != null)
             mAgencyView.resetCmnCount(mAdapter.getCount());
+    }
+
+    @Override
+    public List<TweetComment> getComments() {
+        return mAdapter.getItems();
     }
 
     @Override

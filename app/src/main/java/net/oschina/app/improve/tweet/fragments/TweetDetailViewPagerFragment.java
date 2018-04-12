@@ -17,6 +17,8 @@ import net.oschina.app.improve.bean.simple.TweetComment;
 import net.oschina.app.improve.main.tweet.comment.TweetCommentFragment;
 import net.oschina.app.improve.tweet.contract.TweetDetailContract;
 
+import java.util.List;
+
 /**
  * 赞 | 评论
  * Created by thanatos on 16/6/12.
@@ -148,6 +150,13 @@ public class TweetDetailViewPagerFragment extends Fragment
         mOperator.getTweetDetail().setCommentCount(count);
         TabLayout.Tab tab = mTabLayout.getTabAt(1);
         if (tab != null) tab.setText(String.format("评论 (%s)", count));
+    }
+
+    @Override
+    public List<TweetComment> getComments() {
+        if (mCmnViewImp == null)
+            return null;
+        return mCmnViewImp.getComments();
     }
 
     public TweetDetailContract.ICmnView getCommentViewHandler() {

@@ -43,6 +43,7 @@ import net.oschina.app.improve.dialog.ShareDialog;
 import net.oschina.app.improve.tweet.contract.TweetDetailContract;
 import net.oschina.app.improve.tweet.fragments.TweetDetailViewPagerFragment;
 import net.oschina.app.improve.tweet.service.TweetPublishService;
+import net.oschina.app.improve.tweet.share.TweetShareActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.user.helper.ContactsCacheManager;
 import net.oschina.app.improve.utils.QuickOptionDialogHelper;
@@ -385,11 +386,20 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
                 if (content.length() > 30)
                     content = content.substring(0, 30);
 
-                if (alertDialog == null)
+                if (alertDialog == null){
                     alertDialog = new ShareDialog(this, true)
                             .title(content + " - 开源中国社区 ")
                             .content(content)
                             .url(tweet.getHref()).with();
+                    alertDialog.setItemClickListener(new ShareDialog.ShareItemClickListener() {
+                        @Override
+                        public void onShareTweet() {
+                            TweetShareActivity.show(TweetDetailActivity.this,tweet,
+                                    mCmnViewImp.getComments());
+                        }
+                    });
+                }
+
                 alertDialog.setTweet(tweet);
                 alertDialog.show();
 
