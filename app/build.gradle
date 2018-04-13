@@ -85,7 +85,22 @@ android {
     //product flavors
     productFlavors {
         oschina {
-            manifestPlaceholders = [UMENG_CHANNEL: "oschina"]
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "oschina"]
+        }
+        xiaomi {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "xiaomi"]
+        }
+        wandoujia {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "wandoujia"]
+        }
+        baidu {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "baidu marker"]
+        }
+        huawei {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "huawei"]
+        }
+        meizu {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "meizu"]
         }
     }
 }

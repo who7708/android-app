@@ -24,6 +24,12 @@ android.buildTypes.all { buildType ->
         if (property.key.equals("VIOLET_PASSCODE")) {
             buildType.buildConfigField "String", property.key, "\"${property.value}\""
         }
+        if (property.key.equals("AES_KEY")) {
+            buildType.buildConfigField "String", property.key, "\"${property.value}\""
+        }
+        if (property.key.equals("AES_IV")) {
+            buildType.buildConfigField "String", property.key, "\"${property.value}\""
+        }
     }
 }
 ext {
