@@ -35,6 +35,21 @@ public final class AES {
     }
 
 
+    public static String encryptByBase64(String content,String key,String iv) {
+        try {
+            SecretKeySpec keysSpec = new SecretKeySpec(key.getBytes(), "AES");
+            final Cipher cipher = Cipher.getInstance(AES_MODE);
+            IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
+            cipher.init(Cipher.ENCRYPT_MODE, keysSpec, ivSpec);
+            byte[] cipherText = cipher.doFinal(content.getBytes());
+            return Base64.encodeToString(cipherText, Base64.DEFAULT);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
     /*
     * 解密
     */

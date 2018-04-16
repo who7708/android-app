@@ -20,7 +20,6 @@ import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.utils.MD5;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.TLog;
-import net.oschina.common.verify.Verifier;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -111,7 +110,7 @@ public class ApiHttpClient {
         client.setResponseTimeout(7 * 1000);
         //client.setCookieStore(new PersistentCookieStore(context));
         // Set
-        ApiHttpClient.setHttpClient(client, context);
+        ApiHttpClient.setHttpClient(client);
         // Set Cookie
         setCookieHeader(AccountHelper.getCookie());
     }
@@ -193,7 +192,7 @@ public class ApiHttpClient {
         log("PUT " + partUrl + "?" + params);
     }
 
-    public static void setHttpClient(AsyncHttpClient c, Application application) {
+    public static void setHttpClient(AsyncHttpClient c) {
         c.addHeader("Accept-Language", Locale.getDefault().toString());
         c.addHeader("Host", HOST);
         c.addHeader("Connection", "Keep-Alive");
@@ -205,7 +204,8 @@ public class ApiHttpClient {
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
         // Set AppToken
         //c.addHeader("AppToken", Verifier.getPrivateToken(application));
-        c.addHeader("AppToken", "123456");
+        c.addHeader("AppToken", APIVerify.getVerifyString());
+        //c.addHeader("AppToken", "123456");
         // setUserAgent
         c.setUserAgent(ApiClientHelper.getUserAgent(AppContext.getInstance()));
         CLIENT = c;
