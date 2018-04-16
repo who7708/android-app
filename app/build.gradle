@@ -26,7 +26,7 @@ android {
         variant.outputs.each { output ->
             output.outputFile = new File(
                     output.outputFile.parent + "/${variant.buildType.name}",
-                    "osc-android-${variant.versionName}-${variant.buildType.name}.apk".toLowerCase())
+                    "osc-android-${variant.versionName}-${variant.productFlavors[0].name}.apk".toLowerCase())
         }
     }
 
@@ -94,7 +94,7 @@ android {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "wandoujia"]
         }
         baidu {
-            manifestPlaceholders = [BaiduMobAd_CHANNEL: "baidu marker"]
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "baidu"]
         }
         huawei {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "huawei"]
@@ -107,6 +107,69 @@ android {
         }
         vivo {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "vivo"]
+        }
+        qihoo {//360版本
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "360"]
+        }
+        yingyongbao {//应用宝版本
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "yingyongbao"]
+        }
+        pp {//阿里应用（PP）
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "pp"]
+        }
+        jiuyi {//91助手
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "91"]
+        }
+        anzhuo {//安卓
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "anzhuo"]
+        }
+        anzhi {//安智市场
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "anzhi"]
+        }
+        yingyonghui {//应用汇
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "yingyonghui"]
+        }
+        mumayi {//木蚂蚁
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "mumayi"]
+        }
+        mm {//MM商城
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "mm"]
+        }
+        leshi {//乐视
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "leshi"]
+        }
+        jifeng {//机锋
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "jifeng"]
+        }
+        samsung {//三星
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "samsung"]
+        }
+        sougou {//搜狗手机助手
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "sougou"]
+        }
+        youyi {//优亿市场
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "youyi"]
+        }
+        nduo {//N多网
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "nduo"]
+        }
+        liantongwo {//联通沃商店
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "liantongwo"]
+        }
+        jinli {//金立
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "jinli"]
+        }
+        pc6 {// pc6.com
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "pc6"]
+        }
+        smartisan {//锤子应用商店
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "smartisan"]
+        }
+        maopao {//冒泡堂
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "maopao"]
+        }
+        liqu {//历趣世界
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "liqu"]
         }
     }
 }
