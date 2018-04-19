@@ -15,7 +15,7 @@ import net.oschina.app.improve.utils.MD5;
         if (BuildConfig.DEBUG) {
             return MD5.get32MD5Str(AES.encryptByBase64(BuildConfig.APPLICATION_ID));
         }
-         return MD5.get32MD5Str(MD5.get32MD5Str(BuildConfig.AES_KEY) + MD5.get32MD5Str(BuildConfig.VERSION_NAME) + AES.encryptByBase64(BuildConfig.APPLICATION_ID));
+        return MD5.get32MD5Str(MD5.get32MD5Str(BuildConfig.AES_KEY) + MD5.get32MD5Str(BuildConfig.VERSION_NAME) + AES.encryptByBase64(BuildConfig.APPLICATION_ID));
     }
 
 }

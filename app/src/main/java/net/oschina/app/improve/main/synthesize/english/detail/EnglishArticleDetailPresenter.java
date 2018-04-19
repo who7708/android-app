@@ -39,6 +39,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     private Article mSource;
     private String mNextToken;
     private Article mTranslateArticle;
+    private boolean hasGetDetail;
 
     EnglishArticleDetailPresenter(EnglishArticleDetailContract.View mView,
                                   EnglishArticleDetailContract.EmptyView emptyView,
@@ -166,6 +167,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                             ResultBean<Article> bean = new Gson().fromJson(responseString, type);
                             if (bean != null && bean.isSuccess() && bean.getResult() != null) {
                                 mArticle = bean.getResult();
+                                hasGetDetail = true;
                                 mView.showGetDetailSuccess(mArticle);
                                 mEmptyView.showGetDetailSuccess(mArticle);
                                 mEmptyView.hideEmptyLayout();
@@ -290,6 +292,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                 parseTranslate();
             } catch (Exception e) {
                 mView.showTranslateFailure("网络错误");
+                mEmptyView.showTranslateFailure("网络错误");
                 e.printStackTrace();
             }
             return;
@@ -298,6 +301,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 mView.showTranslateFailure("网络错误");
+                mEmptyView.showTranslateFailure("网络错误");
             }
 
             @Override
@@ -311,14 +315,17 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                             mTranslateArticle = bean.getResult();
                             parseTranslate();
                         } else {
+                            mEmptyView.showTranslateFailure(bean.getMessage());
                             mView.showTranslateFailure(bean.getMessage());
                         }
                     } else {
+                        mEmptyView.showTranslateFailure("网络错误");
                         mView.showTranslateFailure("翻译错误");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     mView.showTranslateFailure("翻译错误");
+                    mEmptyView.showTranslateFailure("网络错误");
                 }
             }
         });
@@ -401,6 +408,11 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             return "分钟";
         } else
             return "秒";
+    }
+
+    @Override
+    public boolean hasGetDetail() {
+        return hasGetDetail;
     }
 
     @SuppressWarnings("unused")

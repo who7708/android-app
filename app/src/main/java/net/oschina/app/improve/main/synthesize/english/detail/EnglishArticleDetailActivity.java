@@ -251,9 +251,15 @@ public class EnglishArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showTranslateChange(boolean isEnglish) {
-        if(mMenuTra == null)
+        dismissLoadingDialog();
+        if (mMenuTra == null)
             return;
         mMenuTra.setIcon(isEnglish ? R.mipmap.ic_translate_en : R.mipmap.ic_translate);
+    }
+
+    @Override
+    public void showTranslateFailure(String message) {
+        dismissLoadingDialog();
     }
 
     @Override
@@ -272,7 +278,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_english_detail, menu);
         mMenuTra = menu.getItem(0);
-        if(mArticle == null || TextUtils.isEmpty( mArticle.getTitleTranslated())){
+        if (mArticle == null || TextUtils.isEmpty(mArticle.getTitleTranslated())) {
             mMenuTra.setVisible(false);
         }
         return true;
@@ -288,6 +294,10 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                 }
                 break;
             case R.id.menu_translate:
+                if(!mPresenter.hasGetDetail()){
+                    return false;
+                }
+                showLoadingDialog("正在获取翻译内容...");
                 mPresenter.translate();
                 break;
         }

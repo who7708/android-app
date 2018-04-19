@@ -31,6 +31,8 @@ interface EnglishArticleDetailContract {
         void showReport();
 
         void showTranslateChange(boolean isEnglish);
+
+        void showTranslateFailure(String message);
     }
 
     interface View extends BaseListView<Presenter, Article> {
@@ -67,5 +69,7 @@ interface EnglishArticleDetailContract {
         void translate();
 
         void report();
+
+        boolean hasGetDetail();
     }
 }
