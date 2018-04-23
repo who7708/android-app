@@ -662,6 +662,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Dialog.NoTitle.Translucent" />
+
         <activity
             android:name=".improve.main.update.UpdateActivity"
             android:configChanges="keyboardHidden|orientation"
