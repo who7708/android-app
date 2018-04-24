@@ -67,8 +67,8 @@ public class RegisterStepOneActivity extends AccountBaseActivity implements View
     LinearLayout mLlRegisterSmsCode;
     @Bind(R.id.et_register_auth_code)
     EditText mEtRegisterAuthCode;
-    @Bind(R.id.tv_register_sms_call)
-    TextView mTvRegisterSmsCall;
+
+    private TextView mTvRegisterSmsCall;
     @Bind(R.id.bt_register_submit)
     Button mBtRegisterSubmit;
 
@@ -213,7 +213,7 @@ public class RegisterStepOneActivity extends AccountBaseActivity implements View
     @Override
     protected void initWidget() {
         super.initWidget();
-
+        mTvRegisterSmsCall = (TextView)findViewById(R.id.tv_register_sms_call);
         TextView label = (TextView) mLayBackBar.findViewById(R.id.tv_navigation_label);
         label.setVisibility(View.INVISIBLE);
 
@@ -331,7 +331,11 @@ public class RegisterStepOneActivity extends AccountBaseActivity implements View
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hideKeyBoard(getCurrentFocus().getWindowToken());
+        try {
+            hideKeyBoard(getCurrentFocus().getWindowToken());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         mLayBackBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 
@@ -362,7 +366,11 @@ public class RegisterStepOneActivity extends AccountBaseActivity implements View
                 }
                 break;
             case R.id.lay_register_one_container:
-                hideKeyBoard(getCurrentFocus().getWindowToken());
+                try {
+                    hideKeyBoard(getCurrentFocus().getWindowToken());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;

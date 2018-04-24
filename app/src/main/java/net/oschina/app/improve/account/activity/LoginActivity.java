@@ -329,7 +329,11 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hideKeyBoard(getCurrentFocus().getWindowToken());
+        try {
+            hideKeyBoard(getCurrentFocus().getWindowToken());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         mLayBackBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 
@@ -409,7 +413,11 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
                 mEtLoginPwd.setText(null);
                 break;
             case R.id.lay_login_container:
-                hideKeyBoard(getCurrentFocus().getWindowToken());
+                try {
+                    hideKeyBoard(getCurrentFocus().getWindowToken());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
