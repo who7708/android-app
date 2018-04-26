@@ -114,7 +114,7 @@ public class ModifyAreaActivity extends BackActivity {
                 int i = mAdapterCity.getItems().indexOf(c);
                 if (i >= 0 && i < mAdapterCity.getCount()) {
                     mAdapterCity.setSelectedPosition(i);
-                    mRecyclerCity.scrollToPosition(index);
+                    mRecyclerCity.scrollToPosition(i);
                 }
             }
         }
