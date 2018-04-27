@@ -30,7 +30,7 @@ import butterknife.OnClick;
  * Created by huanghaibin on 2018/4/23.
  */
 
-public class UpdateActivity extends BaseActivity implements View.OnClickListener{
+public class UpdateActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.tv_update_info)
     TextView mTextUpdateInfo;
     private Version mVersion;
@@ -67,12 +67,10 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             checkPermission();
-                            finish();
                         }
                     }).show();
                 } else {
                     checkPermission();
-                    finish();
                 }
                 break;
             case R.id.btn_not_show:
@@ -96,6 +94,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
                     RC_EXTERNAL_STORAGE);
         } else {
             DownloadService.startService(this, mVersion.getDownloadUrl());
+            finish();
         }
     }
 
@@ -106,6 +105,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 DownloadService.startService(this, mVersion.getDownloadUrl());
+                finish();
             } else {
                 DialogHelper.getConfirmDialog(this, "温馨提示",
                         "需要开启开源中国对您手机的存储权限才能下载安装，是否现在开启",
@@ -114,8 +114,14 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+                                finish();
                             }
-                        }, null).show();
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).show();
             }
         }
     }
