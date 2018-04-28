@@ -144,6 +144,8 @@ public class ModifyFieldActivity extends BackActivity {
                                 intent.putExtra("user_info", bean.getResult());
                                 setResult(RESULT_OK, intent);
                                 finish();
+                            }else {
+                                SimplexToast.show(ModifyFieldActivity.this,bean.getMessage());
                             }
 
                         } catch (Exception e) {

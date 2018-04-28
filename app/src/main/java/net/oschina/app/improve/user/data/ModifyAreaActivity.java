@@ -169,6 +169,8 @@ public class ModifyAreaActivity extends BackActivity {
                                 intent.putExtra("user_info", bean.getResult());
                                 setResult(RESULT_OK, intent);
                                 finish();
+                            }else {
+                                SimplexToast.show(ModifyAreaActivity.this,bean.getMessage());
                             }
 
                         } catch (Exception e) {
