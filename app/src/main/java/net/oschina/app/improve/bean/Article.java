@@ -29,7 +29,12 @@ public class Article implements Serializable {
     private int commentCount;
     private boolean favorite;
     private int wordCount;
+
+    @SerializedName("sub_type")
+    private int subType;
+
     private long readTime;
+
     private String titleTranslated;//中文翻译标题
 
     @SerializedName("osc_id")
@@ -197,5 +202,13 @@ public class Article implements Serializable {
 
     public void setTitleTranslated(String titleTranslated) {
         this.titleTranslated = titleTranslated;
+    }
+
+    public int getSubType() {
+        return subType;
+    }
+
+    public void setSubType(int subType) {
+        this.subType = subType;
     }
 }

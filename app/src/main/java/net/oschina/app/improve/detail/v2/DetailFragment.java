@@ -105,6 +105,8 @@ public abstract class DetailFragment extends BaseFragment implements
             mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
                 @Override
                 public void onRefreshing() {
+                    mRefreshLayout.setRefreshing(true);
+                    mRefreshLayout.setOnLoading(true);
                     if (mPresenter != null) {
                         mPresenter.onRefresh();
                     }

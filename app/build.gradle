@@ -206,6 +206,7 @@ dependencies {
     })
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    //noinspection GradleDependency
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.zxing:core:3.3.0'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
@@ -215,6 +216,7 @@ dependencies {
     //noinspection GradleDependency
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.upyun:upyun-android-sdk:2.0.5'
     //noinspection GradleDependency
 //    compile 'com.umeng.analytics:analytics:latest.integration'
     //noinspection GradleDependency

@@ -21,6 +21,7 @@ import net.oschina.app.improve.bean.Article;
 import net.oschina.app.improve.bean.comment.Comment;
 import net.oschina.app.improve.bean.simple.Author;
 import net.oschina.app.improve.behavior.CommentBar;
+import net.oschina.app.improve.comment.CommentsActivity;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
@@ -118,6 +119,11 @@ public class ArticleCommentActivity extends BackActivity implements ArticleComme
                     case 1:
                         if (!AccountHelper.isLogin()) {
                             LoginActivity.show(ArticleCommentActivity.this, 1);
+                            return;
+                        }
+                        if (mComment.getAuthor() == null ||
+                                mComment.getAuthor().getId() == 0) {
+                            SimplexToast.show(ArticleCommentActivity.this,"不能回复游客...");
                             return;
                         }
                         mDelegation.getBottomSheet().getBtnCommit().setTag(mComment);

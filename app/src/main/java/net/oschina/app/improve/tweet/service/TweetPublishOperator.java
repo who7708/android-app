@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.upyun.library.common.UploadEngine;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
@@ -95,6 +96,14 @@ class TweetPublishOperator implements Runnable, Contract.IOperator {
                         }
                     });
         }
+    }
+
+    private void upload(){
+//        UploadEngine
+//                .getInstance()
+//                .formUpload(new File(""),
+//                        "",
+//                        "",);
     }
 
     /**

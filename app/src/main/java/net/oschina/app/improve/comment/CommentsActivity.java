@@ -40,6 +40,7 @@ import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.widget.CommentShareView;
 import net.oschina.app.improve.widget.RecyclerRefreshLayout;
+import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.improve.widget.adapter.OnKeyArrivedListenerAdapterV2;
 import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.TDevice;
@@ -188,6 +189,11 @@ public class CommentsActivity extends BackActivity implements
                     case 1:
                         if (!AccountHelper.isLogin()) {
                             LoginActivity.show(CommentsActivity.this, 1);
+                            return;
+                        }
+                        if (mComment.getAuthor() == null ||
+                                mComment.getAuthor().getId() == 0) {
+                            SimplexToast.show(CommentsActivity.this,"不能回复游客...");
                             return;
                         }
                         mDelegation.getBottomSheet().getBtnCommit().setTag(mComment);

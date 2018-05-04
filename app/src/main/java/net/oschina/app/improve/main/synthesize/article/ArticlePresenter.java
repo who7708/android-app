@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.synthesize.article;
 
 import android.text.TextUtils;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;

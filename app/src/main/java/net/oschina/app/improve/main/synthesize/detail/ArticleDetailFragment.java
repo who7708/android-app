@@ -149,7 +149,8 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                mRefreshLayout.setRefreshing(false);
+                mRefreshLayout.setRefreshing(true);
+                mRefreshLayout.setOnLoading(true);
                 if (mPresenter == null)
                     return;
                 mPresenter.getArticleDetail();
