@@ -82,6 +82,10 @@ android {
         }
     }
 
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
     //product flavors
     productFlavors {
         oschina {
@@ -172,13 +176,6 @@ android {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "liqu"]
         }
     }
-    dexOptions {
-        incremental false
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
 }
 
 repositories {
@@ -223,7 +220,7 @@ dependencies {
     //noinspection GradleDependency
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.google.code.gson:gson:2.8.0'
-    //compile 'com.upyun:upyun-android-sdk:2.0.5'
+    compile 'com.upyun:upyun-android-sdk:2.0.5'
     //noinspection GradleDependency
     //    compile 'com.umeng.analytics:analytics:latest.integration'
     //noinspection GradleDependency

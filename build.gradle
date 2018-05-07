@@ -26,5 +26,5 @@ ext {
     targetSdkVersion = 25
     versionCode = 413
     versionName = "v4.1.3 (1804181500)"
-    supportVersion = '25.1.0'
+    supportVersion = '25.2.0'
 }
