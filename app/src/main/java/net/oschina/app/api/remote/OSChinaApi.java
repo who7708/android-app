@@ -99,24 +99,6 @@ public class OSChinaApi {
     }
 
     @Deprecated
-    public static void getTweetList(int uid, int page, AsyncHttpResponseHandler handler) {
-        RequestParams params = new RequestParams();
-        params.put("uid", uid);
-        params.put("pageIndex", page);
-        params.put("pageSize", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("action/api/tweet_list", params, handler);
-    }
-
-    @Deprecated
-    public static void getTweetTopicList(int page, String topic, AsyncHttpResponseHandler handler) {
-        RequestParams params = new RequestParams();
-        params.put("pageIndex", page);
-        params.put("title", topic);
-        params.put("pageSize", AppContext.PAGE_SIZE);
-        ApiHttpClient.get("action/api/tweet_topic_list", params, handler);
-    }
-
-    @Deprecated
     public static void pubLikeTweet(int tweetId, int authorId, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("tweetid", tweetId);

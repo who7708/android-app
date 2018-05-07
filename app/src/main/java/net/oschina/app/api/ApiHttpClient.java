@@ -192,12 +192,18 @@ public class ApiHttpClient {
         log("PUT " + partUrl + "?" + params);
     }
 
+    private static String sessionKey = "";
+
     public static void setHttpClient(AsyncHttpClient c) {
         c.addHeader("Accept-Language", Locale.getDefault().toString());
         c.addHeader("Host", HOST);
         c.addHeader("Connection", "Keep-Alive");
-        c.addHeader("sessionKey", MD5.get32MD5Str(OSCSharedPreference.getInstance().getDeviceUUID() + System.currentTimeMillis()));
+        if (TextUtils.isEmpty(sessionKey)) {
+            sessionKey = MD5.get32MD5Str(OSCSharedPreference.getInstance().getDeviceUUID() + System.currentTimeMillis());
+        }
+        c.addHeader("sessionKey", sessionKey);
         c.addHeader("uuid", OSCSharedPreference.getInstance().getDeviceUUID());
+
         c.addHeader("Accept", "image/webp");
         //noinspection deprecation
         c.getHttpClient().getParams()
