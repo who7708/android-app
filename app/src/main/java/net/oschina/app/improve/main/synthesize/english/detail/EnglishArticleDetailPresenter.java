@@ -40,6 +40,8 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     private String mNextToken;
     private Article mTranslateArticle;
     private boolean hasGetDetail;
+    private boolean hasGetENDetail;//获取了英文
+    private boolean isEnglish;
 
     EnglishArticleDetailPresenter(EnglishArticleDetailContract.View mView,
                                   EnglishArticleDetailContract.EmptyView emptyView,
@@ -150,6 +152,20 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     @Override
     public void getArticleDetail() {
         addClickCount();
+
+        if (!TextUtils.isEmpty(mArticle.getTitleTranslated())) {
+            isEnglish = true;
+            getEnglishDetailCN();
+            return;
+        }
+        isEnglish = false;
+        getEnglishDetailEN();
+    }
+
+    /**
+     * 获取英文详情
+     */
+    private void getEnglishDetailEN() {
         OSChinaApi.getArticleDetail(mArticle.getKey(),
                 OSCSharedPreference.getInstance().getDeviceUUID(),
                 TYPE_ENGLISH,
@@ -168,7 +184,10 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                             if (bean != null && bean.isSuccess() && bean.getResult() != null) {
                                 mArticle = bean.getResult();
                                 hasGetDetail = true;
+                                hasGetENDetail = true;
+                                isEnglish = true;
                                 mView.showGetDetailSuccess(mArticle);
+                                mEmptyView.showTranslateChange(true);
                                 mEmptyView.showGetDetailSuccess(mArticle);
                                 mEmptyView.hideEmptyLayout();
                             } else {
@@ -180,6 +199,46 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                         }
                     }
                 });
+    }
+
+    /**
+     * 获取翻译详情
+     */
+    private void getEnglishDetailCN() {
+        OSChinaApi.translate(mArticle.getKey(), Article.TYPE_ENGLISH, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showTranslateFailure("网络错误");
+                mEmptyView.showTranslateFailure("网络错误");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    Type type = new TypeToken<ResultBean<Article>>() {
+                    }.getType();
+                    ResultBean<Article> bean = new Gson().fromJson(responseString, type);
+                    if (bean != null) {
+                        if (bean.isSuccess()) {
+                            mTranslateArticle = bean.getResult();
+                            hasGetDetail = true;
+                            isEnglish = false;
+                            parseTranslate();
+                        } else {
+                            mEmptyView.showTranslateFailure(bean.getMessage());
+                            mView.showTranslateFailure(bean.getMessage());
+                        }
+                    } else {
+                        mEmptyView.showTranslateFailure("网络错误");
+                        mView.showTranslateFailure("翻译错误");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showTranslateFailure("翻译错误");
+                    mEmptyView.showTranslateFailure("网络错误");
+                }
+            }
+        });
     }
 
     @Override
@@ -277,58 +336,29 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
     }
 
 
-    private boolean isEnglish = true;
-
     @Override
     public void translate() {
-        if (mTranslateArticle != null) {
-            if (isEnglish) {
-                isEnglish = false;
+        if (isEnglish) {
+            if (mTranslateArticle != null) {
+                try {
+                    parseTranslate();
+                } catch (Exception e) {
+                    mView.showTranslateFailure("网络错误");
+                    mEmptyView.showTranslateFailure("网络错误");
+                    e.printStackTrace();
+                }
+            } else {
+                getEnglishDetailCN();
+            }
+        } else {
+            if (hasGetENDetail) {
+                isEnglish = true;
                 mView.showGetDetailSuccess(mArticle);
                 mEmptyView.showTranslateChange(true);
-                return;
+            } else {
+                getEnglishDetailEN();
             }
-            try {
-                parseTranslate();
-            } catch (Exception e) {
-                mView.showTranslateFailure("网络错误");
-                mEmptyView.showTranslateFailure("网络错误");
-                e.printStackTrace();
-            }
-            return;
         }
-        OSChinaApi.translate(mArticle.getKey(), Article.TYPE_ENGLISH, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                mView.showTranslateFailure("网络错误");
-                mEmptyView.showTranslateFailure("网络错误");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                try {
-                    Type type = new TypeToken<ResultBean<Article>>() {
-                    }.getType();
-                    ResultBean<Article> bean = new Gson().fromJson(responseString, type);
-                    if (bean != null) {
-                        if (bean.isSuccess()) {
-                            mTranslateArticle = bean.getResult();
-                            parseTranslate();
-                        } else {
-                            mEmptyView.showTranslateFailure(bean.getMessage());
-                            mView.showTranslateFailure(bean.getMessage());
-                        }
-                    } else {
-                        mEmptyView.showTranslateFailure("网络错误");
-                        mView.showTranslateFailure("翻译错误");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    mView.showTranslateFailure("翻译错误");
-                    mEmptyView.showTranslateFailure("网络错误");
-                }
-            }
-        });
     }
 
     /**
@@ -349,7 +379,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             sb.append(translate.dest);
         }
         mView.showTranslateSuccess(sb.toString());
-        isEnglish = true;
+        isEnglish = false;
         mEmptyView.showTranslateChange(false);
     }
 

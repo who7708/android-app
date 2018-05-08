@@ -297,7 +297,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                 if(!mPresenter.hasGetDetail()){
                     return false;
                 }
-                showLoadingDialog("正在获取翻译内容...");
+                showLoadingDialog("正在获取内容...");
                 mPresenter.translate();
                 break;
         }
@@ -330,6 +330,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         if (isDestroy()) {
             return;
         }
+        dismissLoadingDialog();
         mEmptyLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -346,6 +347,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         if (isDestroy()) {
             return;
         }
+        dismissLoadingDialog();
         mEmptyLayout.setErrorType(errorType);
     }
 
@@ -398,6 +400,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         if (isDestroy()) {
             return;
         }
+        dismissLoadingDialog();
         mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
         mDelegation.setCommentCount(article.getCommentCount());
     }

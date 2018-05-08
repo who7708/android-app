@@ -9,7 +9,6 @@ import android.widget.TextView;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
-import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 
 /**
@@ -32,23 +31,26 @@ public class ReadArticleAdapter extends BaseRecyclerAdapter<Article> {
         ArticleViewHolder h = (ArticleViewHolder) holder;
         String type;
         switch (item.getType()) {
-            case News.TYPE_SOFTWARE:
+            case Article.TYPE_SOFTWARE:
                 type = "软件";
                 break;
-            case News.TYPE_QUESTION:
+            case Article.TYPE_QUESTION:
                 type = "问答";
                 break;
-            case News.TYPE_BLOG:
+            case Article.TYPE_BLOG:
                 type = "博客";
                 break;
-            case News.TYPE_TRANSLATE:
+            case Article.TYPE_TRANSLATE:
                 type = "翻译";
                 break;
-            case News.TYPE_EVENT:
+            case Article.TYPE_EVENT:
                 type = "活动";
                 break;
-            case News.TYPE_NEWS:
+            case Article.TYPE_NEWS:
                 type = "资讯";
+                break;
+            case Article.TYPE_ZB:
+                type = "众包";
                 break;
             default:
                 type = "链接";

@@ -12,6 +12,15 @@ import java.io.Serializable;
 public class Article implements Serializable {
     public static final int TYPE_AD = 9999;//广告类型
     public static final int TYPE_ENGLISH = 8000;//英文类型
+    public static final int TYPE_HREF = 0;
+    public static final int TYPE_SOFTWARE = 1;
+    public static final int TYPE_QUESTION = 2;
+    public static final int TYPE_BLOG = 3;
+    public static final int TYPE_TRANSLATE = 4;
+    public static final int TYPE_EVENT = 5;
+    public static final int TYPE_NEWS = 6;
+    public static final int TYPE_ZB = 7;
+    public static final int TYPE_FIND_PERSON = 11;
 
     private int type;
     private String authorName;

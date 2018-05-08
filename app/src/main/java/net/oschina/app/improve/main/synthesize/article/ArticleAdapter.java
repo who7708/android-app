@@ -21,7 +21,6 @@ import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Article;
-import net.oschina.app.improve.bean.News;
 import net.oschina.app.improve.main.synthesize.DataFormat;
 import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.media.Util;
@@ -158,7 +157,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
 
 
     private void setTag(TextView textView, ImageView imageView, Article article) {
-        if (article.getType() == News.TYPE_QUESTION) {
+        if (article.getType() == Article.TYPE_QUESTION) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_question);
             imageView.setVisibility(View.VISIBLE);
@@ -166,11 +165,11 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_gitee);
             imageView.setVisibility(View.VISIBLE);
-        } else if (TypeFormat.isZB(article)) {
+        } else if (article.getType() == Article.TYPE_ZB) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_zb);
             imageView.setVisibility(View.VISIBLE);
-        } else if (article.getType() == News.TYPE_SOFTWARE) {
+        } else if (article.getType() == Article.TYPE_SOFTWARE) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_software);
             imageView.setVisibility(View.VISIBLE);
@@ -178,7 +177,7 @@ public class ArticleAdapter extends BaseRecyclerAdapter<Article> implements Base
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_ad);
             imageView.setVisibility(View.VISIBLE);
-        } else if (article.getType() == News.TYPE_TRANSLATE) {
+        } else if (article.getType() == Article.TYPE_TRANSLATE) {
             setEmptyTag(textView, article);
             imageView.setImageResource(R.mipmap.tag_translate);
             imageView.setVisibility(View.VISIBLE);

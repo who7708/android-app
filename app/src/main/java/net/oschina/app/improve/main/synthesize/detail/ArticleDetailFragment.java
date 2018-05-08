@@ -133,7 +133,8 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         tv_title.setText(mArticle.getTitle());
         tv_name.setText(TextUtils.isEmpty(mArticle.getAuthorName()) ? "匿名" : mArticle.getAuthorName());
         tv_pub_date.setText(DataFormat.parsePubDate(mArticle.getPubDate()));
-        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\\s*|\t|\n", ""));
+        //tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().replaceAll("\\s*|\t|\n", ""));
+        tv_detail_abstract.setText(TextUtils.isEmpty(mArticle.getDesc()) ? mArticle.getDesc() : mArticle.getDesc().trim());
         PortraitView portraitView = (PortraitView) mHeaderView.findViewById(R.id.iv_avatar);
         tv_origin.setText(mArticle.getSource());
         if (TextUtils.isEmpty(mArticle.getSource())) {
