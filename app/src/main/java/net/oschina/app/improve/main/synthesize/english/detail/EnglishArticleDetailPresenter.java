@@ -378,7 +378,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
             sb.append("\n");
             sb.append(translate.dest);
         }
-        mView.showTranslateSuccess(sb.toString());
+        mView.showTranslateSuccess(mTranslateArticle, sb.toString());
         isEnglish = false;
         mEmptyView.showTranslateChange(false);
     }

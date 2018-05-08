@@ -44,7 +44,7 @@ interface EnglishArticleDetailContract {
 
         void showGetDetailSuccess(Article article);
 
-        void showTranslateSuccess(String content);
+        void showTranslateSuccess(Article article,String content);
 
         void showTranslateFailure(String message);
     }

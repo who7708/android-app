@@ -280,6 +280,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         mMenuTra = menu.getItem(0);
         if (mArticle == null || TextUtils.isEmpty(mArticle.getTitleTranslated())) {
             mMenuTra.setVisible(false);
+            mMenuTra.setIcon(!TextUtils.isEmpty(mArticle.getTitleTranslated()) ? R.mipmap.ic_translate_en : R.mipmap.ic_translate);
         }
         return true;
     }

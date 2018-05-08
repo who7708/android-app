@@ -250,10 +250,12 @@ public class EnglishArticleDetailFragment extends BaseRecyclerFragment<EnglishAr
     }
 
     @Override
-    public void showTranslateSuccess(String content) {
+    public void showTranslateSuccess(Article article,String content) {
         if (mContext == null)
             return;
         mWebView.loadDetailDataAsync(content, (Runnable) mContext);
+        mTextCount.setText(mPresenter.formatTextCount(article.getWordCount()));
+        mTextTime.setText(mPresenter.formatTime(article.getReadTime()));
     }
 
     @Override
