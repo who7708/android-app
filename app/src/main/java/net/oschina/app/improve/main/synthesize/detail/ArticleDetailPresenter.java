@@ -341,4 +341,5 @@ class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         } else
             return "秒";
     }
+
 }

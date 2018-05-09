@@ -14,12 +14,21 @@ interface PubArticleContract {
         void showPubSuccess(int strId);
 
         void showPubFailure(String message);
+
+        void showGetTitleSuccess(String title);
+
+        void showGetTitleFailure(String message);
     }
 
-    @SuppressWarnings("all")
     interface Presenter extends BasePresenter {
         void putArticle(String url, String title);
 
-        //void getTitle(String url);
+        void getTitle(String url);
+
+        /**
+         * 判断是不是微信公众号文章
+         * @param url
+         */
+        boolean isWechatUrl(String url);
     }
 }

@@ -104,7 +104,11 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (PubArticlePresenter.checkUrl(s.toString()) && mWebView != null) {
-                    mWebView.loadUrl(s.toString());
+                    if(mPresenter.isWechatUrl(s.toString())){
+                        mPresenter.getTitle(s.toString());
+                    }else {
+                        mWebView.loadUrl(s.toString());
+                    }
                 }
             }
 
@@ -113,8 +117,11 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
 
             }
         });
-        mWebView.loadUrl(mUrl);
-
+        if(mPresenter.isWechatUrl(mUrl)){
+            mPresenter.getTitle(mUrl);
+        }else {
+            mWebView.loadUrl(mUrl);
+        }
     }
 
     @OnClick({R.id.btn_commit})
@@ -144,6 +151,20 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
     @Override
     public void onFinish() {
 
+    }
+
+    @Override
+    public void showGetTitleSuccess(String title) {
+        if (isDestroy())
+            return;
+        mTextTitle.setText(title);
+    }
+
+    @Override
+    public void showGetTitleFailure(String message) {
+        if (isDestroy())
+            return;
+        mTextTitle.setText(message);
     }
 
     @Override

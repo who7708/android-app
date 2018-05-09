@@ -4,22 +4,28 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.upyun.library.common.UploadEngine;
+import com.upyun.library.listener.UpCompleteListener;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.api.remote.OSChinaApi;
+import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.bean.base.ResultBean;
 import net.oschina.app.improve.bean.resource.ImageResource;
 import net.oschina.app.improve.bean.simple.About;
+import net.oschina.app.improve.utils.MD5;
 import net.oschina.app.improve.utils.PicturesCompressor;
 import net.oschina.common.utils.BitmapUtil;
 
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -97,12 +103,54 @@ class TweetPublishOperator implements Runnable, Contract.IOperator {
         }
     }
 
-    private void upload(){
-//        UploadEngine
-//                .getInstance()
-//                .formUpload(new File(""),
-//                        "",
-//                        "",);
+    private void upload(final int index, final YoupaiToken token, final String[] paths, final UploadImageCallback runnable) {
+
+        // checkShare done
+        if (index < 0 || index >= paths.length) {
+            runnable.onUploadImageDone();
+            return;
+        }
+
+        final String path = paths[index];
+
+        File file = new File(path);
+        String saveKey = String.format("osc_%s", MD5.get32MD5Str(AccountHelper.getUserId() + file.getName() + System.currentTimeMillis()));
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("bucket", "oscnet");
+        map.put("save-key", saveKey);
+        map.put("expiration", System.currentTimeMillis());
+
+        UploadEngine.getInstance()
+                .formUpload(file, map, token.getOperator(), token.getSecret(),
+                        new UpCompleteListener() {
+                            @Override
+                            public void onComplete(boolean isSuccess, String result) {
+                                Log.e("result", "result" + result + "  --  " + isSuccess);
+                                try {
+                                    YouPaiResult bean = new Gson().fromJson(result, YouPaiResult.class);
+                                    if (bean != null) {
+                                        if (bean.getCode() == 200) {
+                                            upload(index + 1, token, paths, runnable);
+                                        } else {
+                                            String error = "";
+                                            String response = bean.getMessage();
+                                            TweetPublishService.log(String.format("Upload image onFailure, statusCode:[%s] responseString:%s throwable:%s",
+                                                    bean.getCode(), response, error));
+                                            setError(R.string.tweet_image_publish_failed, String.valueOf(index + 1), String.valueOf(paths.length));
+                                        }
+                                    } else {
+                                        String error = "";
+                                        String response = "上传失败";
+                                        TweetPublishService.log(String.format("Upload image onFailure, statusCode:[%s] responseString:%s throwable:%s",
+                                                "error", response, error));
+                                        setError(R.string.tweet_image_publish_failed, String.valueOf(index + 1), String.valueOf(paths.length));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, null);
     }
 
     /**

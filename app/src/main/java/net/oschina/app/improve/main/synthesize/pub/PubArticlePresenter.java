@@ -1,7 +1,10 @@
 package net.oschina.app.improve.main.synthesize.pub;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import net.oschina.app.R;
@@ -62,9 +65,35 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
                 });
     }
 
-    static boolean checkUrl(String email) {
+    private static final AsyncHttpClient mClient = new AsyncHttpClient();
+    @Override
+    public void getTitle(String url) {
+        mClient.get(url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                mView.showGetTitleFailure("获取标题失败");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    mView.showGetTitleSuccess(matcherTitle(responseString));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mView.showGetTitleFailure("获取标题失败");
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean isWechatUrl(String url) {
+        return !TextUtils.isEmpty(url) && url.startsWith("https://mp.weixin.qq.com/");
+    }
+
+    static boolean checkUrl(String url) {
         Pattern pattern = Pattern.compile("^https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]");
-        return pattern.matcher(email).find();
+        return pattern.matcher(url).find();
     }
 
     static String findUrl(String text) {
@@ -74,5 +103,14 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
             return matcher.group(0);
         }
         return "";
+    }
+
+    private  String matcherTitle(String response) {
+        Pattern pattern = Pattern.compile("<h2\\s?[^\\s]+\\s+id=\"activity-name\"\\s?>([^>]+)</h2>");
+        Matcher matcher = pattern.matcher(response);
+        if(matcher.find()){
+            return matcher.group(1).trim();
+        }
+        return "获取标题失败";
     }
 }
