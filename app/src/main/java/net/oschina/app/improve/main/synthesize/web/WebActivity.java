@@ -155,6 +155,9 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         switch (item.getItemId()) {
             case R.id.menu_share:
                 if (!TextUtils.isEmpty(mTitle) && !TextUtils.isEmpty(mUrl)) {
+                    mShareDialog.init(this, mWebView.getTitle(),
+                            null,
+                            mWebView.getUrl());
                     mShareDialog.show();
                 }
                 break;
@@ -168,7 +171,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             return;
         mShareDialog.setTitle(title);
         mTitle = title;
-        mShareDialog.init(this, title, null, mUrl);
+        mShareDialog.init(this, title, null, mWebView.getUrl());
         mToolBar.setTitle("返回");
     }
 

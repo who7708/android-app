@@ -175,6 +175,15 @@ android {
         liqu {//历趣世界
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "liqu"]
         }
+        kuan {//酷安
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "kuan"]
+        }
+        tianyi {//天翼
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "tianyi"]
+        }
+        ersansiwu {//历趣世界
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "2345"]
+        }
     }
 }
 

@@ -47,11 +47,11 @@ public class ShareDialog extends BottomDialog implements View.OnClickListener, D
 
     public void init(Activity activity, String title, String content, String url) {
         if (mBuilder == null) {
-            mBuilder = new BaseShare.Builder(activity)
-                    .title(title)
-                    .content(TextUtils.isEmpty(content) ? title : content.length() > 30 ? content.substring(0, 30) : content)
-                    .url(url);
+            mBuilder = new BaseShare.Builder(activity);
         }
+        mBuilder.title(title)
+                .content(TextUtils.isEmpty(content) ? title : content.length() > 30 ? content.substring(0, 30) : content)
+                .url(url);
     }
 
     @SuppressWarnings("all")
