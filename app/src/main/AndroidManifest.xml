@@ -37,7 +37,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!--该权限用于挂载或者解挂载手机的文件系统，比如挂载外置sd卡，百度地图等第三方服务需要设置缓存时-->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
 
     <!--百度地图lbs雷达功能请求权限完-->
 
@@ -50,13 +51,15 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!--该权限允许应用程序写入系统设置,比如需要对系统设置进行授权更改等，前提而且要是签名级别的app安装包-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <!--该权限允许应用程序发起电话呼叫，而无需通过拨号器用户界面让用户确认呼叫，比如team中直接给团队成员进行拨号-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!--该权限允许应用程序管理对文档的访问，通常作为文档选择器的一部分,比如对文档，多媒体文件的访问和管理-->
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
 
     <!--android7.0 下载更新发起弹窗意图权限，比如app自带的自动检测更新下载apk功能，官方签名级别权限-->
     <uses-permission android:name="net.oschina.app.ACCESS_UPDATE_RESULT" />
@@ -268,6 +271,13 @@
         <activity
             android:name=".improve.main.synthesize.web.WebActivity"
             android:label="返回"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".improve.main.synthesize.web.ZBWebActivity"
+            android:label="开源众包"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />

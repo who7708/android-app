@@ -433,7 +433,7 @@ public abstract class DetailActivity extends BackActivity implements
 
                 Pattern pattern = Pattern.compile(regex);
 
-                Matcher matcher = pattern.matcher(content);
+                Matcher matcher = pattern.matcher(mBean.getBody());
 
                 while (matcher.find()) {
                     imageUrl = matcher.group(1);

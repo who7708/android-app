@@ -3,6 +3,7 @@ package net.oschina.app.improve.main.synthesize.web;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
@@ -38,7 +39,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by huanghaibin on 2017/10/27.
  */
 
-public class WebActivity extends BackActivity implements OSCWebView.OnFinishListener {
+public class ZBWebActivity extends BackActivity implements OSCWebView.OnFinishListener {
 
     protected OSCWebView mWebView;
     @Bind(R.id.progressBar)
@@ -56,7 +57,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             return;
         if (TextUtils.isEmpty(url))
             return;
-        Intent intent = new Intent(context, WebActivity.class);
+        Intent intent = new Intent(context, ZBWebActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
@@ -64,7 +65,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
     public static void show(Context context, String url, boolean isShowAd) {
         if (TextUtils.isEmpty(url))
             return;
-        Intent intent = new Intent(context, WebActivity.class);
+        Intent intent = new Intent(context, ZBWebActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("isShowAd", isShowAd);
         context.startActivity(intent);
@@ -104,7 +105,6 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
             DrawableCompat.setTint(mToolBar.getNavigationIcon(), Color.BLACK);
         }
         mShareDialog = new ShareDialog(this);
-
         if (!TextUtils.isEmpty(mUrl))
             getRule(mUrl);
     }
@@ -158,6 +158,7 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
                     mShareDialog.init(this, mWebView.getTitle(),
                             " ",
                             mWebView.getUrl());
+                    mShareDialog.setThumbBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_share_zb));
                     mShareDialog.show();
                 }
                 break;
