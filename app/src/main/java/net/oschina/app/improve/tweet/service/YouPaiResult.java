@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-class YouPaiResult implements Serializable {
+public final class YouPaiResult implements Serializable {
     @SerializedName("image-type")
     private String imageType;
 
@@ -13,6 +13,9 @@ class YouPaiResult implements Serializable {
 
     @SerializedName("image-height")
     private int imageHeight;
+
+    @SerializedName("image-width")
+    private int imageWidth;
 
     private int code;
 
@@ -66,5 +69,13 @@ class YouPaiResult implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(int imageWidth) {
+        this.imageWidth = imageWidth;
     }
 }

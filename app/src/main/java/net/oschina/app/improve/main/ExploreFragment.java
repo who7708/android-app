@@ -15,6 +15,7 @@ import net.oschina.app.improve.detail.SubActivity;
 import net.oschina.app.improve.git.feature.FeatureActivity;
 import net.oschina.app.improve.git.gist.GistActivity;
 import net.oschina.app.improve.main.discover.ShakePresentActivity;
+import net.oschina.app.improve.main.synthesize.web.WebActivity;
 import net.oschina.app.improve.nearby.NearbyActivity;
 import net.oschina.app.improve.search.v2.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
@@ -56,7 +57,7 @@ public class ExploreFragment extends BaseFragment implements View.OnClickListene
     }
 
     @OnClick({R.id.rl_git, R.id.rl_gits,
-            R.id.btn_search,
+            R.id.btn_search,R.id.rl_zb,
             R.id.rl_soft, R.id.rl_scan,
             R.id.rl_shake, R.id.layout_events,
             R.id.layout_nearby})
@@ -67,6 +68,9 @@ public class ExploreFragment extends BaseFragment implements View.OnClickListene
             case R.id.btn_search:
                 //SearchActivity.show(getActivity());
                 SearchActivity.show(mContext);
+                break;
+            case R.id.rl_zb:
+                WebActivity.show(mContext,"https://zb.oschina.net/projects/list.html");
                 break;
             case R.id.rl_git:
                 FeatureActivity.show(getActivity());

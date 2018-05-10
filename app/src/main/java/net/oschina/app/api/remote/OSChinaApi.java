@@ -2,6 +2,7 @@ package net.oschina.app.api.remote;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -16,6 +17,7 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.bean.SignUpEventOptions;
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.detail.sign.StringParams;
+import net.oschina.app.improve.tweet.service.YouPaiResult;
 import net.oschina.app.improve.write.Blog;
 import net.oschina.app.team.bean.Team;
 import net.oschina.app.util.StringUtils;
@@ -1021,6 +1023,37 @@ public class OSChinaApi {
         }
         post("action/apiv2/resource_image", params, handler);
     }
+
+
+    /**
+     * 上传图片接口
+     * http://doc.oschina.net/app_v2?t=105508
+     *
+     * @param token   上传口令，单次口令最多上传9张图片。
+     * @param url     图片地址
+     * @param handler 回调
+     */
+    public static void uploadImageForYouPai(String token, YouPaiResult result, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("token", token);
+        String url = "http://oscimg.oschina.net/" + result.getUrl();
+        Log.e("url", url);
+        params.put("url", url);
+        params.put("h", result.getImageHeight());
+        params.put("w", result.getImageWidth());
+        post("action/apiv2/resource_image", params, handler);
+    }
+
+
+    /**
+     * 获取又拍云上传策略
+     *
+     * @param handler handler
+     */
+    public static void getYPToken(AsyncHttpResponseHandler handler) {
+        ApiHttpClient.get("action/apiv2/get_upyun_token", handler);
+    }
+
 
     /**
      * 发布动弹
