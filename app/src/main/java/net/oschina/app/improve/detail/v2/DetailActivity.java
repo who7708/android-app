@@ -429,7 +429,7 @@ public abstract class DetailActivity extends BackActivity implements
                     break;
                 }
             default:
-                String regex = "<img src=\"([^\"]+)\"";
+                String regex = "<img[^>]+\\s?src=\"([^\"]+)\"\\s?[^>]*>";
 
                 Pattern pattern = Pattern.compile(regex);
 
