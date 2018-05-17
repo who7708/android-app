@@ -9,9 +9,9 @@ import net.oschina.app.improve.utils.MD5;
  * Created by huanghaibin on 2018/4/13.
  */
 
- final class APIVerify {
+public final class APIVerify {
 
-     static String getVerifyString() {
+    public static String getVerifyString() {
         if (BuildConfig.DEBUG) {
             return MD5.get32MD5Str(AES.encryptByBase64(BuildConfig.APPLICATION_ID));
         }

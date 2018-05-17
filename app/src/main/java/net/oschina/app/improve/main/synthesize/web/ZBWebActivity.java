@@ -172,8 +172,7 @@ public class ZBWebActivity extends BackActivity implements OSCWebView.OnFinishLi
             return;
         mShareDialog.setTitle(title);
         mTitle = title;
-        mShareDialog.init(this, title, "", mWebView.getUrl());
-        mToolBar.setTitle("返回");
+        mShareDialog.init(this, title, " ", mWebView.getUrl());
     }
 
     @Override
