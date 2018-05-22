@@ -71,8 +71,8 @@ public class NewsSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
             vh.tv_description.setTextColor(TDevice.getColor(resources, R.color.text_desc_color));
         }
 
-        vh.tv_description.setText(item.getBody());
-
+        vh.tv_description.setText(TextUtils.isEmpty(item.getBody()) ?
+                item.getBody() : item.getBody().replaceFirst("\\s*|\t|\n", ""));
         Author author = item.getAuthor();
         String authorName;
         if (author != null && !TextUtils.isEmpty(authorName = author.getName())) {

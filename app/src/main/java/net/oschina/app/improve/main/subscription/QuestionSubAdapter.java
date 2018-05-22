@@ -59,7 +59,8 @@ public class QuestionSubAdapter extends BaseGeneralRecyclerAdapter<SubBean> impl
         }
 
         vh.tv_question_title.setText(item.getTitle());
-        vh.tv_question_content.setText(item.getBody());
+        vh.tv_question_content.setText(TextUtils.isEmpty(item.getBody()) ?
+                item.getBody() : item.getBody().replaceFirst("\\s*|\t|\n", ""));
 
         Resources resources = mContext.getResources();
 

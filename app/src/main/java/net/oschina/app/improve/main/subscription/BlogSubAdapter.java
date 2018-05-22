@@ -110,7 +110,7 @@ public class BlogSubAdapter extends BaseRecyclerAdapter<SubBean> implements Base
 
         String body = item.getBody();
         if (!TextUtils.isEmpty(body)) {
-            body = body.trim();
+            body = body.replaceFirst("\\s*|\t|\n", "");
             if (!TextUtils.isEmpty(body)) {
                 content.setText(body);
                 content.setVisibility(View.VISIBLE);
