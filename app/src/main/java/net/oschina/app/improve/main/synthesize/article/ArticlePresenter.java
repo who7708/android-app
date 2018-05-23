@@ -77,16 +77,22 @@ class ArticlePresenter implements ArticleContract.Presenter {
                             Type type = new TypeToken<ResultBean<PageBean<Article>>>() {
                             }.getType();
                             ResultBean<PageBean<Article>> bean = new Gson().fromJson(responseString, type);
-                            if (bean != null && bean.isSuccess()) {
-                                PageBean<Article> pageBean = bean.getResult();
-                                mNextToken = pageBean.getNextPageToken();
-                                List<Article> list = pageBean.getItems();
-                                for (Article article : list) {
-                                    article.setImgs(removeImgs(article.getImgs()));
-                                }
-                                CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
-                                mView.onRefreshSuccess(list);
-                                if (list.size() == 0) {
+                            if (bean != null) {
+                                if (bean.isSuccess()) {
+                                    PageBean<Article> pageBean = bean.getResult();
+                                    mNextToken = pageBean.getNextPageToken();
+                                    List<Article> list = pageBean.getItems();
+                                    for (Article article : list) {
+                                        article.setImgs(removeImgs(article.getImgs()));
+                                    }
+                                    CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
+                                    mView.onRefreshSuccess(list);
+                                    if (list.size() == 0) {
+                                        mView.showMoreMore();
+                                    }
+                                } else if ("该版本不受支持,请下载最新的客户端".equals(bean.getMessage())) {
+                                    mView.versionPast();
+                                } else {
                                     mView.showMoreMore();
                                 }
                             } else {

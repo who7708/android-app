@@ -19,6 +19,7 @@ import net.oschina.app.improve.main.synthesize.TypeFormat;
 import net.oschina.app.improve.main.synthesize.detail.ArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.english.detail.EnglishArticleDetailActivity;
 import net.oschina.app.improve.main.synthesize.web.WebActivity;
+import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
@@ -119,6 +120,13 @@ public class ArticleFragment extends BaseRecyclerFragment<ArticleContract.Presen
             mAdapter.setState(BaseRecyclerAdapter.STATE_LOADING, true);
             mPresenter.onLoadMore();
         }
+    }
+
+    @Override
+    public void versionPast() {
+        if(mContext == null)
+            return;
+        SimplexToast.show(mContext,"当前版本已经过期，请升级最新版本");
     }
 
     @Override

@@ -12,7 +12,10 @@ import net.oschina.app.improve.bean.Article;
  interface ArticleContract {
 
      interface View extends BaseListView<Presenter,Article>{
-
+         /**
+          * 版本过期
+          */
+         void versionPast();
      }
 
      interface Presenter extends BaseListPresenter{
