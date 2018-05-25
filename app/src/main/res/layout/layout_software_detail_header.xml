@@ -110,7 +110,7 @@
         <FrameLayout
             android:id="@+id/lay_webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:paddingBottom="@dimen/lay_12"
             android:paddingLeft="16dp"
