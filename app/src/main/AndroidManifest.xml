@@ -347,6 +347,13 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".improve.user.tags.search.SearchTagsActivity"
+            android:label="搜索标签"
+            android:screenOrientation="portrait"
+            android:theme="@style/App.Theme.Tweet.Main"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".improve.user.sign.up.SignUpInfoActivity"
             android:label="我的报名信息"
             android:screenOrientation="portrait"

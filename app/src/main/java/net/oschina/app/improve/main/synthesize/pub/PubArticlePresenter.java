@@ -105,8 +105,8 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
         return "";
     }
 
-    private  String matcherTitle(String response) {
-        Pattern pattern = Pattern.compile("<h2\\s?[^\\s]+\\s+id=\"activity-name\"\\s?>([^>]+)</h2>");
+    private static String matcherTitle(String response) {
+        Pattern pattern = Pattern.compile("<[^(title)]+[^(script)]+[^>]+>([^<][^\\s][^>]+)</[^(title)]+[^(script)]+[^>]+>");
         Matcher matcher = pattern.matcher(response);
         if(matcher.find()){
             return matcher.group(1).trim();

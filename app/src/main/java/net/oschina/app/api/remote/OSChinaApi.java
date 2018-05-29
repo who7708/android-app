@@ -1886,6 +1886,29 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/get_articles", params, handler);
     }
 
+
+    /**
+     * 获取登陆用户标签
+     *
+     * @param handler handler
+     */
+    public static void getUserTags(TextHttpResponseHandler handler) {
+        ApiHttpClient.get("action/apiv2/user_tags", handler);
+    }
+
+
+    /**
+     * 登陆用户搜索标签
+     *
+     * @param keyword keyword
+     * @param handler handler
+     */
+    public static void searchUserTags(String keyword, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("keyword", keyword);
+        ApiHttpClient.get("action/apiv2/search_tags", params, handler);
+    }
+
     /**
      * 获取头条
      *

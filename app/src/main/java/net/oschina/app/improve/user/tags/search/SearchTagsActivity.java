@@ -1,4 +1,4 @@
-package net.oschina.app.improve.user.tags;
+package net.oschina.app.improve.user.tags.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,21 +8,20 @@ import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.base.activities.BackActivity;
 
 /**
- * 用户标签界面
- * Created by haibin on 2018/05/22.
+ * 用户搜索标签界面
+ * Created by haibin on 2018/05/28.
  */
-public class UserTagsActivity extends BackActivity {
+public class SearchTagsActivity extends BackActivity{
 
     public static void show(Context context) {
         if (!AccountHelper.isLogin()) {
             return;
         }
-        context.startActivity(new Intent(context, UserTagsActivity.class));
+        context.startActivity(new Intent(context, SearchTagsActivity.class));
     }
-
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_user_tags;
+        return R.layout.activity_user_tags_search;
     }
 }

@@ -11,4 +11,9 @@ class UserTagsPresenter implements UserTagsContract.Presenter {
         this.mView = mView;
         this.mView.setPresenter(this);
     }
+
+    @Override
+    public void getTags() {
+
+    }
 }
