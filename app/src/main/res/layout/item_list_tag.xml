@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mcxtzhang.swipemenulib.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:minHeight="@dimen/lay_52"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:paddingLeft="@dimen/lay_16"
+        android:paddingRight="@dimen/lay_16"
+        android:textColor="@color/text_title_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:paddingLeft="@dimen/lay_16"
+        android:paddingRight="@dimen/lay_16"
+        android:layout_width="wrap_content"
+        android:text="@string/delete"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@color/red_a400"
+        android:layout_height="match_parent" />
+</com.mcxtzhang.swipemenulib.SwipeMenuLayout>
