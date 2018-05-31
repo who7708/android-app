@@ -51,9 +51,9 @@ class TweetPraisePresenter implements TweetPraiseContract.Presenter {
                         List<TweetLike> list = pageBean.getItems();
                         mView.onRefreshSuccess(list);
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         } else {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                         mView.onComplete();
                     }
@@ -85,9 +85,9 @@ class TweetPraisePresenter implements TweetPraiseContract.Presenter {
                         List<TweetLike> list = pageBean.getItems();
                         mView.onLoadMoreSuccess(list);
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         } else {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                         mView.onComplete();
                     }

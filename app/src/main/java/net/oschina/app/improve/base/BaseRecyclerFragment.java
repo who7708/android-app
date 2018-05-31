@@ -111,7 +111,7 @@ public abstract class BaseRecyclerFragment<Presenter extends BaseListPresenter, 
     }
 
     @Override
-    public void showMoreMore() {
+    public void showNotMore() {
         mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
     }
 

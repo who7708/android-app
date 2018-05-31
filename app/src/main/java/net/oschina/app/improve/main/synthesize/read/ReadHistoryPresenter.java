@@ -36,7 +36,7 @@ class ReadHistoryPresenter implements ReadHistoryContract.Presenter {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 try {
-                    mView.showMoreMore();
+                    mView.showNotMore();
                     mView.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -57,15 +57,15 @@ class ReadHistoryPresenter implements ReadHistoryContract.Presenter {
                         }
                         mView.onRefreshSuccess(list);
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                     } else {
-                        mView.showMoreMore();
+                        mView.showNotMore();
                     }
                     mView.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    mView.showMoreMore();
+                    mView.showNotMore();
                     mView.onComplete();
                 }
             }

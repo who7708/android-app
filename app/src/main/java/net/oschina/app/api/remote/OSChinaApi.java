@@ -1896,6 +1896,22 @@ public class OSChinaApi {
         ApiHttpClient.get("action/apiv2/user_tags", handler);
     }
 
+    /**
+     * 提交用户标签
+     *
+     * @param handler handler
+     */
+    public static void putUserTags(String ids, String deleteIds, TextHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(ids)) {
+            params.put("ids", ids);
+        }
+        if (!TextUtils.isEmpty(deleteIds)) {
+            params.put("deleteIds", deleteIds);
+        }
+        ApiHttpClient.post("action/apiv2/put_tags", params, handler);
+    }
+
 
     /**
      * 登陆用户搜索标签
@@ -1903,10 +1919,14 @@ public class OSChinaApi {
      * @param keyword keyword
      * @param handler handler
      */
-    public static void searchUserTags(String keyword, TextHttpResponseHandler handler) {
+    public static void searchUserTags(String keyword, String pageToken, TextHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
         params.put("keyword", keyword);
-        ApiHttpClient.get("action/apiv2/search_tags", params, handler);
+        if (!TextUtils.isEmpty(pageToken)) {
+            params.put("pageToken", pageToken);
+            Log.e("pageToken", pageToken);
+        }
+        ApiHttpClient.post("action/apiv2/search_tags_by_name", params, handler);
     }
 
     /**

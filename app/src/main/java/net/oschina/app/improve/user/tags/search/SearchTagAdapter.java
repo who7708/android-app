@@ -1,4 +1,4 @@
-package net.oschina.app.improve.user.tags;
+package net.oschina.app.improve.user.tags.search;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,45 +10,50 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Tags;
 
- class TagAdapter extends BaseRecyclerAdapter<Tags> {
+ class SearchTagAdapter extends BaseRecyclerAdapter<Tags> {
 
-    private OnViewClickListener mDeleteListener;
+    private OnViewClickListener mRelateListener;
 
-    TagAdapter(Context context) {
-        super(context, NEITHER);
+    SearchTagAdapter(Context context) {
+        super(context, ONLY_FOOTER);
     }
+
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        return new TagHolder(mInflater.inflate(R.layout.item_list_tag, parent, false));
+        return new TagHolder(mInflater.inflate(R.layout.item_list_search_tags, parent, false));
     }
 
     @Override
     protected void onBindClickListener(RecyclerView.ViewHolder holder) {
         TagHolder h = (TagHolder) holder;
-        h.mTextDelete.setTag(holder);
-        h.mTextDelete.setOnClickListener(mDeleteListener);
+        h.mTextRelate.setTag(holder);
+        h.mTextRelate.setOnClickListener(mRelateListener);
     }
 
-    public void setDeleteListener(OnViewClickListener mDeleteListener) {
-        this.mDeleteListener = mDeleteListener;
-    }
+    void setRelateListener(OnViewClickListener mRelateListener) {
+         this.mRelateListener = mRelateListener;
+     }
 
-    @Override
+     @Override
     protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, Tags item, int position) {
         TagHolder h = (TagHolder) holder;
         h.mTextTag.setText(item.getName());
+        if(item.isRelated()){
+            h.mTextRelate.setText("取消关注");
+        }else {
+            h.mTextRelate.setText("关注标签");
+        }
     }
 
     private static final class TagHolder extends RecyclerView.ViewHolder {
+
         private TextView mTextTag;
-        private TextView mTextDelete;
-
-
+        private TextView mTextRelate;
         private TagHolder(View itemView) {
             super(itemView);
             mTextTag = (TextView) itemView.findViewById(R.id.tv_tag);
-            mTextDelete = (TextView) itemView.findViewById(R.id.tv_delete);
+            mTextRelate = (TextView) itemView.findViewById(R.id.tv_relations);
         }
     }
 }

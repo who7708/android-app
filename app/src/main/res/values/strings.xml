@@ -117,7 +117,7 @@
     <string name="actionbar_title_note_edit">编辑便签</string>
     <!-- 找人不显示标题 -->
     <string name="actionbar_title_event">我的活动</string>
-    <string name="actionbar_title_tags">推荐标签</string>
+    <string name="actionbar_title_tags">关注标签</string>
     <string name="actionbar_title_my_event">我的活动</string>
     <string name="actionbar_title_event_apply">活动出席人员</string>
     <string name="actionbar_title_same_city">同城</string>

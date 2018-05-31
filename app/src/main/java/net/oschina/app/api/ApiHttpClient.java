@@ -210,8 +210,8 @@ public class ApiHttpClient {
                 .setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, true);
         // Set AppToken
         //c.addHeader("AppToken", Verifier.getPrivateToken(application));
-        c.addHeader("AppToken", APIVerify.getVerifyString());
-        //c.addHeader("AppToken", "123456");
+        //c.addHeader("AppToken", APIVerify.getVerifyString());
+        c.addHeader("AppToken", "123456");
         // setUserAgent
         c.setUserAgent(ApiClientHelper.getUserAgent(AppContext.getInstance()));
         CLIENT = c;

@@ -115,6 +115,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
                     holder.itemView.setTag(holder);
                     holder.itemView.setOnLongClickListener(onLongClickListener);
                     holder.itemView.setOnClickListener(onClickListener);
+                    onBindClickListener(holder);
                 }
                 return holder;
         }
@@ -170,6 +171,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         }
     }
 
+    protected void onBindClickListener(RecyclerView.ViewHolder holder) {
+
+    }
 
     /**
      * 当添加到RecyclerView时获取GridLayoutManager布局管理器，修正header和footer显示整行
@@ -406,6 +410,19 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         }
 
         public abstract void onClick(int position, long itemId);
+    }
+
+    /**
+     * 点击事件
+     */
+    public static abstract class OnViewClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder holder = (RecyclerView.ViewHolder) v.getTag();
+            onClick(v, holder.getAdapterPosition());
+        }
+
+        public abstract void onClick(View view, int position);
     }
 
 

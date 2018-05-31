@@ -73,7 +73,7 @@ class SubPresenter implements SubContract.Presenter {
                         mView.onRefreshSuccess(list);
                         mView.updateKey();
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                         if(mTab.getType() == 6){
                             SubBean bean = list.get(0);
@@ -84,7 +84,7 @@ class SubPresenter implements SubContract.Presenter {
                             }
                         }
                     } else {
-                        mView.showMoreMore();
+                        mView.showNotMore();
                     }
                     mView.onComplete();
                 } catch (Exception e) {
@@ -118,10 +118,10 @@ class SubPresenter implements SubContract.Presenter {
                         mView.onLoadMoreSuccess(list);
                         mView.updateKey();
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                     } else {
-                        mView.showMoreMore();
+                        mView.showNotMore();
                     }
                     mView.onComplete();
                 } catch (Exception e) {

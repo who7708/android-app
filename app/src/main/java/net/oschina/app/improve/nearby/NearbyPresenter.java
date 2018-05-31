@@ -77,7 +77,7 @@ class NearbyPresenter implements NearbyContract.Presenter {
     @Override
     public void updateNearbyInfoList(RadarNearbyResult result) {
         if (result == null) {
-            mView.showMoreMore();
+            mView.showNotMore();
             mView.onComplete();
             return;
         }
@@ -85,7 +85,7 @@ class NearbyPresenter implements NearbyContract.Presenter {
         //pageNum==0，表示初始化数据，有可能是刷新，也有可能是第一次加载
         List<RadarNearbyInfo> infoList = result.infoList;
         if (infoList == null || infoList.size() == 0) {
-            mView.showMoreMore();
+            mView.showNotMore();
             return;
         }
         List<NearbyResult> items = new ArrayList<>();

@@ -34,4 +34,14 @@ public class Tags implements Serializable{
     public void setRelated(boolean related) {
         this.related = related;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null)
+            return false;
+        if(obj instanceof Tags){
+            return ((Tags) obj).id == id;
+        }
+        return super.equals(obj);
+    }
 }

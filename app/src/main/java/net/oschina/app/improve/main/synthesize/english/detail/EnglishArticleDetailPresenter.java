@@ -64,7 +64,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         try {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -86,15 +86,15 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                                 }
                                 mView.onRefreshSuccess(list);
                                 if (list.size() == 0) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }
@@ -112,7 +112,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         try {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -134,7 +134,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                                 }
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() == 0) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
                                 mView.showNetworkError(R.string.footer_type_net_error);
@@ -142,7 +142,7 @@ class EnglishArticleDetailPresenter implements EnglishArticleDetailContract.Pres
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }

@@ -69,13 +69,13 @@ class UserCollectionPresenter implements UserCollectionContract.Presenter {
                         List<Collection> items;
                         if (resultBean.getCode() == 1) {
                             if(resultBean.getResult() == null){
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }else {
                                 mNextPageToken = resultBean.getResult().getNextPageToken();
                                 items = resultBean.getResult().getItems();
                                 mView.onRefreshSuccess(items);
                                 if (items == null || items.size() < 20)
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                             }
                         } else {
                             mView.showNetworkError(R.string.tip_network_error);
@@ -114,13 +114,13 @@ class UserCollectionPresenter implements UserCollectionContract.Presenter {
                         List<Collection> items;
                         if (resultBean.getCode() == 1) {
                             if(resultBean.getResult() == null){
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }else {
                                 mNextPageToken = resultBean.getResult().getNextPageToken();
                                 items = resultBean.getResult().getItems();
                                 mView.onLoadMoreSuccess(items);
                                 if (items == null || items.size() < 20)
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                             }
                         } else {
                             mView.showNetworkError(R.string.tip_network_error);

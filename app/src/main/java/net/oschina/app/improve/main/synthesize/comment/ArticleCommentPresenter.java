@@ -43,7 +43,7 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         try {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -62,15 +62,15 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
                                 List<Comment> list = pageBean.getItems();
                                 mView.onRefreshSuccess(list);
                                 if (list.size() < 20) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }
@@ -85,7 +85,7 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         try {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -104,15 +104,15 @@ class ArticleCommentPresenter implements ArticleCommentContract.Presenter {
                                 List<Comment> list = pageBean.getItems();
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() < 20) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }

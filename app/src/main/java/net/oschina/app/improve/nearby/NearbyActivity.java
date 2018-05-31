@@ -321,7 +321,7 @@ public class NearbyActivity extends BackActivity implements
     }
 
     @Override
-    public void showMoreMore() {
+    public void showNotMore() {
         if (isDestroy())
             return;
         mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);

@@ -40,6 +40,7 @@ import net.oschina.app.improve.user.activities.UserTweetActivity;
 import net.oschina.app.improve.user.collection.UserCollectionActivity;
 import net.oschina.app.improve.user.data.MyDataActivity;
 import net.oschina.app.improve.user.event.UserEventActivity;
+import net.oschina.app.improve.user.tags.UserTagsActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.improve.utils.UiUtil;
 import net.oschina.app.improve.widget.PortraitView;
@@ -419,7 +420,7 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
             R.id.iv_logo_setting, R.id.iv_logo_zxing, R.id.iv_portrait,
             R.id.user_view_solar_system, R.id.ly_tweet, R.id.ly_favorite,
             R.id.ly_following, R.id.ly_follower, R.id.rl_message,
-            R.id.rl_blog, R.id.rl_read, R.id.rl_share,
+            R.id.rl_blog, R.id.rl_read, R.id.rl_share, R.id.rl_info_tags,
             R.id.rl_info_question, R.id.rl_info_activities, R.id.rl_team
     })
     @Override
@@ -480,6 +481,9 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
                     break;
                 case R.id.rl_read:
                     ReadHistoryActivity.show(mContext);
+                    break;
+                case R.id.rl_info_tags:
+                    UserTagsActivity.show(mContext);
                     break;
                 case R.id.rl_share:
                     if (mShareDialog == null) {

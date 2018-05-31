@@ -60,10 +60,10 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
                                     mToken = result.getNextPageToken();
                                     if (result.getSoftwares() == null ||
                                             result.getSoftwares().size() < 20) {
-                                        mView.showMoreMore();
+                                        mView.showNotMore();
                                     }
                                 } else {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
                                 mView.showNetworkError(R.string.network_timeout_hint);
@@ -104,10 +104,10 @@ class SearchSoftwarePresenter implements SearchSoftwareContract.Presenter {
                                     mToken = result.getNextPageToken();
                                     if (result.getSoftwares() == null ||
                                             result.getSoftwares().size() < 20) {
-                                        mView.showMoreMore();
+                                        mView.showNotMore();
                                     }
                                 } else {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
                                 mView.showNetworkError(R.string.network_timeout_hint);

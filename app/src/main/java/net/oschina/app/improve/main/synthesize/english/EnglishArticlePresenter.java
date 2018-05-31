@@ -65,7 +65,7 @@ class EnglishArticlePresenter implements EnglishArticleContract.Presenter {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         try {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -89,15 +89,15 @@ class EnglishArticlePresenter implements EnglishArticleContract.Presenter {
                                 CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                                 mView.onRefreshSuccess(list);
                                 if (list.size() == 0) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }
@@ -132,15 +132,15 @@ class EnglishArticlePresenter implements EnglishArticleContract.Presenter {
                                 }
                                 mView.onLoadMoreSuccess(list);
                                 if (list.size() == 0) {
-                                    mView.showMoreMore();
+                                    mView.showNotMore();
                                 }
                             } else {
-                                mView.showMoreMore();
+                                mView.showNotMore();
                             }
                             mView.onComplete();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            mView.showMoreMore();
+                            mView.showNotMore();
                             mView.onComplete();
                         }
                     }

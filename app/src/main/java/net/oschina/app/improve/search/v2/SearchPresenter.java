@@ -1,7 +1,6 @@
 package net.oschina.app.improve.search.v2;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -52,14 +51,12 @@ class SearchPresenter implements SearchContract.Presenter {
                 new TextHttpResponseHandler() {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.e("onFailure", "" + responseString);
                         mView.showSearchFailure(R.string.network_timeout_hint);
                         mView.onComplete();
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.e("onSuccess", "" + responseString);
                         try {
                             ResultBean<SearchBean> bean = new Gson().fromJson(responseString, getType());
                             if (bean != null) {

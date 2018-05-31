@@ -341,7 +341,7 @@
 
         <activity
             android:name=".improve.user.tags.UserTagsActivity"
-            android:label="推荐标签"
+            android:label="关注标签"
             android:screenOrientation="portrait"
             android:theme="@style/App.Theme.Tweet.Main"
             android:windowSoftInputMode="adjustResize" />

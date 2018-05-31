@@ -54,9 +54,9 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
                         mView.onRefreshSuccess(list);
                         mView.onRequestSuccess();
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         } else {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                         mView.onComplete();
                     }
@@ -91,9 +91,9 @@ class TweetCommentPresenter implements TweetCommentContract.Presenter {
                         mView.onLoadMoreSuccess(list);
                         mView.onRequestSuccess();
                         if (list.size() == 0) {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         } else {
-                            mView.showMoreMore();
+                            mView.showNotMore();
                         }
                         mView.onComplete();
                     }
