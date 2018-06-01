@@ -40,9 +40,13 @@ import net.oschina.app.improve.bean.Tags;
         TagHolder h = (TagHolder) holder;
         h.mTextTag.setText(item.getName());
         if(item.isRelated()){
+            h.mTextRelate.setBackgroundResource(R.drawable.selector_related);
             h.mTextRelate.setText("取消关注");
+            h.mTextRelate.setTextColor(0xFF6a6a6a);
         }else {
+            h.mTextRelate.setBackgroundResource(R.drawable.selector_event_sign_up);
             h.mTextRelate.setText("关注标签");
+            h.mTextRelate.setTextColor(0xFFFFFFFF);
         }
     }
 
