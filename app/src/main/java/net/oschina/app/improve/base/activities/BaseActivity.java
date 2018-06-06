@@ -3,6 +3,8 @@ package net.oschina.app.improve.base.activities;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +40,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public static boolean IS_ACTIVE = true;
     private static boolean isMiUi = false;
     public static boolean hasSetStatusBarColor;//是否需要单独设置状态栏颜色
-    private final String mPackageNameUmeng = this.getClass().getName();
     private Fragment mFragment;
 
     @Override
@@ -200,6 +201,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
      * @param window 需要设置的窗口
      * @return boolean 成功执行返回true
      */
+    @SuppressWarnings("JavaReflectionMemberAccess")
     private static boolean setMeizuDarkMode(Window window) {
         boolean result = false;
         if (Build.VERSION.SDK_INT >= 24) {
@@ -299,5 +301,23 @@ public abstract class BaseActivity extends SwipeBackActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.fontScale != 1)//非默认值
+            getResources();
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        if (res.getConfiguration().fontScale != 1) {//非默认值
+            Configuration newConfig = new Configuration();
+            newConfig.setToDefaults();//设置默认
+            res.updateConfiguration(newConfig, res.getDisplayMetrics());
+        }
+        return res;
     }
 }

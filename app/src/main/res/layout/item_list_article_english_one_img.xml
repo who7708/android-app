@@ -49,7 +49,7 @@
                     android:textColor="@color/text_title_color"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText,UnusedAttribute" />
             </FrameLayout>
 
             <TextView
