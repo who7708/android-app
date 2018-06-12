@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
@@ -12,6 +13,8 @@ import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.bean.Launcher;
 import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.util.UIHelper;
+
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -58,6 +61,7 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
         isClickAd = false;
         Glide.with(mContext)
                 .load(OSCApplication.getInstance().getCacheDir() + "/launcher")
+                .signature(new StringSignature(UUID.randomUUID().toString()))
                 .fitCenter()
                 .into(mImageAd);
         mCountDownView.setListener(new CountDownView.OnProgressListener() {

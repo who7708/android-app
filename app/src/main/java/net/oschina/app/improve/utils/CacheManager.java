@@ -75,6 +75,18 @@ public final class CacheManager {
         return false;
     }
 
+    /**
+     * 移除缓存
+     */
+    @SuppressWarnings("all")
+    public static void removeCahche(Context context, String fileName) {
+        String path = context.getCacheDir() + "/" + fileName;
+        File file = new File(path);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
+
     public static boolean saveToJson(Context context, String fileName, Object object) {
         String json = new Gson().toJson(object);
         String path = context.getCacheDir() + "/" + fileName;

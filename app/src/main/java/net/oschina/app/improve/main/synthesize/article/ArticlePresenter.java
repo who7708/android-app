@@ -42,7 +42,6 @@ class ArticlePresenter implements ArticleContract.Presenter {
     ArticlePresenter(ArticleContract.View nView) {
         this.mView = nView;
         this.mView.setPresenter(this);
-        getLaunch();
     }
 
     @Override
@@ -56,6 +55,7 @@ class ArticlePresenter implements ArticleContract.Presenter {
 
     @Override
     public void onRefreshing() {
+        getLaunch();
         OSChinaApi.getArticles(
                 OSCSharedPreference.getInstance().getDeviceUUID(),
                 "",
@@ -179,6 +179,8 @@ class ArticlePresenter implements ArticleContract.Presenter {
                     if (bean != null && bean.isSuccess() && bean.getResult() != null) {
                         CacheManager.saveToJson(OSCApplication.getInstance(), "Launcher.json", bean.getResult());
                         saveAdImage(bean.getResult());
+                    }else {
+                        CacheManager.removeCahche(OSCApplication.getInstance(), "Launcher.json");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
