@@ -103,6 +103,9 @@ android {
         huawei {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "huawei"]
         }
+        lenovo {
+            manifestPlaceholders = [BaiduMobAd_CHANNEL: "lenovo"]
+        }
         meizu {
             manifestPlaceholders = [BaiduMobAd_CHANNEL: "meizu"]
         }

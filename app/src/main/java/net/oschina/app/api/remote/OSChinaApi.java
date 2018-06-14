@@ -2148,6 +2148,14 @@ public class OSChinaApi {
 
 
     /**
+     * 获取微信公众号解析规则
+     * @param handler handler
+     */
+    public static void getWXRule(TextHttpResponseHandler handler) {
+        ApiHttpClient.get("action/apiv2/wechat_title_rule", handler);
+    }
+
+    /**
      * 阅读记录
      *
      * @param handler handler

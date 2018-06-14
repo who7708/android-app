@@ -24,10 +24,33 @@ import cz.msebera.android.httpclient.Header;
 
 class PubArticlePresenter implements PubArticleContract.Presenter {
     private final PubArticleContract.View mView;
+    private static String rule = null;
 
     PubArticlePresenter(PubArticleContract.View mView) {
         this.mView = mView;
         this.mView.setPresenter(this);
+        getWXRule();
+    }
+
+    private void getWXRule() {
+        OSChinaApi.getWXRule(new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                try {
+                    Type type = new TypeToken<ResultBean<String>>() {
+                    }.getType();
+                    ResultBean<String> bean = new Gson().fromJson(responseString, type);
+                    rule = bean.getResult();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -66,6 +89,7 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
     }
 
     private static final AsyncHttpClient mClient = new AsyncHttpClient();
+
     @Override
     public void getTitle(String url) {
         mClient.get(url, new TextHttpResponseHandler() {
@@ -106,9 +130,14 @@ class PubArticlePresenter implements PubArticleContract.Presenter {
     }
 
     private static String matcherTitle(String response) {
-        Pattern pattern = Pattern.compile("<[^!][^(title)]+[^(script)]+[^>]+>([^<][^>]+)</[[^!]^(title)]+[^(script)]+[^>]+>");
+        Pattern pattern ;
+        if(TextUtils.isEmpty(rule)){
+            pattern = Pattern.compile("<[^!][^(title)][^(script)][^>]+>([^<][^>]+)</[^!][^(title)][^(script)][^>]+>");
+        }else {
+            pattern = Pattern.compile(rule);
+        }
         Matcher matcher = pattern.matcher(response);
-        if(matcher.find()){
+        if (matcher.find()) {
             return matcher.group(1).trim();
         }
         return "获取标题失败";
