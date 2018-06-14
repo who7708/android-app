@@ -232,6 +232,12 @@ public class ArticleWebActivity extends WebActivity implements ArticleWebContrac
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ClipManager.IS_SYSTEM_URL = false;

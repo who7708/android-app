@@ -35,6 +35,7 @@ import net.oschina.app.improve.comment.CommentsActivity;
 import net.oschina.app.improve.detail.db.Behavior;
 import net.oschina.app.improve.detail.db.DBManager;
 import net.oschina.app.improve.dialog.ShareDialog;
+import net.oschina.app.improve.main.MainActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.tweet.service.TweetPublishService;
 import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
@@ -656,5 +657,21 @@ public abstract class DetailActivity extends BackActivity implements
 
 
         abstract void onMultiTouch(View v, MotionEvent event, int touchCount);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!MainActivity.IS_SHOW){
+            MainActivity.show(this);
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!MainActivity.IS_SHOW){
+            MainActivity.show(this);
+        }
     }
 }

@@ -16,6 +16,7 @@ import net.oschina.app.improve.main.update.OSCSharedPreference;
 import net.oschina.app.improve.utils.CacheManager;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -69,13 +70,16 @@ class SubPresenter implements SubContract.Presenter {
                         mView.onUpdateTime(resultBean.getTime());
                         mNextToken = pageBean.getNextPageToken();
                         List<SubBean> list = pageBean.getItems();
+
                         CacheManager.saveToJson(OSCApplication.getInstance(), CACHE_NAME, list);
                         mView.onRefreshSuccess(list);
                         mView.updateKey();
                         if (list.size() == 0) {
                             mView.showNotMore();
                         }
+
                         if(mTab.getType() == 6){
+                            Collections.sort(list);
                             SubBean bean = list.get(0);
                             OSCSharedPreference.getInstance().putTheNewsId(bean.getNewsId());
                             if(SAVE_ID){

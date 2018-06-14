@@ -1,5 +1,8 @@
 package net.oschina.app.improve.main.splash;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,7 +10,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import net.oschina.app.improve.media.Util;
 
@@ -89,7 +94,29 @@ public class CountDownView extends View implements Runnable {
     }
 
     public void start() {
-        postDelayed(this, 1000 * mCount / 180);
+        //postDelayed(this, 1000 * mCount / 180);
+        ValueAnimator animator = ValueAnimator.ofInt(0, 360);
+        animator.setDuration(5000);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                if (isCancel) {
+                    return;
+                }
+                mProgress = (int)animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (mListener != null) {
+                    mListener.onFinish();
+                }
+            }
+        });
+        animator.start();
     }
 
     public void cancel() {

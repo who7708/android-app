@@ -75,6 +75,7 @@ import static net.oschina.app.improve.search.activities.NearbyActivity.LOCATION_
 public class MainActivity extends BaseActivity implements NavFragment.OnNavigationReselectListener,
         EasyPermissions.PermissionCallbacks, CheckUpdateManager.RequestPermissions {
 
+    public static boolean IS_SHOW = false;
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
     public static final String ACTION_NOTICE = "ACTION_NOTICE";
     private long mBackPressedTime;
@@ -93,6 +94,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
 
 
     public static void show(Context context) {
+        IS_SHOW = true;
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
@@ -108,6 +110,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
     @Override
     protected void initWidget() {
         super.initWidget();
+        IS_SHOW = true;
         setSwipeBackEnable(false);
         setStatusBarDarkMode();
         FragmentManager manager = getSupportFragmentManager();
@@ -312,6 +315,7 @@ public class MainActivity extends BaseActivity implements NavFragment.OnNavigati
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        IS_SHOW = false;
         NoticeManager.stopListen(this);
         releaseLbs();
         ClipManager.unregister();

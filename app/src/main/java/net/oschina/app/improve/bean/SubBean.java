@@ -1,5 +1,8 @@
 package net.oschina.app.improve.bean;
 
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
+
 import net.oschina.app.improve.bean.simple.About;
 import net.oschina.app.improve.bean.simple.Author;
 
@@ -13,7 +16,7 @@ import java.util.List;
  * on 2016/10/26.
  */
 
-public class SubBean implements Serializable {
+public class SubBean implements Serializable ,Comparable<SubBean>{
     private static final long serialVersionUID = -5343222344464021662L;
     private String cacheKey;
 
@@ -219,6 +222,23 @@ public class SubBean implements Serializable {
         if (cacheKey == null)
             cacheKey = String.format("t:%s,id:%s", getType(), getId() == 0 ? getHref().hashCode() : getId());
         return cacheKey;
+    }
+
+    @Override
+    public int compareTo(@NonNull SubBean o) {
+        if(TextUtils.isEmpty(o.getPubDate()))
+            return 1;
+        if(TextUtils.isEmpty(pubDate)){
+            return -1;
+        }
+        int c = pubDate.compareTo(o.getPubDate());//倒序排序
+        if(c >= 1){
+            return -1;
+        }
+        if(c < 0){
+            return 1;
+        }
+        return 0;
     }
 
     public static class Image implements Serializable {

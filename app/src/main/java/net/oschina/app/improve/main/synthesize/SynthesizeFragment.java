@@ -201,9 +201,9 @@ public class SynthesizeFragment extends BasePagerFragment implements
         fragments.add(ArticleFragment.newInstance());
         fragments.add(getSubFragment(6,
                 "开源资讯",
-                "https://www.oschina.net/action/apiv2/sub_list?token=d6112fa662bc4bf21084670a857fbd20",
+                "https://www.oschina.net/action/apiv2/sub_list?token=e6142fa662bc4bf21083870a957fbd20",
                 1,
-                "d6112fa662bc4bf21084670a857fbd20"));
+                "e6142fa662bc4bf21083870a957fbd20"));
         fragments.add(getSubFragment(2,
                 "技术问答",
                 "https://www.oschina.net/action/apiv2/sub_list?token=98d04eb58a1d12b75d254deecbc83790",

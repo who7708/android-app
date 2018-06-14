@@ -1,6 +1,7 @@
 package net.oschina.app.improve.main.splash;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -79,8 +80,8 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
             public void onClick(View v) {
                 if (isClickAd || mContext == null)
                     return;
-                MainActivity.show(mContext);
                 mCountDownView.cancel();
+                MainActivity.show(mContext);
                 getActivity().finish();
             }
         });
@@ -90,8 +91,11 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
     @OnClick({R.id.iv_ad, R.id.iv_logo})
     @Override
     public void onClick(View v) {
+        if (TextUtils.isEmpty(mLauncher.getHref())) {
+            return;
+        }
         isClickAd = true;
-        MainActivity.show(mContext);
+        mCountDownView.cancel();
         UIHelper.showUrlRedirect(mContext, mLauncher.getHref());
         getActivity().finish();
     }

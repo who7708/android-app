@@ -223,6 +223,9 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         if (mWebView.canGoBack()) {
             mWebView.goBack();
         } else {
+            if(!MainActivity.IS_SHOW){
+                MainActivity.show(this);
+            }
             super.onBackPressed();
         }
     }
@@ -232,6 +235,9 @@ public class WebActivity extends BackActivity implements OSCWebView.OnFinishList
         super.onDestroy();
         if (mWebView != null) {
             mWebView.onDestroy();
+        }
+        if(!MainActivity.IS_SHOW){
+            MainActivity.show(this);
         }
     }
 }

@@ -15,6 +15,11 @@ import net.oschina.app.improve.bean.SubBean;
 import net.oschina.app.improve.bean.SubTab;
 import net.oschina.app.improve.bean.base.PageBean;
 import net.oschina.app.improve.bean.base.ResultBean;
+import net.oschina.app.improve.detail.general.BlogDetailActivity;
+import net.oschina.app.improve.detail.general.EventDetailActivity;
+import net.oschina.app.improve.detail.general.NewsDetailActivity;
+import net.oschina.app.improve.detail.general.QuestionDetailActivity;
+import net.oschina.app.improve.detail.general.SoftwareDetailActivity;
 import net.oschina.app.improve.main.banner.EventHeaderView;
 import net.oschina.app.improve.main.header.BlogHeaderView;
 import net.oschina.app.improve.main.header.HeaderView;
@@ -23,6 +28,8 @@ import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by haibin
@@ -94,28 +101,22 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
             return;
         switch (sub.getType()) {
             case News.TYPE_SOFTWARE:
-                //SoftwareDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.SoftwareDetailActivity.show(mContext, sub);
+                SoftwareDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_QUESTION:
-                //QuestionDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.QuestionDetailActivity.show(mContext, sub);
+                QuestionDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_BLOG:
-                //BlogDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.BlogDetailActivity.show(mContext, sub);
+                BlogDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_TRANSLATE:
-                //TranslateDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, sub);
+                NewsDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_EVENT:
-                //EventDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.EventDetailActivity.show(mContext, sub);
+                EventDetailActivity.show(mContext, sub);
                 break;
             case News.TYPE_NEWS:
-                //NewsDetailActivity.show(mContext, sub.getId());
-                net.oschina.app.improve.detail.general.NewsDetailActivity.show(mContext, sub);
+                NewsDetailActivity.show(mContext, sub);
                 break;
             default:
                 UIHelper.showUrlRedirect(mContext, sub.getHref());
@@ -145,19 +146,28 @@ public class SubFragment extends BaseGeneralRecyclerFragment<SubBean> {
     protected void setListData(ResultBean<PageBean<SubBean>> resultBean) {
         super.setListData(resultBean);
         mAdapter.setSystemTime(resultBean.getTime());
-        if( mTab!= null &&
+        if (mTab != null &&
                 mTab.getType() == 6 &&
-                mAdapter.getItems().size() != 0){
+                mAdapter.getItems().size() != 0) {
             SubBean bean = mAdapter.getItem(0);
-            if(bean == null)
+            if (bean == null)
                 return;
             OSCSharedPreference.getInstance().putTheNewsId(bean.getNewsId());
-            if(SAVE_ID){
+            if (SAVE_ID) {
                 OSCSharedPreference.getInstance().putLastNewsId(bean.getNewsId());
                 ApiHttpClient.setHeaderNewsId();
             }
         }
     }
+
+
+    private SubBean getLastSubBean(List<SubBean> beans) {
+        if (beans == null || beans.size() == 0)
+            return null;
+        Collections.sort(beans);
+        return beans.get(0);
+    }
+
 
     @Override
     protected BaseRecyclerAdapter<SubBean> getRecyclerAdapter() {

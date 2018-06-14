@@ -366,9 +366,6 @@ public class UIHelper {
 
     /**
      * 打开内置浏览器
-     *
-     * @param context
-     * @param url
      */
     public static void openInternalBrowser(Context context, String url) {
         try {
@@ -384,9 +381,6 @@ public class UIHelper {
 
     /**
      * 打开外置的浏览器
-     *
-     * @param context
-     * @param url
      */
     public static void openExternalBrowser(Context context, String url) {
         Uri uri = Uri.parse(url);
