@@ -2,8 +2,9 @@
 package net.oschina.app.improve.base.activities.swipe;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SwipeBackActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private SwipeBackActivityHelper mHelper;
@@ -24,8 +25,9 @@ public class SwipeBackActivity extends AppCompatActivity implements SwipeBackAct
     @Override
     public View findViewById(int id) {
         View v = super.findViewById(id);
-        if (v == null && mHelper != null)
+        if (v == null && mHelper != null) {
             return mHelper.findViewById(id);
+        }
         return v;
     }
 

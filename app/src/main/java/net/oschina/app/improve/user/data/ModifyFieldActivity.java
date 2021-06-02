@@ -2,8 +2,8 @@ package net.oschina.app.improve.user.data;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,7 +23,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -35,7 +35,7 @@ public class ModifyFieldActivity extends BackActivity {
 
     static final int TYPE_FIELD = 5;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecyclerField;
     private FieldAdapter mAdapter;
 

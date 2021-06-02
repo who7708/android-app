@@ -11,7 +11,7 @@ import net.oschina.app.util.HTMLUtil;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.widget.AvatarView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,20 +24,20 @@ public class TeamDiscussAdapter extends ListBaseAdapter<TeamDiscuss> {
 
     static class ViewHolder {
 
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView title;
-        @Bind(R.id.tv_description)
+        @BindView(R.id.tv_description)
         TextView description;
-        @Bind(R.id.tv_author)
+        @BindView(R.id.tv_author)
         TextView author;
-        @Bind(R.id.tv_date)
+        @BindView(R.id.tv_date)
         TextView time;
-        @Bind(R.id.tv_count)
+        @BindView(R.id.tv_count)
         TextView comment_count;
-        @Bind(R.id.tv_vote_up)
+        @BindView(R.id.tv_vote_up)
         TextView vote_up;
 
-        @Bind(R.id.iv_face)
+        @BindView(R.id.iv_face)
         public AvatarView face;
 
         public ViewHolder(View view) {

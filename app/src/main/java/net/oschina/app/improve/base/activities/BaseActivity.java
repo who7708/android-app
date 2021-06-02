@@ -8,12 +8,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.baidu.mobstat.StatService;
 import com.bumptech.glide.Glide;
@@ -60,9 +61,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
         StatService.setDebugOn(false);
         //umeng analytics
-//        MobclickAgent.setDebugMode(false);
-//        MobclickAgent.openActivityDurationTrack(false);
-//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        //        MobclickAgent.setDebugMode(false);
+        //        MobclickAgent.openActivityDurationTrack(false);
+        //        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
     protected void addFragment(int frameLayoutId, Fragment fragment) {
@@ -100,16 +101,16 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onResume();
         ClipManager.onResume();
         StatService.onResume(this);
-//        MobclickAgent.onPageStart(this.mPackageNameUmeng);
-//        MobclickAgent.onResume(this);
+        //        MobclickAgent.onPageStart(this.mPackageNameUmeng);
+        //        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         StatService.onPause(this);
-//        MobclickAgent.onPageEnd(this.mPackageNameUmeng);
-//        MobclickAgent.onPause(this);
+        //        MobclickAgent.onPageEnd(this.mPackageNameUmeng);
+        //        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -143,11 +144,11 @@ public abstract class BaseActivity extends SwipeBackActivity {
     }
 
     public synchronized RequestManager getImageLoader() {
-        if (mImageLoader == null)
+        if (mImageLoader == null) {
             mImageLoader = Glide.with(this);
+        }
         return mImageLoader;
     }
-
 
     @Override
     protected void onDestroy() {
@@ -158,7 +159,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public boolean isDestroy() {
         return mIsDestroy;
     }
-
 
     @SuppressLint("PrivateApi")
     private void setMIUIStatusBarDarkMode() {
@@ -192,7 +192,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
             e.printStackTrace();
         }
     }
-
 
     /**
      * 设置魅族手机状态栏图标颜色风格
@@ -291,8 +290,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
         assert activityManager != null;
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
                 .getRunningAppProcesses();
-        if (appProcesses == null)
+        if (appProcesses == null) {
             return false;
+        }
 
         for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
             if (appProcess.processName.equals(packageName)
@@ -306,7 +306,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if (newConfig.fontScale != 1)//非默认值
+        {
             getResources();
+        }
         super.onConfigurationChanged(newConfig);
     }
 

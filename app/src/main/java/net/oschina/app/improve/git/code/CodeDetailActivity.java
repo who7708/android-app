@@ -3,7 +3,7 @@ package net.oschina.app.improve.git.code;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;

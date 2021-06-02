@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -17,6 +15,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -62,7 +66,6 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         EasyPermissions.PermissionCallbacks,
         Runnable {
 
-
     private MenuItem mMenuTra;
     private CommentBar mDelegation;
     private String mCommentHint;
@@ -106,8 +109,9 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         addFragment(R.id.fl_content, mFragment);
 
         LinearLayout layComment = (LinearLayout) findViewById(R.id.ll_comment);
-        if (TextUtils.isEmpty(mCommentHint))
+        if (TextUtils.isEmpty(mCommentHint)) {
             mCommentHint = getString(R.string.pub_comment_hint);
+        }
         mDelegation = CommentBar.delegation(this, layComment);
         mDelegation.setCommentHint(mCommentHint);
         mDelegation.getBottomSheet().getEditText().setHint(mCommentHint);
@@ -147,7 +151,6 @@ public class EnglishArticleDetailActivity extends BackActivity implements
             }
         });
 
-
         mDelegation.setCommentCountListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +172,9 @@ public class EnglishArticleDetailActivity extends BackActivity implements
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在提交评论...");
-                if (mDelegation == null) return;
+                if (mDelegation == null) {
+                    return;
+                }
                 mDelegation.getBottomSheet().dismiss();
                 mDelegation.setCommitButtonEnable(false);
                 mPresenter.putArticleComment(mDelegation.getBottomSheet().getCommentText(),
@@ -217,19 +222,20 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
-            getImageLoader().load(mArticle.getImgs()[0])
-                    .asBitmap()
+            getImageLoader().asBitmap()
+                    .load(mArticle.getImgs()[0])
                     .centerCrop()
-                    .listener(new RequestListener<String, Bitmap>() {
+                    .listener(new RequestListener<Bitmap>() {
                         @Override
-                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                             return false;
                         }
 
                         @Override
-                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            if (isDestroy())
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            if (isDestroy()) {
                                 return false;
+                            }
                             mShareDialog.setThumbBitmap(resource);
                             return false;
                         }
@@ -237,7 +243,6 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                     .into(Util.dipTopx(this, 80),
                             Util.dipTopx(this, 80));
         }
-
 
         mToolBar.setOnTouchListener(new OnDoubleTouchListener() {
             @Override
@@ -252,8 +257,9 @@ public class EnglishArticleDetailActivity extends BackActivity implements
     @Override
     public void showTranslateChange(boolean isEnglish) {
         dismissLoadingDialog();
-        if (mMenuTra == null)
+        if (mMenuTra == null) {
             return;
+        }
         mMenuTra.setIcon(isEnglish ? R.mipmap.ic_translate_en : R.mipmap.ic_translate);
     }
 
@@ -295,7 +301,7 @@ public class EnglishArticleDetailActivity extends BackActivity implements
                 }
                 break;
             case R.id.menu_translate:
-                if(!mPresenter.hasGetDetail()){
+                if (!mPresenter.hasGetDetail()) {
                     return false;
                 }
                 showLoadingDialog("正在获取内容...");
@@ -304,7 +310,6 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         }
         return false;
     }
-
 
     @Override
     public void onClick(View view, Comment comment) {
@@ -335,8 +340,9 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         mEmptyLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isDestroy())
+                if (isDestroy()) {
                     return;
+                }
                 mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
                 mEmptyLayout.setVisibility(View.GONE);
             }
@@ -354,10 +360,12 @@ public class EnglishArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showCommentSuccess(Comment comment) {
-        if (isDestroyed())
+        if (isDestroyed()) {
             return;
-        if (mDelegation == null)
+        }
+        if (mDelegation == null) {
             return;
+        }
         mCommentId = 0;
         mCommentAuthorId = 0;
         mDelegation.getBottomSheet().dismiss();
@@ -462,6 +470,5 @@ public class EnglishArticleDetailActivity extends BackActivity implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-
 
 }

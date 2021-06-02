@@ -3,9 +3,9 @@ package net.oschina.app.improve.search.v2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -38,7 +38,7 @@ import net.oschina.app.util.UIHelper;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -51,17 +51,17 @@ public class SearchActivity extends BackActivity implements
         BaseRecyclerAdapter.OnItemClickListener {
 
     private SearchPresenter mPresenter;
-    @Bind(R.id.view_searcher)
+    @BindView(R.id.view_searcher)
     SearchView mViewSearch;
-    @Bind(R.id.search_src_text)
+    @BindView(R.id.search_src_text)
     EditText mViewSearchEditor;
-    @Bind(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     private SearchAdapter mAdapter;
     private SearchHeaderView mHeaderView;
-    @Bind(R.id.recyclerViewHistory)
+    @BindView(R.id.recyclerViewHistory)
     RecyclerView mRecyclerViewHistory;
 
     private SearchHistoryAdapter mSearchAdapter;

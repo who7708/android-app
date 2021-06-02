@@ -4,7 +4,7 @@ package net.oschina.app.improve.user.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -38,7 +38,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -49,7 +49,7 @@ import cz.msebera.android.httpclient.Header;
 public class UserSendMessageActivity extends BaseRecyclerViewActivity<Message>
         implements BaseRecyclerAdapter.OnItemLongClickListener {
 
-    @Bind(R.id.root)
+    @BindView(R.id.root)
     CoordinatorLayout mCoordinatorLayout;
     private KeyboardInputDelegation mDelegation;
 

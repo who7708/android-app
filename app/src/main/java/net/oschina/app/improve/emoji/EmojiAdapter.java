@@ -1,7 +1,7 @@
 package net.oschina.app.improve.emoji;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;

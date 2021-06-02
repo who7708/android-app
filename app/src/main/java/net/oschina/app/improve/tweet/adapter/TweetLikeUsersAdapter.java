@@ -1,7 +1,7 @@
 package net.oschina.app.improve.tweet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.UIHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -62,11 +62,11 @@ public class TweetLikeUsersAdapter extends BaseRecyclerAdapter<TweetLike> {
     }
 
     public static final class LikeUsersHolderView extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView identityView;
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         PortraitView ivPortrait;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
 
         public LikeUsersHolderView(View view) {

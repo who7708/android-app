@@ -19,7 +19,7 @@ import net.oschina.app.improve.search.v2.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -29,13 +29,13 @@ import butterknife.OnClick;
 
 public class ExploreFragment extends BaseTitleFragment implements View.OnClickListener, OnTabReselectListener {
 
-    @Bind(R.id.rl_soft)
+    @BindView(R.id.rl_soft)
     View mRlActive;
 
-    @Bind(R.id.rl_scan)
+    @BindView(R.id.rl_scan)
     View mScan;
 
-    @Bind(R.id.iv_has_location)
+    @BindView(R.id.iv_has_location)
     ImageView mIvLocated;
 
     @Override

@@ -1,7 +1,7 @@
 package net.oschina.app.improve.tweet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.tweet.activities.TopicTweetActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -57,20 +57,20 @@ public class TopicTweetAdapter extends BaseRecyclerAdapter implements View.OnCli
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.iv_wallpaper)
+        @BindView(R.id.iv_wallpaper)
         ImageView mViewWallpaper;
-        @Bind(R.id.layout_item_1)
+        @BindView(R.id.layout_item_1)
         LinearLayout mLayoutItem1;
-        @Bind(R.id.layout_item_2)
+        @BindView(R.id.layout_item_2)
         LinearLayout mLayoutItem2;
-        @Bind(R.id.layout_item_3)
+        @BindView(R.id.layout_item_3)
         LinearLayout mLayoutItem3;
-        @Bind(R.id.layout_bottom)
+        @BindView(R.id.layout_bottom)
         RelativeLayout mLayoutBottom;
-        @Bind(R.id.tv_count)
+        @BindView(R.id.tv_count)
         TextView mViewCount;
 
-        @Bind(R.id.layout_wrapper)
+        @BindView(R.id.layout_wrapper)
         LinearLayout mLayoutWrapper;
 
         public ViewHolder(View view) {

@@ -2,7 +2,7 @@ package net.oschina.app.improve.tweet.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.google.gson.reflect.TypeToken;

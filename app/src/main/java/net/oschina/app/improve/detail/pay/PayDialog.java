@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -90,8 +90,8 @@ public class PayDialog extends Dialog implements View.OnClickListener {
         });
 
         Glide.with(getContext())
-                .load(mBean.getAuthor().getPortrait())
                 .asBitmap()
+                .load(mBean.getAuthor().getPortrait())
                 .placeholder(R.mipmap.widget_default_face)
                 .error(R.mipmap.widget_default_face)
                 .into(mPortrait);

@@ -7,15 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
@@ -71,12 +72,13 @@ public class AccountBaseActivity extends BaseActivity {
         super.onDestroy();
         try {
             hideKeyBoard(getCurrentFocus().getWindowToken());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (mManager != null) {
-            if (mReceiver != null)
+            if (mReceiver != null) {
                 mManager.unregisterReceiver(mReceiver);
+            }
         }
     }
 
@@ -168,11 +170,12 @@ public class AccountBaseActivity extends BaseActivity {
      * register localReceiver
      */
     private void registerLocalReceiver() {
-        if (mManager == null)
+        if (mManager == null) {
             mManager = LocalBroadcastManager.getInstance(this);
+        }
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_ACCOUNT_FINISH_ALL);
-        if (mReceiver == null)
+        if (mReceiver == null) {
             mReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -182,6 +185,7 @@ public class AccountBaseActivity extends BaseActivity {
                     }
                 }
             };
+        }
         mManager.registerReceiver(mReceiver, filter);
     }
 
@@ -245,11 +249,13 @@ public class AccountBaseActivity extends BaseActivity {
     }
 
     protected void hideKeyBoard(IBinder windowToken) {
-        if(windowToken == null){
+        if (windowToken == null) {
             return;
         }
         InputMethodManager inputMethodManager = this.mInputMethodManager;
-        if (inputMethodManager == null) return;
+        if (inputMethodManager == null) {
+            return;
+        }
         boolean active = inputMethodManager.isActive();
         if (active) {
             inputMethodManager.hideSoftInputFromWindow(windowToken, 0);

@@ -2,7 +2,7 @@ package net.oschina.app.improve.search.software;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +12,7 @@ import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.TDevice;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -22,9 +22,9 @@ import butterknife.OnClick;
 public class SearchSoftwareActivity extends BackActivity implements
         View.OnClickListener,
         SearchSoftwareContract.ActionView {
-    @Bind(R.id.view_searcher)
+    @BindView(R.id.view_searcher)
     SearchView mViewSearch;
-    @Bind(R.id.search_src_text)
+    @BindView(R.id.search_src_text)
     EditText mViewSearchEditor;
     private SearchSoftwarePresenter mPresenter;
 

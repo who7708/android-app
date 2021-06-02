@@ -1,16 +1,17 @@
 package net.oschina.app.improve.user.tags;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Tags;
 
- class TagAdapter extends BaseRecyclerAdapter<Tags> {
+class TagAdapter extends BaseRecyclerAdapter<Tags> {
 
     private OnViewClickListener mDeleteListener;
 
@@ -43,7 +44,6 @@ import net.oschina.app.improve.bean.Tags;
     private static final class TagHolder extends RecyclerView.ViewHolder {
         private TextView mTextTag;
         private TextView mTextDelete;
-
 
         private TagHolder(View itemView) {
             super(itemView);

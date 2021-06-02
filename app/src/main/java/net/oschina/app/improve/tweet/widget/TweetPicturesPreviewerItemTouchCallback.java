@@ -1,9 +1,10 @@
 package net.oschina.app.improve.tweet.widget;
 
 import android.graphics.Canvas;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by JuQiu
@@ -127,7 +128,6 @@ public class TweetPicturesPreviewerItemTouchCallback extends ItemTouchHelper.Cal
          */
         boolean onItemMove(int fromPosition, int toPosition);
 
-
         /**
          * Called when an item has been dismissed by a swipe.<br/>
          * <br/>
@@ -141,10 +141,8 @@ public class TweetPicturesPreviewerItemTouchCallback extends ItemTouchHelper.Cal
         void onItemDismiss(int position);
     }
 
-
     /**
-     * Interface to notify an item ViewHolder of relevant callbacks from {@link
-     * android.support.v7.widget.helper.ItemTouchHelper.Callback}.
+     * Interface to notify an item ViewHolder of relevant callbacks from {@link ItemTouchHelper.Callback}.
      */
     public interface ItemTouchHelperViewHolder {
 
@@ -153,7 +151,6 @@ public class TweetPicturesPreviewerItemTouchCallback extends ItemTouchHelper.Cal
          * Implementations should update the item view to indicate it's active state.
          */
         void onItemSelected();
-
 
         /**
          * Called when the {@link ItemTouchHelper} has completed the move or swipe, and the active item

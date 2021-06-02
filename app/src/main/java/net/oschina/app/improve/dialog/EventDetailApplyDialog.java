@@ -19,33 +19,33 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventDetailApplyDialog extends CommonDialog implements
         View.OnClickListener {
 
-    @Bind(R.id.et_name)
+    @BindView(R.id.et_name)
     EditText mName;
 
-    @Bind(R.id.rb_male)
+    @BindView(R.id.rb_male)
     RadioButton rb_male;
 
     private String[] genders;
 
-    @Bind(R.id.et_phone)
+    @BindView(R.id.et_phone)
     EditText mMobile;
 
-    @Bind(R.id.et_company)
+    @BindView(R.id.et_company)
     EditText mCompany;
 
-    @Bind(R.id.et_job)
+    @BindView(R.id.et_job)
     EditText mJob;
 
-    @Bind(R.id.tv_remarks_tip)
+    @BindView(R.id.tv_remarks_tip)
     TextView mTvRemarksTip;// 备注提示
 
-    @Bind(R.id.tv_remarks_selecte)
+    @BindView(R.id.tv_remarks_selecte)
     TextView mTvRemarksSelected;// 备注选择
 
     private EventDetail mEvent;

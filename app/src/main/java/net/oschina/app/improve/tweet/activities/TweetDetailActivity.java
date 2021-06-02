@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -62,7 +62,7 @@ import net.oschina.app.widget.RecordButtonUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import cz.msebera.android.httpclient.Header;
@@ -77,44 +77,44 @@ public class TweetDetailActivity extends BackActivity implements TweetDetailCont
 
     public static final String BUNDLE_KEY_TWEET = "BUNDLE_KEY_TWEET";
 
-    @Bind(R.id.identityView)
+    @BindView(R.id.identityView)
     IdentityView mIdentityView;
-    @Bind(R.id.iv_portrait)
+    @BindView(R.id.iv_portrait)
     PortraitView ivPortrait;
-    @Bind(R.id.tv_nick)
+    @BindView(R.id.tv_nick)
     TextView tvNick;
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.tv_client)
+    @BindView(R.id.tv_client)
     TextView tvClient;
-//    @Bind(R.id.iv_thumbup)
+//    @BindView(R.id.iv_thumbup)
 //    ImageView ivThumbup;
-    @Bind(R.id.layout_coordinator)
+    @BindView(R.id.layout_coordinator)
     CoordinatorLayout mCoordinatorLayout;
-    @Bind(R.id.fragment_container)
+    @BindView(R.id.fragment_container)
     FrameLayout mFrameLayout;
-    @Bind(R.id.tweet_img_record)
+    @BindView(R.id.tweet_img_record)
     ImageView mImgRecord;
-    @Bind(R.id.tweet_tv_record)
+    @BindView(R.id.tweet_tv_record)
     TextView mSecondRecord;
-    @Bind(R.id.tweet_bg_record)
+    @BindView(R.id.tweet_bg_record)
     RelativeLayout mRecordLayout;
-    @Bind(R.id.tv_content)
+    @BindView(R.id.tv_content)
     TextView mContent;
-    @Bind(R.id.tweet_pics_layout)
+    @BindView(R.id.tweet_pics_layout)
     TweetPicturesLayout mLayoutGrid;
-    @Bind(R.id.tv_ref_title)
+    @BindView(R.id.tv_ref_title)
     TextView mViewRefTitle;
-    @Bind(R.id.tv_ref_content)
+    @BindView(R.id.tv_ref_content)
     TextView mViewRefContent;
-    @Bind(R.id.layout_ref_images)
+    @BindView(R.id.layout_ref_images)
     TweetPicturesLayout mLayoutRefImages;
-//    @Bind(R.id.iv_dispatch)
+//    @BindView(R.id.iv_dispatch)
 //    ImageView mViewDispatch;
-    @Bind(R.id.layout_ref)
+    @BindView(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
-    @Bind(R.id.fl_footer)
+    @BindView(R.id.fl_footer)
     FrameLayout mFrameFooter;
     private Tweet tweet;
     private final List<TweetComment> replies = new ArrayList<>();

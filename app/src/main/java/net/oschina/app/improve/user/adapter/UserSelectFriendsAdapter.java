@@ -1,6 +1,6 @@
 package net.oschina.app.improve.user.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ import net.oschina.app.util.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -158,15 +158,15 @@ public class UserSelectFriendsAdapter extends RecyclerView.Adapter implements Co
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_index_label)
+        @BindView(R.id.tv_index_label)
         TextView mLabel;
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         CircleImageView mCirclePortrait;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mtvName;
-        @Bind(R.id.iv_select)
+        @BindView(R.id.iv_select)
         ImageView mViewSelect;
-        @Bind(R.id.line)
+        @BindView(R.id.line)
         View mLine;
 
         ViewHolder(View itemView) {

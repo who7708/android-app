@@ -9,8 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.SharedPreferencesCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -54,7 +54,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -68,49 +68,49 @@ public class LoginActivity extends AccountBaseActivity implements View.OnClickLi
 
     public static final String HOLD_USERNAME_KEY = "holdUsernameKey";
 
-    @Bind(R.id.ly_retrieve_bar)
+    @BindView(R.id.ly_retrieve_bar)
     LinearLayout mLayBackBar;
 
-    @Bind(R.id.iv_login_logo)
+    @BindView(R.id.iv_login_logo)
     ImageView mIvLoginLogo;
 
-    @Bind(R.id.ll_login_username)
+    @BindView(R.id.ll_login_username)
     LinearLayout mLlLoginUsername;
-    @Bind(R.id.et_login_username)
+    @BindView(R.id.et_login_username)
     EditText mEtLoginUsername;
-    @Bind(R.id.iv_login_username_del)
+    @BindView(R.id.iv_login_username_del)
     ImageView mIvLoginUsernameDel;
 
-    @Bind(R.id.ll_login_pwd)
+    @BindView(R.id.ll_login_pwd)
     LinearLayout mLlLoginPwd;
-    @Bind(R.id.et_login_pwd)
+    @BindView(R.id.et_login_pwd)
     EditText mEtLoginPwd;
-    @Bind(R.id.iv_login_pwd_del)
+    @BindView(R.id.iv_login_pwd_del)
     ImageView mIvLoginPwdDel;
 
-    @Bind(R.id.iv_login_hold_pwd)
+    @BindView(R.id.iv_login_hold_pwd)
     ImageView mIvHoldPwd;
-    @Bind(R.id.tv_login_forget_pwd)
+    @BindView(R.id.tv_login_forget_pwd)
     TextView mTvLoginForgetPwd;
 
-    @Bind(R.id.bt_login_submit)
+    @BindView(R.id.bt_login_submit)
     Button mBtLoginSubmit;
-    @Bind(R.id.bt_login_register)
+    @BindView(R.id.bt_login_register)
     Button mBtLoginRegister;
 
-    @Bind(R.id.ll_login_layer)
+    @BindView(R.id.ll_login_layer)
     View mLlLoginLayer;
-    @Bind(R.id.ll_login_pull)
+    @BindView(R.id.ll_login_pull)
     LinearLayout mLlLoginPull;
 
-    @Bind(R.id.ll_login_options)
+    @BindView(R.id.ll_login_options)
     LinearLayout mLlLoginOptions;
 
-    @Bind(R.id.ib_login_weibo)
+    @BindView(R.id.ib_login_weibo)
     ImageView mIbLoginWeiBo;
-    @Bind(R.id.ib_login_wx)
+    @BindView(R.id.ib_login_wx)
     ImageView mIbLoginWx;
-    @Bind(R.id.ib_login_qq)
+    @BindView(R.id.ib_login_qq)
     ImageView mImLoginQq;
 
     private int openType;

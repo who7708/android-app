@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * @author qiujuer Email:qiujuer@live.cn
@@ -55,34 +55,34 @@ public class UserSelectFriendsActivity extends BackActivity
         implements RecentContactsView.OnSelectedChangeListener, ContactsCacheManager.OnSelectedChangeListener,
         IndexView.OnIndexTouchListener, SearchView.OnQueryTextListener {
 
-    @Bind(R.id.searcher_friends)
+    @BindView(R.id.searcher_friends)
     SearchView mSearchView;
 
-    @Bind(R.id.search_mag_icon)
+    @BindView(R.id.search_mag_icon)
     ImageView mSearchIcon;
 
-    @Bind(R.id.search_edit_frame)
+    @BindView(R.id.search_edit_frame)
     LinearLayout mLayoutEditFrame;
 
-    @Bind(R.id.recycler_friends_icon)
+    @BindView(R.id.recycler_friends_icon)
     HorizontalScrollView mHorizontalScrollView;
 
-    @Bind(R.id.select_container)
+    @BindView(R.id.select_container)
     LinearLayout mSelectContainer;
 
-    @Bind(R.id.tv_label)
+    @BindView(R.id.tv_label)
     TextView mTvLabel;
 
-    @Bind(R.id.recycler_friends)
+    @BindView(R.id.recycler_friends)
     RecyclerView mRecyclerFriends;
 
-    @Bind(R.id.tv_index_show)
+    @BindView(R.id.tv_index_show)
     TextView mTvIndexShow;
 
-    @Bind(R.id.lay_index)
+    @BindView(R.id.lay_index)
     IndexView mIndex;
 
-    @Bind(R.id.lay_error)
+    @BindView(R.id.lay_error)
     EmptyLayout mEmptyLayout;
 
     //选中数据

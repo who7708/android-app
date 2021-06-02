@@ -4,10 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.util.ArrayMap;
+
+import androidx.collection.ArrayMap;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import net.oschina.app.improve.media.bean.Image;
 import net.oschina.app.improve.media.bean.ImageFolder;
@@ -80,7 +81,6 @@ public class MediaStoreDataFactory implements LoaderManager.LoaderCallbacks<Curs
         }
     }
 
-
     private void doSource(List<Image> changes) {
         final List<Image> source = mSource;
         if (source.size() == 0) {
@@ -94,8 +94,9 @@ public class MediaStoreDataFactory implements LoaderManager.LoaderCallbacks<Curs
             // checkShare remove
             List<Image> removes = new ArrayList<>();
             for (Image image : source) {
-                if (!changes.contains(image))
+                if (!changes.contains(image)) {
                     removes.add(image);
+                }
             }
             if (removes.size() > 0) {
                 source.removeAll(removes);
@@ -105,8 +106,9 @@ public class MediaStoreDataFactory implements LoaderManager.LoaderCallbacks<Curs
             // checkShare add
             List<Image> adds = new ArrayList<>();
             for (Image image : changes) {
-                if (!source.contains(image))
+                if (!source.contains(image)) {
                     adds.add(image);
+                }
             }
             if (adds.size() > 0) {
                 source.addAll(adds);
@@ -196,33 +198,37 @@ public class MediaStoreDataFactory implements LoaderManager.LoaderCallbacks<Curs
     }
 
     private void notifyFolderUpdate(List<ImageFolder> items) {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return;
+        }
         mFolderCallback.onFolderUpdated(items);
     }
 
     private void notifyFolderAdd(List<ImageFolder> items) {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return;
+        }
         mFolderCallback.onFolderAdded(items);
     }
 
     private void notifyFolderRemove(List<ImageFolder> items) {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return;
+        }
         mFolderCallback.onFolderRemoved(items);
     }
 
-
     private void notifyImageAdd(List<Image> items) {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return;
+        }
         mImageCallback.onPictureAdded(items);
     }
 
     private void notifyImageRemove(List<Image> items) {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return;
+        }
         mImageCallback.onPictureRemoved(items);
     }
 

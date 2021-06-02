@@ -1,7 +1,7 @@
 package net.oschina.app.improve.nearby;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -75,17 +75,17 @@ class NearbyAdapter extends BaseRecyclerAdapter<NearbyResult> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         PortraitView mViewPortrait;
-        @Bind(R.id.tv_nick)
+        @BindView(R.id.tv_nick)
         TextView mViewNick;
-        @Bind(R.id.tv_position)
+        @BindView(R.id.tv_position)
         TextView mViewPosition;
-        @Bind(R.id.tv_distance)
+        @BindView(R.id.tv_distance)
         TextView mViewDistance;
-        @Bind(R.id.iv_gender)
+        @BindView(R.id.iv_gender)
         ImageView mViewGender;
 
         public ViewHolder(View view) {

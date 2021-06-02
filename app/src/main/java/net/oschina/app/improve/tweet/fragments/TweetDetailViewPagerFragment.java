@@ -2,14 +2,16 @@ package net.oschina.app.improve.tweet.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import net.oschina.app.R;
 import net.oschina.app.bean.User;
@@ -123,39 +125,50 @@ public class TweetDetailViewPagerFragment extends Fragment
     @Override
     public void onCommentSuccess(TweetComment comment) {
         mOperator.getTweetDetail().setCommentCount(mOperator.getTweetDetail().getCommentCount() + 1); // Bean的事,真不是我想这样干
-        if (mCmnViewImp != null) mCmnViewImp.onCommentSuccess(comment);
+        if (mCmnViewImp != null) {
+            mCmnViewImp.onCommentSuccess(comment);
+        }
         TabLayout.Tab tab = mTabLayout.getTabAt(1);
-        if (tab != null)
+        if (tab != null) {
             tab.setText(String.format("评论 (%s)", mOperator.getTweetDetail().getCommentCount()));
+        }
     }
 
     @Override
     public void onLikeSuccess(boolean isUp, User user) {
         mOperator.getTweetDetail().setLikeCount(mOperator.getTweetDetail().getLikeCount() + (isUp ? 1 : -1));
-        if (mThumbupViewImp != null) mThumbupViewImp.onLikeSuccess(isUp, user);
+        if (mThumbupViewImp != null) {
+            mThumbupViewImp.onLikeSuccess(isUp, user);
+        }
         TabLayout.Tab tab = mTabLayout.getTabAt(0);
-        if (tab != null)
+        if (tab != null) {
             tab.setText(String.format("赞 (%s)", mOperator.getTweetDetail().getLikeCount()));
+        }
     }
 
     @Override
     public void resetLikeCount(int count) {
         mOperator.getTweetDetail().setLikeCount(count);
         TabLayout.Tab tab = mTabLayout.getTabAt(0);
-        if (tab != null) tab.setText(String.format("赞 (%s)", count));
+        if (tab != null) {
+            tab.setText(String.format("赞 (%s)", count));
+        }
     }
 
     @Override
     public void resetCmnCount(int count) {
         mOperator.getTweetDetail().setCommentCount(count);
         TabLayout.Tab tab = mTabLayout.getTabAt(1);
-        if (tab != null) tab.setText(String.format("评论 (%s)", count));
+        if (tab != null) {
+            tab.setText(String.format("评论 (%s)", count));
+        }
     }
 
     @Override
     public List<TweetComment> getComments() {
-        if (mCmnViewImp == null)
+        if (mCmnViewImp == null) {
             return null;
+        }
         return mCmnViewImp.getComments();
     }
 

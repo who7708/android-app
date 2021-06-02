@@ -30,7 +30,7 @@ import net.oschina.app.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -40,29 +40,29 @@ import butterknife.OnClick;
 
 public class GistDetailFragment extends BaseFragment implements GistDetailContract.View, View.OnClickListener {
     private SourceEditor mEditor;
-    @Bind(R.id.tv_summary)
+    @BindView(R.id.tv_summary)
     TextView mTextSummary;
-    @Bind(R.id.tv_start_count)
+    @BindView(R.id.tv_start_count)
     TextView mTexStartCount;
-    @Bind(R.id.tv_fork_count)
+    @BindView(R.id.tv_fork_count)
     TextView mTextForkCount;
 
-    @Bind(R.id.tv_language)
+    @BindView(R.id.tv_language)
     TextView mTextLanguage;
-    @Bind(R.id.tv_category)
+    @BindView(R.id.tv_category)
     TextView mTextCategory;
-    @Bind(R.id.tv_last_update)
+    @BindView(R.id.tv_last_update)
     TextView mTextLastUpdate;
-    @Bind(R.id.tv_comment_count)
+    @BindView(R.id.tv_comment_count)
     TextView mTextCommentCount;
 
-    @Bind(R.id.ll_content)
+    @BindView(R.id.ll_content)
     LinearLayout mLinearContent;
-    @Bind(R.id.line1)
+    @BindView(R.id.line1)
     View mLine1;
-    @Bind(R.id.line2)
+    @BindView(R.id.line2)
     View mLine2;
-    @Bind(R.id.ll_tool)
+    @BindView(R.id.ll_tool)
     LinearLayout mLinearTool;
     private Gist mGist;
     private ShareDialog mAlertDialog;

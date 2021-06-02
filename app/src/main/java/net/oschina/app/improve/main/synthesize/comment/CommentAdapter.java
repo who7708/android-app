@@ -3,8 +3,8 @@ package net.oschina.app.improve.main.synthesize.comment;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +38,7 @@ import net.oschina.app.widget.TweetTextView;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -68,27 +68,27 @@ public class CommentAdapter extends BaseRecyclerAdapter<Comment> {
 
         private ProgressDialog mDialog;
 
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         PortraitView mIvAvatar;
 
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
 
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mName;
-        @Bind(R.id.tv_pub_date)
+        @BindView(R.id.tv_pub_date)
         TextView mPubDate;
-        @Bind(R.id.tv_vote_count)
+        @BindView(R.id.tv_vote_count)
         TextView mVoteCount;
-        @Bind(R.id.btn_vote)
+        @BindView(R.id.btn_vote)
         ImageView mVote;
 
-        @Bind(R.id.lay_refer)
+        @BindView(R.id.lay_refer)
         CommentReferView mCommentReferView;
 
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TweetTextView mTweetTextView;
-        @Bind(R.id.line)
+        @BindView(R.id.line)
         View mLine;
 
         Holder(View itemView) {

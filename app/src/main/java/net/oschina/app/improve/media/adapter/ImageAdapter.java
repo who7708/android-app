@@ -1,10 +1,11 @@
 package net.oschina.app.improve.media.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -12,7 +13,6 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.media.bean.Image;
 import net.oschina.app.improve.media.config.ImageLoaderListener;
-
 
 /**
  * 图片列表界面适配器
@@ -33,8 +33,9 @@ public class ImageAdapter extends BaseRecyclerAdapter<Image> {
     @Override
     public int getItemViewType(int position) {
         Image image = getItem(position);
-        if (image.getId() == 0)
+        if (image.getId() == 0) {
             return 0;
+        }
         return 1;
     }
 
@@ -42,14 +43,15 @@ public class ImageAdapter extends BaseRecyclerAdapter<Image> {
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
         if (holder instanceof ImageViewHolder) {
             ImageViewHolder h = (ImageViewHolder) holder;
-            Glide.clear(h.mImageView);
+            Glide.with(h.mImageView).clear(h.mImageView);
         }
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        if (type == 0)
+        if (type == 0) {
             return new CamViewHolder(mInflater.inflate(R.layout.item_list_cam, parent, false));
+        }
         return new ImageViewHolder(mInflater.inflate(R.layout.item_list_image, parent, false));
     }
 

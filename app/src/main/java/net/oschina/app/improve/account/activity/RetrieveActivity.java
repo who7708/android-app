@@ -36,7 +36,7 @@ import net.oschina.app.util.TDevice;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -49,26 +49,26 @@ import cz.msebera.android.httpclient.Header;
 public class RetrieveActivity extends AccountBaseActivity implements View.OnClickListener, View.OnFocusChangeListener,
         ViewTreeObserver.OnGlobalLayoutListener {
 
-    @Bind(R.id.ly_retrieve_bar)
+    @BindView(R.id.ly_retrieve_bar)
     LinearLayout mLlRetrieveBar;
 
-    @Bind(R.id.ll_retrieve_tel)
+    @BindView(R.id.ll_retrieve_tel)
     LinearLayout mLlRetrieveTel;
-    @Bind(R.id.et_retrieve_tel)
+    @BindView(R.id.et_retrieve_tel)
     EditText mEtRetrieveTel;
-    @Bind(R.id.iv_retrieve_tel_del)
+    @BindView(R.id.iv_retrieve_tel_del)
     ImageView mIvRetrieveTelDel;
 
-    @Bind(R.id.ll_retrieve_code)
+    @BindView(R.id.ll_retrieve_code)
     LinearLayout mLlRetrieveCode;
-    @Bind(R.id.et_retrieve_code_input)
+    @BindView(R.id.et_retrieve_code_input)
     EditText mEtRetrieveCodeInput;
-    @Bind(R.id.retrieve_sms_call)
+    @BindView(R.id.retrieve_sms_call)
     TextView mTvRetrieveSmsCall;
 
-    @Bind(R.id.bt_retrieve_submit)
+    @BindView(R.id.bt_retrieve_submit)
     Button mBtRetrieveSubmit;
-    @Bind(R.id.tv_retrieve_label)
+    @BindView(R.id.tv_retrieve_label)
     TextView mTvRetrieveLabel;
     private boolean mMachPhoneNum;
 

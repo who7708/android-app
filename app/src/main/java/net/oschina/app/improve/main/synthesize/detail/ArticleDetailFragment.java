@@ -2,6 +2,7 @@ package net.oschina.app.improve.main.synthesize.detail;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -99,15 +103,15 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             frameLayout.setVisibility(View.VISIBLE);
             getImgLoader().load(mArticle.getImgs()[0])
                     .centerCrop()
-                    .listener(new RequestListener<String, GlideDrawable>() {
+                    .listener(new RequestListener<Drawable>() {
                         @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                             mLoadingBar.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                             mLoadingBar.setVisibility(View.GONE);
                             return false;
                         }
@@ -152,8 +156,9 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
             public void run() {
                 mRefreshLayout.setRefreshing(true);
                 mRefreshLayout.setOnLoading(true);
-                if (mPresenter == null)
+                if (mPresenter == null) {
                     return;
+                }
                 mPresenter.getArticleDetail();
                 mPresenter.onRefreshing();
             }
@@ -163,8 +168,9 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @Override
     public void onRefreshing() {
         super.onRefreshing();
-        if (mCommentView != null)
+        if (mCommentView != null) {
             mCommentView.init(mArticle, mArticle.getKey(), 2, (CommentView.OnCommentClickListener) mContext);
+        }
     }
 
     @Override
@@ -283,8 +289,9 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
     @SuppressWarnings("all")
     @Override
     public void showGetDetailSuccess(final Article article) {
-        if (mContext == null)
+        if (mContext == null) {
             return;
+        }
         mLinearCount.setVisibility(article.getWordCount() != 0 ? View.VISIBLE : View.GONE);
         mTextCount.setText(mPresenter.formatTextCount(article.getWordCount()));
         mTextTime.setText(mPresenter.formatTime(article.getReadTime()));
@@ -325,12 +332,12 @@ public class ArticleDetailFragment extends BaseRecyclerFragment<ArticleDetailCon
         }
     }
 
-
     @Override
     public void onComplete() {
         super.onComplete();
-        if (mContext == null)
+        if (mContext == null) {
             return;
+        }
         hideOrShowTitle(mAdapter.getItems().size() != 0);
     }
 

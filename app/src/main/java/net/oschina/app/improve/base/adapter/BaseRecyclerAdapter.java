@@ -1,14 +1,15 @@
 package net.oschina.app.improve.base.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import net.oschina.app.R;
 
@@ -56,7 +57,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     private OnClickListener onClickListener;
     private OnLongClickListener onLongClickListener;
 
-
     protected View mHeaderView;
 
     private OnLoadingHeaderCallBack onLoadingHeaderCallBack;
@@ -78,8 +78,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         onClickListener = new OnClickListener() {
             @Override
             public void onClick(int position, long itemId) {
-                if (onItemClickListener != null)
+                if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, itemId);
+                }
             }
         };
 
@@ -103,10 +104,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_HEADER:
-                if (onLoadingHeaderCallBack != null)
+                if (onLoadingHeaderCallBack != null) {
                     return onLoadingHeaderCallBack.onCreateHeaderHolder(parent);
-                else
+                } else {
                     throw new IllegalArgumentException("you have to impl the interface when using this viewType");
+                }
             case VIEW_TYPE_FOOTER:
                 return new FooterViewHolder(mInflater.inflate(R.layout.recycler_footer_view, parent, false));
             default:
@@ -125,8 +127,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_HEADER:
-                if (onLoadingHeaderCallBack != null)
+                if (onLoadingHeaderCallBack != null) {
                     onLoadingHeaderCallBack.onBindHeaderHolder(holder, position);
+                }
                 break;
             case VIEW_TYPE_FOOTER:
                 FooterViewHolder fvh = (FooterViewHolder) holder;
@@ -220,20 +223,22 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0 && (BEHAVIOR_MODE == ONLY_HEADER || BEHAVIOR_MODE == BOTH_HEADER_FOOTER))
+        if (position == 0 && (BEHAVIOR_MODE == ONLY_HEADER || BEHAVIOR_MODE == BOTH_HEADER_FOOTER)) {
             return VIEW_TYPE_HEADER;
-        if (position + 1 == getItemCount() && (BEHAVIOR_MODE == ONLY_FOOTER || BEHAVIOR_MODE == BOTH_HEADER_FOOTER))
+        }
+        if (position + 1 == getItemCount() && (BEHAVIOR_MODE == ONLY_FOOTER || BEHAVIOR_MODE == BOTH_HEADER_FOOTER)) {
             return VIEW_TYPE_FOOTER;
-        else return VIEW_TYPE_NORMAL;
+        } else {
+            return VIEW_TYPE_NORMAL;
+        }
     }
-
 
     public T getSelectedItem() {
-        if (mSelectedPosition < 0 || mSelectedPosition >= mItems.size())
+        if (mSelectedPosition < 0 || mSelectedPosition >= mItems.size()) {
             return null;
+        }
         return mItems.get(mSelectedPosition);
     }
-
 
     /**
      * 单选
@@ -258,7 +263,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
             return mItems.size() + 1;
         } else if (BEHAVIOR_MODE == BOTH_HEADER_FOOTER) {
             return mItems.size() + 2;
-        } else return mItems.size();
+        } else {
+            return mItems.size();
+        }
     }
 
     public int getCount() {
@@ -281,7 +288,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         return mItems;
     }
 
-
     public void addAll(List<T> items) {
         if (items != null) {
             this.mItems.addAll(items);
@@ -295,7 +301,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
             notifyItemChanged(mItems.size());
         }
     }
-
 
     public void addItem(int position, T item) {
         if (item != null) {
@@ -316,7 +321,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
             notifyItemChanged(position);
         }
     }
-
 
     public final void removeItem(T item) {
         if (this.mItems.contains(item)) {
@@ -348,8 +352,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     public final T getItem(int position) {
         int p = getIndex(position);
-        if (p < 0 || p >= mItems.size())
+        if (p < 0 || p >= mItems.size()) {
             return null;
+        }
         return mItems.get(getIndex(position));
     }
 
@@ -368,8 +373,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     public void setState(int mState, boolean isUpdate) {
         this.mState = mState;
-        if (isUpdate)
+        if (isUpdate) {
             updateItem(getItemCount() - 1);
+        }
     }
 
     public int getState() {
@@ -398,7 +404,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         onLoadingHeaderCallBack = listener;
     }
 
-
     /**
      * 可以共用同一个listener，相对高效
      */
@@ -425,7 +430,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         public abstract void onClick(View view, int position);
     }
 
-
     /**
      * 可以共用同一个listener，相对高效
      */
@@ -439,14 +443,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
         public abstract boolean onLongClick(int position, long itemId);
     }
 
-
     /**
      *
      */
     public interface OnItemClickListener {
         void onItemClick(int position, long itemId);
     }
-
 
     public interface OnItemLongClickListener {
         void onLongClick(int position, long itemId);

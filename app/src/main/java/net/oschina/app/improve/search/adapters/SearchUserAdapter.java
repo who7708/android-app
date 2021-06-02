@@ -1,7 +1,7 @@
 package net.oschina.app.improve.search.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import net.oschina.app.improve.bean.User;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -52,15 +52,15 @@ public class SearchUserAdapter extends BaseRecyclerAdapter<User> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         PortraitView mViewPortrait;
-        @Bind(R.id.tv_nick)
+        @BindView(R.id.tv_nick)
         TextView mViewNick;
-        @Bind(R.id.tv_position)
+        @BindView(R.id.tv_position)
         TextView mViewPosition;
-        @Bind(R.id.tv_integral)
+        @BindView(R.id.tv_integral)
         TextView mViewIntegral;
 
         public ViewHolder(View view) {

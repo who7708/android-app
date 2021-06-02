@@ -9,7 +9,7 @@ import net.oschina.app.improve.base.fragments.BaseFragment;
 import net.oschina.app.improve.main.synthesize.article.RatioLayout;
 import net.oschina.app.improve.media.Util;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 介绍页1
@@ -18,9 +18,9 @@ import butterknife.Bind;
 
 public class OneFragment extends BaseFragment {
 
-    @Bind(R.id.ll_logo)
+    @BindView(R.id.ll_logo)
     LinearLayout mLinearLogo;
-    @Bind(R.id.ratioLayout)
+    @BindView(R.id.ratioLayout)
     RatioLayout mRatioLayout;
 
     static OneFragment newInstance() {

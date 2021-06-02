@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,7 +13,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -33,9 +36,11 @@ public class ImagePanel extends FrameLayout implements
     private RichLinearLayout mParent;
     public boolean isDeleteMode;
     String mImagePath;
+
     public ImagePanel(@NonNull Context context) {
         this(context, null);
     }
+
     public ImagePanel(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.view_image_panel, this, true);
@@ -43,24 +48,27 @@ public class ImagePanel extends FrameLayout implements
         setOnClickListener(this);
         setOnLongClickListener(this);
     }
+
     void setImagePath(String imagePath) {
         mImagePath = imagePath;
         Glide.with(getContext())
-                .load(imagePath)
                 .asBitmap()
+                .load(imagePath)
                 .fitCenter()
-                .listener(new RequestListener<String, Bitmap>() {
+                .listener(new RequestListener<Bitmap>() {
                     @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                         return false;
                     }
+
                     @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                         return false;
                     }
                 })
                 .into(mImageView);
     }
+
     /**
      * 显示编辑删除模式
      *
@@ -70,6 +78,7 @@ public class ImagePanel extends FrameLayout implements
         isDeleteMode = true;
         showMode(true);
     }
+
     void showMode(boolean isDelete) {
         if (isDelete) {
             setBackgroundResource(R.drawable.bg_image_panel);
@@ -81,19 +90,23 @@ public class ImagePanel extends FrameLayout implements
             setPadding(0, 0, 0, 0);
         }
     }
+
     void clearMode() {
         setFocusable(false);
         setFocusableInTouchMode(false);
         clearFocus();
     }
+
     void setFocusMode() {
         setFocusable(true);
         setFocusableInTouchMode(true);
         requestFocus();
     }
+
     @Override
     public void onClick(View v) {
     }
+
     @Override
     public boolean onLongClick(final View v) {
         //mParent.mFocusView.setFocusable(false);
@@ -111,6 +124,7 @@ public class ImagePanel extends FrameLayout implements
         }
         return true;
     }
+
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, @Nullable Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
@@ -121,6 +135,7 @@ public class ImagePanel extends FrameLayout implements
             showMode(false);
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Log.e("onKeyDown", "onKeyDown");
@@ -138,6 +153,7 @@ public class ImagePanel extends FrameLayout implements
         }
         return super.onKeyDown(keyCode, event);
     }
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -145,15 +161,18 @@ public class ImagePanel extends FrameLayout implements
             mParent = (RichLinearLayout) getParent();
         }
     }
+
     String getFileName() {
         return mImagePath.substring(mImagePath.lastIndexOf("/") + 1);
     }
+
     private void openKeyboard(View view) {
         //view.setFocusable(true);
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
     private boolean isOpenKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;

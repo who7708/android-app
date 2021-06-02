@@ -9,7 +9,7 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.team.bean.TeamIssueCatalog;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -50,11 +50,11 @@ public class TeamIssueCatalogAdapter extends ListBaseAdapter<TeamIssueCatalog> {
 
     static class ViewHolder {
 
-        @Bind(R.id.tv_team_issue_catalog_title)
+        @BindView(R.id.tv_team_issue_catalog_title)
         TextView title;
-        @Bind(R.id.tv_team_issue_catalog_desc)
+        @BindView(R.id.tv_team_issue_catalog_desc)
         TextView description;
-        @Bind(R.id.tv_team_issue_catalog_state)
+        @BindView(R.id.tv_team_issue_catalog_state)
         TextView state;
 
         public ViewHolder(View view) {

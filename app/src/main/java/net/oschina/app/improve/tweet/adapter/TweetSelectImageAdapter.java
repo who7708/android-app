@@ -2,11 +2,12 @@ package net.oschina.app.improve.tweet.adapter;
 
 import android.content.Context;
 import android.os.Vibrator;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -37,9 +38,9 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
     @Override
     public int getItemViewType(int position) {
         int size = mModels.size();
-        if (size >= MAX_SIZE)
+        if (size >= MAX_SIZE) {
             return TYPE_NONE;
-        else if (position == size) {
+        } else if (position == size) {
             return TYPE_ADD;
         } else {
             return TYPE_NONE;
@@ -56,13 +57,15 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
                     Callback callback = mCallback;
                     if (callback != null) {
                         int pos = mModels.indexOf(model);
-                        if (pos == -1)
+                        if (pos == -1) {
                             return;
+                        }
                         mModels.remove(pos);
-                        if (mModels.size() > 0)
+                        if (mModels.size() > 0) {
                             notifyItemRemoved(pos);
-                        else
+                        } else {
                             notifyDataSetChanged();
+                        }
                     }
                 }
 
@@ -104,7 +107,7 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
 
     @Override
     public void onViewRecycled(TweetSelectImageHolder holder) {
-        Glide.clear(holder.mImage);
+        Glide.with(holder.mImage).clear(holder.mImage);
     }
 
     @Override
@@ -124,8 +127,9 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
     }
 
     public void add(Model model) {
-        if (mModels.size() >= MAX_SIZE)
+        if (mModels.size() >= MAX_SIZE) {
             return;
+        }
         mModels.add(model);
     }
 
@@ -135,8 +139,9 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
 
     public String[] getPaths() {
         int size = mModels.size();
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
         String[] paths = new String[size];
         int i = 0;
         for (Model model : mModels) {
@@ -148,8 +153,9 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         //Collections.swap(mModels, fromPosition, toPosition);
-        if (fromPosition == toPosition)
+        if (fromPosition == toPosition) {
             return false;
+        }
 
         // Move fromPosition to toPosition
         CollectionUtil.move(mModels, fromPosition, toPosition);
@@ -252,11 +258,12 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
         public void bind(int position, TweetSelectImageAdapter.Model model, RequestManager loader) {
             mDelete.setTag(model);
             // In this we need clear before load
-            Glide.clear(mImage);
+            // Glide.with(mImage).clear(mImage);
+            loader.clear(mImage);
             // Load image
             if (model.path.toLowerCase().endsWith("gif")) {
-                loader.load(model.path)
-                        .asBitmap()
+                loader.asBitmap()
+                        .load(model.path)
                         .centerCrop()
                         .error(R.mipmap.ic_split_graph)
                         .into(mImage);
@@ -270,7 +277,6 @@ public class TweetSelectImageAdapter extends RecyclerView.Adapter<TweetSelectIma
                 mGifMask.setVisibility(View.GONE);
             }
         }
-
 
         @Override
         public void onItemSelected() {

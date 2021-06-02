@@ -104,7 +104,7 @@ public class SoftwareDetailFragment extends DetailFragment {
         mImageRecommend.setVisibility(bean.isRecommend() ? View.VISIBLE : View.INVISIBLE);
         List<SubBean.Image> images = bean.getImages();
         if (images != null && images.size() != 0)
-            getImgLoader().load(images.get(0).getHref()).asBitmap().into(mImageSoftware);
+            getImgLoader().asBitmap().load(images.get(0).getHref()).into(mImageSoftware);
 
         Author author = bean.getAuthor();
         if (author != null) {

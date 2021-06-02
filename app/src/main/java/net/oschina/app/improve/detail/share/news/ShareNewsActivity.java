@@ -13,7 +13,7 @@ import net.oschina.app.improve.detail.share.ShareFragment;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 资讯长图分享
@@ -22,16 +22,16 @@ import butterknife.Bind;
 
 public class ShareNewsActivity extends ShareActivity {
 
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTextTitle;
 
-    @Bind(R.id.tv_pub_date)
+    @BindView(R.id.tv_pub_date)
     TextView mTextPubDate;
 
-    @Bind(R.id.tv_author)
+    @BindView(R.id.tv_author)
     TextView mTextAuthor;
 
-    @Bind(R.id.iv_avatar)
+    @BindView(R.id.iv_avatar)
     PortraitView mPortraitView;
 
 

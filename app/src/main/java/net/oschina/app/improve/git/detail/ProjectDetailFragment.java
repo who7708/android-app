@@ -20,7 +20,7 @@ import net.oschina.app.util.StringUtils;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -30,27 +30,27 @@ import butterknife.OnClick;
 @SuppressWarnings("unused")
 public class ProjectDetailFragment extends BaseFragment implements ProjectDetailContract.View,
         View.OnClickListener {
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     OWebView mWebView;
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mTextName;
-    @Bind(R.id.tv_language)
+    @BindView(R.id.tv_language)
     TextView mTextLanguage;
-    @Bind(R.id.tv_update_date)
+    @BindView(R.id.tv_update_date)
     TextView mTextUpdateDate;
-    @Bind(R.id.tv_start_count)
+    @BindView(R.id.tv_start_count)
     TextView mTextStarCount;
-    @Bind(R.id.tv_watches_count)
+    @BindView(R.id.tv_watches_count)
     TextView mTextWatchCount;
-    @Bind(R.id.tv_fork_count)
+    @BindView(R.id.tv_fork_count)
     TextView mTextForkCount;
-    @Bind(R.id.tv_description)
+    @BindView(R.id.tv_description)
     TextView mTextDescription;
-    @Bind(R.id.tv_issues_count)
+    @BindView(R.id.tv_issues_count)
     TextView mTextIssuesCount;
-    @Bind(R.id.tv_pr_count)
+    @BindView(R.id.tv_pr_count)
     TextView mTexPrCount;
-    @Bind(R.id.tv_comment_count)
+    @BindView(R.id.tv_comment_count)
     TextView mTextCommentCount;
 
     private ProjectDetailContract.Presenter mPresenter;

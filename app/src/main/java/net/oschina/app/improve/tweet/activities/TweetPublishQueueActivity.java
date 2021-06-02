@@ -3,8 +3,8 @@ package net.oschina.app.improve.tweet.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,15 +20,15 @@ import net.oschina.common.widget.Loading;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class TweetPublishQueueActivity extends BaseBackActivity implements TweetQueueAdapter.Callback, View.OnClickListener {
-    @Bind(R.id.loading)
+    @BindView(R.id.loading)
     Loading mLoading;
-    @Bind(R.id.txt_title)
+    @BindView(R.id.txt_title)
     TextView mTitle;
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView mRecycler;
     private TweetQueueAdapter mAdapter;
 

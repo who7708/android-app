@@ -1,9 +1,7 @@
 package net.oschina.app.base;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -15,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
 
 import net.oschina.app.R;
 import net.oschina.app.bean.Entity;
@@ -303,7 +303,6 @@ public class ListBaseAdapter<T extends Entity> extends BaseAdapter {
             textView.setText(text);
         }
     }
-
 
     protected void setImageRes(ImageView imageRes, @DrawableRes int resId) {
         imageRes.setImageResource(resId);

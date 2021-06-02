@@ -2,9 +2,9 @@ package net.oschina.app;
 
 import android.content.Context;
 import android.provider.Settings;
-import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
+import androidx.multidex.MultiDex;
 
 import com.baidu.mapapi.SDKInitializer;
 

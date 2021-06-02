@@ -2,8 +2,7 @@ package net.oschina.app.team.viewpagefragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TeamDiaryFragment extends BaseFragment implements
@@ -38,15 +37,15 @@ public class TeamDiaryFragment extends BaseFragment implements
     public static String DIARYDETAIL_KEY = "team_diary_detail_key";
     public static String TEAMID_KEY = "team_diary_teamid_key";
 
-    @Bind(R.id.team_diary_pager)
+    @BindView(R.id.team_diary_pager)
     ViewPager mPager;
-    @Bind(R.id.team_diary_pager_title)
+    @BindView(R.id.team_diary_pager_title)
     TextView mTvTitle;
-    @Bind(R.id.team_diary_pager_calendar)
+    @BindView(R.id.team_diary_pager_calendar)
     ImageView mImgCalendar;
-    @Bind(R.id.team_diary_pager_left)
+    @BindView(R.id.team_diary_pager_left)
     ImageView mImgLeft;
-    @Bind(R.id.team_diary_pager_right)
+    @BindView(R.id.team_diary_pager_right)
     ImageView mImgRight;
 
     private Activity aty;
@@ -109,7 +108,7 @@ public class TeamDiaryFragment extends BaseFragment implements
         mImgCalendar.setOnClickListener(this);
         mImgLeft.setOnClickListener(this);
         mImgRight.setOnClickListener(this);
-        mPager.addOnPageChangeListener(new OnPageChangeListener() {
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int arg0) {
                 changeUI(arg0, mPager.getAdapter().getCount());

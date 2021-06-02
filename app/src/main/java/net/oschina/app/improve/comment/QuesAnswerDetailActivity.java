@@ -5,9 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.app.ActionBar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -53,7 +53,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
@@ -71,29 +71,29 @@ public class QuesAnswerDetailActivity extends BackActivity {
     public static final String BUNDLE_ARTICLE_KEY = "BUNDLE_ARTICLE_KEY";
     public static final String BUNDLE_TYPE = "bundle_comment_type";
 
-    @Bind(R.id.iv_portrait)
+    @BindView(R.id.iv_portrait)
     PortraitView ivPortrait;
-    @Bind(R.id.identityView)
+    @BindView(R.id.identityView)
     IdentityView identityView;
-    @Bind(R.id.tv_nick)
+    @BindView(R.id.tv_nick)
     TextView tvNick;
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.iv_vote_up)
+    @BindView(R.id.iv_vote_up)
     ImageView ivVoteUp;
-    @Bind(R.id.iv_vote_down)
+    @BindView(R.id.iv_vote_down)
     ImageView ivVoteDown;
-    @Bind(R.id.tv_up_count)
+    @BindView(R.id.tv_up_count)
     TextView tvVoteCount;
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     OWebView mWebView;
-    @Bind(R.id.tv_comment_count)
+    @BindView(R.id.tv_comment_count)
     TextView tvCmnCount;
-    @Bind(R.id.layout_container)
+    @BindView(R.id.layout_container)
     LinearLayout mLayoutContainer;
-    @Bind(R.id.layout_coordinator)
+    @BindView(R.id.layout_coordinator)
     CoordinatorLayout mCoordinatorLayout;
-    @Bind(R.id.layout_scroll)
+    @BindView(R.id.layout_scroll)
     NestedScrollView mScrollView;
 
     private long sid;
@@ -513,11 +513,11 @@ public class QuesAnswerDetailActivity extends BackActivity {
     }
 
      static class VoteViewHolder {
-        @Bind(R.id.btn_vote_up)
+        @BindView(R.id.btn_vote_up)
         TextView mVoteUp;
-        @Bind(R.id.btn_vote_down)
+        @BindView(R.id.btn_vote_down)
         TextView mVoteDown;
-        @Bind(R.id.progress)
+        @BindView(R.id.progress)
         ProgressBar mProgressBar;
 
         VoteViewHolder(View view) {

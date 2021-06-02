@@ -1,7 +1,7 @@
 package net.oschina.app.improve.tweet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,7 @@ import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.UIHelper;
 import net.oschina.app.widget.TweetTextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -74,17 +74,17 @@ public class TweetCommentAdapter extends BaseRecyclerAdapter<TweetComment> {
     }
 
     public static final class TweetCommentHolderView extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         public IdentityView identityView;
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         public PortraitView ivPortrait;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         public TextView tvName;
-        @Bind(R.id.tv_pub_date)
+        @BindView(R.id.tv_pub_date)
         public TextView tvTime;
-        @Bind(R.id.btn_comment)
+        @BindView(R.id.btn_comment)
         public ImageView btnReply;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         public TweetTextView tvContent;
 
         public TweetCommentHolderView(View view) {

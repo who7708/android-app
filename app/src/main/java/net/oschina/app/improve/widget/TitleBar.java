@@ -5,9 +5,10 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;

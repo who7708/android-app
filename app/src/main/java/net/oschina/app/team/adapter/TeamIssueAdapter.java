@@ -17,7 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -162,33 +162,33 @@ public class TeamIssueAdapter extends ListBaseAdapter<TeamIssue> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.iv_issue_state)
+        @BindView(R.id.iv_issue_state)
         TextView state;
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView title;
-        @Bind(R.id.iv_issue_source)
+        @BindView(R.id.iv_issue_source)
         TextView issueSource;
-        @Bind(R.id.tv_project)
+        @BindView(R.id.tv_project)
         TextView project;
-        @Bind(R.id.tv_attachments)
+        @BindView(R.id.tv_attachments)
         TextView attachments;// 附件
-        @Bind(R.id.tv_childissues)
+        @BindView(R.id.tv_childissues)
         TextView childissues;// 子任务
-        @Bind(R.id.tv_relations)
+        @BindView(R.id.tv_relations)
         TextView relations;// 关联任务
-        @Bind(R.id.tv_accept_time)
+        @BindView(R.id.tv_accept_time)
         TextView accept_time;
-        @Bind(R.id.tv_author)
+        @BindView(R.id.tv_author)
         TextView author;
-        @Bind(R.id.tv_to)
+        @BindView(R.id.tv_to)
         TextView to;
-        @Bind(R.id.tv_touser)
+        @BindView(R.id.tv_touser)
         TextView touser;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView time;
-        @Bind(R.id.tv_comment_count)
+        @BindView(R.id.tv_comment_count)
         TextView comment;
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView title_line;
 
         public ViewHolder(View view) {

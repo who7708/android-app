@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -53,7 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
@@ -73,28 +73,28 @@ public class TeamNewActiveActivity extends BaseActivity {
 
     private MenuItem mMenuSend;
 
-    @Bind(R.id.ib_emoji_keyboard)
+    @BindView(R.id.ib_emoji_keyboard)
     ImageButton mIbEmoji;
 
-    @Bind(R.id.ib_picture)
+    @BindView(R.id.ib_picture)
     ImageButton mIbPicture;
 
-    @Bind(R.id.ib_mention)
+    @BindView(R.id.ib_mention)
     ImageButton mIbMention;
 
-    @Bind(R.id.ib_trend_software)
+    @BindView(R.id.ib_trend_software)
     ImageButton mIbTrendSoftware;
 
-    @Bind(R.id.tv_clear)
+    @BindView(R.id.tv_clear)
     TextView mTvClear;
 
-    @Bind(R.id.rl_img)
+    @BindView(R.id.rl_img)
     View mLyImage;
 
-    @Bind(R.id.iv_img)
+    @BindView(R.id.iv_img)
     ImageView mIvImage;
 
-    @Bind(R.id.et_content)
+    @BindView(R.id.et_content)
     EditText mEtInput;
 
     private final EmojiKeyboardFragment keyboardFragment = new EmojiKeyboardFragment();

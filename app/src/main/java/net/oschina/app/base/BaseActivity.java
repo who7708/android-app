@@ -2,12 +2,13 @@ package net.oschina.app.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.utils.DialogHelper;
@@ -58,16 +59,16 @@ public abstract class BaseActivity extends AppCompatActivity implements
         _isVisible = true;
 
         //umeng analytics
-//        MobclickAgent.setDebugMode(false);
-//        MobclickAgent.openActivityDurationTrack(false);
-//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+        //        MobclickAgent.setDebugMode(false);
+        //        MobclickAgent.openActivityDurationTrack(false);
+        //        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        MobclickAgent.onPageEnd(this.packageName4Umeng);
-//        MobclickAgent.onResume(this);
+        //        MobclickAgent.onPageEnd(this.packageName4Umeng);
+        //        MobclickAgent.onResume(this);
 
         if (this.isFinishing()) {
             TDevice.hideSoftKeyboard(getCurrentFocus());
@@ -77,8 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-//        MobclickAgent.onPageStart(this.packageName4Umeng);
-//        MobclickAgent.onResume(this);
+        //        MobclickAgent.onPageStart(this.packageName4Umeng);
+        //        MobclickAgent.onResume(this);
     }
 
     protected void onBeforeSetContentLayout() {
@@ -108,8 +109,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
     }
 
     protected void initActionBar(ActionBar actionBar) {
-        if (actionBar == null)
+        if (actionBar == null) {
             return;
+        }
         if (hasBackButton()) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
             mActionBar.setHomeButtonEnabled(true);

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import com.bumptech.glide.signature.ObjectKey;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.R;
@@ -17,7 +17,7 @@ import net.oschina.app.util.UIHelper;
 
 import java.util.UUID;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -27,11 +27,11 @@ import butterknife.OnClick;
 
 public class AdFragment extends BaseFragment implements View.OnClickListener {
 
-    @Bind(R.id.countDownView)
+    @BindView(R.id.countDownView)
     CountDownView mCountDownView;
     private Launcher mLauncher;
 
-    @Bind(R.id.iv_ad)
+    @BindView(R.id.iv_ad)
     ImageView mImageAd;
 
     private static boolean isClickAd;
@@ -62,14 +62,15 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
         isClickAd = false;
         Glide.with(mContext)
                 .load(OSCApplication.getInstance().getCacheDir() + "/launcher")
-                .signature(new StringSignature(UUID.randomUUID().toString()))
+                .signature(new ObjectKey(UUID.randomUUID().toString()))
                 .fitCenter()
                 .into(mImageAd);
         mCountDownView.setListener(new CountDownView.OnProgressListener() {
             @Override
             public void onFinish() {
-                if (isClickAd || mContext == null)
+                if (isClickAd || mContext == null) {
                     return;
+                }
                 MainActivity.show(mContext);
                 mCountDownView.cancel();
                 getActivity().finish();
@@ -78,8 +79,9 @@ public class AdFragment extends BaseFragment implements View.OnClickListener {
         mCountDownView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isClickAd || mContext == null)
+                if (isClickAd || mContext == null) {
                     return;
+                }
                 mCountDownView.cancel();
                 MainActivity.show(mContext);
                 getActivity().finish();

@@ -2,7 +2,7 @@ package net.oschina.app.improve.utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 
 import net.oschina.app.R;

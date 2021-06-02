@@ -1,7 +1,7 @@
 package net.oschina.app.improve.write;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -22,7 +22,7 @@ import net.oschina.app.improve.widget.rich.TextSection;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -32,10 +32,10 @@ import cz.msebera.android.httpclient.Header;
 
 public class CategoryFragment extends BaseFragment {
 
-    @Bind(R.id.recyclerBlog)
+    @BindView(R.id.recyclerBlog)
     RecyclerView mRecyclerBlog;
 
-    @Bind(R.id.recyclerSystem)
+    @BindView(R.id.recyclerSystem)
     RecyclerView mRecyclerSystem;
 
     private BlogCategoryAdapter mBlogAdapter;

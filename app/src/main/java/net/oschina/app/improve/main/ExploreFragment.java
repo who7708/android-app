@@ -21,7 +21,7 @@ import net.oschina.app.improve.search.v2.SearchActivity;
 import net.oschina.app.interf.OnTabReselectListener;
 import net.oschina.app.util.UIHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -31,9 +31,9 @@ import butterknife.OnClick;
 
 public class ExploreFragment extends BaseFragment implements View.OnClickListener, OnTabReselectListener {
 
-    @Bind(R.id.iv_has_location)
+    @BindView(R.id.iv_has_location)
     ImageView mIvLocated;
-    @Bind(R.id.viewStatusBar)
+    @BindView(R.id.viewStatusBar)
     View mStatusBar;
 
     @Override

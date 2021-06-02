@@ -4,10 +4,10 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.widget.OWebView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class BrowserActivity extends BaseActivity {
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     protected OWebView mWebView;
 
     @Override

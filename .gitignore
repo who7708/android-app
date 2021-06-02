@@ -127,3 +127,5 @@ sign.properties
 captures/*
 
 gradle/wrapper/gradle-wrapper.properties
+
+android-app.zip

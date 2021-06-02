@@ -12,7 +12,7 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.bean.Event;
 import net.oschina.app.bean.EventList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,15 +27,15 @@ public class EventAdapter extends ListBaseAdapter<Event> {
 
     static class ViewHolder {
 
-        @Bind(R.id.iv_event_status)
+        @BindView(R.id.iv_event_status)
         ImageView status;
-        @Bind(R.id.iv_event_img)
+        @BindView(R.id.iv_event_img)
         ImageView img;
-        @Bind(R.id.tv_event_title)
+        @BindView(R.id.tv_event_title)
         TextView title;
-        @Bind(R.id.tv_event_time)
+        @BindView(R.id.tv_event_time)
         TextView time;
-        @Bind(R.id.tv_event_spot)
+        @BindView(R.id.tv_event_spot)
         TextView spot;
 
         public ViewHolder(View view) {

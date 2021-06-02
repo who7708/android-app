@@ -2,7 +2,7 @@ package net.oschina.app.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;

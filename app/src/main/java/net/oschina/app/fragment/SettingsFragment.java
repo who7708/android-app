@@ -6,13 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.oschina.app.AppConfig;
 import net.oschina.app.AppContext;
@@ -35,7 +36,7 @@ import net.oschina.app.util.UIHelper;
 import java.io.File;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -49,17 +50,17 @@ public class SettingsFragment extends BaseFragment implements EasyPermissions.Pe
 
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
 
-    @Bind(R.id.tv_cache_size)
+    @BindView(R.id.tv_cache_size)
     TextView mTvCacheSize;
-    @Bind(R.id.rl_check_version)
+    @BindView(R.id.rl_check_version)
     FrameLayout mRlCheck_version;
-    @Bind(R.id.tb_double_click_exit)
+    @BindView(R.id.tb_double_click_exit)
     ToggleButton mTbDoubleClickExit;
-    @Bind(R.id.setting_line_top)
+    @BindView(R.id.setting_line_top)
     View mSettingLineTop;
-    @Bind(R.id.setting_line_bottom)
+    @BindView(R.id.setting_line_bottom)
     View mSettingLineBottom;
-    @Bind(R.id.rl_cancel)
+    @BindView(R.id.rl_cancel)
     FrameLayout mCancel;
 
     private Version mVersion;
@@ -138,8 +139,9 @@ public class SettingsFragment extends BaseFragment implements EasyPermissions.Pe
                     .getExternalCacheDir(getActivity());
             fileSize += FileUtil.getDirSize(externalCacheDir);
         }
-        if (fileSize > 0)
+        if (fileSize > 0) {
             cacheSize = FileUtil.formatFileSize(fileSize);
+        }
         mTvCacheSize.setText(cacheSize);
     }
 
@@ -224,7 +226,6 @@ public class SettingsFragment extends BaseFragment implements EasyPermissions.Pe
         }
     }
 
-
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
 
@@ -239,7 +240,6 @@ public class SettingsFragment extends BaseFragment implements EasyPermissions.Pe
             }
         }).show();
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -7,15 +7,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.animation.GlideAnimation;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -31,7 +33,7 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -44,14 +46,14 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class LargeImageActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
-    @Bind(R.id.imageView)
+    @BindView(R.id.imageView)
     SubsamplingScaleImageView mImageView;
 
     @SuppressWarnings("unused")
-    @Bind(R.id.iv_save)
+    @BindView(R.id.iv_save)
     ImageView mImageSave;
 
-    @Bind(R.id.loading)
+    @BindView(R.id.loading)
     Loading mLoading;
 
     private String mPath;
@@ -91,9 +93,10 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
                 .load(mPath)
                 .downloadOnly(new SimpleTarget<File>() {
                     @Override
-                    public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                        if (isDestroyed())
+                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                        if (isDestroyed()) {
                             return;
+                        }
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
                         BitmapFactory.decodeFile(resource.getPath(), options);
@@ -139,8 +142,9 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
             public void run() {
                 try {
                     File sourceFile = future.get();
-                    if (sourceFile == null || !sourceFile.exists())
+                    if (sourceFile == null || !sourceFile.exists()) {
                         return;
+                    }
                     String extension = BitmapUtil.getExtension(sourceFile.getAbsolutePath());
                     String extDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                             .getAbsolutePath() + File.separator + "开源中国";
@@ -169,8 +173,9 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
             public void run() {
                 if (success) {
                     // notify
-                    if (isDestroyed())
+                    if (isDestroyed()) {
                         return;
+                    }
                     Uri uri = Uri.fromFile(savePath);
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
                     Toast.makeText(LargeImageActivity.this, R.string.gallery_save_file_success, Toast.LENGTH_SHORT).show();
@@ -201,6 +206,5 @@ public class LargeImageActivity extends BaseActivity implements EasyPermissions.
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-
 
 }

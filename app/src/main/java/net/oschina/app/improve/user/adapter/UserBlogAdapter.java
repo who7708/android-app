@@ -2,7 +2,7 @@ package net.oschina.app.improve.user.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -16,7 +16,7 @@ import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.Blog;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -66,15 +66,15 @@ public class UserBlogAdapter extends BaseRecyclerAdapter<Blog> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_item_blog_title)
+        @BindView(R.id.tv_item_blog_title)
         TextView mViewTitle;
-        @Bind(R.id.tv_item_blog_body)
+        @BindView(R.id.tv_item_blog_body)
         TextView mViewContent;
-        @Bind(R.id.tv_item_blog_history)
+        @BindView(R.id.tv_item_blog_history)
         TextView mViewHistory;
-        @Bind(R.id.tv_info_view)
+        @BindView(R.id.tv_info_view)
         TextView mViewInfoVisual;
-        @Bind(R.id.tv_info_comment)
+        @BindView(R.id.tv_info_comment)
         TextView mViewInfoCmm;
 
         public ViewHolder(View itemView) {

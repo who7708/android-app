@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.core.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 
 import net.oschina.app.AppContext;

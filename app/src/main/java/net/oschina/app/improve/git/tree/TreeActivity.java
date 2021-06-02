@@ -13,7 +13,7 @@ import net.oschina.app.improve.git.bean.Branch;
 import net.oschina.app.improve.git.bean.Project;
 import net.oschina.app.improve.git.branch.BranchPopupWindow;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -24,11 +24,11 @@ import butterknife.OnClick;
 public class TreeActivity extends BackActivity implements View.OnClickListener, BranchPopupWindow.Callback {
     private BranchPopupWindow mBranchPopupWindow;
 
-    @Bind(R.id.ll_branch)
+    @BindView(R.id.ll_branch)
     LinearLayout mLinearBranch;
-    @Bind(R.id.tv_branch)
+    @BindView(R.id.tv_branch)
     TextView mTextBranch;
-    @Bind(R.id.iv_arrow)
+    @BindView(R.id.iv_arrow)
     ImageView mImageArrow;
 
     private TreeContract.Presenter mPresenter;

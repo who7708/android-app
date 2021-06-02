@@ -1,13 +1,14 @@
 package net.oschina.app.util;
 
 import android.graphics.Bitmap;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.DrawableRequestBuilder;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -33,8 +34,9 @@ public class ImageLoader {
 
     public static void loadImage(RequestManager loader, ImageView view, String url, int placeholder, int error) {
         boolean isCenterCrop = false;
-        if (view instanceof CircleImageView)
+        if (view instanceof CircleImageView) {
             isCenterCrop = true;
+        }
         loadImage(loader, view, url, placeholder, error, isCenterCrop);
     }
 
@@ -43,12 +45,13 @@ public class ImageLoader {
             view.setImageResource(placeholder);
         } else {
             if (view instanceof CircleImageView) {
-                BitmapRequestBuilder builder = loader.load(url).asBitmap()
+                RequestBuilder<Bitmap> builder = loader.asBitmap().load(url)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(placeholder)
                         .error(error);
-                if (isCenterCrop)
+                if (isCenterCrop) {
                     builder.centerCrop();
+                }
 
                 builder.into(
                         new BitmapImageViewTarget(view) {
@@ -61,9 +64,10 @@ public class ImageLoader {
                             }
                         });
             } else {
-                DrawableRequestBuilder builder = loader.load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error);
-                if (isCenterCrop)
+                RequestBuilder<Drawable> builder = loader.load(url).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(placeholder).error(error);
+                if (isCenterCrop) {
                     builder.centerCrop();
+                }
                 builder.into(view);
             }
         }

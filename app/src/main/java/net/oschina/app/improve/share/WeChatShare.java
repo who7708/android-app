@@ -3,7 +3,7 @@ package net.oschina.app.improve.share;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import android.text.TextUtils;
 
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -15,7 +15,6 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import net.oschina.app.BuildConfig;
 import net.oschina.app.R;
 import net.oschina.app.improve.widget.SimplexToast;
 

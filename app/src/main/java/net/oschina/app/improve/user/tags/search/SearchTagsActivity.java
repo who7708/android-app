@@ -2,12 +2,13 @@ package net.oschina.app.improve.user.tags.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
@@ -20,7 +21,7 @@ import net.oschina.app.util.TDevice;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -32,13 +33,13 @@ public class SearchTagsActivity extends BackActivity implements
         SearchTagsContract.View,
         BaseRecyclerAdapter.OnItemClickListener {
 
-    @Bind(R.id.view_searcher)
+    @BindView(R.id.view_searcher)
     SearchView mViewSearch;
-    @Bind(R.id.search_src_text)
+    @BindView(R.id.search_src_text)
     EditText mViewSearchEditor;
-    @Bind(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
     private SearchTagAdapter mAdapter;
@@ -103,8 +104,9 @@ public class SearchTagsActivity extends BackActivity implements
             @Override
             public void onClick(View view, int position) {
                 Tags tags = mAdapter.getItem(position);
-                if (tags == null)
+                if (tags == null) {
                     return;
+                }
                 mPresenter.putTags(tags, position);
             }
         });
@@ -121,8 +123,9 @@ public class SearchTagsActivity extends BackActivity implements
     @OnClick({R.id.tv_search})
     @Override
     public void onClick(View view) {
-        if (mPresenter == null)
+        if (mPresenter == null) {
             return;
+        }
         TDevice.closeKeyboard(mViewSearchEditor);
         mPresenter.search(mViewSearchEditor.getText().toString().trim());
     }
@@ -180,7 +183,6 @@ public class SearchTagsActivity extends BackActivity implements
         mRefreshLayout.onComplete();
     }
 
-
     @Override
     public void showNetworkError(int strId) {
         if (isDestroyed()) {
@@ -189,11 +191,11 @@ public class SearchTagsActivity extends BackActivity implements
         mAdapter.setState(BaseRecyclerAdapter.STATE_NO_MORE, true);
     }
 
-
     @Override
     public void showPutSuccess(Tags tags, int position) {
-        if (isDestroyed())
+        if (isDestroyed()) {
             return;
+        }
         Tags item = mAdapter.getItem(position);
         if (item != null && tags.equals(item)) {
             mAdapter.updateItem(position);
@@ -202,15 +204,17 @@ public class SearchTagsActivity extends BackActivity implements
 
     @Override
     public void showPutFailure(int strId) {
-        if (isDestroyed())
+        if (isDestroyed()) {
             return;
+        }
         SimplexToast.show(this, strId);
     }
 
     @Override
     public void showPutFailure(String strId) {
-        if (isDestroyed())
+        if (isDestroyed()) {
             return;
+        }
         SimplexToast.show(this, strId);
     }
 

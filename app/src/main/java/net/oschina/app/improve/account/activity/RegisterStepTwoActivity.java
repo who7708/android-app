@@ -34,7 +34,7 @@ import net.oschina.app.util.TDevice;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -48,24 +48,24 @@ public class RegisterStepTwoActivity extends AccountBaseActivity implements View
 
     public static final String PHONE_TOKEN_KEY = "phoneToken";
 
-    @Bind(R.id.ly_register_bar)
+    @BindView(R.id.ly_register_bar)
     LinearLayout mLlRegisterBar;
 
-    @Bind(R.id.ll_register_two_username)
+    @BindView(R.id.ll_register_two_username)
     LinearLayout mLlRegisterTwoUsername;
-    @Bind(R.id.et_register_username)
+    @BindView(R.id.et_register_username)
     EditText mEtRegisterUsername;
-    @Bind(R.id.iv_register_username_del)
+    @BindView(R.id.iv_register_username_del)
     ImageView mIvRegisterUsernameDel;
-    @Bind(R.id.ll_register_two_pwd)
+    @BindView(R.id.ll_register_two_pwd)
     LinearLayout mLlRegisterTwoPwd;
-    @Bind(R.id.et_register_pwd_input)
+    @BindView(R.id.et_register_pwd_input)
     EditText mEtRegisterPwd;
-    @Bind(R.id.tv_register_man)
+    @BindView(R.id.tv_register_man)
     TextView mTvRegisterMan;
-    @Bind(R.id.tv_register_female)
+    @BindView(R.id.tv_register_female)
     TextView mTvRegisterFemale;
-    @Bind(R.id.bt_register_submit)
+    @BindView(R.id.bt_register_submit)
     Button mBtRegisterSubmit;
 
     private PhoneToken mPhoneToken;

@@ -13,7 +13,7 @@ import net.oschina.app.util.TypefaceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -87,9 +87,9 @@ public class TeamProjectListAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
-        @Bind(R.id.iv_source)
+        @BindView(R.id.iv_source)
         TextView source;
-        @Bind(R.id.tv_project_name)
+        @BindView(R.id.tv_project_name)
         TextView name;
 
         public ViewHolder(View view) {

@@ -2,8 +2,6 @@ package net.oschina.app.team.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
@@ -15,6 +13,9 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -39,7 +40,7 @@ import net.oschina.app.widget.AvatarView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -53,11 +54,11 @@ import cz.msebera.android.httpclient.Header;
 public class TeamDiaryDetailFragment extends BaseFragment implements
         OnSendClickListener {
 
-    @Bind(R.id.listview)
+    @BindView(R.id.listview)
     ListView mList;
-    @Bind(R.id.swiperefreshlayout)
+    @BindView(R.id.swiperefreshlayout)
     SwipeRefreshLayout mSwiperefreshlayout;
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mErrorLayout;
 
     private TeamDiary diaryData;

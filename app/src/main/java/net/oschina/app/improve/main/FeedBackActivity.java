@@ -26,7 +26,7 @@ import net.oschina.app.improve.utils.PicturesCompressor;
 import java.io.File;
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -37,16 +37,16 @@ import cz.msebera.android.httpclient.Header;
 
 public class FeedBackActivity extends BackActivity implements View.OnClickListener {
 
-    @Bind(R.id.rb_error)
+    @BindView(R.id.rb_error)
     RadioButton rb_error;
 
-    @Bind(R.id.et_feed_back)
+    @BindView(R.id.et_feed_back)
     EditText et_feed_back;
 
-    @Bind(R.id.iv_add)
+    @BindView(R.id.iv_add)
     ImageView iv_add;
 
-    @Bind(R.id.iv_clear_img)
+    @BindView(R.id.iv_clear_img)
     ImageView iv_clear_img;
 
     private String mFilePath = "";

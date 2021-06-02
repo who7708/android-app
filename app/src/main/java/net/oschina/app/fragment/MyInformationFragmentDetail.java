@@ -17,7 +17,7 @@ import net.oschina.app.ui.SimpleBackActivity;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -30,31 +30,31 @@ import butterknife.ButterKnife;
 
 public class MyInformationFragmentDetail extends BaseFragment {
 
-    @Bind(R.id.iv_avatar)
+    @BindView(R.id.iv_avatar)
     PortraitView mUserFace;
 
-    @Bind(R.id.identityView)
+    @BindView(R.id.identityView)
     IdentityView identityView;
 
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mName;
 
-    @Bind(R.id.tv_join_time)
+    @BindView(R.id.tv_join_time)
     TextView mJoinTime;
 
-    @Bind(R.id.tv_location)
+    @BindView(R.id.tv_location)
     TextView mFrom;
 
-    @Bind(R.id.tv_development_platform)
+    @BindView(R.id.tv_development_platform)
     TextView mPlatFrom;
 
-    @Bind(R.id.tv_academic_focus)
+    @BindView(R.id.tv_academic_focus)
     TextView mFocus;
 
-    @Bind(R.id.tv_desc)
+    @BindView(R.id.tv_desc)
     TextView mDesc;
 
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mErrorLayout;
 
     private User userInfo;

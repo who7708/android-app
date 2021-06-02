@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -16,10 +16,10 @@ import butterknife.OnClick;
  */
 public class ShakePresentActivity extends BackActivity implements View.OnClickListener {
 
-    @Bind(R.id.ll_shake_present)
+    @BindView(R.id.ll_shake_present)
     LinearLayout mLayShakePresent;
 
-    @Bind(R.id.ll_shake_news)
+    @BindView(R.id.ll_shake_news)
     LinearLayout mLayShakeNews;
 
     private ShakePresentFragment mPresentFragment;

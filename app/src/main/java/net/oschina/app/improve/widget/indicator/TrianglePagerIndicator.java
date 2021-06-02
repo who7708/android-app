@@ -3,7 +3,7 @@ package net.oschina.app.improve.widget.indicator;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 

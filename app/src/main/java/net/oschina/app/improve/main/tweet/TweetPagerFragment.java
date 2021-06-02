@@ -1,7 +1,7 @@
 package net.oschina.app.improve.main.tweet;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import net.oschina.app.R;
@@ -17,7 +17,7 @@ import net.oschina.app.interf.OnTabReselectListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 新版动弹界面
@@ -27,7 +27,7 @@ import butterknife.Bind;
 public class TweetPagerFragment extends BasePagerFragment implements OnTabReselectListener {
 
 
-    @Bind(R.id.viewStatusBar)
+    @BindView(R.id.viewStatusBar)
     View mStatusBar;
 
     public static TweetPagerFragment newInstance() {

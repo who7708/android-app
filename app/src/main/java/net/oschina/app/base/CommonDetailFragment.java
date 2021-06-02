@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -443,8 +444,9 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
             AppContext.showToast("内容加载失败...");
             return;
         }
-        if (mDialog == null)
+        if (mDialog == null) {
             mDialog = new ShareDialog(getActivity());
+        }
         mDialog.setCancelable(true);
         mDialog.setCanceledOnTouchOutside(true);
         mDialog.setTitle(R.string.share_to);
@@ -534,8 +536,9 @@ public abstract class CommonDetailFragment<T extends Serializable> extends BaseF
      * @return
      */
     protected String getFilterHtmlBody(String body) {
-        if (body == null)
+        if (body == null) {
             return "";
+        }
         return HTMLUtil.delHTMLTag(body.trim());
     }
 

@@ -20,7 +20,7 @@ import net.oschina.app.improve.widget.rich.TextSection;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -34,10 +34,10 @@ public class WriteActivity extends BackActivity implements
         HPopupWindow.OnHeaderChangeListener,
         WriteContract.View {
 
-    @Bind(R.id.fl_content)
+    @BindView(R.id.fl_content)
     FrameLayout mFrameContent;
 
-    @Bind(R.id.richLayout)
+    @BindView(R.id.richLayout)
     RichEditLayout mEditView;
 
     private CategoryFragment mCategoryFragment;

@@ -3,14 +3,6 @@ package net.oschina.app.improve.tweet.activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,10 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
+
 import net.oschina.app.R;
 import net.oschina.app.improve.account.AccountHelper;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.bean.simple.TweetComment;
 import net.oschina.app.improve.behavior.CommentBar;
 import net.oschina.app.improve.tweet.fragments.TweetFragment;
@@ -34,7 +35,7 @@ import net.oschina.app.util.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 动弹话题详情
@@ -43,25 +44,25 @@ import butterknife.Bind;
 
 public class TopicTweetActivity extends BackActivity {
 
-    @Bind(R.id.layout_coordinator)
+    @BindView(R.id.layout_coordinator)
     CoordinatorLayout mLayoutCoordinator;
-    @Bind(R.id.layout_appbar)
+    @BindView(R.id.layout_appbar)
     AppBarLayout mLayoutAppBar;
-    @Bind(R.id.iv_wallpaper)
+    @BindView(R.id.iv_wallpaper)
     ImageView mViewWallpaper;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mViewTitle;
-    @Bind(R.id.tv_mix_title)
+    @BindView(R.id.tv_mix_title)
     TextView mViewMixTitle;
-    @Bind(R.id.tv_count)
+    @BindView(R.id.tv_count)
     TextView mViewCount;
-    @Bind(R.id.tv_description)
+    @BindView(R.id.tv_description)
     TextView mViewDescription;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.layout_tab)
+    @BindView(R.id.layout_tab)
     TabLayout mLayoutTab;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
     EditText mViewInput;
@@ -151,8 +152,9 @@ public class TopicTweetActivity extends BackActivity {
                     UIHelper.showLoginActivity(TopicTweetActivity.this);
                     return;
                 }
-                if (replies != null && replies.size() > 0)
+                if (replies != null && replies.size() > 0) {
                     content = mViewInput.getHint() + ": " + content;
+                }
                 dialog = DialogHelper.getProgressDialog(TopicTweetActivity.this, "正在发表评论...");
                 dialog.show();
             }
@@ -176,7 +178,9 @@ public class TopicTweetActivity extends BackActivity {
     }
 
     private void handleKeyDel() {
-        if (replies == null || replies.size() == 0) return;
+        if (replies == null || replies.size() == 0) {
+            return;
+        }
         replies.remove(replies.size() - 1);
         if (replies.size() == 0) {
             mViewInput.setHint("发表评论");
@@ -214,7 +218,7 @@ public class TopicTweetActivity extends BackActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-//                if (!mDelegation.onTurnBack()) return true;
+                //                if (!mDelegation.onTurnBack()) return true;
                 break;
         }
         return super.onKeyDown(keyCode, event);

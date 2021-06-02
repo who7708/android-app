@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +30,7 @@ import net.oschina.app.util.UIHelper;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -41,31 +41,31 @@ import butterknife.OnClick;
 public class EventDetailActivity extends DetailActivity implements View.OnClickListener {
     private MenuItem mMenuFav;
 
-    @Bind(R.id.iv_sign)
+    @BindView(R.id.iv_sign)
     ImageView mImageSign;
 
-    @Bind(R.id.ll_sign)
+    @BindView(R.id.ll_sign)
     LinearLayout mLinearSign;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @Bind(R.id.iv_event)
+    @BindView(R.id.iv_event)
     ImageView mImageEvent;
 
-    @Bind(R.id.header_view)
+    @BindView(R.id.header_view)
     View mHeaderView;
 
-    @Bind(R.id.ll_operate)
+    @BindView(R.id.ll_operate)
     LinearLayout mLinerOperate;
 
-    @Bind(R.id.tv_apply_status)
+    @BindView(R.id.tv_apply_status)
     TextView mTextApplyStatus;
 
-    @Bind(R.id.tv_comment)
+    @BindView(R.id.tv_comment)
     TextView mTextComment;
 
-    @Bind(R.id.line)
+    @BindView(R.id.line)
     View mLine;
 
     public static void show(Context context, SubBean bean) {

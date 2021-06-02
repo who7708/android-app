@@ -7,10 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,7 +57,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -94,13 +94,13 @@ public class TweetFragment extends BaseGeneralRecyclerFragment<Tweet>
     public String tag;
     private LoginReceiver mReceiver;
 
-    @Bind(R.id.lay_notification)
+    @BindView(R.id.lay_notification)
     LinearLayout mLayNotification;
-    @Bind(R.id.bt_ignore)
+    @BindView(R.id.bt_ignore)
     Button mBtIgnore;
-    @Bind(R.id.bt_retry)
+    @BindView(R.id.bt_retry)
     Button mBtRetry;
-    @Bind(R.id.notification_baseline)
+    @BindView(R.id.notification_baseline)
     View mBaseLine;
 
     private String[] mPubFailedCacheIds;

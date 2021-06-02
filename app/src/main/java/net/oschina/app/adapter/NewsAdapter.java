@@ -12,7 +12,7 @@ import net.oschina.app.bean.News;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.ThemeSwitchUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewsAdapter extends ListBaseAdapter<News> {
@@ -61,17 +61,17 @@ public class NewsAdapter extends ListBaseAdapter<News> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView title;
-        @Bind(R.id.tv_description)
+        @BindView(R.id.tv_description)
         TextView description;
-        @Bind(R.id.tv_source)
+        @BindView(R.id.tv_source)
         TextView source;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView time;
-        @Bind(R.id.tv_comment_count)
+        @BindView(R.id.tv_comment_count)
         TextView comment_count;
-        @Bind(R.id.iv_tip)
+        @BindView(R.id.iv_tip)
         ImageView tip;
 
         public ViewHolder(View view) {

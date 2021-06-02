@@ -1,8 +1,8 @@
 package net.oschina.app.improve.base.activities;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -19,7 +19,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 import java.lang.reflect.Type;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -31,10 +31,10 @@ public abstract class BaseRecyclerViewActivity<T> extends BackActivity implement
         RecyclerRefreshLayout.SuperRefreshLayoutListener,
         BaseGeneralRecyclerAdapter.Callback {
 
-    @Bind(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     protected RecyclerRefreshLayout mRefreshLayout;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     protected RecyclerView mRecyclerView;
 
     protected BaseRecyclerAdapter<T> mAdapter;

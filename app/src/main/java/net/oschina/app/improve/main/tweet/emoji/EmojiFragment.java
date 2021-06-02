@@ -6,7 +6,7 @@ import net.oschina.app.improve.face.FacePanelView;
 import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.widget.Keyboard;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 新版本emoji界面
@@ -14,7 +14,7 @@ import butterknife.Bind;
  */
 
 public class EmojiFragment extends BaseFragment {
-    @Bind(R.id.faceView)
+    @BindView(R.id.faceView)
     FacePanelView mFaceView;
 
     public static EmojiFragment newInstance() {

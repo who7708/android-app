@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -35,6 +34,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.dtr.zxing.camera.CameraManager;
 import com.dtr.zxing.decode.DecodeThread;
@@ -266,10 +267,11 @@ public final class CaptureActivity extends BaseActivity implements
                                     }.getType());
                             if (resultBean.isSuccess()) {
                                 Map<String, Object> extra = resultBean.getResult().getExtra();
-                                if (Double.valueOf(extra.get("eventApplyStatus").toString()).intValue() != -1)
+                                if (Double.valueOf(extra.get("eventApplyStatus").toString()).intValue() != -1) {
                                     SignUpInfoActivity.show(CaptureActivity.this, sourceId, 2);
-                                else
+                                } else {
                                     EventDetailActivity.show(CaptureActivity.this, sourceId);
+                                }
                             } else {
                                 EventDetailActivity.show(CaptureActivity.this, sourceId);
                             }
@@ -353,8 +355,9 @@ public final class CaptureActivity extends BaseActivity implements
             @Override
             public void onFailure(int arg0, Header[] arg1, byte[] arg2,
                                   Throwable arg3) {
-                if (mFlash == null)
+                if (mFlash == null) {
                     return;
+                }
                 handler.sendEmptyMessage(R.id.restart_preview);
                 if (arg2 != null) {
                     AppContext.showToast(new String(arg2));
@@ -371,8 +374,9 @@ public final class CaptureActivity extends BaseActivity implements
 
             @Override
             public void onFinish() {
-                if (mFlash == null)
+                if (mFlash == null) {
                     return;
+                }
                 super.onFinish();
                 hideWaitDialog();
             }
@@ -465,8 +469,9 @@ public final class CaptureActivity extends BaseActivity implements
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
-        if (cameraManager == null)
+        if (cameraManager == null) {
             return;
+        }
 
         if (surfaceHolder == null) {
             throw new IllegalStateException("No SurfaceHolder provided");
@@ -617,7 +622,6 @@ public final class CaptureActivity extends BaseActivity implements
         cameraManager = new CameraManager(getApplication());
     }
 
-
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         if (perms != null && perms.size() == 2) {
@@ -639,7 +643,6 @@ public final class CaptureActivity extends BaseActivity implements
         // EasyPermissions handles the request result.
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-
 
     private static final int CAMERA_PERM = 1;
 

@@ -1,6 +1,6 @@
 package net.oschina.app.improve.widget.indicator;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by huanghaibin

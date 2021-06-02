@@ -2,9 +2,10 @@ package net.oschina.app.improve.account.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.View;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -20,7 +21,7 @@ import net.oschina.app.util.TDevice;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -30,9 +31,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class CsdnLoginActivity extends BaseBackActivity implements View.OnClickListener {
 
-    @Bind(R.id.et_nickname)
+    @BindView(R.id.et_nickname)
     AppCompatEditText mEditNickname;
-    @Bind(R.id.et_pwd)
+    @BindView(R.id.et_pwd)
     AppCompatEditText mEditPwd;
 
     public static void show(Activity activity) {
@@ -61,8 +62,9 @@ public class CsdnLoginActivity extends BaseBackActivity implements View.OnClickL
         OSChinaApi.csdnLogin(name, pwd, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (isDestroy())
+                if (isDestroy()) {
                     return;
+                }
                 dismissLoadingDialog();
                 SimplexToast.show(CsdnLoginActivity.this, "网络错误");
             }

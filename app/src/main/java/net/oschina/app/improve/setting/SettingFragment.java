@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -32,7 +32,7 @@ import net.oschina.app.util.UIHelper;
 import java.io.File;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -48,19 +48,19 @@ public class SettingFragment extends BaseFragment implements
 
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限
 
-    @Bind(R.id.tv_cache_size)
+    @BindView(R.id.tv_cache_size)
     TextView mTvCacheSize;
-    @Bind(R.id.rl_check_version)
+    @BindView(R.id.rl_check_version)
     FrameLayout mRlCheck_version;
-    @Bind(R.id.tb_double_click_exit)
+    @BindView(R.id.tb_double_click_exit)
     ToggleButton mTbDoubleClickExit;
-    @Bind(R.id.tb_clip)
+    @BindView(R.id.tb_clip)
     ToggleButton mTbClip;
-    @Bind(R.id.setting_line_top)
+    @BindView(R.id.setting_line_top)
     View mSettingLineTop;
-    @Bind(R.id.setting_line_bottom)
+    @BindView(R.id.setting_line_bottom)
     View mSettingLineBottom;
-    @Bind(R.id.rl_cancel)
+    @BindView(R.id.rl_cancel)
     FrameLayout mCancel;
 
     private Version mVersion;

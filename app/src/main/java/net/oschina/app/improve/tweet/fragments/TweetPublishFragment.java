@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -38,7 +38,7 @@ import net.oschina.app.util.TDevice;
 import net.oschina.app.util.UIHelper;
 import net.oschina.common.adapter.TextWatcherAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -52,19 +52,19 @@ public class TweetPublishFragment extends BaseFragment implements View.OnClickLi
     public static final int REQUEST_CODE_SELECT_FRIENDS = 0x0001;
     public static final int REQUEST_CODE_SELECT_TOPIC = 0x0002;
 
-    @Bind(R.id.edit_content)
+    @BindView(R.id.edit_content)
     RichEditText mEditContent;
 
-    @Bind(R.id.recycler_images)
+    @BindView(R.id.recycler_images)
     TweetPicturesPreviewer mLayImages;
 
-    @Bind(R.id.txt_indicator)
+    @BindView(R.id.txt_indicator)
     TextView mIndicator;
 
-    @Bind(R.id.icon_back)
+    @BindView(R.id.icon_back)
     View mIconBack;
 
-    @Bind(R.id.icon_send)
+    @BindView(R.id.icon_send)
     View mIconSend;
 
     private TweetPublishContract.Operator mOperator;

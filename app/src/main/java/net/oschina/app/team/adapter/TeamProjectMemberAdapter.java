@@ -9,7 +9,7 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.team.bean.TeamMember;
 import net.oschina.app.widget.AvatarView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -43,9 +43,9 @@ public class TeamProjectMemberAdapter extends ListBaseAdapter<TeamMember> {
     }
 
     public static class ViewHolder {
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         AvatarView avatar;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView name;
 
         public ViewHolder(View view) {

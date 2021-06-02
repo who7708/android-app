@@ -22,7 +22,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -31,25 +31,25 @@ import butterknife.OnClick;
  */
 
 public class SignUpFragment extends BaseFragment implements View.OnClickListener, SignUpContract.View {
-    @Bind(R.id.tv_event_name)
+    @BindView(R.id.tv_event_name)
     TextView mTextEventName;
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView mTextName;
-    @Bind(R.id.tv_work)
+    @BindView(R.id.tv_work)
     TextView mTextWork;
-    @Bind(R.id.tv_date)
+    @BindView(R.id.tv_date)
     TextView mTextDate;
-    @Bind(R.id.tv_phone)
+    @BindView(R.id.tv_phone)
     TextView mTextPhone;
-    @Bind(R.id.tv_company)
+    @BindView(R.id.tv_company)
     TextView mTextCompany;
-    @Bind(R.id.tv_status)
+    @BindView(R.id.tv_status)
     TextView mTextStatus;
-    @Bind(R.id.tv_remark)
+    @BindView(R.id.tv_remark)
     TextView mTextRemark;
-    @Bind(R.id.btn_sign_up)
+    @BindView(R.id.btn_sign_up)
     Button mBtnSignUp;
-    @Bind(R.id.btn_cancel)
+    @BindView(R.id.btn_cancel)
     Button mBtnCalcen;
     private SubBean mDetail;
     private String mInvitationImg;

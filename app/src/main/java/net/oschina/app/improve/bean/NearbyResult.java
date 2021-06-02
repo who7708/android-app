@@ -1,6 +1,6 @@
 package net.oschina.app.improve.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 

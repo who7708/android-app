@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.content.SharedPreferencesCompat;
+import androidx.core.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 
 import net.oschina.app.Setting;

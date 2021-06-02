@@ -30,7 +30,7 @@ import net.oschina.app.util.KJAnimations;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.util.UIHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -39,29 +39,29 @@ import butterknife.ButterKnife;
  * @author kymjs (https://github.com/kymjs)
  */
 public class NoteEditFragment extends BaseFragment implements OnTouchListener {
-    @Bind(R.id.note_detail_edit)
+    @BindView(R.id.note_detail_edit)
     EditText mEtContent;
-    @Bind(R.id.note_detail_tv_date)
+    @BindView(R.id.note_detail_tv_date)
     TextView mTvDate;
-    @Bind(R.id.note_detail_titlebar)
+    @BindView(R.id.note_detail_titlebar)
     RelativeLayout mLayoutTitle;
-    @Bind(R.id.note_detail_img_thumbtack)
+    @BindView(R.id.note_detail_img_thumbtack)
     ImageView mImgThumbtack;
 
-    @Bind(R.id.note_detail_img_button)
+    @BindView(R.id.note_detail_img_button)
     ImageView mImgMenu;
-    @Bind(R.id.note_detail_menu)
+    @BindView(R.id.note_detail_menu)
     RelativeLayout mLayoutMenu;
 
-    @Bind(R.id.note_detail_img_green)
+    @BindView(R.id.note_detail_img_green)
     ImageView mImgGreen;
-    @Bind(R.id.note_detail_img_blue)
+    @BindView(R.id.note_detail_img_blue)
     ImageView mImgBlue;
-    @Bind(R.id.note_detail_img_purple)
+    @BindView(R.id.note_detail_img_purple)
     ImageView mImgPurple;
-    @Bind(R.id.note_detail_img_yellow)
+    @BindView(R.id.note_detail_img_yellow)
     ImageView mImgYellow;
-    @Bind(R.id.note_detail_img_red)
+    @BindView(R.id.note_detail_img_red)
     ImageView mImgRed;
 
     private NotebookData editData;

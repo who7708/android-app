@@ -7,9 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,7 +29,7 @@ import net.oschina.common.widget.drawable.shape.BorderShape;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
@@ -37,15 +37,15 @@ import butterknife.OnLongClick;
  * A simple {@link Fragment} subclass.
  */
 public class NavFragment extends BaseFragment implements View.OnClickListener, NoticeManager.NoticeNotify, View.OnLongClickListener {
-    @Bind(R.id.nav_item_news)
+    @BindView(R.id.nav_item_news)
     NavigationButton mNavNews;
-    @Bind(R.id.nav_item_tweet)
+    @BindView(R.id.nav_item_tweet)
     NavigationButton mNavTweet;
-    @Bind(R.id.nav_item_explore)
+    @BindView(R.id.nav_item_explore)
     NavigationButton mNavExplore;
-    @Bind(R.id.nav_item_me)
+    @BindView(R.id.nav_item_me)
     NavigationButton mNavMe;
-    @Bind(R.id.nav_item_tweet_pub)
+    @BindView(R.id.nav_item_tweet_pub)
     ImageView mNavPub;
     private Context mContext;
     private int mContainerId;

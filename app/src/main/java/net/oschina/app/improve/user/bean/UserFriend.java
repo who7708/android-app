@@ -1,6 +1,6 @@
 package net.oschina.app.improve.user.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import net.oschina.app.improve.bean.simple.Author;
 

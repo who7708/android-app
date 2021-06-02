@@ -3,7 +3,8 @@ package net.oschina.open.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.IdRes;
+
+import androidx.annotation.IdRes;
 
 /**
  * Created by fei

@@ -2,8 +2,8 @@ package net.oschina.app.team.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +30,7 @@ import net.oschina.app.util.XmlUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -41,11 +41,11 @@ import cz.msebera.android.httpclient.Header;
  */
 public class TeamMemberFragment extends BaseFragment {
 
-    @Bind(R.id.fragment_team_grid)
+    @BindView(R.id.fragment_team_grid)
     GridView mGrid;
-    @Bind(R.id.fragment_team_empty)
+    @BindView(R.id.fragment_team_empty)
     EmptyLayout mEmpty;
-    @Bind(R.id.swiperefreshlayout)
+    @BindView(R.id.swiperefreshlayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     private Activity aty;

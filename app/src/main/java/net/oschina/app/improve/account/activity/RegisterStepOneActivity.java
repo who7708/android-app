@@ -37,7 +37,7 @@ import net.oschina.app.util.TDevice;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -50,29 +50,29 @@ import cz.msebera.android.httpclient.Header;
 public class RegisterStepOneActivity extends AccountBaseActivity implements View.OnClickListener, View.OnFocusChangeListener,
         ViewTreeObserver.OnGlobalLayoutListener {
 
-    @Bind(R.id.ly_retrieve_bar)
+    @BindView(R.id.ly_retrieve_bar)
     LinearLayout mLayBackBar;
 
-    @Bind(R.id.iv_login_logo)
+    @BindView(R.id.iv_login_logo)
     ImageView mIvLogo;
 
-    @Bind(R.id.ll_register_phone)
+    @BindView(R.id.ll_register_phone)
     LinearLayout mLlRegisterPhone;
-    @Bind(R.id.et_register_username)
+    @BindView(R.id.et_register_username)
     EditText mEtRegisterUsername;
-    @Bind(R.id.iv_register_username_del)
+    @BindView(R.id.iv_register_username_del)
     ImageView mIvRegisterDel;
 
-    @Bind(R.id.ll_register_sms_code)
+    @BindView(R.id.ll_register_sms_code)
     LinearLayout mLlRegisterSmsCode;
-    @Bind(R.id.et_register_auth_code)
+    @BindView(R.id.et_register_auth_code)
     EditText mEtRegisterAuthCode;
 
     private TextView mTvRegisterSmsCall;
-    @Bind(R.id.bt_register_submit)
+    @BindView(R.id.bt_register_submit)
     Button mBtRegisterSubmit;
 
-    @Bind(R.id.cb_protocol)
+    @BindView(R.id.cb_protocol)
     CheckBox mCheckProtocol;
     private boolean mMachPhoneNum;
 

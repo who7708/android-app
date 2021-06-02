@@ -7,12 +7,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -25,6 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -55,7 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -69,39 +70,39 @@ public class OtherUserHomeActivity extends BaseActivity
     public static final String KEY_BUNDLE = "KEY_BUNDLE_IN_OTHER_USER_HOME";
 
     /* 谁格式化了我这里的代码我就打谁 */
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.iv_portrait)
+    @BindView(R.id.iv_portrait)
     PortraitView mPortrait;
-    @Bind(R.id.tv_nick)
+    @BindView(R.id.tv_nick)
     TextView mNick;
-    @Bind(R.id.tv_summary)
+    @BindView(R.id.tv_summary)
     TextView mSummary;
-    @Bind(R.id.tv_avail_score)
+    @BindView(R.id.tv_avail_score)
     TextView mTextAvailScore;
-    @Bind(R.id.tv_active_score)
+    @BindView(R.id.tv_active_score)
     TextView mTextActiveScore;
-    @Bind(R.id.tv_count_follow)
+    @BindView(R.id.tv_count_follow)
     TextView mCountFollow;
-    @Bind(R.id.tv_count_fans)
+    @BindView(R.id.tv_count_fans)
     TextView mCountFans;
-    @Bind(R.id.view_solar_system)
+    @BindView(R.id.view_solar_system)
     SolarSystemView mSolarSystem;
-    @Bind(R.id.layout_appbar)
+    @BindView(R.id.layout_appbar)
     AppBarLayout mLayoutAppBar;
-    @Bind(R.id.iv_logo_portrait)
+    @BindView(R.id.iv_logo_portrait)
     PortraitView mLogoPortrait;
-    @Bind(R.id.tv_logo_nick)
+    @BindView(R.id.tv_logo_nick)
     TextView mLogoNick;
-    @Bind(R.id.iv_gender)
+    @BindView(R.id.iv_gender)
     ImageView mGenderImage;
-    @Bind(R.id.layout_tab)
+    @BindView(R.id.layout_tab)
     TabLayout mTabLayout;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @Bind(R.id.view_divider)
+    @BindView(R.id.view_divider)
     View mDivider;
-    @Bind(R.id.identityView)
+    @BindView(R.id.identityView)
     IdentityView mIdentityView;
 
     private boolean mIsLoadSuccess = false;
@@ -111,7 +112,9 @@ public class OtherUserHomeActivity extends BaseActivity
     private TabLayoutOffsetChangeListener mOffsetChangerListener;
 
     public static void show(Context context, Author author) {
-        if (author == null) return;
+        if (author == null) {
+            return;
+        }
         User user = new User();
         user.setId(author.getId());
         user.setName(author.getName());
@@ -120,14 +123,18 @@ public class OtherUserHomeActivity extends BaseActivity
     }
 
     public static void show(Context context, long id) {
-        if (id <= 0) return;
+        if (id <= 0) {
+            return;
+        }
         User user = new User();
         user.setId((int) id);
         show(context, user);
     }
 
     public static void show(Context context, String nick) {
-        if (TextUtils.isEmpty(nick)) return;
+        if (TextUtils.isEmpty(nick)) {
+            return;
+        }
         User user = new User();
         user.setName(nick);
         show(context, user);
@@ -140,14 +147,18 @@ public class OtherUserHomeActivity extends BaseActivity
      */
     @SuppressWarnings("unused")
     public static void show(Context context, long id, String suffix) {
-        if (TextUtils.isEmpty(suffix)) return;
+        if (TextUtils.isEmpty(suffix)) {
+            return;
+        }
         User user = new User();
         user.setSuffix(suffix);
         show(context, user);
     }
 
     public static void show(Context context, User user) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         Intent intent = new Intent(context, OtherUserHomeActivity.class);
         intent.putExtra(KEY_BUNDLE, user);
         context.startActivity(intent);
@@ -210,7 +221,9 @@ public class OtherUserHomeActivity extends BaseActivity
                     planet.setAngleRate((random.nextInt(35) + 1) / 1000.f);
                     planet.setRadius(radius);
                     mSolarSystem.addPlanets(planet);
-                    if (radius > mMaxRadius) break;
+                    if (radius > mMaxRadius) {
+                        break;
+                    }
                 }
                 mSolarSystem.setPivotPoint(px, py);
                 float ry = mSolarSystem.getHeight() - py;
@@ -228,7 +241,9 @@ public class OtherUserHomeActivity extends BaseActivity
 
     @SuppressWarnings("all")
     private void injectDataToViewPager() {
-        if (!isLoadSuccess()) return;
+        if (!isLoadSuccess()) {
+            return;
+        }
 
         mTabLayout.addTab(mTabLayout.newTab().setCustomView(getTabView("0", "动弹")));
         mTabLayout.addTab(mTabLayout.newTab().setCustomView(getTabView("0", "博客")));
@@ -294,7 +309,9 @@ public class OtherUserHomeActivity extends BaseActivity
     @SuppressWarnings("all")
     private void setupTabText(TabLayout.Tab tab, int count) {
         View view = tab.getCustomView();
-        if (view == null) return;
+        if (view == null) {
+            return;
+        }
         TabViewHolder holder = (TabViewHolder) view.getTag();
         holder.mViewCount.setText(formatNumeric(count));
     }
@@ -305,8 +322,11 @@ public class OtherUserHomeActivity extends BaseActivity
             int b = a % 10;
             int c = a / 10;
             String str;
-            if (c <= 9 && b != 0) str = c + "." + b;
-            else str = String.valueOf(c);
+            if (c <= 9 && b != 0) {
+                str = c + "." + b;
+            } else {
+                str = String.valueOf(c);
+            }
             return str + "k";
         } else {
             return String.valueOf(count);
@@ -325,8 +345,9 @@ public class OtherUserHomeActivity extends BaseActivity
     private void injectDataToView() {
         if (user == null
                 || user.getId() == 0
-                || user.getName() == null)
+                || user.getName() == null) {
             return;
+        }
 
         mPortrait.setup(user);
         mPortrait.setOnClickListener(this);
@@ -388,22 +409,26 @@ public class OtherUserHomeActivity extends BaseActivity
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                if (isFinishing() || isDestroyed())
+                if (isFinishing() || isDestroyed()) {
                     return;
+                }
                 Toast.makeText(OtherUserHomeActivity.this, "获取用户信息失败", Toast.LENGTH_SHORT).show();
             }
 
             @SuppressWarnings("RestrictedApi")
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if (isFinishing() || isDestroyed())
+                if (isFinishing() || isDestroyed()) {
                     return;
+                }
 
                 try {
                     ResultBean<User> result = AppOperator.createGson().fromJson(
                             responseString, new TypeToken<ResultBean<User>>() {
                             }.getType());
-                    if (result.isSuccess() && result.getResult() == null) return;
+                    if (result.isSuccess() && result.getResult() == null) {
+                        return;
+                    }
                     user = result.getResult();
                     if (user == null || user.getId() == 0) {
                         Toast.makeText(OtherUserHomeActivity.this, "该用户不存在", Toast.LENGTH_SHORT).show();
@@ -429,7 +454,9 @@ public class OtherUserHomeActivity extends BaseActivity
         if (isLoadSuccess() && AccountHelper.isLogin() && AccountHelper.getUserId() != user.getId()) {
             getMenuInflater().inflate(R.menu.menu_other_user, menu);
             mFollowMenu = menu.getItem(1);
-            if (mFollowMenu == null) return false;
+            if (mFollowMenu == null) {
+                return false;
+            }
             switch (user.getRelation()) {
                 case User.RELATION_TYPE_BOTH:
                     mFollowMenu.setIcon(getResources().getDrawable(
@@ -458,8 +485,9 @@ public class OtherUserHomeActivity extends BaseActivity
 
     @Override
     public void onClick(View v) {
-        if (!isLoadSuccess())
+        if (!isLoadSuccess()) {
             return;
+        }
         switch (v.getId()) {
             case R.id.tv_count_follow:
                 UserFollowsActivity.show(this, user.getId());
@@ -468,14 +496,16 @@ public class OtherUserHomeActivity extends BaseActivity
                 UserFansActivity.show(this, user.getId());
                 break;
             case R.id.view_solar_system:
-//                Bundle userBundle = new Bundle();
-//                userBundle.putSerializable("user_info", user);
-//                UIHelper.showSimpleBack(this, SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
+                //                Bundle userBundle = new Bundle();
+                //                userBundle.putSerializable("user_info", user);
+                //                UIHelper.showSimpleBack(this, SimpleBackPage.MY_INFORMATION_DETAIL, userBundle);
                 UserDataActivity.show(this, user);
                 break;
             case R.id.iv_portrait:
                 String url;
-                if (user == null || TextUtils.isEmpty(url = user.getPortrait())) return;
+                if (user == null || TextUtils.isEmpty(url = user.getPortrait())) {
+                    return;
+                }
                 url = AvatarView.getLargeAvatar(url);
                 ImageGalleryActivity.show(this, url);
                 break;
@@ -527,7 +557,9 @@ public class OtherUserHomeActivity extends BaseActivity
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        if (mFollowMenu == null) return;
+        if (mFollowMenu == null) {
+            return;
+        }
         OSChinaApi.addUserRelationReverse(user.getId(), new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString

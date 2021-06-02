@@ -2,10 +2,10 @@ package net.oschina.app.improve.user.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
@@ -15,7 +15,7 @@ import net.oschina.app.improve.user.fragments.UserCommentFragment;
 import net.oschina.app.improve.user.fragments.UserMentionFragment;
 import net.oschina.app.improve.user.fragments.UserMessageFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by huanghaibin_dev
@@ -26,9 +26,9 @@ import butterknife.Bind;
  */
 public class UserMessageActivity extends BackActivity implements NoticeManager.NoticeNotify {
 
-    @Bind(R.id.tabLayout)
+    @BindView(R.id.tabLayout)
     TabLayout mLayoutTab;
-    @Bind(R.id.vp_user_message)
+    @BindView(R.id.vp_user_message)
     ViewPager mViewPager;
 
     private static final int INDEX_MENTION = 0;

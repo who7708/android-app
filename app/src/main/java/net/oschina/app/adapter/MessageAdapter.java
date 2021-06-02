@@ -16,7 +16,7 @@ import net.oschina.app.widget.MyLinkMovementMethod;
 import net.oschina.app.widget.MyURLSpan;
 import net.oschina.app.widget.TweetTextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageAdapter extends ListBaseAdapter<Messages> {
@@ -66,17 +66,17 @@ public class MessageAdapter extends ListBaseAdapter<Messages> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         AvatarView avatar;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView name;
-        @Bind(R.id.tv_sender)
+        @BindView(R.id.tv_sender)
         TextView sender;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView time;
-        @Bind(R.id.tv_count)
+        @BindView(R.id.tv_count)
         TextView count;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TweetTextView content;
 
         ViewHolder(View view) {

@@ -20,8 +20,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -433,7 +432,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements
         if (disableViewPager)
             return;
         this.viewPager = viewPager;
-        this.viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+        this.viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 selectedTab(position);
@@ -480,7 +479,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements
      * @param onPageChangeListener Page切换监听器
      */
     public void setOnPageChangeListener(
-            OnPageChangeListener onPageChangeListener) {
+            ViewPager.OnPageChangeListener onPageChangeListener) {
         this.onPageChangeListener = onPageChangeListener;
     }
 

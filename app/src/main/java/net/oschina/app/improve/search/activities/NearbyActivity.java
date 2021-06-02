@@ -8,10 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,7 +59,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -78,13 +78,13 @@ public class NearbyActivity extends BackActivity implements RadarSearchListener,
     public static final int LOCATION_PERMISSION = 0x0100;//定位权限
     public static final String CHARSET = "UTF-8";
 
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView mRecycler;
 
-    @Bind(R.id.layout_recycler_refresh)
+    @BindView(R.id.layout_recycler_refresh)
     RecyclerRefreshLayout mRecyclerRefresh;
 
-    @Bind(R.id.lay_emptyLayout)
+    @BindView(R.id.lay_emptyLayout)
     EmptyLayout mEmptyLayout;
     private BaseRecyclerAdapter<NearbyResult> mAdapter;
 

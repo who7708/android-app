@@ -1,18 +1,18 @@
 package net.oschina.app.improve.base.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
 import net.oschina.app.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by fei
@@ -23,10 +23,10 @@ import butterknife.Bind;
  */
 public abstract class BaseViewPagerFragment extends BaseTitleFragment {
 
-    @Bind(R.id.tab_nav)
+    @BindView(R.id.tab_nav)
     protected TabLayout mTabNav;
 
-    @Bind(R.id.base_viewPager)
+    @BindView(R.id.base_viewPager)
     protected ViewPager mBaseViewPager;
 
     @Override

@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -42,7 +42,7 @@ import net.oschina.common.adapter.TextWatcherAdapter;
 import java.util.Map;
 import java.util.Set;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -57,40 +57,40 @@ public class UserEventSigninActivity extends BaseBackActivity {
 
     public static final String EVENT_ID_KEY = "event_id_key";
 
-    @Bind(R.id.iv_event_img)
+    @BindView(R.id.iv_event_img)
     ImageView mIvImg;
-    @Bind(R.id.tv_event_title)
+    @BindView(R.id.tv_event_title)
     TextView mTvTitle;
-    @Bind(R.id.tv_event_author)
+    @BindView(R.id.tv_event_author)
     TextView mTvAuthor;
-    @Bind(R.id.tv_event_type)
+    @BindView(R.id.tv_event_type)
     TextView mTvType;
 
-    @Bind(R.id.ck_check)
+    @BindView(R.id.ck_check)
     CheckBox mCkLabel;
 
-    @Bind(R.id.line)
+    @BindView(R.id.line)
     View mLine;
 
-    @Bind(R.id.lay_input_bg)
+    @BindView(R.id.lay_input_bg)
     LinearLayout mLayInputBg;
 
-    @Bind(R.id.et_signin)
+    @BindView(R.id.et_signin)
     EditText mEtSignin;
 
-    @Bind(R.id.lay_container_user_info)
+    @BindView(R.id.lay_container_user_info)
     LinearLayout mLayUserInfo;
 
-    @Bind(R.id.tv_signin_notice)
+    @BindView(R.id.tv_signin_notice)
     TextView mTvNotice;
 
-    @Bind(R.id.tv_cost_notice)
+    @BindView(R.id.tv_cost_notice)
     TextView mTvCost;
 
-    @Bind(R.id.bt_signin_submit)
+    @BindView(R.id.bt_signin_submit)
     Button mBtSubmit;
 
-    @Bind(R.id.lay_error)
+    @BindView(R.id.lay_error)
     EmptyLayout mEmptyLayout;
 
     private long mId;

@@ -3,14 +3,14 @@ package net.oschina.app.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -90,7 +90,7 @@ public class DiaryPageContentView {
             }
         });
 
-        pullHeadView.setOnRefreshListener(new OnRefreshListener() {
+        pullHeadView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 if (BaseFragment.mState == BaseFragment.STATE_REFRESH) {

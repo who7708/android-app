@@ -8,12 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tencent.tauth.IUiListener;
@@ -52,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -129,8 +130,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         this.mActivity = activity;
         mAboutShare = new About.Share();
         mAboutShare.id = id;
-        if (id < 0)
+        if (id < 0) {
             isOnlyBitmap = true;
+        }
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View contentView = inflater.inflate(R.layout.dialog_share_main, null, false);
         RecyclerView shareRecycle = (RecyclerView) contentView.findViewById(R.id.share_recycler);
@@ -218,15 +220,17 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
 
     public ShareDialog with() {
         mShare.setAppShareIcon(R.mipmap.ic_share_app_logo);
-        if (mShare.getBitmapResID() == 0)
+        if (mShare.getBitmapResID() == 0) {
             mShare.setBitmapResID(R.mipmap.ic_share_app_logo);
+        }
         return this;
     }
 
     public ShareDialog title(String title) {
         mShare.setTitle(title);
-        if (mAboutShare == null)
+        if (mAboutShare == null) {
             mAboutShare = new About.Share();
+        }
         mAboutShare.title = title;
         return this;
     }
@@ -274,8 +278,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 public void run() {
                     try {
                         Bitmap thumbBitmap = Glide.with(getContext())
+                                .asBitmap()
                                 .load(imageUrl)
-                                .asBitmap().into(100, 100).get();
+                                .into(100, 100).get();
                         //为微博和微信加入分享的详情icon
 
                         mShare.setThumbBitmap(thumbBitmap);
@@ -290,7 +295,6 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
 
         return this;
     }
-
 
     public ShareDialog id(long id) {
         mAboutShare.id = id;
@@ -365,8 +369,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                 break;
             //转发到动弹
             case R.mipmap.ic_action_tweet:
-                if (About.check(mAboutShare))
+                if (About.check(mAboutShare)) {
                     TweetPublishActivity.show(getContext(), null, null, mAboutShare);
+                }
                 if (isOnlyBitmap && mShare.getThumbBitmap() != null) {
 
                     showWaitDialog(R.string.loading_image);
@@ -378,7 +383,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
                                 @Override
                                 public void run() {
                                     try {
-                                        if (TextUtils.isEmpty(url)) return;
+                                        if (TextUtils.isEmpty(url)) {
+                                            return;
+                                        }
                                         TweetPublishActivity.show(getContext(), false, url);
                                         cancelLoading();
                                         hideProgressDialog();
@@ -457,8 +464,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         try {
             File file = new File(url = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                     .getAbsolutePath() + File.separator + "开源中国/");
-            if (!file.exists())
+            if (!file.exists()) {
                 file.mkdirs();
+            }
             url = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                     .getAbsolutePath() + File.separator + "开源中国/" +
                     System.currentTimeMillis() + ".jpg";
@@ -469,8 +477,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (bitmap != null && !bitmap.isRecycled())
+            if (bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
+            }
             StreamUtil.close(os);
             if (!TextUtils.isEmpty(url)) {
                 Uri uri = Uri.fromFile(new File(url));
@@ -515,7 +524,7 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         Uri uri = FileProvider.getUriForFile(mActivity, "net.oschina.app.provider", new File(url));
         shareIntent.setType("image/*");
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-//        shareIntent.putExtra(Intent.EXTRA_TEXT, title);
+        //        shareIntent.putExtra(Intent.EXTRA_TEXT, title);
         mActivity.startActivity(Intent.createChooser(shareIntent, "分享图片"));
     }
 
@@ -547,11 +556,10 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
         }
     }
 
-
     static class ShareViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.share_icon)
+        @BindView(R.id.share_icon)
         ImageView mIvIcon;
-        @Bind(R.id.share_name)
+        @BindView(R.id.share_name)
         TextView mTvName;
 
         public ShareViewHolder(View itemView) {
@@ -571,8 +579,9 @@ public class ShareDialog extends BottomDialog implements OpenBuilder.Callback,
     }
 
     public void hideProgressDialog() {
-        if (mDialog == null)
+        if (mDialog == null) {
             return;
+        }
         mDialog.dismiss();
     }
 

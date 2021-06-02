@@ -19,7 +19,7 @@ import net.oschina.app.util.UIHelper;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -29,7 +29,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class ProjectDetailActivity extends BackActivity implements ProjectDetailContract.EmptyView {
 
-    @Bind(R.id.emptyLayout)
+    @BindView(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
     public static void show(final Context context, final Project project) {

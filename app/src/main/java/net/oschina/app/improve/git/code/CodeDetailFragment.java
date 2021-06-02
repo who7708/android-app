@@ -15,7 +15,7 @@ import net.oschina.app.improve.git.bean.CodeDetail;
 import net.oschina.app.improve.git.utils.MarkdownUtils;
 import net.oschina.app.improve.git.utils.SourceEditor;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by haibin
@@ -24,13 +24,13 @@ import butterknife.Bind;
 
 public class CodeDetailFragment extends BaseFragment implements CodeDetailContract.View {
 
-    @Bind(R.id.tv_file_name)
+    @BindView(R.id.tv_file_name)
     TextView mTextFileName;
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     WebView mWebView;
-    @Bind(R.id.ll_name)
+    @BindView(R.id.ll_name)
     LinearLayout mLinearName;
-    @Bind(R.id.line)
+    @BindView(R.id.line)
     View mLine;
     private SourceEditor mEditor;
     private CodeDetailContract.Presenter mPresenter;

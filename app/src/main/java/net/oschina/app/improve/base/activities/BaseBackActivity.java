@@ -1,7 +1,7 @@
 package net.oschina.app.improve.base.activities;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 
 import net.oschina.app.improve.utils.DialogHelper;
 

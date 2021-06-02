@@ -1,13 +1,14 @@
 package net.oschina.app.improve.main.synthesize;
 
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import net.oschina.app.R;
 import net.oschina.app.api.ApiHttpClient;
@@ -28,7 +29,7 @@ import net.oschina.app.interf.OnTabReselectListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -44,7 +45,7 @@ public class SynthesizeFragment extends BasePagerFragment implements
     private int mCurrentItem;
     private TextView mTextCount;
 
-    @Bind(R.id.viewStatusBar)
+    @BindView(R.id.viewStatusBar)
     View mStatusBar;
 
     public static SynthesizeFragment newInstance() {
@@ -107,9 +108,13 @@ public class SynthesizeFragment extends BasePagerFragment implements
 
     private void setTitleText(boolean isSelected, int position) {
         TabLayout.Tab tab = mTabLayout.getTabAt(position);
-        if (tab == null) return;
+        if (tab == null) {
+            return;
+        }
         View view = tab.getCustomView();
-        if (view == null) return;
+        if (view == null) {
+            return;
+        }
         TextView textView = (TextView) view.findViewById(R.id.tv_title);
         textView.setTextColor(isSelected ? 0xff24cf5f : 0xff6A6A6A);
     }
@@ -136,8 +141,9 @@ public class SynthesizeFragment extends BasePagerFragment implements
 
     @Override
     public void onNoticeArrived(NoticeBean bean) {
-        if (mTextCount == null || bean == null)
+        if (mTextCount == null || bean == null) {
             return;
+        }
         if (bean.getNewsCount() == 0) {
             mTextCount.setVisibility(View.GONE);
         } else {
@@ -145,7 +151,6 @@ public class SynthesizeFragment extends BasePagerFragment implements
             mTextCount.setText(String.valueOf(bean.getNewsCount()));
         }
     }
-
 
     @SuppressLint("InflateParams")
     private View getTabView(int i) {
@@ -179,15 +184,15 @@ public class SynthesizeFragment extends BasePagerFragment implements
             BasePagerFragment.Adapter pagerAdapter = (BasePagerFragment.Adapter) mViewPager.getAdapter();
             Fragment fragment = pagerAdapter.getCurFragment();
             if (fragment != null) {
-                if (fragment instanceof BaseGeneralListFragment)
+                if (fragment instanceof BaseGeneralListFragment) {
                     ((BaseGeneralListFragment) fragment).onTabReselect();
-                else if (fragment instanceof BaseGeneralRecyclerFragment)
+                } else if (fragment instanceof BaseGeneralRecyclerFragment) {
                     ((BaseGeneralRecyclerFragment) fragment).onTabReselect();
-                else if (fragment instanceof ArticleFragment)
+                } else if (fragment instanceof ArticleFragment) {
                     ((ArticleFragment) fragment).onTabReselect();
-                else if (fragment instanceof EnglishArticleFragment)
+                } else if (fragment instanceof EnglishArticleFragment) {
                     ((EnglishArticleFragment) fragment).onTabReselect();
-                else if (fragment instanceof SubFragment) {
+                } else if (fragment instanceof SubFragment) {
                     ((SubFragment) fragment).onTabReselect();
                 }
             }
@@ -243,7 +248,6 @@ public class SynthesizeFragment extends BasePagerFragment implements
         bundle.putSerializable("sub_tab", tab);
         return SubFragment.newInstance(tab);
     }
-
 
     @Override
     public void onDestroy() {

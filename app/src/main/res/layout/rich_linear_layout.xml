@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 
     <View style="@style/h_line" />
 
-    <!--<android.support.v7.widget.AppCompatEditText-->
+    <!--<androidx.appcompat.widget.AppCompatEditText-->
     <!--android:id="@+id/et_summary"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->

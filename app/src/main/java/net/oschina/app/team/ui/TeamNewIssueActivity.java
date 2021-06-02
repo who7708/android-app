@@ -3,7 +3,7 @@ package net.oschina.app.team.ui;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -41,7 +41,7 @@ import net.oschina.app.util.XmlUtils;
 import java.util.Calendar;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -50,30 +50,30 @@ import cz.msebera.android.httpclient.Header;
  */
 public class TeamNewIssueActivity extends BaseActivity {
 
-    @Bind(R.id.et_issue_title)
+    @BindView(R.id.et_issue_title)
     EditText mEtTitle;
 
-    @Bind(R.id.tv_issue_project)
+    @BindView(R.id.tv_issue_project)
     TextView mTvProject;
 
-    @Bind(R.id.tv_issue_catalog)
+    @BindView(R.id.tv_issue_catalog)
     TextView mTvCatalog;
 
-    @Bind(R.id.tv_issue_touser)
+    @BindView(R.id.tv_issue_touser)
     TextView mTvToUser;
 
-    @Bind(R.id.tv_issue_time)
+    @BindView(R.id.tv_issue_time)
     TextView mTvTime;
 
-    @Bind(R.id.rl_issue_push)
+    @BindView(R.id.rl_issue_push)
     View mRlGitPush;
-    @Bind(R.id.push_line)
+    @BindView(R.id.push_line)
     View mPushLine;
 
-    @Bind(R.id.tv_issue_push_source)
+    @BindView(R.id.tv_issue_push_source)
     TextView mTvPushSource;
 
-    @Bind(R.id.cb_issue_push_check)
+    @BindView(R.id.cb_issue_push_check)
     CheckBox mCbPush;
 
     private Team mTeam;

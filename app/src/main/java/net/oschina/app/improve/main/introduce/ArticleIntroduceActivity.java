@@ -11,7 +11,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -21,37 +21,37 @@ import butterknife.OnClick;
 
 public class ArticleIntroduceActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.tv_english)
+    @BindView(R.id.tv_english)
     TextView mTextEnglish;
-    @Bind(R.id.tv_next_english)
+    @BindView(R.id.tv_next_english)
     TextView mTextNextEnglish;
-    @Bind(R.id.arrow_up_english)
+    @BindView(R.id.arrow_up_english)
     View mViewUpEnglish;
-    @Bind(R.id.ll_pop_english)
+    @BindView(R.id.ll_pop_english)
     LinearLayout mLinearPopEnglish;
 
-    @Bind(R.id.tv_recommend)
+    @BindView(R.id.tv_recommend)
     TextView mTextRecommend;
 
-    @Bind(R.id.tv_next)
+    @BindView(R.id.tv_next)
     TextView mTextNext;
 
-    @Bind(R.id.tv_sure)
+    @BindView(R.id.tv_sure)
     TextView mTextSure;
 
-    @Bind(R.id.arrow_up)
+    @BindView(R.id.arrow_up)
     View mViewUp;
 
-    @Bind(R.id.ll_pop)
+    @BindView(R.id.ll_pop)
     LinearLayout mLinearPop;
 
-    @Bind(R.id.ll_tweet_tip)
+    @BindView(R.id.ll_tweet_tip)
     LinearLayout mLinearTweetTip;
 
-    @Bind(R.id.ll_tweet_arrow)
+    @BindView(R.id.ll_tweet_arrow)
     LinearLayout mLinearTweetArrow;
 
-    @Bind(R.id.tv_tip_tweet)
+    @BindView(R.id.tv_tip_tweet)
     TextView mTextTweetTip;
 
 

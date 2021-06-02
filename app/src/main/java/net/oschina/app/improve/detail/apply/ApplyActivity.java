@@ -2,7 +2,7 @@ package net.oschina.app.improve.detail.apply;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,7 +16,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.ui.empty.EmptyLayout;
 import net.oschina.app.util.TDevice;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -26,18 +26,18 @@ import butterknife.OnClick;
 
 public class ApplyActivity extends BackActivity implements
         View.OnClickListener, ApplyContract.EmptyView {
-    @Bind(R.id.searchView)
+    @BindView(R.id.searchView)
     SearchView mSearchView;
 
-    @Bind(R.id.emptyLayout)
+    @BindView(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
-    @Bind(R.id.ll_search)
+    @BindView(R.id.ll_search)
     LinearLayout mLinearSearch;
 
-    @Bind(R.id.fl_tool)
+    @BindView(R.id.fl_tool)
     FrameLayout mFrameTool;
-    @Bind(R.id.search_src_text)
+    @BindView(R.id.search_src_text)
     EditText mViewSearchEditor;
     private ApplyPresenter mPresenter;
     private String mSearchText;

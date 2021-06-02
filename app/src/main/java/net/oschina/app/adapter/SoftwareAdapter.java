@@ -9,15 +9,15 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.bean.SoftwareDec;
 import net.oschina.app.util.ThemeSwitchUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SoftwareAdapter extends ListBaseAdapter<SoftwareDec> {
 
     static class ViewHold {
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView name;
-        @Bind(R.id.tv_software_des)
+        @BindView(R.id.tv_software_des)
         TextView des;
 
         public ViewHold(View view) {

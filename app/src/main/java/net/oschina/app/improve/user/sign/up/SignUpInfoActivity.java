@@ -8,7 +8,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.ui.empty.EmptyLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 活动报名签到界面，包括报名信息
@@ -17,7 +17,7 @@ import butterknife.Bind;
 
 public class SignUpInfoActivity extends BackActivity implements SignUpContract.EmptyView {
     private SignUpContract.Presenter mPresenter;
-    @Bind(R.id.emptyLayout)
+    @BindView(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
     public static void show(Activity activity, long id, int type) {

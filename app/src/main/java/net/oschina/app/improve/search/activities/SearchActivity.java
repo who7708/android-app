@@ -3,14 +3,6 @@ package net.oschina.app.improve.search.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -18,6 +10,16 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.core.util.Pair;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
@@ -32,7 +34,7 @@ import net.oschina.app.improve.utils.DialogHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -43,21 +45,21 @@ import butterknife.OnClick;
 @SuppressWarnings("RestrictedApi")
 public class SearchActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    @Bind(R.id.view_root)
+    @BindView(R.id.view_root)
     LinearLayout mViewRoot;
-    @Bind(R.id.layout_tab)
+    @BindView(R.id.layout_tab)
     TabLayout mLayoutTab;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @Bind(R.id.view_searcher)
+    @BindView(R.id.view_searcher)
     SearchView mViewSearch;
-    @Bind(R.id.search_mag_icon)
+    @BindView(R.id.search_mag_icon)
     ImageView mSearchIcon;
-    @Bind(R.id.search_edit_frame)
+    @BindView(R.id.search_edit_frame)
     LinearLayout mLayoutEditFrame;
-    @Bind(R.id.search_src_text)
+    @BindView(R.id.search_src_text)
     EditText mViewSearchEditor;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
     private SearchHistoryAdapter mAdapter;
@@ -68,8 +70,9 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
     private Runnable mSearchRunnable = new Runnable() {
         @Override
         public void run() {
-            if (TextUtils.isEmpty(mSearchText))
+            if (TextUtils.isEmpty(mSearchText)) {
                 return;
+            }
             SearchAction f = (SearchAction) mPagerItems.get(mViewPager.getCurrentItem()).second;
             f.search(mSearchText);
             SearchHistoryAdapter.SearchItem item = new SearchHistoryAdapter.SearchItem(mSearchText);
@@ -90,8 +93,6 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
         context.startActivity(intent);
     }
 
-
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         // pass
@@ -100,7 +101,9 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
     @Override
     public void onPageSelected(int position) {
         String content = mSearchText;
-        if (TextUtils.isEmpty(content)) return;
+        if (TextUtils.isEmpty(content)) {
+            return;
+        }
         doSearch(content);
         mViewSearch.clearFocus();
     }
@@ -225,12 +228,11 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
         mViewSearch.post(new Runnable() {
             @Override
             public void run() {
-//                TDevice.showSoftKeyboard(mViewSearch);
+                //                TDevice.showSoftKeyboard(mViewSearch);
                 mViewSearch.setIconified(false);
             }
         });
     }
-
 
     private boolean doSearch(String query) {
         mSearchText = query.trim();

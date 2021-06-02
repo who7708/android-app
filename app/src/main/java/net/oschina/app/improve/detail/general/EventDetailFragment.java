@@ -19,7 +19,7 @@ import net.oschina.app.util.StringUtils;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnLongClick;
 
 /**
@@ -29,28 +29,28 @@ import butterknife.OnLongClick;
 
 public class EventDetailFragment extends DetailFragment {
 
-    @Bind(R.id.iv_event_img)
+    @BindView(R.id.iv_event_img)
     ImageView mImageEvent;
 
-    @Bind(R.id.tv_event_title)
+    @BindView(R.id.tv_event_title)
     TextView mTextTitle;
 
-    @Bind(R.id.tv_event_author)
+    @BindView(R.id.tv_event_author)
     TextView mTextAuthor;
 
-    @Bind(R.id.tv_event_cost_desc)
+    @BindView(R.id.tv_event_cost_desc)
     TextView mTextCostDesc;
 
-    @Bind(R.id.tv_event_status)
+    @BindView(R.id.tv_event_status)
     TextView mTextStatus;
 
-    @Bind(R.id.tv_event_start_date)
+    @BindView(R.id.tv_event_start_date)
     TextView mTextStartDate;
 
-    @Bind(R.id.tv_event_location)
+    @BindView(R.id.tv_event_location)
     TextView mTextLocation;
 
-    @Bind(R.id.civ_author)
+    @BindView(R.id.civ_author)
     PortraitView mImageAuthor;
 
     public static EventDetailFragment newInstance() {

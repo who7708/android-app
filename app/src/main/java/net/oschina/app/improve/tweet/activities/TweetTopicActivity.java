@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 import net.oschina.app.R;
 import net.oschina.app.improve.app.ParentLinkedHolder;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.tweet.fragments.TweetPublishFragment;
 import net.oschina.app.improve.utils.CacheManager;
 import net.oschina.app.improve.utils.DialogHelper;
@@ -39,14 +38,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class TweetTopicActivity extends BackActivity {
     private static final String CACHE_FILE = "TweetTopicLocalCache";
-    @Bind(R.id.edit_enter_tag)
+    @BindView(R.id.edit_enter_tag)
     EditText mTopicContent;
 
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView mRecycler;
 
     private List<Object> mHotList = new ArrayList<>();

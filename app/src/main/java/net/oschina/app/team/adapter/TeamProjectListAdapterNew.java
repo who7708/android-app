@@ -10,7 +10,7 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.team.bean.TeamProject;
 import net.oschina.app.util.TypefaceUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -62,11 +62,11 @@ public class TeamProjectListAdapterNew extends ListBaseAdapter<TeamProject> {
     }
 
     public static class ViewHolder {
-        @Bind(R.id.iv_source)
+        @BindView(R.id.iv_source)
         TextView source;
-        @Bind(R.id.tv_project_name)
+        @BindView(R.id.tv_project_name)
         TextView name;
-        @Bind(R.id.tv_project_issue)
+        @BindView(R.id.tv_project_issue)
         TextView issue;
 
         public ViewHolder(View view) {

@@ -25,7 +25,7 @@ import net.oschina.app.improve.utils.CacheManager;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 启动页设计
@@ -35,10 +35,10 @@ import butterknife.Bind;
 public class SplashActivity extends BaseActivity {
 
 
-    @Bind(R.id.frameSplash)
+    @BindView(R.id.frameSplash)
     FrameLayout mFlameSplash;
 
-    @Bind(R.id.fl_content)
+    @BindView(R.id.fl_content)
     FrameLayout mFlameContent;
 
     private boolean isShowAd;

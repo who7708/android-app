@@ -13,9 +13,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import net.oschina.app.AppConfig;
 import net.oschina.app.AppContext;
@@ -147,9 +150,9 @@ public class OSCPhotosActivity extends BaseActivity {
      * Load the item's thumbnail image into our {@link ImageView}.
      */
     private void loadImage(final ImageView mHeaderImageView, final String imageUrl) {
-        Glide.with(this).load(imageUrl).asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(this).asBitmap().load(imageUrl).into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 mHeaderImageView.setImageBitmap(resource);
                 mProgressBar.setVisibility(View.GONE);
                 mHeaderImageView.setVisibility(View.VISIBLE);

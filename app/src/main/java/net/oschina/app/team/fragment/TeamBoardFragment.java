@@ -25,7 +25,7 @@ import net.oschina.app.widget.AvatarView;
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
@@ -37,29 +37,29 @@ import cz.msebera.android.httpclient.Header;
  */
 public class TeamBoardFragment extends BaseFragment {
 
-    @Bind(R.id.team_myissue_waitdo)
+    @BindView(R.id.team_myissue_waitdo)
     View mRlWaitDo;
-    @Bind(R.id.team_myissue_outdate)
+    @BindView(R.id.team_myissue_outdate)
     View mRlWill;
-    @Bind(R.id.team_myissue_ing)
+    @BindView(R.id.team_myissue_ing)
     View mRlIng;
-    @Bind(R.id.team_myissue_all)
+    @BindView(R.id.team_myissue_all)
     View mRlAll;
 
-    @Bind(R.id.team_myissue_wait_num)
+    @BindView(R.id.team_myissue_wait_num)
     TextView mTvWaitDo;
-    @Bind(R.id.team_myissue_outdate_num)
+    @BindView(R.id.team_myissue_outdate_num)
     TextView mTvOutdate;
-    @Bind(R.id.team_myissue_ing_num)
+    @BindView(R.id.team_myissue_ing_num)
     TextView mTvIng;
-    @Bind(R.id.team_myissue_all_num)
+    @BindView(R.id.team_myissue_all_num)
     TextView mTvAll;
 
-    @Bind(R.id.iv_avatar)
+    @BindView(R.id.iv_avatar)
     AvatarView mIvAvatarView;
-    @Bind(R.id.team_myissue_name)
+    @BindView(R.id.team_myissue_name)
     TextView mTvName;
-    @Bind(R.id.team_myissue_date)
+    @BindView(R.id.team_myissue_date)
     TextView mTvDate;
 
     private Team team;

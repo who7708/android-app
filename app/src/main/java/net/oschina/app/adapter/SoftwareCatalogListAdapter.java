@@ -8,13 +8,13 @@ import net.oschina.app.R;
 import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.bean.SoftwareCatalogList.SoftwareType;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SoftwareCatalogListAdapter extends ListBaseAdapter<SoftwareType> {
 
     static class ViewHold {
-        @Bind(R.id.tv_software_catalog_name)
+        @BindView(R.id.tv_software_catalog_name)
         TextView name;
 
         public ViewHold(View view) {

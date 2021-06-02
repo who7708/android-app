@@ -7,9 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,7 +37,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -57,9 +57,9 @@ public class NearbyActivity extends BackActivity implements
 
     private static final int LC = 0x3;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-    @Bind(R.id.refreshLayout)
+    @BindView(R.id.refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
 
     private BottomDialog mSelectorDialog;

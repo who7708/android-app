@@ -2,16 +2,15 @@ package net.oschina.app.improve.detail.sign;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.ui.empty.EmptyLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 新版活动报名页面,动态请求活动报名参数，按服务器返回的顺序inflate各自对应的View
@@ -21,7 +20,7 @@ import butterknife.Bind;
 
 public class SignUpActivity extends BackActivity implements SignUpContract.EmptyView {
 
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mEmptyLayout;
 
     private SignUpFragment mFragment;

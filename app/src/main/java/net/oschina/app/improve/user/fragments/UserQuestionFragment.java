@@ -2,7 +2,7 @@ package net.oschina.app.improve.user.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.google.gson.reflect.TypeToken;
 

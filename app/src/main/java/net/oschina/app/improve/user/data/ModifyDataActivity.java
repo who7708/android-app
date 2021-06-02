@@ -20,7 +20,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -35,7 +35,7 @@ public class ModifyDataActivity extends BackActivity {
     private int mType;
 
 
-    @Bind(R.id.et_data)
+    @BindView(R.id.et_data)
     BottomLineEditText mEditData;
 
     public static void show(Activity activity, User info, int type) {

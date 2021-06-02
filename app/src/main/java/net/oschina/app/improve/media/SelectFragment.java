@@ -7,18 +7,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.FileProvider;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
@@ -38,7 +39,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -51,20 +52,20 @@ import butterknife.OnClick;
  */
 public class SelectFragment extends BaseFragment implements SelectImageContract.View, View.OnClickListener,
         ImageLoaderListener, BaseRecyclerAdapter.OnItemClickListener {
-    @Bind(R.id.rv_image)
+    @BindView(R.id.rv_image)
     RecyclerView mContentView;
-    @Bind(R.id.btn_title_select)
+    @BindView(R.id.btn_title_select)
     Button mSelectFolderView;
-    @Bind(R.id.iv_title_select)
+    @BindView(R.id.iv_title_select)
     ImageView mSelectFolderIcon;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     View mToolbar;
-    @Bind(R.id.btn_done)
+    @BindView(R.id.btn_done)
     Button mDoneView;
-    @Bind(R.id.btn_preview)
+    @BindView(R.id.btn_preview)
     Button mPreviewView;
 
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mErrorLayout;
 
     private ImageFolderPopupWindow mFolderPopupWindow;
@@ -120,7 +121,7 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     @Override
     protected void initWidget(View view) {
-        if(mOption == null){
+        if (mOption == null) {
             getActivity().finish();
             return;
         }
@@ -145,7 +146,7 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     @Override
     protected void initData() {
-        if(mOption == null){
+        if (mOption == null) {
             getActivity().finish();
             return;
         }
@@ -165,7 +166,6 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
         }
         getLoaderManager().initLoader(0, null, mCursorLoader);
     }
-
 
     @Override
     public void onItemClick(int position, long itemId) {
@@ -198,8 +198,9 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     private void handleSelectChange(int position) {
         Image image = mImageAdapter.getItem(position);
-        if(image == null)
+        if (image == null) {
             return;
+        }
         //如果是多选模式
         final int selectCount = mOption.getSelectCount();
         if (selectCount > 1) {
@@ -252,7 +253,6 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
     public void onOpenCameraSuccess() {
         toOpenCamera();
     }
-
 
     @Override
     public void onCameraPermissionDenied() {
@@ -340,13 +340,17 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
         if (resultCode == AppCompatActivity.RESULT_OK) {
             switch (requestCode) {
                 case 0x03:
-                    if (mCamImageName == null) return;
+                    if (mCamImageName == null) {
+                        return;
+                    }
                     Uri localUri = Uri.fromFile(new File(Util.getCameraPath() + mCamImageName));
                     Intent localIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri);
                     getActivity().sendBroadcast(localIntent);
                     break;
                 case 0x04:
-                    if (data == null) return;
+                    if (data == null) {
+                        return;
+                    }
                     mOption.getCallback().doSelected(new String[]{data.getStringExtra("crop_path")});
                     getActivity().finish();
                     break;
@@ -356,8 +360,8 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
 
     @Override
     public void displayImage(final ImageView iv, final String path) {
-        getImgLoader().load(path)
-                .asBitmap()
+        getImgLoader().asBitmap()
+                .load(path)
                 .centerCrop()
                 .error(R.mipmap.ic_split_graph)
                 .into(iv);
@@ -445,7 +449,6 @@ public class SelectFragment extends BaseFragment implements SelectImageContract.
                             ImageFolder f = imageFolders.get(imageFolders.indexOf(folder));
                             f.getImages().add(image);
                         }
-
 
                     } while (data.moveToNext());
                 }

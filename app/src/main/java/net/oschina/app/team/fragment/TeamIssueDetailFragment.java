@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,7 +45,7 @@ import net.oschina.app.widget.AvatarView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
@@ -65,34 +65,34 @@ public class TeamIssueDetailFragment extends BaseFragment implements
 
     private TeamIssueCatalog mCatalog;
 
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     View mContent;
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mErrorLayout;
 
-    @Bind(R.id.ll_issue_project)
+    @BindView(R.id.ll_issue_project)
     View mProjectView;
-    @Bind(R.id.tv_issue_project)
+    @BindView(R.id.tv_issue_project)
     TextView mTvProject;
-    @Bind(R.id.tv_issue_state_title)
+    @BindView(R.id.tv_issue_state_title)
     TextView mTvStateTitle;
-    @Bind(R.id.tv_issue_title)
+    @BindView(R.id.tv_issue_title)
     TextView mTvTitle;
-    @Bind(R.id.tv_issue_touser)
+    @BindView(R.id.tv_issue_touser)
     TextView mTvToUser;
-    @Bind(R.id.tv_issue_cooperate_user)
+    @BindView(R.id.tv_issue_cooperate_user)
     TextView mTvCooperateUser;
-    @Bind(R.id.tv_issue_die_time)
+    @BindView(R.id.tv_issue_die_time)
     TextView mTvDieTime;
-    @Bind(R.id.tv_issue_state)
+    @BindView(R.id.tv_issue_state)
     TextView mTvState;
-    @Bind(R.id.ll_issue_labels)
+    @BindView(R.id.ll_issue_labels)
     LinearLayout mLLlabels;
-    @Bind(R.id.tv_issue_attachments)
+    @BindView(R.id.tv_issue_attachments)
     TextView mTvAttachments;
-    @Bind(R.id.tv_issue_relations)
+    @BindView(R.id.tv_issue_relations)
     TextView mTvRelations;
-    @Bind(R.id.tv_issue_child)
+    @BindView(R.id.tv_issue_child)
     TextView mTvIssueChild;
 
     @Override
@@ -433,7 +433,7 @@ public class TeamIssueDetailFragment extends BaseFragment implements
                 }).show();
     }
 
-    @Bind(R.id.ll_issue_childs)
+    @BindView(R.id.ll_issue_childs)
     LinearLayout mLLChildIssues;
 
     private void setChildIssues(List<TeamIssue> list) {
@@ -526,7 +526,7 @@ public class TeamIssueDetailFragment extends BaseFragment implements
         }
     }
 
-    @Bind(R.id.ll_issue_comments)
+    @BindView(R.id.ll_issue_comments)
     LinearLayout mLLComments;
 
     // 请求任务的评论

@@ -4,10 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Handler;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
@@ -37,7 +37,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -47,13 +47,13 @@ import butterknife.OnClick;
 
 public class DynamicTabFragment extends BaseTitleFragment implements OnTabReselectListener {
 
-    @Bind(R.id.layout_tab)
+    @BindView(R.id.layout_tab)
     TabLayout mLayoutTab;
-    @Bind(R.id.view_tab_picker)
+    @BindView(R.id.view_tab_picker)
     TabPickerView mViewTabPicker;
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @Bind(R.id.iv_arrow_down)
+    @BindView(R.id.iv_arrow_down)
     ImageView mViewArrowDown;
 
     private MainActivity activity;

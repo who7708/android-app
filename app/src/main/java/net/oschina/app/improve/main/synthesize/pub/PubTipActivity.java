@@ -13,7 +13,7 @@ import net.oschina.app.improve.account.activity.LoginActivity;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -25,7 +25,7 @@ public class PubTipActivity extends BaseActivity implements View.OnClickListener
 
     private static boolean IS_SHOW = false;
 
-    @Bind(R.id.tv_url)
+    @BindView(R.id.tv_url)
     TextView mTextUrl;
 
     private String mUrl;

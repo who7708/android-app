@@ -2,8 +2,8 @@ package net.oschina.app.improve.behavior;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.FragmentManager;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;

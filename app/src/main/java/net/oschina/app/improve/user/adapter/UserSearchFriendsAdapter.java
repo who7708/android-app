@@ -1,7 +1,7 @@
 package net.oschina.app.improve.user.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +33,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -258,7 +258,7 @@ public class UserSearchFriendsAdapter extends RecyclerView.Adapter
     }
 
     static class TitleViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_index_label)
+        @BindView(R.id.tv_index_label)
         TextView mLabel;
 
         TitleViewHolder(View itemView) {
@@ -277,13 +277,13 @@ public class UserSearchFriendsAdapter extends RecyclerView.Adapter
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         CircleImageView mCirclePortrait;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView mtvName;
-        @Bind(R.id.iv_select)
+        @BindView(R.id.iv_select)
         ImageView mViewSelect;
-        @Bind(R.id.line)
+        @BindView(R.id.line)
         View mLine;
 
         ViewHolder(View itemView) {
@@ -319,9 +319,9 @@ public class UserSearchFriendsAdapter extends RecyclerView.Adapter
     }
 
     class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.pb_footer)
+        @BindView(R.id.pb_footer)
         ProgressBar mProgressBar;
-        @Bind(R.id.tv_footer)
+        @BindView(R.id.tv_footer)
         TextView mTvSearch;
         private String mNextPageToken;
         private String mOldSearchText;

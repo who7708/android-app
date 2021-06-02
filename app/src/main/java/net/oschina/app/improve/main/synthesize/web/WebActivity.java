@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,7 +30,7 @@ import net.oschina.app.util.TDevice;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -41,9 +41,9 @@ import cz.msebera.android.httpclient.Header;
 public class WebActivity extends BackActivity implements OSCWebView.OnFinishListener {
 
     protected OSCWebView mWebView;
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
-    @Bind(R.id.ll_root)
+    @BindView(R.id.ll_root)
     LinearLayout mLinearRoot;
     private String mTitle;
     protected ShareDialog mShareDialog;

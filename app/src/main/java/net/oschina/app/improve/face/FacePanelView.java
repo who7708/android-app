@@ -4,13 +4,14 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import net.oschina.app.R;
 import net.oschina.app.emoji.DisplayRules;
@@ -119,15 +120,17 @@ public class FacePanelView extends LinearLayout implements View.OnClickListener,
 
     protected void onDeleteClick() {
         FacePanelListener listener = mListener;
-        if (listener != null)
+        if (listener != null) {
             listener.onDeleteClick();
+        }
     }
 
     @Override
     public void onFaceClick(Emojicon v) {
         FacePanelListener listener = mListener;
-        if (listener != null)
+        if (listener != null) {
             listener.onFaceClick(v);
+        }
     }
 
     public void setListener(FacePanelListener listener) {
@@ -162,8 +165,9 @@ public class FacePanelView extends LinearLayout implements View.OnClickListener,
         if (mKeyboardShowing) {
             mWillShowPanel.set(true);
             FacePanelListener listener = mListener;
-            if (listener != null)
+            if (listener != null) {
                 listener.hideSoftKeyboard();
+            }
         } else {
             setVisibility(VISIBLE);
         }

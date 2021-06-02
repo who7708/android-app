@@ -16,7 +16,7 @@ import net.oschina.app.widget.TweetTextView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -100,17 +100,17 @@ public class TeamReplyAdapter extends ListBaseAdapter<TeamReply> {
 
     static class ViewHolder {
 
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         AvatarView avatar;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView name;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView time;
-        @Bind(R.id.tv_from)
+        @BindView(R.id.tv_from)
         TextView from;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TweetTextView content;
-        @Bind(R.id.ly_relies)
+        @BindView(R.id.ly_relies)
         LinearLayout relies;
 
         public ViewHolder(View view) {

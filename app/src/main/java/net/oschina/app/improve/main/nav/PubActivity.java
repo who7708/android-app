@@ -22,7 +22,8 @@ import net.oschina.app.improve.media.Util;
 import net.oschina.app.improve.tweet.activities.TweetPublishActivity;
 import net.oschina.app.improve.write.WriteActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 
 /**
@@ -32,10 +33,10 @@ import butterknife.OnClick;
 
 public class PubActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.btn_pub)
+    @BindView(R.id.btn_pub)
     ImageView mBtnPub;
 
-    @Bind({R.id.ll_pub_article, R.id.ll_pub_blog, R.id.ll_pub_tweet})
+    @BindViews({R.id.ll_pub_article, R.id.ll_pub_blog, R.id.ll_pub_tweet})
     LinearLayout[] mLays;
 
     public static void show(Context context) {

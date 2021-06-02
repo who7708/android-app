@@ -1,7 +1,7 @@
 package net.oschina.app.improve.user.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import net.oschina.app.improve.bean.Question;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -45,17 +45,17 @@ public class UserQuestionAdapter extends BaseRecyclerAdapter<Question> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_ques_item_icon)
+        @BindView(R.id.iv_ques_item_icon)
         PortraitView mViewPortrait;
-        @Bind(R.id.tv_ques_item_title)
+        @BindView(R.id.tv_ques_item_title)
         TextView mViewTitle;
-        @Bind(R.id.tv_ques_item_content)
+        @BindView(R.id.tv_ques_item_content)
         TextView mViewContent;
-        @Bind(R.id.tv_ques_item_history)
+        @BindView(R.id.tv_ques_item_history)
         TextView mViewHistory;
-        @Bind(R.id.tv_info_view)
+        @BindView(R.id.tv_info_view)
         TextView mViewInfoVisual;
-        @Bind(R.id.tv_info_comment)
+        @BindView(R.id.tv_info_comment)
         TextView mViewInfoCmm;
 
         public ViewHolder(View itemView) {

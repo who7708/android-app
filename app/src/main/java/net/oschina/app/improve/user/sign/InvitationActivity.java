@@ -7,24 +7,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.app.AppOperator;
 import net.oschina.app.improve.base.activities.BackActivity;
-import net.oschina.app.improve.base.activities.BaseBackActivity;
 import net.oschina.app.improve.dialog.ShareDialog;
 import net.oschina.app.improve.media.ImageGalleryActivity;
 import net.oschina.app.improve.utils.DialogHelper;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -36,7 +35,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class InvitationActivity extends BackActivity implements View.OnClickListener,
         EasyPermissions.PermissionCallbacks {
     private ShareDialog mShareDialog;
-    @Bind(R.id.iv_invitation)
+    @BindView(R.id.iv_invitation)
     ImageView mImageInvitation;
     private String mUrl;
     private ProgressDialog mWaitDialog;
@@ -68,8 +67,8 @@ public class InvitationActivity extends BackActivity implements View.OnClickList
     }
 
     private void tryLoadBitmap() {
-        getImageLoader().load(mUrl)
-                .asBitmap()
+        getImageLoader().asBitmap()
+                .load(mUrl)
                 .fitCenter()
                 .into(mImageInvitation);
     }
@@ -97,7 +96,9 @@ public class InvitationActivity extends BackActivity implements View.OnClickList
     }
 
     private void hideDialog() {
-        if (mWaitDialog == null) return;
+        if (mWaitDialog == null) {
+            return;
+        }
         mWaitDialog.dismiss();
     }
 
@@ -123,8 +124,8 @@ public class InvitationActivity extends BackActivity implements View.OnClickList
                     try {
                         final Bitmap thumbBitmap =
                                 Glide.with(InvitationActivity.this)
-                                        .load(mUrl)
                                         .asBitmap()
+                                        .load(mUrl)
                                         .into(720, 1280).get();
                         runOnUiThread(new Runnable() {
                             @Override

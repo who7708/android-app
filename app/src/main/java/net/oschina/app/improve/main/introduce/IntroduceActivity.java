@@ -2,16 +2,16 @@ package net.oschina.app.improve.main.introduce;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseActivity;
 import net.oschina.app.improve.main.update.OSCSharedPreference;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 介绍页
@@ -20,7 +20,7 @@ import butterknife.Bind;
 
 public class IntroduceActivity extends BaseActivity {
 
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
     public static void show(Context context) {

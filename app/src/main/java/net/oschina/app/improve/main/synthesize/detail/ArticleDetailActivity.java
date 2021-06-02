@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -18,6 +16,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -82,8 +86,9 @@ public class ArticleDetailActivity extends BackActivity implements
     private ArticleDetailFragment mFragment;
 
     public static void show(Context context, Article article) {
-        if (article == null)
+        if (article == null) {
             return;
+        }
         Intent intent = new Intent(context, ArticleDetailActivity.class);
         intent.putExtra("article", article);
         context.startActivity(intent);
@@ -106,8 +111,9 @@ public class ArticleDetailActivity extends BackActivity implements
         addFragment(R.id.fl_content, mFragment);
 
         LinearLayout layComment = (LinearLayout) findViewById(R.id.ll_comment);
-        if (TextUtils.isEmpty(mCommentHint))
+        if (TextUtils.isEmpty(mCommentHint)) {
             mCommentHint = getString(R.string.pub_comment_hint);
+        }
         mDelegation = CommentBar.delegation(this, layComment);
         mDelegation.setCommentHint(mCommentHint);
         mDelegation.getBottomSheet().getEditText().setHint(mCommentHint);
@@ -146,7 +152,6 @@ public class ArticleDetailActivity extends BackActivity implements
             }
         });
 
-
         mDelegation.setCommentCountListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +173,9 @@ public class ArticleDetailActivity extends BackActivity implements
             @Override
             public void onClick(View v) {
                 showLoadingDialog("正在提交评论...");
-                if (mDelegation == null) return;
+                if (mDelegation == null) {
+                    return;
+                }
                 mDelegation.getBottomSheet().dismiss();
                 mDelegation.setCommitButtonEnable(false);
                 mPresenter.putArticleComment(mDelegation.getBottomSheet().getCommentText(),
@@ -216,19 +223,20 @@ public class ArticleDetailActivity extends BackActivity implements
         mShareDialog.setTitle(mArticle.getTitle());
         mShareDialog.init(this, mArticle.getTitle(), mArticle.getDesc(), mArticle.getUrl());
         if (mArticle.getImgs() != null && mArticle.getImgs().length != 0) {
-            getImageLoader().load(mArticle.getImgs()[0])
-                    .asBitmap()
+            getImageLoader()
+                    .asBitmap().load(mArticle.getImgs()[0])
                     .centerCrop()
-                    .listener(new RequestListener<String, Bitmap>() {
+                    .listener(new RequestListener<Bitmap>() {
                         @Override
-                        public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                             return false;
                         }
 
                         @Override
-                        public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            if (isDestroy())
+                        public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            if (isDestroy()) {
                                 return false;
+                            }
                             mShareDialog.setThumbBitmap(resource);
                             return false;
                         }
@@ -264,7 +272,6 @@ public class ArticleDetailActivity extends BackActivity implements
         mBehavior.setUuid(OSCSharedPreference.getInstance().getDeviceUUID());
         // TODO: 2017/11/6 暂时取消收藏习惯接口 
         //DBManager.getInstance().insert(mBehavior);
-
 
         mToolBar.setOnTouchListener(new OnDoubleTouchListener() {
             @Override
@@ -323,10 +330,12 @@ public class ArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showCommentSuccess(Comment comment) {
-        if (isDestroyed())
+        if (isDestroyed()) {
             return;
-        if (mDelegation == null)
+        }
+        if (mDelegation == null) {
             return;
+        }
         mCommentId = 0;
         mCommentAuthorId = 0;
         mDelegation.getBottomSheet().dismiss();
@@ -343,16 +352,18 @@ public class ArticleDetailActivity extends BackActivity implements
 
     @Override
     public void showCommentError(String message) {
-        if (isDestroy())
+        if (isDestroy()) {
             return;
+        }
         dismissLoadingDialog();
         SimplexToast.show(this, "评论失败");
     }
 
     @Override
     public void showGetDetailSuccess(Article article) {
-        if (isDestroy())
+        if (isDestroy()) {
             return;
+        }
         mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mDelegation.setFavDrawable(article.isFavorite() ? R.drawable.ic_faved : R.drawable.ic_fav);
         mDelegation.setCommentCount(article.getCommentCount());
@@ -395,12 +406,12 @@ public class ArticleDetailActivity extends BackActivity implements
         return false;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        if (mStart != 0)
+        if (mStart != 0) {
             mStart = System.currentTimeMillis();
+        }
     }
 
     @Override
@@ -414,7 +425,6 @@ public class ArticleDetailActivity extends BackActivity implements
                     .update(mBehavior, "operate_time=?", String.valueOf(mBehavior.getOperateTime()));
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -464,7 +474,6 @@ public class ArticleDetailActivity extends BackActivity implements
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -512,11 +521,9 @@ public class ArticleDetailActivity extends BackActivity implements
             return true;
         }
 
-
         int getMultiTouchInterval() {
             return 400;
         }
-
 
         abstract void onMultiTouch(View v, MotionEvent event, int touchCount);
     }

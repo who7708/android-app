@@ -4,14 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -21,6 +22,7 @@ import net.oschina.app.util.ImageLoader;
 import java.io.Serializable;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Fragment基础类
@@ -33,6 +35,8 @@ public abstract class BaseFragment extends Fragment {
     protected Bundle mBundle;
     private RequestManager mImgLoader;
     protected LayoutInflater mInflater;
+
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -53,24 +57,25 @@ public abstract class BaseFragment extends Fragment {
         initBundle(mBundle);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (mRoot != null) {
             ViewGroup parent = (ViewGroup) mRoot.getParent();
-            if (parent != null)
+            if (parent != null) {
                 parent.removeView(mRoot);
+            }
         } else {
             mRoot = inflater.inflate(getLayoutId(), container, false);
             mInflater = inflater;
             // Do something
             onBindViewBefore(mRoot);
             // Bind view
-            ButterKnife.bind(this, mRoot);
+            unbinder = ButterKnife.bind(this, mRoot);
             // Get savedInstanceState
-            if (savedInstanceState != null)
+            if (savedInstanceState != null) {
                 onRestartInstance(savedInstanceState);
+            }
             // Init
             initWidget(mRoot);
             initData();
@@ -85,7 +90,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        // ButterKnife.unbind(this);
+        unbinder.unbind();
         mImgLoader = null;
         mBundle = null;
     }
@@ -121,8 +127,9 @@ public abstract class BaseFragment extends Fragment {
      * @return RequestManager
      */
     public synchronized RequestManager getImgLoader() {
-        if (mImgLoader == null)
+        if (mImgLoader == null) {
             mImgLoader = Glide.with(this);
+        }
         return mImgLoader;
     }
 
@@ -168,7 +175,6 @@ public abstract class BaseFragment extends Fragment {
     protected void setImageFromNet(ImageView imageView, String imageUrl, int placeholder) {
         ImageLoader.loadImage(getImgLoader(), imageView, imageUrl, placeholder);
     }
-
 
     protected void setText(int viewId, String text) {
         TextView textView = findView(viewId);

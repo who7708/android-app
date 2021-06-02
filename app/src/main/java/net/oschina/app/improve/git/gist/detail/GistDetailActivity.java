@@ -3,7 +3,7 @@ package net.oschina.app.improve.git.gist.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v7.app.ActionBar;
+import androidx.appcompat.app.ActionBar;
 import android.view.View;
 
 import net.oschina.app.R;
@@ -11,7 +11,7 @@ import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.git.bean.Gist;
 import net.oschina.app.ui.empty.EmptyLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 代码片段详情
@@ -20,7 +20,7 @@ import butterknife.Bind;
 
 public class GistDetailActivity extends BackActivity implements GistDetailContract.EmptyView {
     private GistDetailPresenter mPresenter;
-    @Bind(R.id.emptyLayout)
+    @BindView(R.id.emptyLayout)
     EmptyLayout mEmptyLayout;
 
     public static void show(Context context, Gist gist) {

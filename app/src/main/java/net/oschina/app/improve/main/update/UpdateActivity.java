@@ -7,9 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,7 +22,7 @@ import net.oschina.app.improve.bean.Version;
 import net.oschina.app.improve.utils.DialogHelper;
 import net.oschina.app.util.TDevice;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -31,7 +31,7 @@ import butterknife.OnClick;
  */
 
 public class UpdateActivity extends BaseActivity implements View.OnClickListener {
-    @Bind(R.id.tv_update_info)
+    @BindView(R.id.tv_update_info)
     TextView mTextUpdateInfo;
     private Version mVersion;
     private static final int RC_EXTERNAL_STORAGE = 0x04;//存储权限

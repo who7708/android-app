@@ -3,9 +3,9 @@ package net.oschina.app.improve.comment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,7 +45,7 @@ import net.oschina.app.widget.TweetTextView;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 public class CommentExsActivity extends BaseBackActivity {
@@ -54,13 +54,13 @@ public class CommentExsActivity extends BaseBackActivity {
 
     private PageBean<Comment> mPageBean;
 
-    @Bind(R.id.lay_refreshLayout)
+    @BindView(R.id.lay_refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
 
-    @Bind(R.id.lay_blog_detail_comment)
+    @BindView(R.id.lay_blog_detail_comment)
     RecyclerView mLayComments;
 
-    @Bind(R.id.activity_comments)
+    @BindView(R.id.activity_comments)
     CoordinatorLayout mCoorLayout;
 
     private Adapter mAdapter;

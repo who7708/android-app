@@ -1,7 +1,7 @@
 package net.oschina.app.improve.tweet.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,7 +35,7 @@ import net.oschina.app.widget.TweetTextView;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -162,23 +162,23 @@ public class SoftwareTweetAdapter extends BaseRecyclerAdapter<Tweet> implements 
     }
 
     static class SoftwareTweetViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
-        @Bind(R.id.iv_tweet_face)
+        @BindView(R.id.iv_tweet_face)
         PortraitView icon;
-        @Bind(R.id.tv_tweet_name)
+        @BindView(R.id.tv_tweet_name)
         TextView name;
-        @Bind(R.id.tweet_item)
+        @BindView(R.id.tweet_item)
         TweetTextView content;
-        @Bind(R.id.tv_tweet_time)
+        @BindView(R.id.tv_tweet_time)
         TextView pubTime;
-        @Bind(R.id.tv_tweet_platform)
+        @BindView(R.id.tv_tweet_platform)
         TextView deviceType;
-        @Bind(R.id.iv_like_state)
+        @BindView(R.id.iv_like_state)
         ImageView likeStatus;
-        @Bind(R.id.tv_tweet_like_count)
+        @BindView(R.id.tv_tweet_like_count)
         TextView likeCount;
-        @Bind(R.id.tv_tweet_comment_count)
+        @BindView(R.id.tv_tweet_comment_count)
         TextView commentCount;
 
         SoftwareTweetViewHolder(View itemView) {

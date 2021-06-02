@@ -28,7 +28,7 @@
         android:background="?attr/layout_item_bg"
         tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded,HardcodedText">
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none">
@@ -210,7 +210,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <net.oschina.app.ui.empty.EmptyLayout
             android:id="@+id/error_layout"

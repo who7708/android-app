@@ -16,7 +16,7 @@
         android:contentDescription="@string/login"
         android:src="@mipmap/ic_login_3party_csdn" />
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_nickname"
         android:lines="1"
         android:ellipsize="end"
@@ -27,7 +27,7 @@
         android:layout_marginRight="@dimen/lay_32"
          />
 
-    <android.support.v7.widget.AppCompatEditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_pwd"
         android:lines="1"
         android:ellipsize="end"

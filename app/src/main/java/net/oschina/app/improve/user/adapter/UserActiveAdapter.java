@@ -1,7 +1,7 @@
 package net.oschina.app.improve.user.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -21,7 +21,7 @@ import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 import net.oschina.app.util.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -118,19 +118,19 @@ public class UserActiveAdapter extends BaseRecyclerAdapter<Active> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.tv_nick)
+        @BindView(R.id.tv_nick)
         TextView mViewNick;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView mViewTime;
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mViewTitle;
-        @Bind(R.id.tv_reply)
+        @BindView(R.id.tv_reply)
         TextView mViewReply;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TextView mViewContent;
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         PortraitView mViewPortrait;
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
 
         public ViewHolder(View view) {

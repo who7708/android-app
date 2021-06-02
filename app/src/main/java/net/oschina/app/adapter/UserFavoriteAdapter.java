@@ -8,14 +8,14 @@ import net.oschina.app.R;
 import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.bean.Favorite;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserFavoriteAdapter extends ListBaseAdapter<Favorite> {
 
     static class ViewHolder {
 
-        @Bind(R.id.tv_favorite_title)
+        @BindView(R.id.tv_favorite_title)
         TextView title;
 
         public ViewHolder(View view) {

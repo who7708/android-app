@@ -8,9 +8,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,7 +38,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 分享动弹界面
@@ -47,42 +47,42 @@ import butterknife.Bind;
 
 public class TweetShareFragment extends BaseFragment implements Runnable {
 
-    @Bind(R.id.iv_portrait)
+    @BindView(R.id.iv_portrait)
     PortraitView ivPortrait;
-    @Bind(R.id.tv_nick)
+    @BindView(R.id.tv_nick)
     TextView tvNick;
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.tweet_pics_layout)
+    @BindView(R.id.tweet_pics_layout)
     TweetPicturesLayout mLayoutGrid;
 
-    @Bind(R.id.tv_content)
+    @BindView(R.id.tv_content)
     TextView mTextContent;
-    @Bind(R.id.tv_ref_title)
+    @BindView(R.id.tv_ref_title)
     TextView mViewRefTitle;
-    @Bind(R.id.tv_ref_content)
+    @BindView(R.id.tv_ref_content)
     TextView mViewRefContent;
-    @Bind(R.id.layout_ref_images)
+    @BindView(R.id.layout_ref_images)
     TweetPicturesLayout mLayoutRefImages;
-    @Bind(R.id.layout_ref)
+    @BindView(R.id.layout_ref)
     LinearLayout mLayoutRef;
 
-    @Bind(R.id.tv_tweet_like_count)
+    @BindView(R.id.tv_tweet_like_count)
     TextView mTextLikeCount;
 
-    @Bind(R.id.tv_tweet_comment_count)
+    @BindView(R.id.tv_tweet_comment_count)
     TextView mTextCommentCount;
 
-    @Bind(R.id.tv_comment)
+    @BindView(R.id.tv_comment)
     TextView mTextComment;
 
-    @Bind(R.id.nsv_content)
+    @BindView(R.id.nsv_content)
     NestedScrollView mViewScroller;
     private ShareDialog mShareDialog;
     private Bitmap mBitmap;
     private ProgressDialog mDialog;
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecycleView;
     private ShareCommentAdapter mAdapter;
 

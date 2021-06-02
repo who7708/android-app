@@ -1,7 +1,7 @@
 package net.oschina.app.improve.user.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +13,7 @@ import net.oschina.app.improve.user.bean.UserFansOrFollows;
 import net.oschina.app.improve.widget.IdentityView;
 import net.oschina.app.improve.widget.PortraitView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -71,19 +71,19 @@ public class UserFansOrFollowAdapter extends BaseRecyclerAdapter<UserFansOrFollo
      */
     class UserFansViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView identityView;
-        @Bind(R.id.iv_user_flow_icon)
+        @BindView(R.id.iv_user_flow_icon)
         PortraitView mCiIcon;
-        @Bind(R.id.tv_user_flow_name)
+        @BindView(R.id.tv_user_flow_name)
         TextView mTvName;
-        @Bind(R.id.iv_user_flow_sex)
+        @BindView(R.id.iv_user_flow_sex)
         ImageView mIvSex;
-        @Bind(R.id.tv_user_flow_city)
+        @BindView(R.id.tv_user_flow_city)
         TextView mTvCity;
-        @Bind(R.id.tv_user_flow_desc)
+        @BindView(R.id.tv_user_flow_desc)
         TextView mTvDesc;
-        @Bind(R.id.tv_user_flow_expertise)
+        @BindView(R.id.tv_user_flow_expertise)
         TextView mTvExp;
 
 

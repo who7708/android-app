@@ -31,7 +31,7 @@ import net.oschina.app.util.TDevice;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -44,16 +44,16 @@ import cz.msebera.android.httpclient.Header;
 public class ResetPwdActivity extends AccountBaseActivity implements View.OnClickListener, View.OnFocusChangeListener,
         ViewTreeObserver.OnGlobalLayoutListener {
 
-    @Bind(R.id.ly_reset_bar)
+    @BindView(R.id.ly_reset_bar)
     LinearLayout mLlResetBar;
 
-    @Bind(R.id.ll_reset_pwd)
+    @BindView(R.id.ll_reset_pwd)
     LinearLayout mLlResetPwd;
-    @Bind(R.id.et_reset_pwd)
+    @BindView(R.id.et_reset_pwd)
     EditText mEtResetPwd;
-    @Bind(R.id.iv_reset_pwd_del)
+    @BindView(R.id.iv_reset_pwd_del)
     ImageView mIvResetPwdDel;
-    @Bind(R.id.bt_reset_submit)
+    @BindView(R.id.bt_reset_submit)
     Button mBtResetSubmit;
     private PhoneToken mPhoneToken;
     private TextHttpResponseHandler mHandler = new TextHttpResponseHandler() {

@@ -1,7 +1,7 @@
 package net.oschina.app.improve.main.tweet.list;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -41,7 +41,7 @@ import net.oschina.app.widget.TweetTextView;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -231,39 +231,39 @@ public class TweetAdapter extends BaseRecyclerAdapter<Tweet> implements View.OnC
      * Tweet Item View Holder
      */
     public static class TweetViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_tweet_face)
+        @BindView(R.id.iv_tweet_face)
         PortraitView mViewPortrait;
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView mIdentityView;
-        @Bind(R.id.tv_tweet_name)
+        @BindView(R.id.tv_tweet_name)
         TextView mViewName;
-        @Bind(R.id.tv_tweet_time)
+        @BindView(R.id.tv_tweet_time)
         TextView mViewTime;
-        @Bind(R.id.tv_tweet_platform)
+        @BindView(R.id.tv_tweet_platform)
         TextView mViewPlatform;
-        @Bind(R.id.tv_tweet_like_count)
+        @BindView(R.id.tv_tweet_like_count)
         TextView mViewLikeCount;
-        @Bind(R.id.tv_tweet_comment_count)
+        @BindView(R.id.tv_tweet_comment_count)
         TextView mViewCmmCount;
-        @Bind(R.id.tweet_item)
+        @BindView(R.id.tweet_item)
         TweetTextView mViewContent;
-        @Bind(R.id.iv_like_state)
+        @BindView(R.id.iv_like_state)
         ImageView mViewLikeState;
-        @Bind(R.id.fl_image)
+        @BindView(R.id.fl_image)
         TweetPicturesLayout mLayoutFlow;
-        @Bind(R.id.tv_ref_title)
+        @BindView(R.id.tv_ref_title)
         TextView mViewRefTitle;
-        @Bind(R.id.tv_ref_content)
+        @BindView(R.id.tv_ref_content)
         TextView mViewRefContent;
-        @Bind(R.id.layout_ref_images)
+        @BindView(R.id.layout_ref_images)
         TweetPicturesLayout mLayoutRefImages;
-        @Bind(R.id.iv_dispatch)
+        @BindView(R.id.iv_dispatch)
         ImageView mViewDispatch;
-        @Bind(R.id.tv_dispatch_count)
+        @BindView(R.id.tv_dispatch_count)
         TextView mViewDispatchCount;
-        @Bind(R.id.layout_ref)
+        @BindView(R.id.layout_ref)
         LinearLayout mLayoutRef;
-        @Bind(R.id.ll_like)
+        @BindView(R.id.ll_like)
         LinearLayout mLinearLike;
 
 

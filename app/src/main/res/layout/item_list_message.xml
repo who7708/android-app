@@ -57,7 +57,7 @@
                     android:layout_marginLeft="@dimen/lay_4"
                     android:layout_marginRight="@dimen/lay_4" />
 
-                <android.support.v4.widget.Space
+                <androidx.core.widget.Space
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1" />

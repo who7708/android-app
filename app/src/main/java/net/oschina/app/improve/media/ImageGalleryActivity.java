@@ -7,13 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +21,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.DrawableRequestBuilder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -44,7 +48,6 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-
 
 /**
  * 图片预览Activity
@@ -68,14 +71,16 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     }
 
     public static void show(Context context, String images, boolean needSaveLocal) {
-        if (images == null)
+        if (images == null) {
             return;
+        }
         show(context, new String[]{images}, 0, needSaveLocal);
     }
 
     public static void show(Context context, String images, boolean needSaveLocal, boolean needCookie) {
-        if (images == null)
+        if (images == null) {
             return;
+        }
         show(context, new String[]{images}, 0, needSaveLocal, needCookie);
     }
 
@@ -88,8 +93,9 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     }
 
     public static void show(Context context, String[] images, int position, boolean needSaveLocal, boolean needCookie) {
-        if (images == null || images.length == 0)
+        if (images == null || images.length == 0) {
             return;
+        }
         if (images.length == 1 && !images[0].endsWith(".gif") && !images[0].endsWith(".GIF") && !needCookie) {
             LargeImageActivity.show(context, images[0]);
             return;
@@ -144,12 +150,14 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     protected void initData() {
         super.initData();
         int len = mImageSources.length;
-        if (mCurPosition < 0 || mCurPosition >= len)
+        if (mCurPosition < 0 || mCurPosition >= len) {
             mCurPosition = 0;
+        }
 
         // If only one, we not need the text to show
-        if (len == 1)
+        if (len == 1) {
             mIndexText.setVisibility(View.GONE);
+        }
 
         mImagePager.setAdapter(new ViewPagerAdapter());
         mImagePager.setCurrentItem(mCurPosition);
@@ -160,8 +168,9 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
     private void changeSaveButtonStatus(boolean isShow) {
         if (mNeedSaveLocal) {
             findViewById(R.id.iv_save).setVisibility(isShow ? View.VISIBLE : View.GONE);
-        } else
+        } else {
             findViewById(R.id.iv_save).setVisibility(View.GONE);
+        }
     }
 
     private void updateDownloadStatus(int pos, boolean isOk) {
@@ -208,10 +217,11 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
 
         Object urlOrPath;
         // Do load
-        if (mNeedCookie)
+        if (mNeedCookie) {
             urlOrPath = AppOperator.getGlideUrlByUser(path);
-        else
+        } else {
             urlOrPath = path;
+        }
 
         // In this save max image size is source
         final Future<File> future = getImageLoader()
@@ -223,8 +233,9 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
             public void run() {
                 try {
                     File sourceFile = future.get();
-                    if (sourceFile == null || !sourceFile.exists())
+                    if (sourceFile == null || !sourceFile.exists()) {
                         return;
+                    }
                     String extension = BitmapUtil.getExtension(sourceFile.getAbsolutePath());
                     String extDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                             .getAbsolutePath() + File.separator + "开源中国";
@@ -333,11 +344,12 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
             ImageView defaultView = (ImageView) view.findViewById(R.id.iv_default);
 
             // Do load
-            if (mNeedCookie)
+            if (mNeedCookie) {
                 loadImage(position, AppOperator.getGlideUrlByUser(mImageSources[position]),
                         previewView, defaultView, loading);
-            else
+            } else {
                 loadImage(position, mImageSources[position], previewView, defaultView, loading);
+            }
 
             previewView.setOnClickListener(getListener());
             container.addView(view);
@@ -374,16 +386,14 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
             loadImageDoDownAndGetOverrideSize(urlOrPath, new DoOverrideSizeCallback() {
                 @Override
                 public void onDone(int overrideW, int overrideH, boolean isTrue) {
-                    DrawableRequestBuilder builder = getImageLoader()
+                    RequestBuilder<Drawable> builder = getImageLoader()
                             .load(urlOrPath)
-                            .listener(new RequestListener<T, GlideDrawable>() {
+                            .listener(new RequestListener<Drawable>() {
                                 @Override
-                                public boolean onException(Exception e,
-                                                           T model,
-                                                           Target<GlideDrawable> target,
-                                                           boolean isFirstResource) {
-                                    if (e != null)
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    if (e != null) {
                                         e.printStackTrace();
+                                    }
                                     loading.stop();
                                     loading.setVisibility(View.GONE);
                                     defaultView.setVisibility(View.VISIBLE);
@@ -392,18 +402,14 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
                                 }
 
                                 @Override
-                                public boolean onResourceReady(GlideDrawable resource,
-                                                               T model,
-                                                               Target<GlideDrawable> target,
-                                                               boolean isFromMemoryCache,
-                                                               boolean isFirstResource) {
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                                     loading.stop();
                                     loading.setVisibility(View.GONE);
                                     //previewView.setImageDrawable(resource);
                                     updateDownloadStatus(pos, true);
                                     return false;
                                 }
-                            }).diskCacheStrategy(DiskCacheStrategy.SOURCE);
+                            }).diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
                     // If download or get option error we not set override
                     if (isTrue && overrideW > 0 && overrideH > 0) {
@@ -485,9 +491,7 @@ public class ImageGalleryActivity extends BaseActivity implements ViewPager.OnPa
             });
         }
 
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

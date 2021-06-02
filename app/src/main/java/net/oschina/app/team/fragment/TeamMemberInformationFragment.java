@@ -119,7 +119,7 @@ public class TeamMemberInformationFragment extends BaseListFragment<TeamActive> 
         mTvTel.setText(tel);
         mTvAddress.setText(teamMember.getLocation());
         //mImgHead.setAvatarUrl(teamMember.getPortrait());
-        Glide.with(this).load(teamMember.getPortrait()).asBitmap().into(mImgHead);
+        Glide.with(this).asBitmap().load(teamMember.getPortrait()).into(mImgHead);
         super.initView(view);
         mListView.setSelector(new ColorDrawable(android.R.color.transparent));
         mListView.setDivider(new ColorDrawable(android.R.color.transparent));

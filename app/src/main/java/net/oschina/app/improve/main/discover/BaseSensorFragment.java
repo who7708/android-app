@@ -9,11 +9,12 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import com.google.gson.GsonBuilder;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -25,7 +26,7 @@ import net.oschina.common.widget.Loading;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -51,16 +52,16 @@ public abstract class BaseSensorFragment<T> extends BaseFragment implements Sens
     protected ResultBean<T> mBean;
     protected View mShakeView;
 
-    @Bind(R.id.cv_shake)
+    @BindView(R.id.cv_shake)
     CardView mCardView;
 
-    @Bind(R.id.tv_state)
+    @BindView(R.id.tv_state)
     TextView mTvState;
 
-    @Bind(R.id.loading)
+    @BindView(R.id.loading)
     Loading mLoadingView;
 
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView mTxtTime;
 
     protected Handler mTimeHandler;
@@ -93,8 +94,9 @@ public abstract class BaseSensorFragment<T> extends BaseFragment implements Sens
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if (mContext == null)
+                if (mContext == null) {
                     return;
+                }
                 try {
                     mBean = new GsonBuilder().create().fromJson(responseString, getType());
                     if (mBean != null && mBean.isSuccess()) {
@@ -131,7 +133,6 @@ public abstract class BaseSensorFragment<T> extends BaseFragment implements Sens
 
     }
 
-
     protected void initShakeView() {
 
     }
@@ -163,7 +164,6 @@ public abstract class BaseSensorFragment<T> extends BaseFragment implements Sens
         mLoadingView.setVisibility(View.GONE);
         mTvState.setVisibility(View.GONE);
     }
-
 
     protected void onFailure() {
         mTvState.setText("很遗憾，你没有摇到礼品，请再试一次");

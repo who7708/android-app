@@ -1,8 +1,8 @@
 package net.oschina.app.improve.write;
 
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -14,7 +14,7 @@ import net.oschina.app.improve.widget.rich.RichEditLayout;
 import net.oschina.app.improve.widget.rich.RichEditText;
 import net.oschina.app.improve.widget.rich.TextSection;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -24,24 +24,24 @@ import butterknife.OnClick;
 @Deprecated
 public class FontFragment extends BaseFragment implements RichEditText.OnSectionChangeListener, View.OnClickListener {
 
-    @Bind(R.id.recyclerSize)
+    @BindView(R.id.recyclerSize)
     RecyclerView mRecyclerTitle;
-    @Bind(R.id.recyclerColor)
+    @BindView(R.id.recyclerColor)
     RecyclerView mRecyclerColor;
     private ColorAdapter mColorAdapter;
     private TitleAdapter mTitleAdapter;
 
-    @Bind(R.id.btn_bold)
+    @BindView(R.id.btn_bold)
     ImageButton mBtnBold;
-    @Bind(R.id.btn_italic)
+    @BindView(R.id.btn_italic)
     ImageButton mBtnItalic;
-    @Bind(R.id.btn_mid_line)
+    @BindView(R.id.btn_mid_line)
     ImageButton mBtnMidLine;
-    @Bind(R.id.btn_align_left)
+    @BindView(R.id.btn_align_left)
     ImageButton mBtnAlignLeft;
-    @Bind(R.id.btn_align_center)
+    @BindView(R.id.btn_align_center)
     ImageButton mBtnAlignCenter;
-    @Bind(R.id.btn_align_right)
+    @BindView(R.id.btn_align_right)
     ImageButton mBtnAlignRight;
 
     private OnFontStyleChangeListener mListener;

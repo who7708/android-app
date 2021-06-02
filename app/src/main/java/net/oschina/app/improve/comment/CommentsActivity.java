@@ -7,10 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -49,7 +49,7 @@ import net.oschina.app.util.UIHelper;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -63,17 +63,17 @@ public class CommentsActivity extends BackActivity implements
         BaseRecyclerAdapter.OnItemLongClickListener,
         EasyPermissions.PermissionCallbacks {
 
-    @Bind(R.id.lay_refreshLayout)
+    @BindView(R.id.lay_refreshLayout)
     RecyclerRefreshLayout mRefreshLayout;
 
-    @Bind(R.id.lay_blog_detail_comment)
+    @BindView(R.id.lay_blog_detail_comment)
     RecyclerView mLayComments;
 
-    @Bind(R.id.activity_comments)
+    @BindView(R.id.activity_comments)
     LinearLayout mCoordinatorLayout;
 
 
-    @Bind(R.id.shareView)
+    @BindView(R.id.shareView)
     CommentShareView mShareView;
     private CommentAdapter mCommentAdapter;
 

@@ -11,7 +11,7 @@ import net.oschina.app.base.ListBaseAdapter;
 import net.oschina.app.bean.Apply;
 import net.oschina.app.widget.AvatarView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -49,15 +49,15 @@ public class EventApplyAdapter extends ListBaseAdapter<Apply> {
 
     static class ViewHolder {
 
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView name;
-        @Bind(R.id.tv_desc)
+        @BindView(R.id.tv_desc)
         TextView desc;
-        @Bind(R.id.tv_from)
+        @BindView(R.id.tv_from)
         TextView from;
-        @Bind(R.id.iv_gender)
+        @BindView(R.id.iv_gender)
         ImageView gender;
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         AvatarView avatar;
 
         public ViewHolder(View view) {

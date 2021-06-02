@@ -5,8 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
@@ -21,12 +19,14 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputConnectionWrapper;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatEditText;
+
 import net.oschina.common.adapter.TextWatcherAdapter;
 import net.oschina.common.utils.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 /**
  * 一个简单的富文本编辑器
@@ -101,19 +101,22 @@ public class RichEditText extends AppCompatEditText {
             }
         } else {
             RichEditText.TagSpan[] list = message.getSpans(selStart, selEnd, RichEditText.TagSpan.class);
-            if (list.length == 0)
+            if (list.length == 0) {
                 return;
+            }
             int start = selStart;
             int end = selEnd;
             for (RichEditText.TagSpan span : list) {
                 int spanStart = message.getSpanStart(span);
                 int spanEnd = message.getSpanEnd(span);
 
-                if (spanStart < start)
+                if (spanStart < start) {
                     start = spanStart;
+                }
 
-                if (spanEnd > end)
+                if (spanEnd > end) {
                     end = spanEnd;
+                }
             }
             if (start != selStart || end != selEnd) {
                 Selection.setSelection(message, start, end);
@@ -137,8 +140,9 @@ public class RichEditText extends AppCompatEditText {
                     // Gets the clipboard date to string and do trim
                     String paste = item.coerceToText(getContext()).toString().trim();
                     // Check need space
-                    if (mTagSpanTextWatcher != null && mTagSpanTextWatcher.checkCommit(paste))
+                    if (mTagSpanTextWatcher != null && mTagSpanTextWatcher.checkCommit(paste)) {
                         paste = " " + paste;
+                    }
                     // Clear add span
                     Spannable spannablePaste = new SpannableString(paste);
                     spannablePaste = matchMention(spannablePaste);
@@ -198,19 +202,22 @@ public class RichEditText extends AppCompatEditText {
      */
     @SuppressWarnings("unused")
     public void appendMention(String... mentions) {
-        if (mentions == null || mentions.length == 0)
+        if (mentions == null || mentions.length == 0) {
             return;
+        }
 
         String mentionStr = "";
 
         for (String mention : mentions) {
             if (mention == null || TextUtils.isEmpty(mention = mention.trim())
-                    || TextUtils.isEmpty(mention = filterDirty(mention)))
+                    || TextUtils.isEmpty(mention = filterDirty(mention))) {
                 continue;
+            }
             mentionStr += String.format("@%s ", mention);
         }
-        if (TextUtils.isEmpty(mentionStr))
+        if (TextUtils.isEmpty(mentionStr)) {
             return;
+        }
 
         SpannableString spannable = new SpannableString(mentionStr);
         RichEditText.matchMention(spannable);
@@ -225,19 +232,22 @@ public class RichEditText extends AppCompatEditText {
      */
     @SuppressWarnings("unused")
     public void appendTopic(String... topics) {
-        if (topics == null || topics.length == 0)
+        if (topics == null || topics.length == 0) {
             return;
+        }
 
         String topicStr = "";
 
         for (String topic : topics) {
             if (topic == null || TextUtils.isEmpty(topic = topic.trim())
-                    || TextUtils.isEmpty(topic = filterDirty(topic)))
+                    || TextUtils.isEmpty(topic = filterDirty(topic))) {
                 continue;
+            }
             topicStr += String.format("#%s# ", topic);
         }
-        if (TextUtils.isEmpty(topicStr))
+        if (TextUtils.isEmpty(topicStr)) {
             return;
+        }
 
         SpannableString spannable = new SpannableString(topicStr);
         RichEditText.matchTopic(spannable);
@@ -245,13 +255,13 @@ public class RichEditText extends AppCompatEditText {
         replaceLastChar("#", spannable);
     }
 
-
     private class TagSpanTextWatcher extends TextWatcherAdapter {
         private RichEditText.TagSpan willDelSpan;
 
         void replaceSpan(Editable message, RichEditText.TagSpan span, boolean targetDelState) {
-            if (span != null)
+            if (span != null) {
                 span.changeRemoveState(targetDelState, message);
+            }
 
             if (willDelSpan != span) {
                 // When different
@@ -283,9 +293,9 @@ public class RichEditText extends AppCompatEditText {
                     final RichEditText.TagSpan cacheSpan = willDelSpan;
 
                     if (span == cacheSpan) {
-                        if (span.willRemove)
+                        if (span.willRemove) {
                             return true;
-                        else {
+                        } else {
                             span.changeRemoveState(true, message);
                             return false;
                         }
@@ -366,8 +376,9 @@ public class RichEditText extends AppCompatEditText {
     }
 
     private static void log(String msg) {
-        if (DEBUG)
+        if (DEBUG) {
             Logger.e(TAG, msg);
+        }
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -415,8 +426,9 @@ public class RichEditText extends AppCompatEditText {
         }
 
         void changeRemoveState(boolean willRemove, Editable message) {
-            if (this.willRemove == willRemove)
+            if (this.willRemove == willRemove) {
                 return;
+            }
             this.willRemove = willRemove;
             int cacheSpanStart = message.getSpanStart(this);
             int cacheSpanEnd = message.getSpanEnd(this);
@@ -445,7 +457,6 @@ public class RichEditText extends AppCompatEditText {
         }
     }
 
-
     private class ZanyInputConnection extends InputConnectionWrapper {
 
         ZanyInputConnection(InputConnection target, boolean mutable) {
@@ -456,8 +467,9 @@ public class RichEditText extends AppCompatEditText {
         public boolean sendKeyEvent(KeyEvent event) {
             if (event.getAction() == KeyEvent.ACTION_DOWN
                     && event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                if (!RichEditText.this.mTagSpanTextWatcher.checkKeyDel())
+                if (!RichEditText.this.mTagSpanTextWatcher.checkKeyDel()) {
                     return false;
+                }
             }
             return super.sendKeyEvent(event);
         }

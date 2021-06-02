@@ -13,7 +13,11 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
@@ -52,10 +56,12 @@ public class PortraitView extends CircleImageView {
         setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (author == null || (author.getId() == 0 && TextUtils.isEmpty(author.getName())))
+                if (author == null || (author.getId() == 0 && TextUtils.isEmpty(author.getName()))) {
                     return;
-                if (author.getId() == 0)
+                }
+                if (author.getId() == 0) {
                     return;
+                }
                 OtherUserHomeActivity.show(getContext(), author);
             }
         });
@@ -71,8 +77,9 @@ public class PortraitView extends CircleImageView {
     }
 
     public void setup(Author author) {
-        if (author == null)
+        if (author == null) {
             return;
+        }
 
         this.author = author;
         load(author.getName(), author.getPortrait());
@@ -90,11 +97,11 @@ public class PortraitView extends CircleImageView {
         setup(author);
     }
 
-
     private void load(final String name, String path) {
         final Context context = getContext();
-        if (context == null)
+        if (context == null) {
             return;
+        }
 
         if (path == null) {
             path = "";
@@ -110,13 +117,13 @@ public class PortraitView extends CircleImageView {
         log("load path:" + path);
 
         Glide.with(context)
-                .load(path)
                 .asBitmap()
+                .load(path)
                 .placeholder(R.color.black_alpha_48)
                 .error(R.mipmap.widget_default_face)
-                .listener(new RequestListener<String, Bitmap>() {
+                .listener(new RequestListener<Bitmap>() {
                     @Override
-                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
                         target.getSize(new SizeReadyCallback() {
                             @Override
                             public void onSizeReady(int width, int height) {
@@ -130,7 +137,7 @@ public class PortraitView extends CircleImageView {
                     }
 
                     @Override
-                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                         return false;
                     }
                 })
@@ -139,10 +146,12 @@ public class PortraitView extends CircleImageView {
 
     @SuppressWarnings("ResourceAsColor")
     private Bitmap buildSrcFromName(final String firstChar, int w, int h) {
-        if (w == Target.SIZE_ORIGINAL || w <= 0)
+        if (w == Target.SIZE_ORIGINAL || w <= 0) {
             w = 80;
-        if (h == Target.SIZE_ORIGINAL || h <= 0)
+        }
+        if (h == Target.SIZE_ORIGINAL || h <= 0) {
             h = 80;
+        }
 
         final int size = Math.max(Math.min(Math.min(w, h), 220), 64);
         final float fontSize = size * 0.4f;
@@ -162,8 +171,9 @@ public class PortraitView extends CircleImageView {
         final int charNum = Character.getNumericValue(firstChar.charAt(0));
         if (charNum > 0 && charNum < 177) {
             Typeface typeface = getFont(getContext(), "Numans-Regular.otf");
-            if (typeface != null)
+            if (typeface != null) {
                 paint.setTypeface(typeface);
+            }
         }
 
         Rect rect = new Rect();

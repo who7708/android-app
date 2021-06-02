@@ -11,7 +11,7 @@ import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.improve.bean.EventSignIn;
 import net.oschina.app.improve.bean.SubBean;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * 签到状态信息界面
@@ -19,13 +19,13 @@ import butterknife.Bind;
  */
 
 public class SignInInfoActivity extends BackActivity {
-    @Bind(R.id.tv_event_name)
+    @BindView(R.id.tv_event_name)
     TextView mTextEventName;
-    @Bind(R.id.tv_cost)
+    @BindView(R.id.tv_cost)
     TextView mTextCost;
-    @Bind(R.id.tv_cost_msg)
+    @BindView(R.id.tv_cost_msg)
     TextView mTextCostMsg;
-    @Bind(R.id.tv_msg)
+    @BindView(R.id.tv_msg)
     TextView mTextMsg;
 
     public static void show(Context context, SubBean detail, EventSignIn info) {

@@ -2,8 +2,8 @@ package net.oschina.app.improve.user.data;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +23,7 @@ import net.oschina.app.improve.widget.SimplexToast;
 
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -33,9 +33,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class ModifyAreaActivity extends BackActivity {
 
-    @Bind(R.id.rv_province)
+    @BindView(R.id.rv_province)
     RecyclerView mRecyclerProvince;
-    @Bind(R.id.rv_city)
+    @BindView(R.id.rv_city)
     RecyclerView mRecyclerCity;
     private CityAdapter mAdapterCity;
     private ProvinceAdapter mAdapterProvince;

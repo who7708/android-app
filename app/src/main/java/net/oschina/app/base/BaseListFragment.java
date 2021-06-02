@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -47,15 +47,15 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
 
     public static final String BUNDLE_KEY_CATALOG = "BUNDLE_KEY_CATALOG";
 
-    @Bind(R.id.swiperefreshlayout)
+    @BindView(R.id.swiperefreshlayout)
     protected SwipeRefreshLayout mSwipeRefreshLayout;
 
-    @Bind(R.id.listview)
+    @BindView(R.id.listview)
     protected ListView mListView;
 
     protected ListBaseAdapter<T> mAdapter;
 
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     protected EmptyLayout mErrorLayout;
 
     protected int mStoreEmptyState = -1;

@@ -68,7 +68,7 @@ public class TeamActiveAdapter extends ListBaseAdapter<TeamActive> {
             holder = (ViewHolder) v.getTag();
         }
         //holder.img_head.setAvatarUrl(data.getAuthor().getPortrait());
-        mManager.load(data.getAuthor().getPortrait()).asBitmap().into(holder.img_head);
+        mManager.asBitmap().load(data.getAuthor().getPortrait()).into(holder.img_head);
         holder.img_head.setUserInfo(data.getAuthor().getId(), data.getAuthor()
                 .getName());
         holder.tv_name.setText(data.getAuthor().getName());

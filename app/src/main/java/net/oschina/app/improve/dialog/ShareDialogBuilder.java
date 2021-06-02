@@ -6,13 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +16,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
@@ -40,7 +41,7 @@ import net.oschina.open.factory.OpenBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -206,8 +207,9 @@ public class ShareDialogBuilder extends AlertDialog.Builder implements
                 break;
             //转发到动弹
             case R.mipmap.ic_action_tweet:
-                if (About.check(mAboutShare))
+                if (About.check(mAboutShare)) {
                     TweetPublishActivity.show(getContext(), null, null, mAboutShare);
+                }
                 cancelLoading();
                 break;
             //在浏览器中打开
@@ -435,11 +437,10 @@ public class ShareDialogBuilder extends AlertDialog.Builder implements
         }
     }
 
-
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.share_icon)
+        @BindView(R.id.share_icon)
         ImageView mIvIcon;
-        @Bind(R.id.share_name)
+        @BindView(R.id.share_name)
         TextView mTvName;
 
         public ViewHolder(View itemView) {

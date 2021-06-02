@@ -9,9 +9,9 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.util.ArrayMap;
+import androidx.annotation.Nullable;
+import androidx.collection.ArrayMap;
+import androidx.core.app.NotificationManagerCompat;
 
 import net.oschina.app.OSCApplication;
 import net.oschina.app.improve.bean.simple.About;

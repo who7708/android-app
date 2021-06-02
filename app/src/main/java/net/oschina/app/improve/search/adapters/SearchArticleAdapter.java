@@ -1,7 +1,7 @@
 package net.oschina.app.improve.search.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
 import net.oschina.app.improve.bean.News;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -43,9 +43,9 @@ public class SearchArticleAdapter extends BaseRecyclerAdapter<News> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.tv_title)
+        @BindView(R.id.tv_title)
         TextView mViewTitle;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TextView mViewContent;
 
         public ViewHolder(View view) {

@@ -1,7 +1,7 @@
 package net.oschina.app.improve.user.adapter;
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.RecyclerView;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -53,26 +56,29 @@ public class UserSendMessageAdapter extends BaseGeneralRecyclerAdapter<Message> 
     public int getItemViewType(int position) {
         Message item = getItem(position);
         if (item.getSender().getId() == authorId) {//如果是个人发送的私信
-            if (Message.TYPE_IMAGE == item.getType())
+            if (Message.TYPE_IMAGE == item.getType()) {
                 return SENDER_PICTURE;
+            }
             return SENDER;
         } else {
-            if (Message.TYPE_IMAGE == item.getType())
+            if (Message.TYPE_IMAGE == item.getType()) {
                 return RECEIVER_PICTURE;
+            }
             return RECEIVER;
         }
     }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {
-        if (type == SENDER)
+        if (type == SENDER) {
             return new SenderViewHolder(mInflater.inflate(R.layout.item_list_user_send_message, parent, false));
-        else if (type == SENDER_PICTURE)
+        } else if (type == SENDER_PICTURE) {
             return new SenderPictureViewHolder(mInflater.inflate(R.layout.item_list_user_send_message_picture, parent, false));
-        else if (type == RECEIVER)
+        } else if (type == RECEIVER) {
             return new ReceiverViewHolder(mInflater.inflate(R.layout.item_list_receiver_message, parent, false));
-        else
+        } else {
             return new ReceiverPictureViewHolder(mInflater.inflate(R.layout.item_list_receiver_message_picture, parent, false));
+        }
     }
 
     @Override
@@ -109,19 +115,20 @@ public class UserSendMessageAdapter extends BaseGeneralRecyclerAdapter<Message> 
                     senderPictureViewHolder.loading.setVisibility(View.VISIBLE);
                     senderPictureViewHolder.loading.start();
                     senderPictureViewHolder.iv_resend.setVisibility(View.INVISIBLE);
-                    Glide.clear(senderPictureViewHolder.iv_sender_picture);
+                    Glide.with(mContext)
+                            .clear(senderPictureViewHolder.iv_sender_picture);
                     mCallBack.getImgLoader()
                             .load(AppOperator.getGlideUrlByUser(item.getResource()))
-                            .listener(new RequestListener<GlideUrl, GlideDrawable>() {
+                            .listener(new RequestListener<Drawable>() {
                                 @Override
-                                public boolean onException(Exception e, GlideUrl model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                     senderPictureViewHolder.loading.setVisibility(View.GONE);
                                     senderPictureViewHolder.loading.stop();
                                     return false;
                                 }
 
                                 @Override
-                                public boolean onResourceReady(GlideDrawable resource, GlideUrl model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                                     senderPictureViewHolder.loading.setVisibility(View.GONE);
                                     senderPictureViewHolder.loading.stop();
                                     return false;
@@ -146,16 +153,16 @@ public class UserSendMessageAdapter extends BaseGeneralRecyclerAdapter<Message> 
                 receiverPictureViewHolder.loading.start();
                 mCallBack.getImgLoader()
                         .load(AppOperator.getGlideUrlByUser(item.getResource()))
-                        .listener(new RequestListener<GlideUrl, GlideDrawable>() {
+                        .listener(new RequestListener<Drawable>() {
                             @Override
-                            public boolean onException(Exception e, GlideUrl model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                 receiverPictureViewHolder.loading.setVisibility(View.GONE);
                                 receiverPictureViewHolder.loading.stop();
                                 return false;
                             }
 
                             @Override
-                            public boolean onResourceReady(GlideDrawable resource, GlideUrl model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                                 receiverPictureViewHolder.loading.setVisibility(View.GONE);
                                 receiverPictureViewHolder.loading.stop();
                                 return false;
@@ -168,7 +175,6 @@ public class UserSendMessageAdapter extends BaseGeneralRecyclerAdapter<Message> 
                 break;
         }
     }
-
 
     private void formatTime(Message preMessage, Message item, TextView tv_time) {
         tv_time.setVisibility(View.GONE);
@@ -206,7 +212,9 @@ public class UserSendMessageAdapter extends BaseGeneralRecyclerAdapter<Message> 
     }
 
     private void formatTime(TextView tv_time, String time) {
-        if (TextUtils.isEmpty(time)) return;
+        if (TextUtils.isEmpty(time)) {
+            return;
+        }
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         Date date = StringUtils.toDate(time);
         tv_time.setText(formatWeek(date) + ", " + formatDate(date) + ", " + timeFormat.format(date));

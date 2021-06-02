@@ -1,7 +1,7 @@
 package net.oschina.app.improve.tweet.share;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -29,7 +29,7 @@ import net.oschina.app.improve.widget.TweetPicturesLayout;
 import net.oschina.app.util.StringUtils;
 import net.oschina.app.widget.TweetTextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -120,29 +120,29 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
     }
 
     static final class CommentHeaderView extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_portrait)
+        @BindView(R.id.iv_portrait)
         PortraitView ivPortrait;
-        @Bind(R.id.tv_nick)
+        @BindView(R.id.tv_nick)
         TextView tvNick;
-        @Bind(R.id.tv_time)
+        @BindView(R.id.tv_time)
         TextView tvTime;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TextView mContent;
-        @Bind(R.id.tweet_pics_layout)
+        @BindView(R.id.tweet_pics_layout)
         TweetPicturesLayout mLayoutGrid;
-        @Bind(R.id.tv_ref_title)
+        @BindView(R.id.tv_ref_title)
         TextView mViewRefTitle;
-        @Bind(R.id.tv_ref_content)
+        @BindView(R.id.tv_ref_content)
         TextView mViewRefContent;
-        @Bind(R.id.layout_ref_images)
+        @BindView(R.id.layout_ref_images)
         TweetPicturesLayout mLayoutRefImages;
-        @Bind(R.id.layout_ref)
+        @BindView(R.id.layout_ref)
         LinearLayout mLayoutRef;
-        @Bind(R.id.tv_tweet_like_count)
+        @BindView(R.id.tv_tweet_like_count)
         TextView mTextLikeCount;
-        @Bind(R.id.tv_tweet_comment_count)
+        @BindView(R.id.tv_tweet_comment_count)
         TextView mTextCommentCount;
-        @Bind(R.id.tv_comment)
+        @BindView(R.id.tv_comment)
         TextView mTextComment;
 
         CommentHeaderView(View itemView) {
@@ -152,15 +152,15 @@ public class ShareCommentAdapter extends BaseRecyclerAdapter<TweetComment> imple
     }
 
     public static final class CommentHolderView extends RecyclerView.ViewHolder {
-        @Bind(R.id.identityView)
+        @BindView(R.id.identityView)
         IdentityView identityView;
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         PortraitView ivPortrait;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_pub_date)
+        @BindView(R.id.tv_pub_date)
         public TextView tvTime;
-        @Bind(R.id.tv_content)
+        @BindView(R.id.tv_content)
         TweetTextView tvContent;
 
         CommentHolderView(View view) {

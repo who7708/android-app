@@ -2,15 +2,16 @@ package net.oschina.app.improve.main.nav;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 import net.oschina.app.R;
 
@@ -89,6 +90,5 @@ public class NavigationButton extends FrameLayout {
     public String getTag() {
         return mTag;
     }
-
 
 }

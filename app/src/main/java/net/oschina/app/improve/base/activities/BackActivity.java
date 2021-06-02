@@ -2,9 +2,10 @@ package net.oschina.app.improve.base.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.utils.DialogHelper;
@@ -32,7 +33,6 @@ public abstract class BackActivity extends BaseActivity {
         }
     }
 
-
     @SuppressWarnings("ConstantConditions")
     protected void setDarkToolBar() {
         if (mToolBar != null) {
@@ -56,7 +56,9 @@ public abstract class BackActivity extends BaseActivity {
     }
 
     protected void dismissLoadingDialog() {
-        if (mWaitDialog == null) return;
+        if (mWaitDialog == null) {
+            return;
+        }
         mWaitDialog.dismiss();
     }
 }

@@ -1,14 +1,12 @@
 package net.oschina.app.improve.widget.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextUtils;
 
-import net.oschina.app.improve.tweet.activities.TweetTopicActivity;
-import net.oschina.app.improve.user.activities.UserSelectFriendsActivity;
 import net.oschina.common.widget.RichEditText;
 
 import java.util.regex.Matcher;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BaseBackActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -17,7 +17,7 @@ import butterknife.OnClick;
  */
 
 public class ErrorActivity extends BaseBackActivity implements View.OnClickListener {
-    @Bind(R.id.tv_crash_info)
+    @BindView(R.id.tv_crash_info)
     TextView mTextCrashInfo;
 
     public static void show(Context context, String message) {

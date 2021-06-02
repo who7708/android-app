@@ -9,7 +9,7 @@ import net.oschina.app.R;
 import net.oschina.app.improve.base.activities.BackActivity;
 import net.oschina.app.ui.empty.EmptyLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by haibin
@@ -17,7 +17,7 @@ import butterknife.Bind;
  */
 
 public class UserEventActivity extends BackActivity implements UserEventContract.EmptyView {
-    @Bind(R.id.lay_error)
+    @BindView(R.id.lay_error)
     EmptyLayout mEmptyLayout;
 
     private UserEventPresenter mPresenter;

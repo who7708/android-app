@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -44,7 +44,7 @@ import net.oschina.app.widget.KJDragGridView.OnMoveListener;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
@@ -54,15 +54,15 @@ import cz.msebera.android.httpclient.Header;
  * @author kymjs (https://github.com/kymjs)
  */
 public class NoteBookFragment extends BaseFragment implements
-        OnItemClickListener, OnRefreshListener {
+        OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.frag_note_list)
+    @BindView(R.id.frag_note_list)
     KJDragGridView mGrid;
-    @Bind(R.id.frag_note_trash)
+    @BindView(R.id.frag_note_trash)
     ImageView mImgTrash;
-    @Bind(R.id.swiperefreshlayout)
+    @BindView(R.id.swiperefreshlayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @Bind(R.id.error_layout)
+    @BindView(R.id.error_layout)
     EmptyLayout mEmptyLayout;
 
     private NoteDatabase noteDb;

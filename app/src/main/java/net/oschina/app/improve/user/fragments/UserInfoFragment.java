@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -56,7 +56,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -72,50 +72,50 @@ public class UserInfoFragment extends BaseFragment implements View.OnClickListen
 
     private ShareDialog mShareDialog;
 
-    @Bind(R.id.iv_logo_setting)
+    @BindView(R.id.iv_logo_setting)
     ImageView mIvLogoSetting;
-    @Bind(R.id.iv_logo_zxing)
+    @BindView(R.id.iv_logo_zxing)
     ImageView mIvLogoZxing;
-    @Bind(R.id.user_info_head_container)
+    @BindView(R.id.user_info_head_container)
     FrameLayout mFlUserInfoHeadContainer;
 
-    @Bind(R.id.iv_portrait)
+    @BindView(R.id.iv_portrait)
     PortraitView mPortrait;
-    @Bind(R.id.iv_gender)
+    @BindView(R.id.iv_gender)
     ImageView mIvGander;
-    @Bind(R.id.user_info_icon_container)
+    @BindView(R.id.user_info_icon_container)
     FrameLayout mFlUserInfoIconContainer;
 
-    @Bind(R.id.tv_nick)
+    @BindView(R.id.tv_nick)
     TextView mTvName;
-    @Bind(R.id.tv_avail_score)
+    @BindView(R.id.tv_avail_score)
     TextView mTextAvailScore;
-    @Bind(R.id.tv_active_score)
+    @BindView(R.id.tv_active_score)
     TextView mTextActiveScore;
-    @Bind(R.id.user_view_solar_system)
+    @BindView(R.id.user_view_solar_system)
     SolarSystemView mSolarSystem;
-    @Bind(R.id.rl_show_my_info)
+    @BindView(R.id.rl_show_my_info)
     LinearLayout mRlShowInfo;
 
 
-    @Bind(R.id.about_line)
+    @BindView(R.id.about_line)
     View mAboutLine;
 
-    @Bind(R.id.lay_about_info)
+    @BindView(R.id.lay_about_info)
     LinearLayout mLayAboutCount;
-    @Bind(R.id.tv_tweet)
+    @BindView(R.id.tv_tweet)
     TextView mTvTweetCount;
-    @Bind(R.id.tv_favorite)
+    @BindView(R.id.tv_favorite)
     TextView mTvFavoriteCount;
-    @Bind(R.id.tv_following)
+    @BindView(R.id.tv_following)
     TextView mTvFollowCount;
-    @Bind(R.id.tv_follower)
+    @BindView(R.id.tv_follower)
     TextView mTvFollowerCount;
 
-    @Bind(R.id.user_info_notice_message)
+    @BindView(R.id.user_info_notice_message)
     TextView mMesView;
 
-    @Bind(R.id.user_info_notice_fans)
+    @BindView(R.id.user_info_notice_fans)
     TextView mFansView;
 
     private boolean mIsUploadIcon;

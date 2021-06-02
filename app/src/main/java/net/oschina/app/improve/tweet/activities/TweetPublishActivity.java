@@ -8,12 +8,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Size;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.annotation.Size;
+import androidx.fragment.app.FragmentTransaction;
 
 import net.oschina.app.BuildConfig;
 import net.oschina.app.R;
@@ -67,7 +68,6 @@ public class TweetPublishActivity extends BaseBackActivity {
         show(context, null, null, null, null, localImageUrl);
     }
 
-
     public static void show(Context context, @Size(2) int[] viewLocationOnScreen,
                             @Size(2) int[] viewSize, String defaultContent, About.Share share, String localImageUrl) {
         // Check login before show
@@ -113,7 +113,9 @@ public class TweetPublishActivity extends BaseBackActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        if (bundle == null) bundle = new Bundle();
+        if (bundle == null) {
+            bundle = new Bundle();
+        }
         // Read other data
         readFastShareByOther(bundle, intent);
 
@@ -134,11 +136,13 @@ public class TweetPublishActivity extends BaseBackActivity {
      */
     private void readFastShareByOther(Bundle bundle, Intent intent) {
         // Check
-        if (intent == null)
+        if (intent == null) {
             return;
+        }
         String type = intent.getType();
-        if (TextUtils.isEmpty(type))
+        if (TextUtils.isEmpty(type)) {
             return;
+        }
 
         //判断当前分享的内容是文本，还是图片
         if ("text/plain".equals(type)) {
@@ -150,8 +154,9 @@ public class TweetPublishActivity extends BaseBackActivity {
             if (obj instanceof Uri) {
                 Uri uri = (Uri) obj;
                 String decodePath = decodePath(uri);
-                if (decodePath != null)
+                if (decodePath != null) {
                     uris.add(decodePath);
+                }
             } else {
                 try {
                     @SuppressWarnings("unchecked")
@@ -163,13 +168,15 @@ public class TweetPublishActivity extends BaseBackActivity {
                                 break;
                             }
                             String decodePath = decodePath(list.get(i));
-                            if (decodePath != null)
+                            if (decodePath != null) {
                                 uris.add(decodePath);
+                            }
                         }
                     }
                 } catch (Exception e) {
-                    if (BuildConfig.DEBUG)
+                    if (BuildConfig.DEBUG) {
                         e.printStackTrace();
+                    }
                 }
             }
             if (uris.size() > 0) {
@@ -256,8 +263,9 @@ public class TweetPublishActivity extends BaseBackActivity {
     }
 
     private void registerPublishStateReceiver() {
-        if (mPublishStateReceiver != null)
+        if (mPublishStateReceiver != null) {
             return;
+        }
         IntentFilter intentFilter = new IntentFilter(TweetPublishService.ACTION_RECEIVER_SEARCH_FAILED);
         BroadcastReceiver receiver = new SearchReceiver();
         registerReceiver(receiver, intentFilter);
@@ -270,8 +278,9 @@ public class TweetPublishActivity extends BaseBackActivity {
     private void unRegisterPublishStateReceiver() {
         final BroadcastReceiver receiver = mPublishStateReceiver;
         mPublishStateReceiver = null;
-        if (receiver != null)
+        if (receiver != null) {
             unregisterReceiver(receiver);
+        }
     }
 
     private BroadcastReceiver mPublishStateReceiver;
@@ -281,8 +290,9 @@ public class TweetPublishActivity extends BaseBackActivity {
         public void onReceive(Context context, Intent intent) {
             if (TweetPublishService.ACTION_RECEIVER_SEARCH_FAILED.equals(intent.getAction())) {
                 String[] ids = intent.getStringArrayExtra(TweetPublishService.EXTRA_IDS);
-                if (ids == null || ids.length == 0)
+                if (ids == null || ids.length == 0) {
                     return;
+                }
                 TweetPublishQueueActivity.show(TweetPublishActivity.this, ids);
             }
         }

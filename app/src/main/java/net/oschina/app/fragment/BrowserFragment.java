@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
@@ -30,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AlertDialog;
+
 import net.oschina.app.AppContext;
 import net.oschina.app.R;
 import net.oschina.app.base.BaseActivity;
@@ -39,29 +40,29 @@ import net.oschina.app.improve.dialog.ShareDialogBuilder;
 import net.oschina.app.ui.SimpleBackActivity;
 import net.oschina.app.util.TDevice;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 浏览器界面
  *
- * @author kymjs(kymjs123@gmail.com)
+ * @author kymjs(kymjs123 @ gmail.com)
  */
 @SuppressLint("NewApi")
 public class BrowserFragment extends BaseFragment {
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView mWebView;
-    @Bind(R.id.browser_back)
+    @BindView(R.id.browser_back)
     ImageView mImgBack;
-    @Bind(R.id.browser_forward)
+    @BindView(R.id.browser_forward)
     ImageView mImgForward;
-    @Bind(R.id.browser_refresh)
+    @BindView(R.id.browser_refresh)
     ImageView mImgRefresh;
-    @Bind(R.id.browser_system_browser)
+    @BindView(R.id.browser_system_browser)
     ImageView mImgSystemBrowser;
-    @Bind(R.id.browser_bottom)
+    @BindView(R.id.browser_bottom)
     LinearLayout mLayoutBottom;
-    @Bind(R.id.progress)
+    @BindView(R.id.progress)
     ProgressBar mProgress;
 
     public static final String BROWSER_KEY = "browser_url";
@@ -141,8 +142,9 @@ public class BrowserFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mWebView != null)
+        if (mWebView != null) {
             mWebView.destroy();
+        }
     }
 
     @Override
@@ -241,11 +243,11 @@ public class BrowserFragment extends BaseFragment {
                     .url(mCurrentUrl)
                     .build();
         }
-        if (alertDialog == null)
+        if (alertDialog == null) {
             alertDialog = mShareDialogBuilder.create();
+        }
         alertDialog.show();
     }
-
 
     /**
      * 载入链接之前会被调用

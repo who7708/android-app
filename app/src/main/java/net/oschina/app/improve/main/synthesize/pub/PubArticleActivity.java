@@ -16,7 +16,7 @@ import net.oschina.app.improve.main.ClipManager;
 import net.oschina.app.improve.widget.OSCWebView;
 import net.oschina.app.improve.widget.SimplexToast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -28,13 +28,13 @@ public class PubArticleActivity extends BackActivity implements PubArticleContra
         OSCWebView.OnFinishListener,
         View.OnClickListener {
 
-    @Bind(R.id.et_url)
+    @BindView(R.id.et_url)
     EditText mTextUrl;
 
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView mTextTitle;
 
-    @Bind(R.id.fl_web)
+    @BindView(R.id.fl_web)
     FrameLayout mFrameWebView;
 
     OSCWebView mWebView;

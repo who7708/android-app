@@ -13,15 +13,15 @@ import net.oschina.app.widget.AvatarView;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TeamSelectMemberAdapter extends BaseAdapter {
 
     static class ViewHolder {
-        @Bind(R.id.iv_avatar)
+        @BindView(R.id.iv_avatar)
         AvatarView aView;
-        @Bind(R.id.tv_name)
+        @BindView(R.id.tv_name)
         TextView name;
 
         ViewHolder(View view) {

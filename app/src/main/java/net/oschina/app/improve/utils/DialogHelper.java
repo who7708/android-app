@@ -3,13 +3,14 @@ package net.oschina.app.improve.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import net.oschina.app.R;
 import net.oschina.app.improve.base.adapter.BaseRecyclerAdapter;
@@ -149,7 +150,6 @@ public final class DialogHelper {
         return builder;
     }
 
-
     /**
      * 获取一个验证对话框，没有点击事件
      */
@@ -179,7 +179,6 @@ public final class DialogHelper {
         return getConfirmDialog(
                 context, title, message, positiveText, negativeText, true, positiveListener, null);
     }
-
 
     /**
      * 获取一个验证对话框，没有点击事件
@@ -329,7 +328,6 @@ public final class DialogHelper {
                 context, title, editText, "确定", "取消", cancelable
                 , positiveListener, negativeListener);
     }
-
 
     /**
      * 获取一个等待对话框

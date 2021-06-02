@@ -3,7 +3,7 @@ package net.oschina.app.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +17,13 @@ import net.oschina.app.improve.widget.SimplexToast;
 import net.oschina.app.util.UIHelper;
 import net.oschina.common.admin.Boss;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AboutOSCFragment extends BaseFragment {
 
-    @Bind(R.id.tv_version_name)
+    @BindView(R.id.tv_version_name)
     TextView mTvVersionName;
 
     @Override

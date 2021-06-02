@@ -24,7 +24,7 @@ import net.oschina.app.util.StringUtils;
 import java.io.File;
 import java.lang.reflect.Type;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
@@ -35,19 +35,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class MyDataActivity extends BackActivity implements View.OnClickListener {
 
-    @Bind(R.id.tv_nickname)
+    @BindView(R.id.tv_nickname)
     TextView mTextNickname;
-    @Bind(R.id.tv_join_date)
+    @BindView(R.id.tv_join_date)
     TextView mTextJoinTime;
-    @Bind(R.id.tv_area)
+    @BindView(R.id.tv_area)
     TextView mTextArea;
-    @Bind(R.id.tv_skill)
+    @BindView(R.id.tv_skill)
     TextView mTextSkill;
-    @Bind(R.id.tv_field)
+    @BindView(R.id.tv_field)
     TextView mTextField;
-    @Bind(R.id.tv_signature)
+    @BindView(R.id.tv_signature)
     TextView mTextSignature;
-    @Bind(R.id.iv_avatar)
+    @BindView(R.id.iv_avatar)
     PortraitView mImageAvatar;
     private User mInfo;
 

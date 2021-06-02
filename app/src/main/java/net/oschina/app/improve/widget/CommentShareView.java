@@ -9,10 +9,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Environment;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -36,7 +36,7 @@ import net.oschina.app.widget.TweetTextView;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -185,18 +185,18 @@ public class CommentShareView extends NestedScrollView implements Runnable {
         }
 
         static class CommentHolder extends RecyclerView.ViewHolder {
-            @Bind(R.id.iv_avatar)
+            @BindView(R.id.iv_avatar)
             PortraitView mIvAvatar;
 
-            @Bind(R.id.tv_name)
+            @BindView(R.id.tv_name)
             TextView mName;
-            @Bind(R.id.tv_pub_date)
+            @BindView(R.id.tv_pub_date)
             TextView mPubDate;
 
-            @Bind(R.id.lay_refer)
+            @BindView(R.id.lay_refer)
             CommentReferView mCommentReferView;
 
-            @Bind(R.id.tv_content)
+            @BindView(R.id.tv_content)
             TweetTextView mTweetTextView;
 
             CommentHolder(View itemView) {

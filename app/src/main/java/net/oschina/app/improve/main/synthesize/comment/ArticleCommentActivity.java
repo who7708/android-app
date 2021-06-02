@@ -4,9 +4,9 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,7 +31,7 @@ import net.oschina.app.util.TDevice;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -48,7 +48,7 @@ public class ArticleCommentActivity extends BackActivity implements ArticleComme
     protected CommentBar mDelegation;
     private ArticleCommentPresenter mPresenter;
     protected boolean mInputDoubleEmpty = false;
-    @Bind(R.id.shareView)
+    @BindView(R.id.shareView)
     CommentShareView mShareView;
     private AlertDialog mShareCommentDialog;
     private Comment mComment;

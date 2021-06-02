@@ -1,6 +1,6 @@
 package net.oschina.app.improve.app;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * @author qiujuer Email:qiujuer@live.cn
