@@ -8,20 +8,19 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:titleTextColor="@color/black"
         app:navigationIcon="@mipmap/btn_back_dark_pressed"
         app:popupTheme="@style/ToolbarPopupBlackTheme"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         tools:ignore="UnusedAttribute" />
 
     <View style="@style/h_line" />
 
-
-    <android.support.v7.widget.SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searcher_friends"
         android:layout_width="match_parent"
         android:layout_height="32dp"
@@ -62,9 +61,9 @@
             android:background="@drawable/ic_bg_btn_blue"
             android:ellipsize="none"
             android:gravity="center"
-            android:lines="1"
             android:minWidth="@dimen/lay_48"
             android:padding="@dimen/lay_4"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="@dimen/font_16"
             android:translationX="52dp"
@@ -80,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_friends"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

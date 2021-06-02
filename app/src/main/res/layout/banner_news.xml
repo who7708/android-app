@@ -7,7 +7,9 @@
     android:background="@color/white"
     android:minHeight="130dp">
 
-    <net.oschina.app.improve.widget.indicator.BannerView
+    <!--<net.oschina.app.improve.widget.indicator.BannerView-->
+    <!--<net.oschina.common.widget.banner.BannerView-->
+    <net.oschina.app.improve.main.banner.BannerView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -41,10 +43,10 @@
                 android:id="@+id/indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
                 app:circle_banner_indicator_centerHorizontal="true"
                 app:circle_banner_indicator_color="@color/white"
                 app:circle_banner_indicator_fill_color="@color/main_green"

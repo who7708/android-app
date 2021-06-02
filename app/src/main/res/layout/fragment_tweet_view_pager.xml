@@ -7,7 +7,7 @@
 
     <!--tab navigation-->
     <View style="@style/h_line"/>
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_nav"
         android:background="#F6F6F6"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
     <View style="@style/h_line"/>
 
     <!--view pager-->
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

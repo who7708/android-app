@@ -17,7 +17,7 @@
         android:textColor="#111111"
         android:textSize="@dimen/font_16" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSize"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -38,7 +38,7 @@
         android:textColor="#111111"
         android:textSize="@dimen/font_16" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerColor"
         android:layout_width="match_parent"
         android:layout_height="0dp"

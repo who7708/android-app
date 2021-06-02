@@ -11,7 +11,7 @@
     tools:context="net.oschina.app.improve.tweet.activities.TweetTopicActivity">
 
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:background="@color/white"
         android:titleTextColor="@color/black"
@@ -59,7 +59,7 @@
             android:textSize="@dimen/font_16" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <android.support.v7.widget.SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/view_searcher"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -52,13 +52,13 @@
             android:layout_height="match_parent"
             android:background="@color/white">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </net.oschina.app.improve.widget.RecyclerRefreshLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

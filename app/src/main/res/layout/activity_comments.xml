@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context="net.oschina.app.improve.comment.CommentsActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -46,7 +46,7 @@
                 android:background="#FFF"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lay_blog_detail_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

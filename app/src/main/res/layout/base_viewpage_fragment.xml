@@ -27,7 +27,7 @@
         android:layout_below="@id/pager_tabstrip"
         android:background="?attr/lineColor" />
 
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         style="@style/fill_fill"
         android:layout_below="@id/view_pager_line" />

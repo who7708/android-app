@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,14 +7,14 @@
     android:fitsSystemWindows="true"
     tools:context=".improve.user.activities.OtherUserHomeActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/layout_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         app:elevation="0dp">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -59,9 +59,9 @@
                         android:id="@+id/iv_gender"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_alignBottom="@id/iv_portrait"
                         android:layout_alignEnd="@id/iv_portrait"
                         android:layout_alignRight="@id/iv_portrait"
+                        android:layout_alignBottom="@id/iv_portrait"
                         android:contentDescription="@null"
                         android:src="@mipmap/ic_male"
                         tools:ignore="RtlHardcoded" />
@@ -88,20 +88,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginRight="32dp"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:textColor="#FFF"
                     android:textSize="14sp"
                     tools:text="这个人很懒,什么都没有写" />
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -115,14 +114,14 @@
 
                     <TextView
                         android:id="@+id/tv_active_score"
-                        android:layout_marginLeft="@dimen/lay_16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/lay_16"
                         android:gravity="bottom"
                         android:textColor="#FFF"
                         android:textSize="14sp"
-                        tools:text="积分 88888"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"
+                        tools:text="积分 88888" />
                 </LinearLayout>
 
                 <!--
@@ -153,8 +152,8 @@
                     <View
                         android:layout_width="1px"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="#88FFFFFF" />
 
                     <TextView
@@ -172,7 +171,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -198,9 +197,9 @@
                     android:visibility="gone"
                     tools:text="thanatosx"
                     tools:visibility="visible" />
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <View
             android:id="@+id/view_divider"
@@ -209,7 +208,7 @@
             android:background="#24E28E"
             app:layout_scrollFlags="scroll" />
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/layout_tab"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -221,11 +220,11 @@
             app:tabTextAppearance="@style/TabItemAppearance"
             app:tabTextColor="#92EABC"
             tools:visibility="visible" />
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

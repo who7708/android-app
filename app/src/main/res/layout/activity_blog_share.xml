@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -20,7 +20,6 @@
 
     <View style="@style/h_line" />
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,52 +28,51 @@
 
         <FrameLayout
             android:id="@+id/fl_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/lay_16"
             android:layout_marginRight="@dimen/lay_16"
-            android:paddingBottom="@dimen/lay_12"
             android:paddingTop="@dimen/lay_12"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:paddingBottom="@dimen/lay_12" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/light_gray"
-            android:paddingBottom="@dimen/lay_12"
-            android:paddingTop="@dimen/lay_12"
             android:fitsSystemWindows="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/lay_12"
+            android:paddingBottom="@dimen/lay_12">
 
             <LinearLayout
-                android:layout_marginLeft="@dimen/lay_16"
-                android:layout_marginRight="@dimen/lay_16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lay_16"
+                android:layout_marginRight="@dimen/lay_16"
                 android:background="@color/white"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_marginBottom="@dimen/lay_16"
-                    android:layout_marginTop="@dimen/lay_16"
-                    android:contentDescription="@string/app_name"
-                    android:src="@mipmap/ic_share_logo_blog"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/lay_16"
+                    android:layout_marginBottom="@dimen/lay_16"
+                    android:contentDescription="@string/app_name"
+                    android:src="@mipmap/ic_share_logo_blog" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/list_divider_color" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="@dimen/lay_4">
+                    android:paddingTop="@dimen/lay_4"
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:id="@+id/tv_title"
@@ -82,10 +80,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_material"
                         android:lineSpacingExtra="4dp"
-                        android:paddingBottom="@dimen/lay_8"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
                         android:paddingTop="@dimen/lay_8"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="@dimen/lay_8"
                         android:textColor="#111111"
                         android:textSize="24sp"
                         tools:text="Webpack从零开始" />
@@ -96,10 +94,10 @@
                         android:background="#fcfcfc"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingBottom="16dp"
                         android:paddingLeft="16dp"
+                        android:paddingTop="16dp"
                         android:paddingRight="16dp"
-                        android:paddingTop="16dp">
+                        android:paddingBottom="16dp">
 
                         <net.oschina.app.improve.widget.PortraitView
                             android:id="@+id/iv_avatar"
@@ -175,10 +173,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:paddingBottom="@dimen/lay_12"
                     android:paddingLeft="16dp"
+                    android:paddingTop="@dimen/lay_12"
                     android:paddingRight="16dp"
-                    android:paddingTop="@dimen/lay_12">
+                    android:paddingBottom="@dimen/lay_12">
 
                     <net.oschina.app.improve.widget.OWebView
                         android:id="@+id/webView"
@@ -210,17 +208,17 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="22dp"
-                android:tint="@color/text_title_color"
                 android:contentDescription="@string/share_to"
-                android:src="@mipmap/ic_share_black_normal" />
+                android:src="@mipmap/ic_share_black_normal"
+                android:tint="@color/text_title_color" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_16"
                 android:layout_marginRight="@dimen/lay_16"
                 android:text="@string/share_to"
-                android:textColor="@color/text_title_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/text_title_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -235,17 +233,17 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:tint="@color/text_title_color"
                 android:contentDescription="@string/share_to"
-                android:src="@mipmap/ic_save" />
+                android:src="@mipmap/ic_save"
+                android:tint="@color/text_title_color" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/lay_16"
                 android:layout_marginRight="@dimen/lay_16"
                 android:text="保存"
                 android:textColor="@color/text_title_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
