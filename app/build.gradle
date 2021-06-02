@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply from: '../config/properties-util.gradle'
-apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
 
@@ -261,6 +260,7 @@ dependencies {
     implementation 'com.loopj.android:android-async-http:1.4.11'
     //noinspection GradleDependency
     implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.joanzapata.android:android-iconify:1.0.11'
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -286,3 +286,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'cglib:cglib-nodep:3.3.0'
 }
+
+// apply plugin: "com.getkeepsafe.dexcount"
